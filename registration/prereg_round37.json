@@ -1,0 +1,66 @@
+{
+ "round": 37,
+ "written": "2026-10-19 (돌리기 전)",
+ "source": "사다리 설계 2판 (docs/atlas_ladder_design.md) 의 CPU 칸; 사용자 '전부 반영해', 'cpu 부터 돌리고 있어'",
+ "common": "Δ²/√변 (같은 서열 칸은 맞춘 좌표 유클리드 — GPU round36 3 절에서 D 와 맞춤), 접힌 프레임 Q ≥ 0.75, 실행마다 N = 100, 성분 = 평균 이동 Δμ²/변 + 로그 총퍼짐 비, 상과 부트스트랩 2000. 판정 기준은 설계 6 절.",
+ "items": {
+  "R0_band": {
+   "design": "mdCATH 5T 도메인, 320 K. 반복을 두 무리({0,1} 대 {2,3,4})로 나눈 '가짜 칸' 의 Δ² (기대값 0) 를 도메인마다 내고, 각 사다리 칸의 n 만큼 다시 뽑아 중앙값의 95% 띠를 낸다.",
+   "prediction": "띠의 위 끝 < 0.003 (n ≈ 300). +59/+93/+130 K 칸은 띠 위. +28 K 는 미리 정하지 않음(보고).",
+   "criterion": "띠 안에 드는 칸은 H-L1 실패로 표시."
+  },
+  "R1_second_half": {
+   "design": "온도 칸을 반복마다 접힌 프레임의 뒤 절반만으로 다시 냄(같은 통계).",
+   "prediction": "+59/+93/+130 K 에서 뒤 절반 판 / 전체 판 ∈ [0.8, 1.25].",
+   "criterion": "벗어나면 그 칸에 '이완이 섞임' 표시, 뒤 절반 판을 주로."
+  },
+  "R1_size": {
+   "design": "온도 칸 Δ²/√변 을 변 수 4분위로 나눔(기존 도메인별 값).",
+   "prediction": "온도 변화는 사슬 전체에 퍼지므로 평평: 4분위 중앙값의 최대/최소 비 ≤ 1.25 (+59/+93/+130 K).",
+   "criterion": "넘으면 크기 불변 실패 — 크기 구간을 맞춘 칸끼리만 비교."
+  },
+  "R1_survival": {
+   "design": "다섯 온도 모두에 접힌 프레임이 충분한(≥ 100) 도메인만으로 온도 칸을 다시 냄.",
+   "prediction": "제한 판 / 전체 판 ∈ [0.8, 1.25] (+28/+59/+93 K).",
+   "criterion": "벗어나면 제한 판을 주로."
+  },
+  "R3prime_ff_same_protein": {
+   "design": "mdCATH ∩ ATLAS 44 사슬. ATLAS (CHARMM36m, 300 K, 반복 3) 대 mdCATH 320 K (CHARMM22*, 반복 5), 공통 잔기만, 접힌 프레임. 같은 44 도메인의 mdCATH R1 곡선(평균 이동)으로 온도 환산.",
+   "prediction": "평균 이동의 온도 환산값이 20 K 를 빼고도 ≥ +59 K (역장 + 규약 차가 적당한 가열보다 크다; CPU R3 은 다른 묶음에서 +130 K 급).",
+   "criterion": "보고(방향과 무관하게)."
+  },
+  "R3dprime_protocol_only": {
+   "design": "ONE_cath1 ∩ MSR_cath2 16 도메인 — 둘 다 amber99sb-ildn, ONE 은 누적 > 100 µs. 같은 통계.",
+   "prediction": "규약만의 Δ² 중앙값 ≤ 0.5 × R3 (역장 + 규약, 0.076) — 다른 도메인 묶음이라 서술 수준.",
+   "criterion": "보고."
+  },
+  "R5prime_substitution_on_trunk": {
+   "design": "MegaSim 야생형 ∩ mdCATH (PDB 기준 17) — 도메인 경계 대조 뒤 공통 잔기가 90% 이상인 것만. 같은 단백질의 mdCATH R1 곡선으로 단일 치환 Δ² 를 온도 환산.",
+   "prediction": "단일 치환의 온도 환산값이 +28 K 와 +59 K 사이(다른 묶음의 CPU 판과 같음).",
+   "criterion": "보고. 역장(ff99SB-disp 295 K 대 C22* 320 K)이 섞임을 적음."
+  },
+  "R7_unfolding": {
+   "design": "주: Majewski 빠른 접힘(CHARMM22*/TIP3P, 350 K) — 자료 구조(궤적 묶음, MSM 가중치)를 먼저 확인하고, 적응 표본 추출이면 MSM 정상분포로 가중. 접힘(Q ≥ 0.75) 대 풀림(Q < 0.4) 무리, 궤적 묶음을 반으로 나눈 바닥. 바탕은 d_fix(대응 고정, 회전 닫힌 해)와 맞춘 좌표 둘 다. 보조: mdCATH 413·450 K 의 같은 궤적 두 무리. 작은 단백질부터(chignolin, Trp-cage, villin, BBA, homeodomain).",
+   "prediction": "접힘 대 풀림 Δ²/√변 ≥ 5 × (+130 K 칸, 0.066). 보조(mdCATH)는 실행 사이 분산이 커서 구간이 주보다 넓다.",
+   "criterion": "연속 축에서의 위치(설계 6 절 (라))는 GPU 뒤에 정함."
+  },
+  "S0_crystal_floor": {
+   "design": "같은 단백질의 다른 결정 항목 쌍(공간 문서 5.1 쌍과, 같은 UniProt·같은 서열 범위의 중복 결정 항목 무작위 쌍) 정적 D (메도이드 대신 결정 구조 자체).",
+   "prediction": "정적 D 중앙값 < 0.15 (R8 경첩 0.20–0.64 아래).",
+   "criterion": "보고 — 정적 판의 바닥."
+  },
+  "S0prime_apo_holo": {
+   "design": "같은 서열의 리간드 유무 결정 쌍(문헌·PDB 의 알려진 apo/holo 쌍).",
+   "prediction": "S0 < S0′ ≤ R8 (중앙값 순서).",
+   "criterion": "보고."
+  },
+  "R15_circular_permutation": {
+   "design": "알려진 원순열 쌍 약 10 (문헌·CPDB). 정적 D 와, 순서를 무시한 정렬(원순열 허용 TM-align 판)의 TM.",
+   "prediction": "원순열 허용 TM ≥ 0.6 인 쌍에서도 이 공간의 정적 D 가 무작위 순서 기준(약 0.82–0.85)의 0.8 배 이상 — 순서를 지키는 정렬이 멀게 잼.",
+   "criterion": "성질이자 한계로 보고."
+  },
+  "columns_table": {"design": "자마다 어느 칸에서 정의되는지의 표(계산 없음)."},
+  "trunk_pair_selection": {"design": "GPU 연속 축 350 쌍: TM 긴 쪽 7 구간 × 50, 길이 비 층 반반, CATH 수준 고르게, 상과 짝당 ≤ 2. R10a′ 19/40 쌍. 고른 목록을 GPU 전에 고정."}
+ },
+ "downloads_approved": "ATLAS 5 사슬 (R6 주 사례; 사용자 '받아도 돼'). S0·S0′·R15 의 PDB 구조 파일은 따로 묻는다."
+}

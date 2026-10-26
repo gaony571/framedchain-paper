@@ -1,0 +1,11 @@
+1. distance D (full search, 128 starts)
+   D(x, Gx)                    = 0.000000   (global rotation)
+   D(x, x with 3 zero terms)   = 0.000000   (zero terms are the same point)
+   D(x,y) D(y,z) D(x,z)        = 5.8480 5.6674 5.7044;  D(x,z) <= D(x,y) + D(y,z): True
+   normalised D(x,y) in [0,1]  = 0.7550
+2. reduced computation vs full search on 10 frame pairs (upper bound; relative difference)
+   median (d_reduced - d_full)/d_full = +0.00e+00; max = +0.00e+00; widened bands: 0
+3. energy-distance statistic (one mean per run pair, 200 frame pairs each)
+   null  P vs P (same distribution)   C=1.0778 B_P=1.0777 B_Q=1.0766 D2=+0.0012 ratio=0.033 D2/sqrt(n)=+0.00019
+   shift P vs Q (sigma 0.10 -> 0.20)  C=1.6901 B_P=1.0777 B_Q=2.1268 D2=+0.1757 ratio=0.336 D2/sqrt(n)=+0.02778
+   insertion P vs P+4 edges           C=2.0355 B_P=1.0777 B_Q=1.1224 D2=+1.8709 ratio=1.557 D2/sqrt(n)=+0.28868

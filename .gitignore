@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+# data never goes into this repository (docs/DATA.md)
+raw/
+derived/
+results/
+*.h5
+*.npz
+*.xtc
+*.dcd
+*.tar

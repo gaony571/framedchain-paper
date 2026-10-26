@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the accompanying paper (in preparation) and this software."
+title: "framespace-paper: analysis code for the frame-sequence space paper"
+version: 1.0.0
+license: MIT
+type: software
+authors:
+  - family-names: "An"
+    given-names: "Hyeonsu"
+repository-code: "https://github.com/gaony571/framespace-paper"
+references:
+  - type: software
+    title: "framespace: a frame-sequence space for protein backbones of any length"
+    version: 0.3.1
+    repository-code: "https://github.com/gaony571/framespace"
+    authors:
+      - family-names: "An"
+        given-names: "Hyeonsu"

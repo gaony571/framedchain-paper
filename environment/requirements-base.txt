@@ -1,0 +1,18 @@
+# Python packages imported by the analysis scripts in the base Colab environment (Python 3.12).
+# Pinned versions were recorded during the runs (environment/README.md). Unpinned packages were Colab defaults
+# of October 2026 and their versions were not recorded; any recent version should work, but exact numerical
+# agreement with the paper is only expected with the versions used.
+numpy==2.1.*          # recorded 2026-10-19 (minor version only)
+torch==2.11.0         # recorded 2026-10-22 (+cu130 on A100)
+mdtraj==1.11.2        # recorded 2026-10-19
+tmtools==0.3.0        # recorded
+scipy
+pandas
+h5py
+pot                   # imported as `ot` (exact optimal transport)
+numba                 # framespace_wip/stage0/rulers.py, dfrechet_1674.py
+scikit-learn          # c1_core.py, r38_7b_split.py, r38_c_nl.py, r41_gapinfo.py
+biopython             # r38_c.py, r38_prep.py (installed by run_records/queues/q_c_cpu.sh)
+fsspec                # r38_c_probe.py, r38_c_fetch.py, r38_p1n_fetch.py (HTTP partial reads of mdCATH)
+aiohttp               # HTTP backend of fsspec
+matplotlib            # r41_synth.py

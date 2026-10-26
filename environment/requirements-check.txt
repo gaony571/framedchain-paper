@@ -1,0 +1,7 @@
+# Versions with which the tests (framespace_wip/tests_stage0) and examples/demo_synthetic.py were checked on
+# 2026-10-26 (Python 3.12.13, CPU only). Neither needs a GPU or any downloaded data.
+numpy==2.5.4
+scipy==1.18.1
+torch==2.14.1
+numba==0.68.0
+pytest==9.1.1
