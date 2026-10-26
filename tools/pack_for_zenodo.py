@@ -3,7 +3,7 @@
 Usage:
     python tools/pack_for_zenodo.py ROOT OUT_DIR [--ensembles] [--dry-run]
 
-Writes OUT_DIR/framespace_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
+Writes OUT_DIR/framedchain_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
 OUT_DIR/MANIFEST_data.tsv (md5, bytes, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
 public inputs found under ROOT/raw by name, size and md5 so that the same files can be identified without
 redistributing them. --ensembles adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only
@@ -89,7 +89,7 @@ def main():
         for rel, p in public:
             f.write(f'{md5(p)}\t{os.path.getsize(p)}\t{rel}\n')
     man = os.path.join(a.out, 'MANIFEST_data.tsv')
-    with tarfile.open(os.path.join(a.out, 'framespace_paper_data.tar'), 'w') as tar, open(man, 'w') as f:
+    with tarfile.open(os.path.join(a.out, 'framedchain_paper_data.tar'), 'w') as tar, open(man, 'w') as f:
         f.write('md5\tbytes\tgroup\tpath\n')
         for i, (g, rel, p) in enumerate(pack):
             f.write(f'{md5(p)}\t{os.path.getsize(p)}\t{g}\t{rel}\n')

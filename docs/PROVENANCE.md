@@ -15,12 +15,13 @@ and whether that exact checksum was recorded before or at the time of the run.
 
 Bundles: `framespace_pkg/framespace/*.py` concatenated in sorted order has md5 `4edba596…` and
 `framespace_wip/stage0/*.py` has `6703fa26…`; both prefixes are in the registration record
-(`tools/record_env.py` recomputes them). framespace 0.2.0 is tag `v0.2.0` of the framespace repository (commit `866995c`); the registration record pins it
+(`tools/record_env.py` recomputes them). framespace 0.2.0 is tag `v0.2.0` of the framedchain repository (named framespace until 2026-10-26; commit `866995c`); the registration record pins it
 by the bundle md5, not by a commit identifier.
 
 **Commit identifiers.** On 2026-10-26 the author name in the histories of both repositories was unified and trailer
 lines were removed from the commit messages. This changed every commit identifier but no file or date: each
-rewritten commit has the same file tree hash as the commit it replaces. Identifiers in project notes written before that date map as follows.
+rewritten commit has the same file tree hash as the commit it replaces. Identifiers in project notes written before that date map as follows (the repositories are now named framedchain
+and framedchain-paper).
 
 | Repository | Before | Now | Tag | Commit |
 |---|---|---|---|---|

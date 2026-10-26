@@ -1,8 +1,13 @@
-# framespace-paper
+# framedchain-paper
 
-Analysis code, run records and registration records for the accompanying paper (in preparation) that
-introduces a common domain for protein backbones of any length (the frame-sequence space) and uses it to
-compare structural ensembles across temperatures, force fields, generative models and sequences.
+Analysis code, run records and registration records for the paper
+
+**Beyond aligned residues: A metric space of framed chains for protein structures and ensembles of any length**
+(Hyeonsu An; in preparation)
+
+which represents protein backbones of any length as framed chains, builds a metric space and ensemble statistics on
+them, and uses them to compare structural ensembles across temperatures, force fields, generative models and
+sequences. The abstract is at the end of this file.
 
 Version 1.0.0 — the code as run for the manuscript. Author: Hyeonsu An. Licence: MIT.
 
@@ -11,8 +16,13 @@ manuscript, byte for byte where a checksum was registered (see `docs/PROVENANCE.
 had to be corrected, the corrected version and its checksum were registered as a separate, time-stamped entry;
 analyses added after a result are separate files and say so in their docstrings. The reusable, documented and
 tested implementation of the method is the separate package
-[framespace](https://github.com/gaony571/framespace) (version 0.3.x); start there if you want to apply the
+[framedchain](https://github.com/gaony571/framedchain) (version 0.4.0); start there if you want to apply the
 method to your own data.
+
+**Names.** The package was called framespace up to version 0.3.3 and this repository framespace-paper; both were
+renamed on 2026-10-26 (GitHub redirects the old addresses). The as-run copies keep the old name
+(`framespace_pkg/framespace/` is framespace 0.2.0, the scripts `import framespace`, and the research module is
+`framespace_wip/`), because their bytes are registered.
 
 **Language of the comments.** Docstrings and comments inside the scripts are in Korean, the working language
 of the project; they are not translated in place because the files are kept byte-for-byte as run.
@@ -38,14 +48,14 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 - The 25 tests of the research module run against the as-run framespace 0.2.0 (about 3 minutes).
 - Both were checked on 2026-10-26 with Python 3.12.13 and the versions in
   `environment/requirements-check.txt`. The method-level tests (definitions, the reduced computation, the
-  ensemble statistics fixed for this paper) are in the framespace package (`tests/`, 46 tests in 0.3.3).
+  ensemble statistics fixed for this paper) are in the framedchain package (`tests/`, 46 tests in 0.4.0).
 
 ## What is here
 
 | Path | Content |
 |---|---|
 | `code/` | Analysis scripts (Python), one per experiment or stage; `code/negtype/` holds three small Node.js checks. English descriptions in `docs/SCRIPTS.md` |
-| `framespace_pkg/framespace/` | framespace 0.2.0 exactly as used in the runs (tag `v0.2.0`, commit `866995c` of the framespace repository; bundle md5 `4edba596…`) |
+| `framespace_pkg/framespace/` | framespace 0.2.0 exactly as used in the runs (tag `v0.2.0`, commit `866995c` of the framedchain repository; bundle md5 `4edba596…`) |
 | `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | Research module used by the runs (reduced computation, rulers, ESA/W2 helpers) and its tests (bundle md5 `6703fa26…`) |
 | `framespace_wip/experiments/` | Constructed counterexample for the Sippl linear form |
 | `examples/` | Synthetic demonstration and its expected output |
@@ -83,7 +93,7 @@ python code/r38_p3.py "$ROOT" pairs,dom,pibar,pair,stats 3
 
 where the second argument lists stages and the optional third is the number of worker processes. Stages are
 resumable: finished per-domain files are skipped. Scripts add `ROOT/framespace_pkg` and `ROOT/framespace_wip`
-to `sys.path` themselves, so do not install a newer framespace into the same environment when reproducing the
+to `sys.path` themselves, so do not install another framespace version (framedchain 0.3.x or earlier) into the same environment when reproducing the
 runs. Several scripts load the functions of another script with `exec` (for example `r38_b6.py` loads the first
 part of `r38_s0.py`, and `r38_p1.py` loads `r38_p3.py`); keep the `code/` directory flat and unchanged.
 
@@ -156,3 +166,7 @@ MIT licence, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not 
 OpenFold, US-align and Foldseek are obtained from their own repositories under their own licences. If you use
 this code, please cite the accompanying paper (in preparation) and the software (`CITATION.cff`; Zenodo DOI to
 be added at release).
+
+## Abstract
+
+Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons discard residues without a partner. Here I represent protein backbones of any length as framed chains and build a metric space and ensemble statistics on them. Each virtual bond between consecutive α-carbons becomes its peptide-plane frame scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice and the mean of uniformly random rotations. An order-preserving edit distance modulo global rotation is then a proven metric on chains of all lengths, splits every distance exactly into matched and unmatched shares, and joins chains of different lengths by explicit geodesics. Alignments can be certified globally optimal by branch-and-bound (500 of 500 sampled pairs; median 2 s per pair on a GPU). With its scale fixed, the objective of TM-align defines a metric of the same family; triangle-inequality violations by TM-score-based distances were observed only with shorter-chain normalization or without a square root. For ensembles, an energy-distance statistic is unbiased for any underlying metric; calibrated on same-sequence temperature responses in a public simulation dataset, it is invariant to replica and frame numbers but depends on domain size, which comparisons must match. Applied to three questions, the method shows that errors of two deep-learning ensemble generators point largely away from the direction produced by heating, that thermophilic domains fluctuate less than mesophilic homologs at equal temperature in a pre-specified replication, and that, in a confirmatory set of 4,152 homolog pairs, fluctuation profiles grow more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear structural covariates (partial correlation 0.14), an association that structure explains in shorter domains. The method is implemented in the open-source Python package framedchain.
