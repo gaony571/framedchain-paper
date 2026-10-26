@@ -11,7 +11,7 @@ repository-code: "https://github.com/gaony571/framespace-paper"
 references:
   - type: software
     title: "framespace: a frame-sequence space for protein backbones of any length"
-    version: 0.3.1
+    version: 0.3.2
     repository-code: "https://github.com/gaony571/framespace"
     authors:
       - family-names: "An"

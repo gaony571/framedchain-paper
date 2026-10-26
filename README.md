@@ -4,7 +4,7 @@ Analysis code, run records and registration records for the accompanying paper (
 introduces a common domain for protein backbones of any length (the frame-sequence space) and uses it to
 compare structural ensembles across temperatures, force fields, generative models and sequences.
 
-Version 1.0.0 — the code as run for the submitted manuscript. Author: Hyeonsu An. Licence: MIT.
+Version 1.0.0 — the code as run for the manuscript. Author: Hyeonsu An. Licence: MIT.
 
 This repository is the **as-run** code: every script here is the version that produced the numbers in the
 manuscript, byte for byte where a checksum was registered (see `docs/PROVENANCE.md`). When a registered script
@@ -35,7 +35,7 @@ PYTHONPATH=framespace_pkg python -m pytest -q framespace_wip/tests_stage0
 - The 25 tests of the research module run against the as-run framespace 0.2.0 (about 3 minutes).
 - Both were checked on 2026-10-26 with Python 3.12.13 and the versions in
   `environment/requirements-check.txt`. The method-level tests (definitions, the reduced computation, the
-  ensemble statistics fixed for this paper) are in the framespace package (`tests/`, 42 tests in 0.3.1).
+  ensemble statistics fixed for this paper) are in the framespace package (`tests/`, 42 tests in 0.3.2).
 
 ## What is here
 

@@ -9,9 +9,9 @@ and whether that exact checksum was recorded before or at the time of the run.
 - **P** — the checksum was recorded elsewhere in the project record (checksum manifests sent with the code, a verdict output, code notes) (9 files).
 - **U** — no checksum was recorded before this repository was assembled (46 files). These are mostly
   the early CPU-phase scripts (2026-10-16 to 10-18: ruler comparisons, ladder, C4, H-T), data-preparation
-  scripts, setup scripts and freeze files. They were restored from the project storage (Google Drive) and
-  their sizes match the stored files; the registration record describes what they computed but does not
-  pin their bytes.
+  scripts, setup scripts and freeze files. Those that were not in the local working copy were restored from
+  the project storage (Google Drive) while this repository was assembled, and their sizes were checked against
+  the stored files; the registration record describes what these scripts computed but does not pin their bytes.
 
 Bundles: `framespace_pkg/framespace/*.py` concatenated in sorted order has md5 `4edba596…` and
 `framespace_wip/stage0/*.py` has `6703fa26…`; both prefixes are in the registration record

@@ -26,7 +26,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > record — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framespace-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framespace Python package
-> (https://github.com/gaony571/framespace, version 0.3.1, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
+> (https://github.com/gaony571/framespace, version 0.3.2, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
 > Both are released under the MIT licence. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
 
@@ -35,11 +35,11 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
 > available at https://github.com/gaony571/framespace-paper (version 1.0.0; MIT licence; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
-> statistics is the framespace package (version 0.3.1; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
+> statistics is the framespace package (version 0.3.2; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
 ## Software references (for the reference list)
 
-> An H. framespace: a frame-sequence space for protein backbones of any length [software]. Version 0.3.1.
+> An H. framespace: a frame-sequence space for protein backbones of any length [software]. Version 0.3.2.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. framespace-paper: analysis code for the frame-sequence space paper [software]. Version 1.0.0.
@@ -50,14 +50,16 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 ## Status and remaining steps
 
 Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
-`gaony571/framespace` (tags `v0.2.0` = the version used in the runs, `v0.3.0`, `v0.3.1`) and
+`gaony571/framespace` (tags `v0.2.0` = the version used in the runs, `v0.3.0`, `v0.3.1`, `v0.3.2`) and
 `gaony571/framespace-paper` (tag `v1.0.0`). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
 
 Remaining, after the manuscript is written and posted (these need the paper, its title or the DOIs):
 
-1. Connect both repositories to Zenodo, then publish GitHub releases from the existing tags (framespace `v0.3.1`,
-   framespace-paper `v1.0.0`); Zenodo mints a DOI for each. If code changes before then, tag a new version.
+1. Connect both repositories to Zenodo, then publish a GitHub release of each from its latest `main`
+   (framespace: tag `v0.3.2`; framespace-paper: `v1.0.0` marks the first push, later documentation commits are on
+   `main`, so tag the then-current `main`, e.g. `v1.0.1`, and update the version in `CITATION.cff` and the README).
+   Zenodo mints a DOI for each release.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
    (CC BY-NC 4.0) are not redistributed; the deposit lists them by name and checksum only.
