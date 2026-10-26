@@ -27,6 +27,9 @@ python examples/demo_synthetic.py            # compare with examples/demo_expect
 PYTHONPATH=framespace_pkg python -m pytest -q framespace_wip/tests_stage0
 ```
 
+The pinned versions need Python 3.12 or newer. On Windows set the path first (`set PYTHONPATH=framespace_pkg` in
+cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pytest ...` without the prefix.
+
 - `examples/demo_synthetic.py` applies the paper's computations to small synthetic ensembles using only the
   as-run libraries: invariances and triangle inequality of D, the reduced computation (identical to
   `red_pairs` in `code/r38_s0.py`) against the full search, and the energy-distance statistic Δ² for a null
@@ -35,7 +38,7 @@ PYTHONPATH=framespace_pkg python -m pytest -q framespace_wip/tests_stage0
 - The 25 tests of the research module run against the as-run framespace 0.2.0 (about 3 minutes).
 - Both were checked on 2026-10-26 with Python 3.12.13 and the versions in
   `environment/requirements-check.txt`. The method-level tests (definitions, the reduced computation, the
-  ensemble statistics fixed for this paper) are in the framespace package (`tests/`, 42 tests in 0.3.2).
+  ensemble statistics fixed for this paper) are in the framespace package (`tests/`, 46 tests in 0.3.3).
 
 ## What is here
 

@@ -1,5 +1,6 @@
 # Versions with which the tests (framespace_wip/tests_stage0) and examples/demo_synthetic.py were checked on
 # 2026-10-26 (Python 3.12.13, CPU only). Neither needs a GPU or any downloaded data.
+# These pins need Python >= 3.12 (numpy 2.5 and scipy 1.18 have no wheels for older Pythons).
 numpy==2.5.4
 scipy==1.18.1
 torch==2.14.1
