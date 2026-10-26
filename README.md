@@ -45,7 +45,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 | Path | Content |
 |---|---|
 | `code/` | Analysis scripts (Python), one per experiment or stage; `code/negtype/` holds three small Node.js checks. English descriptions in `docs/SCRIPTS.md` |
-| `framespace_pkg/framespace/` | framespace 0.2.0 exactly as used in the runs (tag `v0.2.0`, commit `efcdd42` of the framespace repository; bundle md5 `4edba596…`) |
+| `framespace_pkg/framespace/` | framespace 0.2.0 exactly as used in the runs (tag `v0.2.0`, commit `866995c` of the framespace repository; bundle md5 `4edba596…`) |
 | `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | Research module used by the runs (reduced computation, rulers, ESA/W2 helpers) and its tests (bundle md5 `6703fa26…`) |
 | `framespace_wip/experiments/` | Constructed counterexample for the Sippl linear form |
 | `examples/` | Synthetic demonstration and its expected output |

@@ -15,7 +15,29 @@ and whether that exact checksum was recorded before or at the time of the run.
 
 Bundles: `framespace_pkg/framespace/*.py` concatenated in sorted order has md5 `4edba596…` and
 `framespace_wip/stage0/*.py` has `6703fa26…`; both prefixes are in the registration record
-(`tools/record_env.py` recomputes them). framespace 0.2.0 is git commit `efcdd42` (tag `v0.2.0`) of the framespace repository.
+(`tools/record_env.py` recomputes them). framespace 0.2.0 is tag `v0.2.0` of the framespace repository (commit `866995c`); the registration record pins it
+by the bundle md5, not by a commit identifier.
+
+**Commit identifiers.** On 2026-10-26 the author name in the histories of both repositories was unified and trailer
+lines were removed from the commit messages. This changed every commit identifier but no file or date: each
+rewritten commit has the same file tree hash as the commit it replaces. Identifiers in project notes written before that date map as follows.
+
+| Repository | Before | Now | Tag | Commit |
+|---|---|---|---|---|
+| framespace | `540c515` | `25accdb` | | framespace 0.1.0 |
+| framespace | `ad82be1` | `137f340` | | definitions aligned with the space document |
+| framespace | `16be758` | `11f44e5` | | PDB reader, adjustable constants |
+| framespace | `31b49bf` | `62d9646` | | mean point iterated to convergence |
+| framespace | `efcdd42` | `866995c` | `v0.2.0` | framespace 0.2.0, the version used in the runs (file tree `6db30c0`) |
+| framespace | `bafd810` | `676d5af` | `v0.3.0` | framespace 0.3.0 |
+| framespace | `34b9bf4` | `694c9c2` | `v0.3.1` | framespace 0.3.1 |
+| framespace | `40e6b7b` | `23c7017` | `v0.3.2` | framespace 0.3.2 |
+| framespace | `5d5ff73` | `746631d` | | framespace 0.3.3 (tag `v0.3.3` is on the next commit, `2a943fd`, which updates the cited identifiers) |
+| framespace-paper | `d2baa9b` | `b426e48` | | framespace-paper 1.0.0 |
+| framespace-paper | `10b6559` | `dc70dad` | | |
+| framespace-paper | `60e911d` | `8eceacf` | `v1.0.0` | first push |
+| framespace-paper | `1072f51` | `554892c` | | |
+| framespace-paper | `b878195` | `f177a32` | | |
 
 The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFEST.md5`).
 
