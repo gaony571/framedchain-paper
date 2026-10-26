@@ -49,11 +49,10 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 ## Status and remaining steps
 
-Done (2026-10-26): `gaony571/framespace` is on GitHub (private) with tags `v0.2.0` (the version used in the
-runs), `v0.3.0` and `v0.3.1`. framespace-paper is a local git repository with tag `v1.0.0`, to be pushed to a
-private GitHub repository `gaony571/framespace-paper` (create it empty, then
-`git push -u origin main --tags`). No GitHub *release* has been published yet, on purpose: Zenodo archives a
-repository only for releases published after the repository is connected.
+Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
+`gaony571/framespace` (tags `v0.2.0` = the version used in the runs, `v0.3.0`, `v0.3.1`) and
+`gaony571/framespace-paper` (tag `v1.0.0`). No GitHub *release* has been published yet, on purpose: Zenodo
+archives a repository only for releases published after the repository is connected.
 
 Remaining, after the manuscript is written and posted (these need the paper, its title or the DOIs):
 
