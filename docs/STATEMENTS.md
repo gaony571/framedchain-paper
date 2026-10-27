@@ -26,7 +26,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > record — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
-> (https://github.com/gaony571/framedchain, version 0.4.0, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
+> (https://github.com/gaony571/framedchain, version 0.4.1, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
 > Both are released under the MIT licence. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
 
@@ -35,24 +35,24 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
 > available at https://github.com/gaony571/framedchain-paper (version 1.0.0; MIT licence; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
-> statistics is the framedchain package (version 0.4.0; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
+> statistics is the framedchain package (version 0.4.1; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
 ## Software references (for the reference list)
 
-> An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.0.
+> An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.1.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
-> An H. framedchain-paper: analysis code for "Beyond aligned residues: A metric space of framed chains for protein structures and ensembles of any length" [software].
+> An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
 > Version 1.0.0.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
-> An H. Data for "Beyond aligned residues: A metric space of framed chains for protein structures and ensembles of any length" [dataset].
+> An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 ## Status and remaining steps
 
 Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
-`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.0`) and
+`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.1`) and
 `gaony571/framedchain-paper` (tag `v1.0.0`). Both were renamed from framespace and framespace-paper on
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
@@ -60,7 +60,7 @@ archives a repository only for releases published after the repository is connec
 Remaining, after the manuscript is written and posted (these need the paper or the DOIs):
 
 1. Connect both repositories to Zenodo, then publish a GitHub release of each from its latest `main`
-   (framedchain: tag `v0.4.0`, or a later one if the package changes; framedchain-paper: `v1.0.0` marks the first push, later documentation commits are on
+   (framedchain: tag `v0.4.1`, or a later one if the package changes; framedchain-paper: `v1.0.0` marks the first push, later documentation commits are on
    `main`, so tag the then-current `main`, e.g. `v1.0.1`, and update the version in `CITATION.cff` and the README).
    Zenodo mints a DOI for each release.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see

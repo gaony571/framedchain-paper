@@ -2,7 +2,7 @@
 
 Analysis code, run records and registration records for the paper
 
-**Beyond aligned residues: A metric space of framed chains for protein structures and ensembles of any length**
+**Comparing protein conformational ensembles across sequences and lengths**
 (Hyeonsu An; in preparation)
 
 which represents protein backbones of any length as framed chains, builds a metric space and ensemble statistics on
@@ -16,7 +16,7 @@ manuscript, byte for byte where a checksum was registered (see `docs/PROVENANCE.
 had to be corrected, the corrected version and its checksum were registered as a separate, time-stamped entry;
 analyses added after a result are separate files and say so in their docstrings. The reusable, documented and
 tested implementation of the method is the separate package
-[framedchain](https://github.com/gaony571/framedchain) (version 0.4.0); start there if you want to apply the
+[framedchain](https://github.com/gaony571/framedchain) (version 0.4.1); start there if you want to apply the
 method to your own data.
 
 **Names.** The package was called framespace up to version 0.3.3 and this repository framespace-paper; both were
@@ -48,7 +48,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 - The 25 tests of the research module run against the as-run framespace 0.2.0 (about 3 minutes).
 - Both were checked on 2026-10-26 with Python 3.12.13 and the versions in
   `environment/requirements-check.txt`. The method-level tests (definitions, the reduced computation, the
-  ensemble statistics fixed for this paper) are in the framedchain package (`tests/`, 46 tests in 0.4.0).
+  ensemble statistics fixed for this paper) are in the framedchain package (`tests/`, 46 tests in 0.4.1).
 
 ## What is here
 
@@ -169,4 +169,4 @@ be added at release).
 
 ## Abstract
 
-Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons discard residues without a partner. Here I represent protein backbones of any length as framed chains and build a metric space and ensemble statistics on them. Each virtual bond between consecutive α-carbons becomes its peptide-plane frame scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice and the mean of uniformly random rotations. An order-preserving edit distance modulo global rotation is then a proven metric on chains of all lengths, splits every distance exactly into matched and unmatched shares, and joins chains of different lengths by explicit geodesics. Alignments can be certified globally optimal by branch-and-bound (500 of 500 sampled pairs; median 2 s per pair on a GPU). With its scale fixed, the objective of TM-align defines a metric of the same family; triangle-inequality violations by TM-score-based distances were observed only with shorter-chain normalization or without a square root. For ensembles, an energy-distance statistic is unbiased for any underlying metric; calibrated on same-sequence temperature responses in a public simulation dataset, it is invariant to replica and frame numbers but depends on domain size, which comparisons must match. Applied to three questions, the method shows that errors of two deep-learning ensemble generators point largely away from the direction produced by heating, that thermophilic domains fluctuate less than mesophilic homologs at equal temperature in a pre-specified replication, and that, in a confirmatory set of 4,152 homolog pairs, fluctuation profiles grow more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear structural covariates (partial correlation 0.14), an association that structure explains in shorter domains. The method is implemented in the open-source Python package framedchain.
+Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons discard residues without a partner. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. The score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they prove invariant to replica and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains’ shifts under 59 K of heating, yet point largely away from the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear structural covariates; in shorter domains, structure explains the association. Ensembles of different sequences thus share one geometry.

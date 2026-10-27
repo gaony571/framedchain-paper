@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
-404d37816b2d2dcbf6185a67f9450cc3 *CITATION.cff
+ca1e0f1d1675f47ef108e4fa5f0d9b32 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-e7be879496be38aa02623ccb5318d476 *README.md
+c0103412c4b8a29d1773f70235e390f7 *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -103,7 +103,7 @@ b823de6670721190025b506f3a79b475 *code/r41_gapinfo.py
 54d0e212b8ec37e6b61bec53eac2c241 *docs/PROVENANCE.md
 b675d7e4f32cceb801985a48b511f796 *docs/RESULTS_MAP.md
 a44ec0fdea39b5e845f19444a109ffff *docs/SCRIPTS.md
-f15a88d29899e0211b661021308e6d0a *docs/STATEMENTS.md
+8176d4f042f13fa69cf5a9e73aa54325 *docs/STATEMENTS.md
 d661bb2351316e44ffc19c6700e8c347 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
 0087a3eadc056c67bb37d64430650f52 *environment/afenv_freeze.txt

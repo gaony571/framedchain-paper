@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the accompanying paper, \"Beyond aligned residues: A metric space of framed chains for protein structures and ensembles of any length\" (in preparation), and this software."
-title: "framedchain-paper: analysis code for \"Beyond aligned residues: A metric space of framed chains for protein structures and ensembles of any length\""
+message: "If you use this code, please cite the accompanying paper, \"Comparing protein conformational ensembles across sequences and lengths\" (in preparation), and this software."
+title: "framedchain-paper: analysis code for \"Comparing protein conformational ensembles across sequences and lengths\""
 version: 1.0.0
 license: MIT
 type: software
@@ -11,7 +11,7 @@ repository-code: "https://github.com/gaony571/framedchain-paper"
 references:
   - type: software
     title: "framedchain: framed chains for protein structures and ensembles of any length"
-    version: 0.4.0
+    version: 0.4.1
     repository-code: "https://github.com/gaony571/framedchain"
     authors:
       - family-names: "An"
