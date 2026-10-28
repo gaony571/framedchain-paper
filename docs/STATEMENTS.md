@@ -33,7 +33,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 ## Code availability sentence for the Methods (draft)
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
-> available at https://github.com/gaony571/framedchain-paper (version 1.0.0; MIT licence; Zenodo DOI:
+> available at https://github.com/gaony571/framedchain-paper (version 1.1.0; MIT licence; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
 > statistics is the framedchain package (version 0.4.1; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
@@ -43,7 +43,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
-> Version 1.0.0.
+> Version 1.1.0.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
@@ -53,15 +53,15 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
 `gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.1`) and
-`gaony571/framedchain-paper` (tag `v1.0.0`). Both were renamed from framespace and framespace-paper on
+`gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28). Both were renamed from framespace and framespace-paper on
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
 
 Remaining, after the manuscript is written and posted (these need the paper or the DOIs):
 
 1. Connect both repositories to Zenodo, then publish a GitHub release of each from its latest `main`
-   (framedchain: tag `v0.4.1`, or a later one if the package changes; framedchain-paper: `v1.0.0` marks the first push, later documentation commits are on
-   `main`, so tag the then-current `main`, e.g. `v1.0.1`, and update the version in `CITATION.cff` and the README).
+   (framedchain: tag `v0.4.1`, or a later one if the package changes; framedchain-paper: `v1.1.0`, or, if `main` changes after 2026-10-28, a tag of the then-current `main`,
+   e.g. `v1.1.1`, with the version updated in `CITATION.cff` and the README).
    Zenodo mints a DOI for each release.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
