@@ -12,7 +12,7 @@ the registration record uses it.
   the text; `derived/` = per-domain intermediates). See `docs/DATA.md` for what is deposited.
 - **Registration** keys refer to `results/prereg_2026-10-17.json` (the registration record; round36 = GPU
   plan, round37 = CPU ladder, round39 = scale experiments, round41 = additional experiments, round43 = post-hoc
-  sensitivity). Round44 (2026-10-28) keys refer to five separate records, `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum5.json`, and one correction, `_addendum5_fix1.json`, all written after the first record was closed; local copies of these and of the round34 and round37 entries are in `registration/`.
+  sensitivity). Round44 (2026-10-28) keys refer to six separate records, `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, and one correction, `_addendum5_fix1.json`, all written after the first record was closed; local copies of these and of the round34 and round37 entries are in `registration/`.
 - Every timestamp is UTC.
 
 ## Result 1 — the space and the distance
@@ -87,6 +87,7 @@ Each row was specified after the result it qualifies was known and before it was
 | 4.5 | Agreement against TM-align with tolerances; TM-align on mean points | `r44_corr2.py` (corr 8 k, stats); not registered: `r44_seqid_cell30.py` | `results/r44_corr2.json` | addendum4 06:46:46 `r44_agree`, `r44_tmmean` |
 | 4.14 | P1′ in absolute windows (50–100, 300–400, 400–500 ns) | `r44_p1win.py` (spread, stats) | `results/r44_p1win.json` | addendum2 `r44_p1win` |
 | 4.1 | Source of the gap between W₂ and Δ²_D (spread) | `r44_w2p1.py` (w2) | `results/r44_w2gap.json` | addendum5 08:53:17 `r44_w2gap` |
+| 3.5 | Contribution of the reduced computation to the compression of d on same-sequence cells | `r44_redsame.py` (run, sum) | `results/r44_redsame.json` | addendum6 11:50:14 `r44_redsame` |
 | 4.14 | Composition of thermophile and control pairs; U2 adjusted for it | `r44_p1comp2.py` (first attempt: `r44_w2p1.py` p1comp, stopped) | `results/r44_p1comp.json` | addendum5 `r44_p1comp`, corrected by `_addendum5_fix1.json` 08:59:08 |
 
 ## Box — standard-metric check (7b)

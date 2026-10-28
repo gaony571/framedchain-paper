@@ -8,7 +8,7 @@ and whether that exact checksum was recorded before or at the time of the run.
   (`r38_c.py`, `r38_verify_c.py`, `r38_r10a.py`, `r39_r6.py`, `r39_sec6.py`); the record gives its time.
 - **A** — the full md5 appears in one of the round44 records `registration/prereg_2026-10-28_addendum*.json`, written before the run (5 files).
 - **P** — the checksum was recorded elsewhere in the project record (checksum manifests sent with the code, a verdict output, code notes, a run log) (11 files).
-- **U** — no checksum was recorded before this repository was assembled (46 files up to round43; 15 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py`, `r44_p1comp2.py` and the copies of the round44 records, which were each written once on Google Drive and never modified). These are mostly
+- **U** — no checksum was recorded before this repository was assembled (46 files up to round43; 18 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py`, `r44_p1comp2.py`, `r44_redsame.py` and the copies of the round44 records, which were each written once on Google Drive and never modified). These are mostly
   the early CPU-phase scripts (2026-10-16 to 10-18: ruler comparisons, ladder, C4, H-T), data-preparation
   scripts, setup scripts and freeze files. Those that were not in the local working copy were restored from
   the project storage (Google Drive) while this repository was assembled, and their sizes were checked against
@@ -150,6 +150,7 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/r44_p1comp2.py` | `06b23792e1e922755be61e70678f5c25` | U | replaces part p1comp of `r44_w2p1.py` as described in `_addendum5_fix1.json`; md5 printed at upload before the run (2026-10-28 09:02 UTC) |
 | `code/r44_p1win.py` | `90b241be249fe0c2f94d1d0f8cf4a8d4` | A | addendum2 05:56:13 UTC |
 | `code/r44_pairw.py` | `208d60feb7ef118952d0c245f279497c` | A | addendum2 05:56:13 UTC |
+| `code/r44_redsame.py` | `2a6a20cf5687a08611518b0454174a3f` | U | md5 prefix written to `results/logs/r44.log` at the start of the queue (11:55:58 UTC); two earlier starts stopped before computing (missing package; a variable-name clash fixed in this version) |
 | `code/r44_repro.py` | `a8bd5a23aa5f896d1e267dac160fedc0` | U | implementation check, run on 2026-10-28 |
 | `code/r44_seqid_cell30.py` | `baba0c25848e601ce7207da39d4fa636` | U | notebook cell 30 verbatim below a header added for this repository; not registered |
 | `code/r44_w2p1.py` | `70d6d7f49b3847a43f947192a4506f58` | P | md5 prefix written into the correction record `registration/prereg_2026-10-28_addendum5_fix1.json` (08:59:08 UTC, after part w2 had run at 08:55 UTC); part w2 ran as registered, part p1comp stopped before producing values |
@@ -165,6 +166,7 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `registration/prereg_2026-10-28_addendum4.json` | `2b53341c96605dc94f04c4f03abf4eab` | U | byte copy of the Drive file (created 06:46:46 UTC, never modified) |
 | `registration/prereg_2026-10-28_addendum5.json` | `c0ca817cd5378cfc2934535041401677` | U | byte copy of the Drive file (created 08:53:17 UTC, never modified) |
 | `registration/prereg_2026-10-28_addendum5_fix1.json` | `126fbb4d4f7b6d59b45e51cb77e79c9a` | U | byte copy of the Drive file (created 08:59:08 UTC, never modified) |
+| `registration/prereg_2026-10-28_addendum6.json` | `9b4ad04cc1fd1dd74e946df7cbfbd9e8` | U | byte copy of the Drive file (created 11:50:14 UTC, never modified) |
 | `registration/prereg_round34.json` | `0453e32ea141d0c8d6d1258542e3ebd8` | P | checksum manifest sent with the code, 2026-10-19 |
 | `registration/prereg_round37.json` | `3692c5e053c1a3fd87a22df2eefa34e7` | U |  |
 | `run_records/queues/q_b6_cpu.sh` | `ab6ed598d287f688b1205816f6ec7431` | R | full md5 in the registration record |
@@ -186,4 +188,5 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `run_records/queues/q_r44b_corr.sh` | `12e058930ddb2843abdc0b856fcb9ece` | U |  |
 | `run_records/queues/q_r44b_misc.sh` | `7112c17b8c2e46a5a17b29b8440f5cbe` | U |  |
 | `run_records/queues/q_r44c.sh` | `0a582e7eab7640bb6b9e67fad46543df` | U |  |
+| `run_records/queues/q_r44d.sh` | `c36712c2119c459dcfaa25a13eb0ced5` | U |  |
 | `run_records/queues/r39_resume_20261021.sh` | `a32e0766f12b37572dbc215c9dbe295c` | U |  |

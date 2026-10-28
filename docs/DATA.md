@@ -48,7 +48,7 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | `raw/mfm_sm/*.npz` | see section 1 | `ladder_ff*.py` |
 | `results/ladder_*_summary.json` | aggregated ladder rows (aggregation cells not kept) | text of result 4.8 |
 | `results/prereg_2026-10-17.json` | the registration record (all rounds, amendments, checklists) | — |
-| `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum5.json`, `_addendum5_fix1.json` | the five round44 records and one correction (2026-10-28), separate files written after the first record was closed; copies in `registration/` | — |
+| `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, `_addendum5_fix1.json` | the six round44 records and one correction (2026-10-28), separate files written after the first record was closed; copies in `registration/` | — |
 
 ## 3. Outputs
 
