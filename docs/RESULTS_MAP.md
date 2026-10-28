@@ -12,7 +12,7 @@ the registration record uses it.
   the text; `derived/` = per-domain intermediates). See `docs/DATA.md` for what is deposited.
 - **Registration** keys refer to `results/prereg_2026-10-17.json` (the registration record; round36 = GPU
   plan, round37 = CPU ladder, round39 = scale experiments, round41 = additional experiments, round43 = post-hoc
-  sensitivity). Local copies of the round34 and round37 entries are in `registration/`.
+  sensitivity). Round44 (2026-10-28) keys refer to four separate records, `results/prereg_2026-10-28_addendum.json`, `_addendum2.json`, `_addendum3.json` and `_addendum4.json`, written after the first record was closed; local copies of these and of the round34 and round37 entries are in `registration/`.
 - Every timestamp is UTC.
 
 ## Result 1 — the space and the distance
@@ -72,6 +72,20 @@ the registration record uses it.
 | 4.12 [3.5] | H-T scalar version (θ*) | `mdcath_spread.py`, `mdcath_spread_hot.py`, `ht_theta_meso.py`, `folded_analyses.py` (iii), `ht_own_alignment.py` | `results/ht_shared_spread.tsv`, `results/ht_theta_star.tsv`, `results/ht_theta_meso.json`, `results/folded_analyses.json`, `results/ht_own_alignment.json` | old record 6A; round34 ① |
 | 4.13 [3.6k] | Primary P1: thermal adaptation θ* | `r38_p1.py` (pairs, mean, align, spread, sim, pre, stats), `r38_verify_p1.py`; diagnosis after the result: `r38_p1_diag.py` | `results/r38_p1.json`, `results/r38_verify_p1.json`, `results/r38_p1_diag.json` | round36 §7 |
 | 4.14 [3.6p] | Confirmatory P1′ on new pairs | `r38_p1n_fetch.py`, `r38_p1n.py` (mean, align, spread, fold, stats), `r38_verify_p1n.py` | `results/r38_p1n.json`, `results/r38_verify_p1n.json` | round36 §7h |
+
+## Round44 — checks added after external review (2026-10-28)
+
+Each row was specified after the result it qualifies was known and before it was computed (manuscript, Methods).
+
+| Section | Result | Scripts (parts) | Main outputs | Registration |
+|---|---|---|---|---|
+| 2.7 | framedchain 0.4.1 reproduces the as-run code on synthetic inputs | `r44_repro.py` | standard output (project record `results_backup/2026-10-28/r44_repro.txt`) | not registered (implementation check) |
+| 3.9 | Invariance audit, Table 2 (replicates, frames, split) | `r44_inv.py` (rep, frm, split, sum) | `results/r44_inv.json` | addendum 04:47:45 `r44_inv` |
+| 4.1 | Continuous axis controlled for log n̄ | `r44_b6size_cell26.py` | `results/r44_b6size.json` | addendum3 06:04:10 `r44_b6size` |
+| 4.5 | Pair-weighted estimates of C-1, C-2 and the H-pool | `r44_pairw.py` | `results/r44_pairw.json` | addendum2 05:56:13 `r44_pairw` |
+| 4.5 | Alternative correspondences (TM-align on medoids, sequence alignment) and Gly/Pro | `r44_corr_v2.py` (corr 8 k, stats); first version `r44_corr.py` (stopped) | `results/r44_corr.json` (with `r44_gp`) | addendum `r44_corr`; addendum2 `r44_corr_v2`, `r44_gp` |
+| 4.5 | Agreement against TM-align with tolerances; TM-align on mean points | `r44_corr2.py` (corr 8 k, stats); not registered: `r44_seqid_cell30.py` | `results/r44_corr2.json` | addendum4 06:46:46 `r44_agree`, `r44_tmmean` |
+| 4.14 | P1′ in absolute windows (50–100, 300–400, 400–500 ns) | `r44_p1win.py` (spread, stats) | `results/r44_p1win.json` | addendum2 `r44_p1win` |
 
 ## Box — standard-metric check (7b)
 

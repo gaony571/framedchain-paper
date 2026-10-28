@@ -6,8 +6,9 @@ and whether that exact checksum was recorded before or at the time of the run.
 - **R** — the full md5 appears in the registration record `results/prereg_2026-10-17.json` (65 files).
   For some scripts the matching value is a later entry registered after a correction
   (`r38_c.py`, `r38_verify_c.py`, `r38_r10a.py`, `r39_r6.py`, `r39_sec6.py`); the record gives its time.
-- **P** — the checksum was recorded elsewhere in the project record (checksum manifests sent with the code, a verdict output, code notes) (9 files).
-- **U** — no checksum was recorded before this repository was assembled (46 files). These are mostly
+- **A** — the full md5 appears in one of the round44 records `registration/prereg_2026-10-28_addendum*.json`, written before the run (5 files).
+- **P** — the checksum was recorded elsewhere in the project record (checksum manifests sent with the code, a verdict output, code notes, a run log) (10 files).
+- **U** — no checksum was recorded before this repository was assembled (46 files up to round43; 12 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py` and the copies of the four round44 records, which were each written once on Google Drive and never modified). These are mostly
   the early CPU-phase scripts (2026-10-16 to 10-18: ruler comparisons, ladder, C4, H-T), data-preparation
   scripts, setup scripts and freeze files. Those that were not in the local working copy were restored from
   the project storage (Google Drive) while this repository was assembled, and their sizes were checked against
@@ -141,12 +142,25 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/r41_synth.py` | `982f6f07ac0f92d342e95b98f04cd70a` | R | full md5 in the registration record |
 | `code/r41_synth_adv.py` | `96e6bc9e16cfbcc80512baa2d020fd0c` | R | full md5 in the registration record |
 | `code/r43_sens.py` | `1643ce8b2bc0133a4a7cd37b4a16de60` | R | full md5 in the registration record |
+| `code/r44_b6size_cell26.py` | `41fb4e7319e297133e2dcc0e16ce1a33` | U | notebook cell 26 (2026-10-28 06:04:37 UTC) verbatim below a header added for this repository |
+| `code/r44_corr.py` | `4c23a80cca4644bd52a03ffc4f3b7d19` | A | addendum 04:47:45 UTC |
+| `code/r44_corr2.py` | `972af7945c56590d4d8ef15f964a5ce5` | P | md5 prefix written to the run log `results/logs/r44.log` at the start of the queue, 2026-10-28 06:50:45 UTC (record addendum4 names the script) |
+| `code/r44_corr_v2.py` | `f364e242d17ae36075c5c761a0d76fba` | A | addendum2 05:56:13 UTC |
+| `code/r44_inv.py` | `b4562167ff541206c287f9d43282c79a` | A | addendum 04:47:45 UTC |
+| `code/r44_p1win.py` | `90b241be249fe0c2f94d1d0f8cf4a8d4` | A | addendum2 05:56:13 UTC |
+| `code/r44_pairw.py` | `208d60feb7ef118952d0c245f279497c` | A | addendum2 05:56:13 UTC |
+| `code/r44_repro.py` | `a8bd5a23aa5f896d1e267dac160fedc0` | U | implementation check, run on 2026-10-28 |
+| `code/r44_seqid_cell30.py` | `baba0c25848e601ce7207da39d4fa636` | U | notebook cell 30 verbatim below a header added for this repository; not registered |
 | `environment/af_bar_readmeenv.sh` | `b4af12134c383fbc056f2ad6ab48ffd0` | U |  |
 | `environment/afenv_freeze.txt` | `0087a3eadc056c67bb37d64430650f52` | U |  |
 | `environment/samenv_freeze.txt` | `046b712106ab93314518c9622d2bed40` | U |  |
 | `environment/setup_afenv3.sh` | `669392c836ac336f4eafa4afe60d1c8a` | U |  |
 | `environment/setup_samenv3.sh` | `d2f64ac3a09bf953ef8fd2fcf10f07fa` | U |  |
 | `framespace_wip/experiments/sippl_linear_counterexample.py` | `321f399b325a2fff79d31425321621ff` | P | checksum manifest sent with the code, 2026-10-17 |
+| `registration/prereg_2026-10-28_addendum.json` | `b3b5c040fd075bab96a4036bc3b8b8c9` | U | byte copy of the Drive file (created 2026-10-28 04:47:45 UTC, never modified) |
+| `registration/prereg_2026-10-28_addendum2.json` | `79258a06e372c0b3fecf68047e53e8b1` | U | byte copy of the Drive file (created 05:56:13 UTC, never modified) |
+| `registration/prereg_2026-10-28_addendum3.json` | `83230432bc1c7a979ce276f1ee24c90f` | U | byte copy of the Drive file (created 06:04:11 UTC, never modified) |
+| `registration/prereg_2026-10-28_addendum4.json` | `2b53341c96605dc94f04c4f03abf4eab` | U | byte copy of the Drive file (created 06:46:46 UTC, never modified) |
 | `registration/prereg_round34.json` | `0453e32ea141d0c8d6d1258542e3ebd8` | P | checksum manifest sent with the code, 2026-10-19 |
 | `registration/prereg_round37.json` | `3692c5e053c1a3fd87a22df2eefa34e7` | U |  |
 | `run_records/queues/q_b6_cpu.sh` | `ab6ed598d287f688b1205816f6ec7431` | R | full md5 in the registration record |
@@ -163,4 +177,9 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `run_records/queues/q_r39_cpu1.sh` | `138ad916e3faa270352f6062a6559f40` | R | full md5 in the registration record |
 | `run_records/queues/q_r39_cpu2.sh` | `a5993779ffc78a505723288a2770853c` | R | full md5 in the registration record |
 | `run_records/queues/q_r39_gpu.sh` | `9a0e52c775f86001fab404835bf97dca` | R | full md5 in the registration record |
+| `run_records/queues/q_r44_cpu.sh` | `7c43fc43d4263cdfb24a65da8b02419e` | U |  |
+| `run_records/queues/q_r44_gpu.sh` | `c535049adaa9335d4e4422be543dc394` | U |  |
+| `run_records/queues/q_r44b_corr.sh` | `12e058930ddb2843abdc0b856fcb9ece` | U |  |
+| `run_records/queues/q_r44b_misc.sh` | `7112c17b8c2e46a5a17b29b8440f5cbe` | U |  |
+| `run_records/queues/q_r44c.sh` | `0a582e7eab7640bb6b9e67fad46543df` | U |  |
 | `run_records/queues/r39_resume_20261021.sh` | `a32e0766f12b37572dbc215c9dbe295c` | U |  |

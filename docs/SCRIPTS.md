@@ -129,6 +129,23 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r41_synth.py`, `r41_synth_adv.py` | General lemma outside proteins: triangle inequality on real sequences (ℓ2, ERP), planar curves modulo SO(2) (certified), and negative controls (broken Lipschitz constant, DTW); adversarial triples in the `_adv` version | `results/r41_synth.json`, `results/r41_synth_adv.json` |
 | `r43_sens.py` | Round43 post-hoc sensitivities (verdicts unchanged): P2 secondary 1 interval, length matching of the Figure 5 cells, ANM/GNM variants for C-2 | `results/r43_sens.json` |
 
+## Round44 — checks added after external review (2026-10-28; results 2.7, 3.9, 4.1, 4.5, 4.14)
+
+Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-28_addendum*.json`);
+the results it qualifies were already known. The first record (`results/prereg_2026-10-17.json`) was not changed.
+
+| Script | What it does | Main outputs |
+|---|---|---|
+| `r44_inv.py` | Invariance audit of the calibration statistic (Table 2): 3 vs 5 replicates per side from the stored per-pair tables (rep), 50 vs 100 frames per replicate recomputed with D (frm), shares of the split ratio (split), summary (sum) | `results/r44_inv.json` |
+| `r44_corr.py` | Confirmatory set C with shared bonds from global sequence alignments and from TM-align on medoids instead of the edit-distance correspondence π̄; superseded after 1,369 pairs by `r44_corr_v2.py` (same formulas) | `derived/r44/corr/pairs.jsonl` (partial, not used) |
+| `r44_corr_v2.py` | The same computation in shards (corr K k → stats), plus π̄ without bonds next to Gly/Pro and Gly/Pro covariates (r44_gp); structural control and network-model profiles recomputed on each set of shared bonds | `derived/r44/corr/pairs_v2_s*.jsonl`, `results/r44_corr.json` |
+| `r44_pairw.py` | Pair-weighted versions of C-1, C-2 (set C) and P3, C-2 (H-pool) next to the registered superfamily-weighted ones, from stored per-pair rows | `results/r44_pairw.json` |
+| `r44_p1win.py` | Thermophile statistic U2 (Q ≥ 0.7) in absolute 320 K windows of 50–100, 300–400 and 400–500 ns on the same pairs and shared bonds as P1′ (spread → stats) | `derived/r44/p1win/`, `results/r44_p1win.json` |
+| `r44_corr2.py` | Agreement of the correspondences against TM-align on medoids, an alignment independent of π̄, with tolerances of 0–2 bonds by identity (r44_agree); TM-align on the α-carbon traces of the projected mean points and C-1, C-2 on that correspondence (r44_tmmean) | `derived/r44/corr2/pairs_c2_s*.jsonl`, `results/r44_corr2.json` |
+| `r44_b6size_cell26.py` | Partial Spearman of Δ²_D/√n̄ with TM-score given log n̄ on the continuous axis (r44_b6size). Run in a notebook cell; the file keeps the cell verbatim below a short header that loads the modules | `results/r44_b6size.json` |
+| `r44_seqid_cell30.py` | Implementation check after the r44_corr result (not registered, not used in the manuscript): share of π̄ bond pairs contained in the sequence alignment by π̄ identity. Notebook cell kept verbatim | standard output |
+| `r44_repro.py` | Synthetic check that framedchain 0.4.1 reproduces the as-run code (framespace 0.2.0, `framespace_wip/stage0`, `red_pairs` and `estats` of `r38_s0.py`) exactly: distances, alignments, certificates, mean points, ensemble W₂, reduced computation, energy statistics. Run as `python code/r44_repro.py <dir>` where `<dir>` holds checkouts of this repository (`framedchain-paper/`) and of the package (`framedchain/`) side by side | standard output |
+
 ## Node.js checks
 
 | Script | What it does |
