@@ -1,0 +1,7 @@
+{
+ "written": "2026-10-28 08:59:08 UTC",
+ "amends": "prereg_2026-10-28_addendum5.json \"r44_p1comp\" (원 등록은 고치지 않음)",
+ "reason": "실행(08:55 UTC) 중 derived/r38/p1n/pairs.json 의 tm·ident 칸이 모든 쌍(HT 483, MM 1014)에서 비어 있음(None)을 발견. 부분 p1comp 는 값을 내기 전에 멈춤 — 결과를 보지 않음. 부분 w2 는 등록대로 끝남(code/r44_w2p1.py md5 70d6d7f4, results/r44_w2gap.json).",
+ "change": "(1) 구조 유사도 tm 대신 dhat = 평균 점 사이 정규화 편집 거리 √(max(0, 1 − 2S/(‖m_a‖² + ‖m_b‖²))) — S 는 derived/r38/p1n/align.jsonl 의 평균 점 정렬 점수, m 은 derived/r38/p1n/mean/<d>.npz. (2) ident 는 서술에서 뺌. (3) 보정 판의 MM 회귀 변수 = [log n_shared, 공유 비율, dhat]. 나머지(쓰는 쌍, 구간, seed, 예측 PC1·PC2, 판정)는 그대로.",
+ "script": "code/r44_p1comp2.py (새 파일; r44_w2p1.py 는 실행본 그대로 둠) → results/r44_p1comp.json"
+}

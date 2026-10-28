@@ -1,0 +1,20 @@
+{
+ "written": "2026-10-28 08:53:17 UTC",
+ "note": "돌리기 전 다섯째 등록(외부 검토 2026-10-28 열한째: \"W₂ 와 Δ²_D 의 순위 상관이 왜 0.74 인가\", \"호열–중온 쌍과 중온–중온 쌍의 공유 결합 수·구성이 다르면 U2 가 그 탓 아닌가\"). 결과(0.736, U2 −0.213)는 알고 정함. 앞 등록 넷은 고치지 않는다.",
+ "r44_w2gap": {
+  "question": "연속 축(B6, TM ≥ 0.5, 122 쌍)에서 W₂ 와 Δ²_D 의 순위가 갈리는 것(0.736 < 0.8)이 W₂ 의 유한 표본 치우침, 곧 앙상블 안 퍼짐과 함께 커지는 몫 탓인가.",
+  "design": "derived/r38/b6/<쌍>.json 의 W2, D.D2, D.wbar, D.C, nbar. ρ0 = Spearman(W₂, Δ²_D) (등록 0.736 재현). ρ(W₂, w̄)·ρ(Δ²_D, w̄)·ρ(W₂, C). 주: 편 Spearman(W₂, Δ²_D | w̄) — 순위를 w̄ 순위에 회귀한 잔차끼리. 보조: | w̄, log n̄. 구간 = 도메인 Exp(1) 무게의 곱 2,000, seed 20261100 (r44_b6size 와 같은 방법).",
+  "prediction": "PW1: 편 Spearman(W₂, Δ²_D | w̄) 점추정 ≥ 0.8 (퍼짐을 통제하면 등록 문턱을 넘음). PW2: ρ(W₂, w̄) > ρ(Δ²_D, w̄) (점추정).",
+  "refutation": "PW1 이 서지 않으면 \"퍼짐에 따른 W₂ 의 치우침이 차이를 설명한다\" 고 쓰지 않고, 원인을 가리지 못했다고 적는다.",
+  "decision": "어느 쪽이든 R4 의 W₂ 문장 뒤에 이 점검을 한 구절로(\"specified after the result and before it was computed\").",
+  "script": "code/r44_w2p1.py 부분 w2 → results/r44_w2gap.json"
+ },
+ "r44_p1comp": {
+  "question": "P1′ 재현(Q 0.7, 뒤 절반)에서 호열–중온(HT) 쌍과 중온–중온(MM) 대조 쌍의 구성(공유 결합 수, 공유 비율, TM-score, 동일성, 길이)이 다르고, 그것이 U2 를 만드는가. 쌍 안 로그 비는 같은 결합 위라 결합 수와 무관하지만, 상과 안 HT 와 MM 의 구성 차가 로그 비의 분포를 바꿀 수 있다.",
+  "design": "derived/r38/p1n/pairs.json (HT·MM; La, Lb, tm, ident) 과 spread/<d>.json (쌍마다 n_shared, cells[\"320|half|0.70\"].gpa). 쓰는 쌍 = r38_p1n.lr320_of 가 값을 내는 쌍(주 판과 같음). (가) 서술: 상과마다 HT·MM 중앙의 log n_shared, 공유 비율 n_shared/min(La−1, Lb−1), tm, ident, log 긴 쪽 길이; 상과 짝지은 차(HT − MM)의 상과 중앙과 상과 재추출 2,000 (seed 20261101) 95% 구간. (나) 쌍 수준: HT 안·MM 안 Spearman(로그 비, log n_shared), (로그 비, 공유 비율). (다) 보정 판: MM 쌍에서만 로그 비를 [log n_shared, 공유 비율, tm] 에 선형 회귀(최소제곱)해 얻은 식을 HT·MM 모두에 빼고 U2 를 같은 방법(상과 중앙 차의 상과 중앙, 재추출 2,000, seed 20261049, 한쪽 97.5%)으로.",
+  "prediction": "PC1: 보정 판 U2 의 97.5% 상한 < 0. PC2: |보정 판 U2 − 주 판 U2| < 0.05.",
+  "refutation": "PC1 이 서지 않으면 R7 에 \"쌍 구성으로 보정하면 0 과 구별되지 않는다\" 를 적는다. PC2 만 안 서면 크기 차를 적는다.",
+  "decision": "R7 의 한계 문장 옆에 (가) 의 큰 차가 있으면 그것과 (다) 의 값을 한 구절로.",
+  "script": "code/r44_w2p1.py 부분 p1comp → results/r44_p1comp.json"
+ }
+}
