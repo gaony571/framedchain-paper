@@ -48,7 +48,7 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | `raw/mfm_sm/*.npz` | see section 1 | `ladder_ff*.py` |
 | `results/ladder_*_summary.json` | aggregated ladder rows (aggregation cells not kept) | text of result 4.8 |
 | `results/prereg_2026-10-17.json` | the registration record (all rounds, amendments, checklists) | — |
-| `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, `_addendum5_fix1.json` | the six round44 records and one correction (2026-10-28), separate files written after the first record was closed; copies in `registration/` | — |
+| `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, `_addendum5_fix1.json`; `results/prereg_2026-10-29_addendum7.json`, `_addendum8.json` | the six round44 records and one correction (2026-10-28) and the two round45 records (written 2026-10-28 15:39:50 and 2026-10-29 11:15:02 UTC; the file-name date of these two is KST), separate files written after the first record was closed; copies in `registration/` | — |
 
 ## 3. Outputs
 
@@ -58,7 +58,7 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | Backups written next to each result at run time | `results/_backup/<date>/` | deposit |
 | Run logs and completion stamps | `results/logs/*.log`, `results/logs/*.done` | deposit |
 | Generated model ensembles (aSAMt 320–450 K, AlphaFlow distilled) | `derived/r38/asamt/`, `derived/r38/alphaflow/` | deposit (stochastic; regenerating them gives different samples) |
-| Per-domain statistics (JSON) | `derived/r38/*/`, `derived/r39/*/`, `derived/r41/*/`, `derived/r44/*/`, `derived/r37_*/`, `derived/ladder_*/`, `derived/c4_sub/`, `derived/c1_core/` | deposit the JSON files; regenerate the rest |
+| Per-domain statistics (JSON) | `derived/r38/*/`, `derived/r39/*/`, `derived/r41/*/`, `derived/r44/*/`, `derived/r45/*/`, `derived/r37_*/`, `derived/ladder_*/`, `derived/c4_sub/`, `derived/c1_core/` | deposit the JSON files; regenerate the rest |
 | Extracted mdCATH frames and spreads (npz) | `derived/mdcath_5T/`, `derived/mdcath_5T_folded/`, `derived/mdcath_spread*/` | regenerate from mdCATH (large) |
 
 `tools/pack_for_zenodo.py` builds the deposit from a project root following this table and writes a checksum

@@ -9,7 +9,7 @@ which represents protein backbones of any length as framed chains, builds a metr
 them, and uses them to compare structural ensembles across temperatures, force fields, generative models and
 sequences. The abstract is at the end of this file.
 
-Version 1.1.0 — the code as run for the manuscript (1.1.0 adds the round44 checks of 2026-10-28). Author: Hyeonsu An. Licence: MIT.
+Version 1.2.0 — the code as run for the manuscript (1.1.0 added the round44 checks of 2026-10-28; 1.2.0 adds the round45 checks of 2026-10-28 and 10-29). Author: Hyeonsu An. Licence: MIT.
 
 This repository is the **as-run** code: every script here is the version that produced the numbers in the
 manuscript, byte for byte where a checksum was registered (see `docs/PROVENANCE.md`). When a registered script
@@ -60,7 +60,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 | `framespace_wip/experiments/` | Constructed counterexample for the Sippl linear form |
 | `examples/` | Synthetic demonstration and its expected output |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demo and tests), setup scripts and `pip freeze` records of the two model environments; see `environment/README.md` |
-| `registration/` | Local copies of registration entries (round34, round37) and the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
+| `registration/` | Local copies of registration entries (round34, round37) and the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction) and the round45 records (`prereg_2026-10-29_addendum7.json`, written 2026-10-28 15:39:50 UTC, and `_addendum8.json`, 2026-10-29 11:15:02 UTC; the date in these two file names is Korean Standard Time, UTC+9). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
 | `run_records/queues/` | The shell queues that ran the scripts on Colab, with the exact arguments |
 | `docs/RESULTS_MAP.md` | Manuscript section → scripts → output files → registration entry |
 | `docs/SCRIPTS.md` | What every script computes, in English |
@@ -117,6 +117,9 @@ part of `r38_s0.py`, and `r38_p1.py` loads `r38_p3.py`); keep the `code/` direct
 8. **Round44 (checks added after external review, 2026-10-28):** `r44_inv.py`; `r44_corr.py`, then `r44_corr_v2.py`;
    `r44_pairw.py`, `r44_p1win.py`, `r44_corr2.py`, `r44_w2p1.py`, `r44_p1comp2.py`, `r44_redsame.py`; `r44_b6size_cell26.py` and `r44_seqid_cell30.py` are notebook cells
    kept verbatim as scripts; `r44_repro.py` checks that framedchain 0.4.1 reproduces the as-run code.
+9. **Round45 (checks added after external review, 2026-10-28 and 10-29):** `r45_f1.py` (bond-direction and twist profiles, queue `q_r45.sh`),
+   `r45_mpstart.py` (independence of the mean point from the starting frame); `r45_folded_frac.py` is a descriptive count run from a notebook,
+   kept verbatim below a header.
 
 The exact sequences that ran are in `run_records/queues/` (`$R` = ROOT, `$C` = ROOT/code, `$L` = log directory).
 

@@ -90,6 +90,14 @@ Each row was specified after the result it qualifies was known and before it was
 | 3.5 | Contribution of the reduced computation to the compression of d on same-sequence cells | `r44_redsame.py` (run, sum) | `results/r44_redsame.json` | addendum6 11:50:14 `r44_redsame` |
 | 4.14 | Composition of thermophile and control pairs; U2 adjusted for it | `r44_p1comp2.py` (first attempt: `r44_w2p1.py` p1comp, stopped) | `results/r44_p1comp.json` | addendum5 `r44_p1comp`, corrected by `_addendum5_fix1.json` 08:59:08 |
 
+## Round45 — checks added after external review (2026-10-28 and 10-29)
+
+| Section | Result | Scripts (parts) | Main outputs | Registration |
+|---|---|---|---|---|
+| 4.5 | Sequence-identity effect with bond-direction (tilt) and twist profiles; agreement of network-model predictions with each | `r45_f1.py` (corr 8 k, sanity, stats; queue `q_r45.sh`) | `results/r45_f1.json` | addendum7 2026-10-28 15:39:50 UTC `r45_f1` |
+| 2.6 | Mean point independent of the starting frame (six ensembles × nine starts) | `r45_mpstart.py` | `results/r45_mpstart.json` | addendum8 2026-10-29 11:15:02 UTC `r45_mpstart` |
+| 4.11 | Share of folded MD 320 K frames and folded aSAMt samples in the P2 domains | `r45_folded_frac.py` | `results/r45_folded_frac.json` | not registered (descriptive count) |
+
 ## Box — standard-metric check (7b)
 
 | Section | Result | Scripts (parts) | Main outputs | Registration |

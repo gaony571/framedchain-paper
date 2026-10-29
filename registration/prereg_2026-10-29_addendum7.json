@@ -1,0 +1,24 @@
+{
+ "written": "2026-10-28 15:39:50 UTC",
+ "note": "결과(확인 실험 C 와 round44 대응 판들)를 본 뒤, 계산 전 등록(새 파일, 고치지 않음; 앞 기록 여섯과 따로). 외부 검토(2026-10-29): 방법 절의 ANM 은 결합 방향(틀의 f₁) 요동만 예측하는데 r_dyn·바름 점검의 MD 프로파일은 틀 전체 퍼짐이라, C-2 에 남은 효과가 Cα 모델이 원리상 못 보는 펩타이드 면의 결합 축 비틀림에서 올 수 있다. 사용자 승인(\"돌려도 됩니다\")과 함께 받은 고침 셋을 반영: (1) 판정을 짝 비교 세 갈래로, (2) 함께 볼 성분은 f₂·f₃ 열이 아니라 비틀림, (3) f₁ 판 정의·구현 점검·경계 처리를 미리 정함. 원고에는 사후 분석으로 표시한다.",
+ "r45_f1": {
+  "question": "확인 세트에서 서열 동일성과 r_dyn 의 연관(C-2, 탄성망 통제 뒤)이 결합 방향 요동에도 있는가, 아니면 결합 방향 밖(펩타이드 면 비틀림)에 실려 있는가.",
+  "design": "쌍·공유 결합·앙상블·GPA 겹침은 등록 판(r38_c)과 같다: C 쌍(derived/r38/c/pairs.json 가운데 pibar 가 있는 것), 공유 결합 = π̄('best') − 퇴화 결합, 앙상블 = r38_c.dom_get (같은 seed), 공유 결합 위 GPA(자기 평균 둘레, 3 회). 같은 GPA 뒤 결합마다 세 프로파일: full = ‖x_i − 평균‖² 의 프레임 평균(등록 판, r38_p3.gpa_profile 과 같은 식); tilt = 단위 f₁(= x_i 첫째 열 / 그 노름)의 평균 제곱 편차 E‖f₁ − E f₁‖² (길이 요동 뺌, ANM 예측과 같은 각도 분산); twist = [MSD(f₂) + MSD(f₃) − MSD(f₁)]/2 (단위 열; 작은 회전 δf_k = ω × f_k 에서 MSD(f₁) = ⟨ω₂² + ω₃²⟩, MSD(f₂) + MSD(f₃) = ⟨ω₂² + ω₃²⟩ + 2⟨ω₁²⟩ 이라 결합 축 비틀림 ⟨ω₁²⟩; 큰 회전에서는 근사 — 합성 점검: 0.01–0.03 rad 에서 기대값의 1–2% 안, 0.1–0.3 rad 에서 약 5%). r_dyn 판마다 = 두 도메인 프로파일의 Spearman. 통제·동일성·r_ANM 은 저장값(r38_c.merged; control = d_fix 짝 몫, r_ANM = 15 Å). C-1 = 편 Spearman(r_dyn, 동일성 | control), C-2 = | control, r_ANM. 구간 = 상과 Exp(1) 군집 부트스트랩 2,000, r38_c.analyse_sf 와 같은 점추정·같은 난수열(C-1 seed 20261071, C-2 seed 20261074 = 등록 판과 같음). 세 판을 같은 쌍 집합·같은 부트스트랩 무게로 한 번에 내어 짝 차이(full − tilt, full − twist)의 구간도 낸다. full 판의 r_dyn 은 저장값을 쓰고, 쌍마다 다시 낸 값과의 차를 점검으로 남긴다.",
+  "implementation_check": "full 판이 (i) 쌍마다 저장 r_dyn 과 1e-9 안에서 같고, (ii) 같은 행 수·같은 seed 의 r38_c.analyse_sf 값과 1e-9 안에서 같고, (iii) 그 값이 원고 값 C-1 0.225 [0.119, 0.333] · C-2 0.181 [0.079, 0.283] 과 셋째 자리까지 같을 때만 재현으로 본다. 재현되지 않으면 나머지를 해석하지 않는다.",
+  "verdict_rule": {
+   "a": "f₁(tilt) 판 C-2 하한 > 0 → 연관은 결합 방향 요동에도 있고, 그 요동을 예측하는 탄성망을 통제한 뒤에도 남는다(질문이 닫힘).",
+   "b": "f₁ 판 C-2 하한 ≤ 0 이고 짝 차이 C-2 (full − tilt) 하한 > 0 → 연관의 상당 몫이 결합 방향 밖의 성분에 실려 있다.",
+   "c": "그 밖(둘 다 0 을 포함 등) → 결합 방향 성분만으로는 판별할 해상도가 없다.",
+   "boundary": "f₁ 판 C-2 하한이 0 에서 ±0.01 안이면 판정에 \"경계\" 를 붙여 보고하고, 둘째 seed 20261113 · 10,000 회 판은 서술로만 보인다(판정은 첫 seed 판)."
+  },
+  "sentences_for_manuscript": {
+   "a": "With the simulated profiles restricted to bond-direction fluctuations, the quantity the network model predicts, the network-model-controlled association remained (C-2: est [lo, hi]), so it is not confined to rotations of the peptide plane that an α-carbon model cannot represent.",
+   "b": "With bond-direction profiles only, the network-model-controlled association was not distinguishable from zero (C-2: est [lo, hi]) and was smaller than with whole-frame profiles (paired difference est [lo, hi]); a substantial part of the association is carried by components outside the bond direction.",
+   "c": "With bond-direction profiles only, neither the network-model-controlled association (C-2: est [lo, hi]) nor its difference from the whole-frame estimate (est [lo, hi]) was distinguishable from zero; the bond-direction component alone does not resolve where the association resides."
+  },
+  "descriptive": "비틀림 판 C-1·C-2 와 짝 차이(full − twist); C-1 세 판; 쌍별 비틀림 값이 음인 결합 비율(근사의 표지); 탄성망 일치도 = C 도메인마다 ANM 예측과 MD 프로파일(전체 결합)의 Spearman 을 세 판으로(full 판은 저장 rho 와 같은지 점검). 서술 예상: tilt 판 일치도 중앙값 > 0.60 (full 판 0.602) — 판정 기준 아님.",
+  "script": "code/r45_f1.py (부분 corr 8 조각 → sanity → stats; 대기열 code/q_r45.sh), 출력 derived/r45/f1/pairs_s<k>.jsonl · sanity.jsonl, results/r45_f1.json",
+  "script_md5": "55889bfa3aa916f3cabdf6d5517434b6",
+  "queue_md5": "3b1de9082ceff5a5b51ce9f6cd2071da"
+ }
+}
