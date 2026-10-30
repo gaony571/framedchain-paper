@@ -3,8 +3,9 @@
 Three results in S2 Text were computed in interactive Colab cells rather than by a standalone script: the
 comparison of 12 test pairs with TM-align (S2 Text 8.1), the reversed chains (S2 Text 8.5) and the equipment
 check before the computational-cost measurement (S2 Text 7). No output file was written for them. The code and
-printed output of each cell survive in the log of the working session (a Claude Code session transcript, in
-which every cell run is logged with the UTC time at which it was requested and at which its output returned).
+printed output of each cell survive in the client-side log of the working session through which the cells were
+run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
+its output returned.
 This file copies them from that log verbatim; only the parts noted were left out.
 
 Names used by the cells but defined earlier in the same runtime: `ROOT = '/content/drive/MyDrive/atlas_framed_curves'`;
