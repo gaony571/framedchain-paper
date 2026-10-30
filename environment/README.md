@@ -1,7 +1,11 @@
 # Environments
 
-All runs used Google Colab (GPU stages on A100-SXM4-40GB, driver 580.82.07; 12 vCPU Intel Xeon @ 2.20 GHz)
-with the project root on Google Drive (`/content/drive/MyDrive/atlas_framed_curves`).
+All runs used Google Colab with the project root on Google Drive (`/content/drive/MyDrive/atlas_framed_curves`).
+GPU stages ran on A100-SXM4-40GB runtimes (12 vCPUs, Intel Xeon @ 2.20 GHz); the session outputs give the GPU
+model on 19, 20, 21, 22 and 28 October 2026 and the driver, 580.82.07, on 21 and 22 October. CPU-only scripts ran
+on whichever runtime was attached, including CPU-only runtimes with 2 vCPUs (for example on 16 October, with
+torch 2.11.0+cpu) and the CPUs of an L4 runtime (round43, 22 October; 12 vCPUs, Intel Xeon @ 2.20 GHz). The
+equipment check of the compute table is in `docs/INTERACTIVE_CHECKS.md` 3.
 
 ## 1. Base Colab environment (most scripts)
 

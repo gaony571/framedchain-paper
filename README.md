@@ -66,6 +66,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 | `docs/SCRIPTS.md` | What every script computes, in English |
 | `docs/DATA.md` | Input data, intermediate tables and outputs; what is deposited and where |
 | `docs/PROVENANCE.md` | Per-file checksum and registration status |
+| `docs/INTERACTIVE_CHECKS.md` | Code and printed output of the checks run in notebook cells without a script (12 pairs against TM-align, reversed chains, equipment of the compute table), copied from the session log |
 | `docs/STATEMENTS.md` | Draft Data Availability and Code Availability statements and the software references |
 | `tools/` | `pack_for_zenodo.py` (bundle results and selected intermediates for the data deposit), `record_env.py` (record an environment) |
 | `MANIFEST.md5` | md5 of every file in this repository (`md5sum -c MANIFEST.md5`) |
@@ -125,8 +126,9 @@ The exact sequences that ran are in `run_records/queues/` (`$R` = ROOT, `$C` = R
 
 ## Environments and hardware
 
-The runs used Google Colab (A100-SXM4-40GB for the GPU stages, 12 vCPU Intel Xeon) with the project directory
-on Google Drive. Three Python environments were used:
+The runs used Google Colab (A100-SXM4-40GB runtimes with 12 vCPU Intel Xeon for the GPU stages; CPU-only scripts
+also on CPU-only runtimes with 2 vCPUs; `environment/README.md`) with the project directory on Google Drive.
+Three Python environments were used:
 
 - **Base Colab environment** (Python 3.12) for almost all scripts; packages in
   `environment/requirements-base.txt`. Recorded versions: numpy 2.1 and mdtraj 1.11.2 (2026-10-19),
@@ -159,7 +161,8 @@ reduced computation over millions of frame pairs) took days in total. The comput
   listed in `docs/DATA.md` (domain and pair lists, the mdCATH setup file, the ruler-benchmark structure sets,
   the growth-temperature table, the summary files of the old ladder rows).
 - Two early checks (TM-align comparison on 12 pairs, reversed chains) were computed interactively with
-  `framespace_wip/stage0/rulers.py`; their tables are in the project record only.
+  `framespace_wip/stage0/rulers.py` and wrote no output file; their cell code and printed output, copied from the
+  session log, are in `docs/INTERACTIVE_CHECKS.md`.
 - The base Colab environment was not frozen at run time (see above).
 - Some paths are Colab-specific (`/content/...` scratch directories, `/usr/bin/python3`, the Drive project path
   in `environment/af_bar_readmeenv.sh`). They are working directories, not inputs; change them if you run

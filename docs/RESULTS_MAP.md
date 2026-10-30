@@ -33,12 +33,12 @@ the registration record uses it.
 | 2.1 [2] | Ruler map, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | old record 7.6A |
 | 2.1 [2] | Fold retrieval, 208 structures (supplement) | `pu_fold208.py`, `analysis_fold208.py`, `analysis_fold208_ablation.py` | `results/pu_fold208_pairs.tsv`, `results/pu_fold208_retrieval.json`, `results/pu_fold208_ablation.json` | old record 7.7 |
 | 2.1 [2] | Chain linking, 150 two-domain chains (supplement) | `chaining.py`, `c4_chain_extra.py` (v2) | `results/chaining.json`, `results/chaining_v2.json`, `derived/chaining.tsv` | prereg round17, round29 |
-| 2.1 [2] | TM-align comparison (12 pairs) and reversed chains (8 structures) | computed interactively with `stage0.rulers` (no standalone script was kept) | tables in old record 7.2, 7.5 | — |
+| 2.1 [2] | TM-align comparison (12 pairs) and reversed chains (8 structures) | computed interactively with `stage0.rulers` (no standalone script was kept); cell code in `docs/INTERACTIVE_CHECKS.md` 1–2 | printed output in `docs/INTERACTIVE_CHECKS.md` 1–2 (no output file); tables in old record 7.2, 7.5 | — |
 | 2.2 [3.6d] | First session: correctness of the reduced computation | `r38_s0.py` (pick, b0, e7, trunc, ens, bias, ustat, unc), `r38_s0_bias2.py` | `results/r38_s0_<part>.json`, `results/r38_s0_bias2.json` | round36 §0 |
 | 2.3 [3.6d] | Truncated chains | `r38_s0.py` (trunc) | `results/r38_s0_trunc_*.json` | round36 §0.1 |
 | 2.4 [3.6l] | Coordinate round trip | `r39_roundtrip.py` | `results/r39_roundtrip.json` | `round36_roundtrip_2026-10-20` |
 | 2.5 [3.6n, 3.6t] | Branch-and-bound certification, static axis 500 pairs | `r38_static.py` (dom, align, bnb, stats), `r39_sec6.py` (time, stats) | `derived/r38/static/bnb.jsonl`, `results/r38_static.json`, `results/r39_sec6.json` | round36 §6, §7g |
-| 2.6 [3.6w] | Compute table | `r41_compute_prep.py`, `r41_compute.py` | `results/r41_compute.json` | round41 g5 |
+| 2.6 [3.6w] | Compute table | `r41_compute_prep.py`, `r41_compute.py` | `results/r41_compute.json`; equipment check in `docs/INTERACTIVE_CHECKS.md` 3 | round41 g5 |
 
 ## Result 3 — ensemble comparison and the unit
 

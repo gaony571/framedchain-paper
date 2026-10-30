@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
 f18af978cb59558328a86f3aaf67160e *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-420c14f8454a110cd9169dcac10bcee5 *README.md
+8f36857e4c8a6a79f539f26de8232dec *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -115,11 +115,12 @@ baba0c25848e601ce7207da39d4fa636 *code/r44_seqid_cell30.py
 8420f85172445aaada47480d2e7a89e8 *code/r45_folded_frac.py
 642e12e591c07a3f9d907a96166f05a1 *code/r45_mpstart.py
 56df0863a95fddd8ae45b8da9dad8eb4 *docs/DATA.md
+3f77d1e17203cba956c8aee83ddd005c *docs/INTERACTIVE_CHECKS.md
 53e55e82073cbf3341054e44ade54480 *docs/PROVENANCE.md
-0d710fcc0c5a1972af1bf68bd3f11a32 *docs/RESULTS_MAP.md
+a4ba338fb905ae99200604cd6d4947f0 *docs/RESULTS_MAP.md
 835fcef3f2a599b419cc7b7a0ea48519 *docs/SCRIPTS.md
 3adce6badfa8471a3bb39510e8dc54bb *docs/STATEMENTS.md
-d661bb2351316e44ffc19c6700e8c347 *environment/README.md
+60a5cbf55d52e1afff204535ca2284c0 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
 0087a3eadc056c67bb37d64430650f52 *environment/afenv_freeze.txt
 513cbddd50e840e7bc015373b68eec92 *environment/requirements-base.txt
