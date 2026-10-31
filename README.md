@@ -60,7 +60,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 | `framespace_wip/experiments/` | Constructed counterexample for the Sippl linear form |
 | `examples/` | Synthetic demonstration and its expected output |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demo and tests), setup scripts and `pip freeze` records of the two model environments; see `environment/README.md` |
-| `registration/` | Local copies of registration entries (round34, round37) and the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction) and the round45 records (`prereg_2026-10-29_addendum7.json`, written 2026-10-28 15:39:50 UTC, and `_addendum8.json`, 2026-10-29 11:15:02 UTC; the date in these two file names is Korean Standard Time, UTC+9). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
+| `registration/` | Local copies of registration entries (round34, round37) and the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction) and the round45 records (`prereg_2026-10-29_addendum7.json`, written 2026-10-28 15:39:50 UTC, and `_addendum8.json`, 2026-10-29 11:15:02 UTC; the date in these two file names is Korea Standard Time, UTC+9). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
 | `run_records/queues/` | The shell queues that ran the scripts on Colab, with the exact arguments |
 | `docs/RESULTS_MAP.md` | Manuscript section → scripts → output files → registration entry |
 | `docs/SCRIPTS.md` | What every script computes, in English |
