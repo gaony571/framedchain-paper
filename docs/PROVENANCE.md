@@ -16,30 +16,54 @@ and whether that exact checksum was recorded before or at the time of the run.
 
 Bundles: `framespace_pkg/framespace/*.py` concatenated in sorted order has md5 `4edba596…` and
 `framespace_wip/stage0/*.py` has `6703fa26…`; both prefixes are in the registration record
-(`tools/record_env.py` recomputes them). framespace 0.2.0 is tag `v0.2.0` of the framedchain repository (named framespace until 2026-10-26; commit `866995c`); the registration record pins it
+(`tools/record_env.py` recomputes them). framespace 0.2.0 is tag `v0.2.0` of the framedchain repository (named framespace until 2026-10-26; commit `5e4fdf9`); the registration record pins it
 by the bundle md5, not by a commit identifier.
 
-**Commit identifiers.** On 2026-10-26 the author name in the histories of both repositories was unified and trailer
-lines were removed from the commit messages. This changed every commit identifier but no file or date: each
-rewritten commit has the same file tree hash as the commit it replaces. Identifiers in project notes written before that date map as follows (the repositories are now named framedchain
-and framedchain-paper).
+**Commit identifiers.** The histories of both repositories were rewritten twice, each time without changing any
+file, author or date: every rewritten commit has the same file tree hash as the commit it replaces, and the tags keep
+their messages and dates. On 2026-10-26 the author name was unified and trailer lines were removed from the commit
+messages; on 2026-10-31 the commit messages, written in Korean until 2026-10-29, were translated into English. Each
+rewrite changed every commit identifier. Identifiers in project notes map as follows (the repositories were named
+framespace and framespace-paper until 2026-10-26).
 
-| Repository | Before | Now | Tag | Commit |
-|---|---|---|---|---|
-| framespace | `540c515` | `25accdb` | | framespace 0.1.0 |
-| framespace | `ad82be1` | `137f340` | | definitions aligned with the space document |
-| framespace | `16be758` | `11f44e5` | | PDB reader, adjustable constants |
-| framespace | `31b49bf` | `62d9646` | | mean point iterated to convergence |
-| framespace | `efcdd42` | `866995c` | `v0.2.0` | framespace 0.2.0, the version used in the runs (file tree `6db30c0`) |
-| framespace | `bafd810` | `676d5af` | `v0.3.0` | framespace 0.3.0 |
-| framespace | `34b9bf4` | `694c9c2` | `v0.3.1` | framespace 0.3.1 |
-| framespace | `40e6b7b` | `23c7017` | `v0.3.2` | framespace 0.3.2 |
-| framespace | `5d5ff73` | `746631d` | | framespace 0.3.3 (tag `v0.3.3` is on the next commit, `2a943fd`, which updates the cited identifiers) |
-| framespace-paper | `d2baa9b` | `b426e48` | | framespace-paper 1.0.0 |
-| framespace-paper | `10b6559` | `dc70dad` | | |
-| framespace-paper | `60e911d` | `8eceacf` | `v1.0.0` | first push |
-| framespace-paper | `1072f51` | `554892c` | | |
-| framespace-paper | `b878195` | `f177a32` | | |
+| Repository | Until 2026-10-26 | 2026-10-26 to 10-31 | From 2026-10-31 | Tag | Commit |
+|---|---|---|---|---|---|
+| framedchain | `540c515` | `25accdb` | `81715a4` |  | framespace 0.1.0: definitions and properties of the space |
+| framedchain | `ad82be1` | `137f340` | `a6a1ad1` |  | Match the confirmed definitions of the space |
+| framedchain | `16be758` | `11f44e5` | `f89546f` |  | Add a PDB reader; make constants and computation parameters adjustable |
+| framedchain | `31b49bf` | `62d9646` | `96c08b3` |  | Iterate the mean point to convergence |
+| framedchain | `efcdd42` | `866995c` | `5e4fdf9` | `v0.2.0` | framespace 0.2.0: transport module computing the ensemble W₂ by definition |
+| framedchain | `bafd810` | `676d5af` | `1162a1e` | `v0.3.0` | framespace 0.3.0: computations and estimators fixed in the paper |
+| framedchain | `34b9bf4` | `694c9c2` | `2eaa00c` | `v0.3.1` | framespace 0.3.1: release preparation (MIT licence, citation metadata, English README) and remaining fixed computations |
+| framedchain | `40e6b7b` | `23c7017` | `1376b7b` | `v0.3.2` | framespace 0.3.2: docstrings, comments and messages in English (no code change); SPDX licence metadata |
+| framedchain | `5d5ff73` | `746631d` | `908a209` |  | framespace 0.3.3: fixes from user-side checks |
+| framedchain |  | `2a943fd` | `4f5442a` | `v0.3.3` | Update commit identifiers: the v0.2.0 commit (866995c) changed with the history cleanup |
+| framedchain |  | `8de7467` | `693cd79` | `v0.4.0` | framedchain 0.4.0: rename the package from framespace to framedchain |
+| framedchain |  | `80c559f` | `8b23a96` | `v0.4.1` | framedchain 0.4.1: final paper title (documentation only) |
+| framedchain |  | `2e219dc` | `ae5d077` |  | README: 0.4.1 gives the same values as the as-run code (framedchain-paper code/r44_repro.py, 2026-10-28; documentation only) |
+| framedchain |  | `971c67b` | `3df2da1` |  | mean_point documentation: independence of the starting frame now rests on a measurement on real ensembles (6 ensembles of 153–391 bonds and 500 structures, 9 starts each, within 8e-11 after one rotation; measured with the as-run 0.2.0, 2026-10-29; documentation only) |
+| framedchain-paper | `d2baa9b` | `b426e48` | `f050e4e` |  | framespace-paper 1.0.0: analysis code of the paper (as run) and reproduction documents |
+| framedchain-paper | `10b6559` | `dc70dad` | `a0d0bb2` |  | STATEMENTS: state of the repositories as it is (framespace-paper still local only) |
+| framedchain-paper | `60e911d` | `8eceacf` | `df9c82c` | `v1.0.0` | STATEMENTS: both repositories on GitHub (private) |
+| framedchain-paper | `1072f51` | `554892c` | `cf09732` |  | Review fixes: refer to package 0.3.2, precise wording |
+| framedchain-paper | `b878195` | `f177a32` | `9f35771` |  | Refer to package 0.3.3; clearer instructions for the check environment |
+| framedchain-paper |  | `b566ba3` | `5d07542` |  | Update commit identifiers: map of the identifiers changed by the history cleanup |
+| framedchain-paper |  | `fa8d24a` | `deaf013` |  | Paper title and package name: framedchain-paper |
+| framedchain-paper |  | `6a4362e` | `c5fb5a3` |  | Final paper title and abstract |
+| framedchain-paper |  | `8f2eb3e` | `5eb1571` |  | Abstract: "Likewise" before the TM-align sentence |
+| framedchain-paper |  | `ad6ea70` | `3dbe570` | `v1.1.0` | round44 (2026-10-28): check scripts registered after external review, queues, record copies, documents, 1.1.0 |
+| framedchain-paper |  | `600b69f` | `a3d85e8` |  | STATEMENTS: version 1.1.0 (with round44) and tags; MANIFEST.md5 |
+| framedchain-paper |  | `d149c8a` | `ca361c2` |  | round44 fifth record (2026-10-28 08:53 UTC) and its correction (08:59): r44_w2p1.py (gap between W₂ and Δ²_D), r44_p1comp2.py (composition of the P1′ pairs), two record copies, documents, MANIFEST |
+| framedchain-paper |  | `fa9899f` | `bf4d561` |  | round44 sixth record (2026-10-28 11:50 UTC): r44_redsame.py (reduced computation on same-sequence cells), q_r44d.sh, record copy, documents, MANIFEST |
+| framedchain-paper |  | `f91c1a1` | `49c624f` | `v1.2.0` | round45 (2026-10-28 and 10-29): bond-direction profiles, starting frame of the mean point, count of folded samples; queue, two record copies, documents, 1.2.0 |
+| framedchain-paper |  | `3f8f39f` | `6bb96e8` |  | docs: interactive checks copied from the session log; hardware statement corrected |
+| framedchain-paper |  | `0daa4af` | `29e186b` |  | docs/INTERACTIVE_CHECKS.md: describe the source as the client-side session log (local clock) |
+| framedchain-paper |  | `612de59` | `074fcda` |  | docs/INTERACTIVE_CHECKS.md: four more checks without an output file (sections 4-7) |
+| framedchain-paper |  | `467ce1e` | `d70858e` |  | README: Korea Standard Time (official name) |
+| framedchain-paper |  | `7ec5221` | `f47b8d0` |  | framedchain-paper 1.3.0: round46-48 checks, figure and table scripts, manuscript map |
+| framedchain-paper |  | `47cd8cb` | `4dcfe47` | `v1.3.0` | docs: run dates of the figure (2026-10-30) and table (2026-10-31) scripts |
+| framedchain-paper |  | `bb700a7` | `35b54b5` |  | README rewritten as a paper companion: abstract first, figures and tables to scripts, records, layout, data, environment, notes |
+| framedchain-paper |  | `3485799` | `403f63f` |  | README: script naming, hardware wording |
 
 The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFEST.md5`).
 
