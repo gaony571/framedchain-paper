@@ -105,8 +105,9 @@ resumable: finished per-domain files are skipped. Scripts add `ROOT/framespace_p
 load functions from another script with `exec` (for example `r38_b6.py` loads part of `r38_s0.py`), so keep `code/`
 flat and unchanged. The commands that were actually run, with their arguments, are in `run_records/queues/`.
 
-Script names carry the stage of the project in which they were written (`r37` to `r48`). From the public data,
-the analyses run in this order:
+Scripts named `r37` to `r48` carry the stage of the project in which they were written; the others (data
+preparation and the early CPU-only analyses) have descriptive names. From the public data, the analyses run in
+this order:
 
 1. **Inputs.** Download the public data into `raw/` and place the deposited intermediate tables in `results/` and
    `derived/` (`docs/DATA.md`).
@@ -126,7 +127,7 @@ the analyses run in this order:
 8. **Thermophilic homologs** (GPU): `r38_p1.py`, `r38_p1_diag.py`, `r38_p1n_fetch.py`, `r38_p1n.py`.
 9. **Sequence identity** (GPU, then CPU): `r38_p3.py`, `r38_p3_explore2.py`, `r38_c_fetch.py`, `r38_c.py`,
    `r38_c_nl.py`.
-10. **Analyses added after the results** (CPU unless noted): `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
+10. **Analyses added after the results:** `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
     `r47_*.py`, `r48_identity_range.py`, each fixed in its own time-stamped record (`docs/RESULTS_MAP.md`).
 11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
     project path is set at the top of each file.
@@ -172,7 +173,7 @@ and intermediate with its source and licence.
 ## Software and hardware
 
 The analyses ran on Google Colab with the project directory on Google Drive: A100-SXM4-40GB runtimes (12 vCPUs)
-for the GPU stages, and CPU-only runtimes for some CPU stages (`environment/README.md`).
+for the GPU stages and, for some CPU stages, CPU-only runtimes or the CPUs of other runtimes (`environment/README.md`).
 
 - **Base environment** (Python 3.12) for almost all scripts: `environment/requirements-base.txt`. Recorded
   versions: numpy 2.1 and mdtraj 1.11.2 (2026-10-19), torch 2.11.0+cu130 (2026-10-22), tmtools 0.3.0. This environment was not
