@@ -2,7 +2,7 @@
 
 Analysis code for the paper
 
-> Hyeonsu An. Comparing protein conformational ensembles across sequences and lengths. In preparation.
+> Hyeonsu An. Comparing protein conformational ensembles across sequences and lengths. Submitted.
 
 This repository contains the code exactly as it was run to produce every number, figure and table of the paper,
 together with the run queues, environment records and the time-stamped records that fixed each analysis before it
