@@ -9,7 +9,7 @@ which represents protein backbones of any length as framed chains, builds a metr
 them, and uses them to compare structural ensembles across temperatures, force fields, generative models and
 sequences. The abstract is at the end of this file.
 
-Version 1.2.0 — the code as run for the manuscript (1.1.0 added the round44 checks of 2026-10-28; 1.2.0 adds the round45 checks of 2026-10-28 and 10-29). Author: Hyeonsu An. Licence: MIT.
+Version 1.3.0 — the code as run for the manuscript (1.1.0 added the round44 checks of 2026-10-28; 1.2.0 the round45 checks of 2026-10-28 and 10-29; 1.3.0 adds the round46–48 checks of 2026-10-29 and 10-30, the scripts that draw the figures and tables, and a map from the manuscript to the scripts). Author: Hyeonsu An. Licence: MIT.
 
 This repository is the **as-run** code: every script here is the version that produced the numbers in the
 manuscript, byte for byte where a checksum was registered (see `docs/PROVENANCE.md`). When a registered script
@@ -54,15 +54,15 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 
 | Path | Content |
 |---|---|
-| `code/` | Analysis scripts (Python), one per experiment or stage; `code/negtype/` holds three small Node.js checks. English descriptions in `docs/SCRIPTS.md` |
+| `code/` | Analysis scripts (Python), one per experiment or stage; `make_figs.py`, `make_tables.py` and `make_s1.py` draw the figures and the S1–S3 Tables from the stored results; `code/negtype/` holds four small Node.js checks. English descriptions in `docs/SCRIPTS.md` |
 | `framespace_pkg/framespace/` | framespace 0.2.0 exactly as used in the runs (tag `v0.2.0`, commit `866995c` of the framedchain repository; bundle md5 `4edba596…`) |
 | `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | Research module used by the runs (reduced computation, rulers, ESA/W2 helpers) and its tests (bundle md5 `6703fa26…`) |
 | `framespace_wip/experiments/` | Constructed counterexample for the Sippl linear form |
 | `examples/` | Synthetic demonstration and its expected output |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demo and tests), setup scripts and `pip freeze` records of the two model environments; see `environment/README.md` |
-| `registration/` | Local copies of registration entries (round34, round37) and the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction) and the round45 records (`prereg_2026-10-29_addendum7.json`, written 2026-10-28 15:39:50 UTC, and `_addendum8.json`, 2026-10-29 11:15:02 UTC; the date in these two file names is Korea Standard Time, UTC+9). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
+| `registration/` | Local copies of registration entries (round34, round37), the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction), the round45 records (`prereg_2026-10-29_addendum7.json`, written 2026-10-28 15:39:50 UTC, and `_addendum8.json`, 2026-10-29 11:15:02 UTC) and the round46–48 records (`prereg_2026-10-30_addendum9.json`, 2026-10-29 16:34:05 UTC, corrected by `_addendum9_fix1.json` at 17:19:37; `_addendum10.json`, 2026-10-30 06:13:48 UTC, corrected by `_addendum10_fix1.json` at 06:46:19 and `_addendum10_fix2.json` at 06:47:24; `_addendum11.json`, 07:30:01). The date in the file names of the round45–48 records is Korea Standard Time (UTC+9). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
 | `run_records/queues/` | The shell queues that ran the scripts on Colab, with the exact arguments |
-| `docs/RESULTS_MAP.md` | Manuscript section → scripts → output files → registration entry |
+| `docs/RESULTS_MAP.md` | Manuscript item → scripts → output files → registration entry (first table from the manuscript, then row by row) |
 | `docs/SCRIPTS.md` | What every script computes, in English |
 | `docs/DATA.md` | Input data, intermediate tables and outputs; what is deposited and where |
 | `docs/PROVENANCE.md` | Per-file checksum and registration status |
@@ -121,6 +121,12 @@ part of `r38_s0.py`, and `r38_p1.py` loads `r38_p3.py`); keep the `code/` direct
 9. **Round45 (checks added after external review, 2026-10-28 and 10-29):** `r45_f1.py` (bond-direction and twist profiles, queue `q_r45.sh`),
    `r45_mpstart.py` (independence of the mean point from the starting frame); `r45_folded_frac.py` is a descriptive count run from a notebook,
    kept verbatim below a header.
+10. **Round46–48 (checks added after external review, 2026-10-29 and 10-30):** `r46_align.py` (tm, stats; its second
+   check failed, see the correction record) and `r46_align_fix1.py` (average ranks); `r47_ties.py`, run by
+   `run_records/queues/q_r47.py`, with the comparison step re-run by `r47_combine_fix2.py` (`r47_combine_fix1.py` stopped
+   with a syntax error); `r48_identity_range.py` (exp, stats).
+11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py` read the stored results only and recompute
+   nothing; the project path is set at the top of each file.
 
 The exact sequences that ran are in `run_records/queues/` (`$R` = ROOT, `$C` = ROOT/code, `$L` = log directory).
 
@@ -167,7 +173,7 @@ reduced computation over millions of frame pairs) took days in total. The comput
   `docs/INTERACTIVE_CHECKS.md`.
 - The base Colab environment was not frozen at run time (see above).
 - Some paths are Colab-specific (`/content/...` scratch directories, `/usr/bin/python3`, the Drive project path
-  in `environment/af_bar_readmeenv.sh`). They are working directories, not inputs; change them if you run
+  in `environment/af_bar_readmeenv.sh` and at the top of `make_figs.py`, `make_tables.py` and `make_s1.py`). They are working directories, not inputs; change them if you run
   elsewhere.
 - Scripts whose checksum was not registered are marked in `docs/PROVENANCE.md`.
 
@@ -180,4 +186,4 @@ be added at release).
 
 ## Abstract
 
-Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replica and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains’ shifts under 59 K heating, yet point largely away from the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear structural covariates; in shorter domains, the association does not survive these controls. Ensembles of different sequences thus share one geometry.
+Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replicate and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains' shifts under 59 K heating, yet are largely orthogonal to the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear controls; in shorter domains, the association does not survive the nonlinear controls. Ensembles across sequences thus become comparable in one geometry.

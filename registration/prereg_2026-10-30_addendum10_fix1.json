@@ -1,0 +1,11 @@
+{
+ "written": "2026-10-30 06:46:19 UTC",
+ "note": "r47_ties (addendum10, written 2026-10-30 06:13:48 UTC) 의 고침. 비교 단계를 다시 내기 전에 씀. 사용자 승인 2026-10-30 \"그렇게 고쳐와\".",
+ "r47_ties_fix1": {
+  "what_happened": "계산 부분 일곱(ties; p3·nl·anm × argsort·average)은 모두 끝남(종료 코드 0, derived/r47/ 에 파일 일곱). 비교 단계(combine)가 부분 파일의 글자 칸(written, part, mode)까지 추정치로 읽으려다 TypeError('string indices must be integers') 로 멈춤(06:37:05 UTC). results/r47_ties.json 은 쓰이지 않음.",
+  "already_seen": "로그에 찍힌 점추정(argsort → 평균 순위): 첫 연구 1b 0.111296 → 0.111464; H 두 선형 통제 0.078202 → 0.078443; H 8 변수 선형 0.038668 → 0.038688; H C-2 ANM 10 Å 0.07829 → 0.078395, 13 Å 0.062415 → 0.062535, 15 Å 0.07833 → 0.078443, GNM 0.065924 → 0.066004. 동점 구조 로그: H-풀 동일성 11,991 쌍에 서로 다른 값 837 개, 가장 큰 동점 169, T = 2.32e-5. 구간 끝과 상과 무게 구간·저장값과의 비교는 보지 않음.",
+  "change": "combine 이 추정치 칸(dict)만 읽도록 거르는 것 하나. 계산 부분 파일·저장값 비교 방식·잼·처리 규칙은 원 등록 그대로. 출력 이름도 그대로(results/r47_ties.json, 처음 씀).",
+  "script": "code/r47_combine_fix1.py (r47_ties.py 62736bf9 의 함수를 불러 combine 만 고침), 출력 results/r47_ties.json",
+  "script_md5": "b18f1d038685dc0a107824a6c7f1a58f"
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "written": "2026-10-30 07:30:01 UTC",
+ "note": "열한째 추가 등록. 외부 검토(2026-10-30) 19번 '연관이 동일성 전 범위에 걸치는가'. 설계는 외부 검토 두 차례 반영. 사용자 \"적용하고 등록해\". 계산 전 등록(새 파일, 고치지 않음; 고칠 일이 생기면 별도 고침 파일).",
+ "r48_identity_range": {
+  "question": "확인 실험 C 의 서열 동일성 연관(C-1, C-2)이 동일성 전 범위에 걸치는가, 아니면 동일성이 높은 소수의 쌍이 끄는가.",
+  "data": "등록 판 C 의 쌍별 값(derived/r38/c/pairs_out.jsonl·anm_pairs.jsonl; r38_c.merged 의 main), r46 의 쌍별 TM-align 값(derived/r46/align_pairs.jsonl; ident_tm_res, prec0, n_res — r46 에서 계산한 저장값). 조성 기대 동일성은 저장값이 아니라 이 스크립트가 도메인 파일(derived/r38/c/dom/<d>.npz 의 서열·퇴화 표시)과 pibar.jsonl 의 π̄ 짝에서 새로 계산(공유 결합 = π̄ 짝에서 퇴화 결합을 뺀 것; 첫 잔기 조성 p, q 로 Σ_a p_a q_a).",
+  "threshold": "S15 = π̄ 동일성 < 0.15. 문턱은 원고 표 3 의 기존 동일성 묶음(< 15%; r44_agree 의 TM 정렬 잔기 동일성 구간)과 외부 검토의 물음에서 가져왔고, 결과를 보고 고른 값이 아님.",
+  "design": "순위 = 평균 순위; 부분집합마다 그 안에서 r_dyn·동일성·통제의 순위를 다시 매김; 무게 = 1/(그 집합 안의 상과 쌍 수); 편상관 식은 r38_p3 그대로. 판정 = S15 의 C-1·C-2. 서술: 전체 판, S15 의 상과만으로 낸 전체 판(SFbase; 남은 상과 수 보고), S10 (π̄ 동일성 < 0.10, 배경 쪽으로 더 깊이), T15 (TM 정렬 잔기 동일성 < 0.15 로 고르고 x 는 π̄ 동일성), S15 안의 A (x = TM 정렬 잔기 동일성) 와 B0 (통제 + 정밀도 ±0; 쌍은 S15 ∩ TM 정렬 잔기 ≥ 30, r46 규칙), 전체 − S15 짝지은 차, 범위 제한 기대치, 동일성 십분위별 r_dyn 잔차(C-2 통제 뒤), 관측·조성 기대 동일성의 중앙값. 구간 = 상과 Exp(1) 10,000, seed 20261131 한 흐름(242 상과 무게를 모든 판이 함께 씀). 상위 10% 제외 판은 주 판과 거의 겹쳐 뺌.",
+  "range_restriction": "범위 제한 기대치 = 전체 자료에 순위 척도에서 같은 연관을 둔 모형(원래 추정량과 같은 상과 무게 1/쌍 수의 WLS: r_dyn 순위 ~ 동일성 순위 + 통제 순위)의 적합값에, 상과 × 동일성 층(≥ 0.15 / < 0.15) 안에서 복원 추출한 잔차를 더한 가상 r_dyn 으로 S15 추정을 1,000 번 반복한 평균(seed 20261132, SeedSequence 1,000 갈래). '전 범위에서 같다' 는 순위 척도에서 같다는 뜻(원래 동일성 척도가 아님; Spearman 추정량과 맞춘 선택). 두 층의 잔차 분산을 서술로 보고. 비교 규칙: S15 상한 < 기대 평균 → 'below the value expected from range restriction alone', S15 하한 > 기대 평균 → 'above', 그 밖 → 'consistent with it'. 모사의 퍼짐은 잔차 재추출의 퍼짐이라 비교에 쓰지 않음.",
+  "biases": "범위를 좁히면 동일성의 분산이 줄어 연관이 고르게 퍼져 있어도 순위 상관이 0 쪽으로 줄어듦 — 그래서 전체 − S15 차는 서술만이고 꼬리가 끈다는 증거로 읽지 않음. 15% 미만에서는 동일성이 정렬 정확도의 대리 변수에 가까워질 수 있음(r46 의 정밀도·π̄ 동일성 편상관 0.435) — 그래서 S15 안의 A·B0 를 함께 냄. B0 는 0 쪽 치우침이 있음(r46 기록: π̄ 는 요동만큼 줄어든 평균 점의 정렬이라 정밀도에 동역학 닮음이 들어감). 제한하면 상과 구성이 바뀜(쌍이 둘 이하인 상과에서 효과가 컸음, 0.291 대 0.167) — SFbase 와 남은 상과 수로 봄.",
+  "checks": "(1) 전체 판의 평균 순위 점추정이 r46_align_fix1 고침 기록 값(C-1 0.22460683061158487, C-2 0.18094574136027425)과 |차| < 1e-9 (점추정은 seed 와 무관). (2) 새로 센 관측 동일성이 저장 ident 와 모든 쌍에서 |차| < 1e-12. 어긋나면 판정을 내지 않음.",
+  "decision": "S15 에서 C-1·C-2 하한 > 0 → holds, C-1 하한만 > 0 → partly, 그 밖 → fails. A15_ok = S15 안 A 의 C-1·C-2 하한 둘 다 > 0, B015_ok = 같은 기준의 B0. 문장 갈래: holds_AB (holds·A ok·B0 ok), holds_Afail (holds·A 안 섬), holds_Bfail (holds·A ok·B0 안 섬), partly, fails.",
+  "sentences_R8": {
+   "holds_AB": "Restricted to the pairs below 15% identity (n …; median identity …, composition-expected median …), the association remained (C-1 …; C-2 …), so it does not depend on the few pairs of higher identity; it also remained there with identity taken from TM-align (C-1 …; C-2 …) and with agreement between the alignments controlled (C-1 …; C-2 …).",
+   "holds_Bfail": "Restricted to the pairs below 15% identity (…), the association remained (C-1 …; C-2 …), so it does not depend on the few pairs of higher identity; it remained with identity taken from TM-align (…) but not with agreement between the alignments controlled (…), a covariate that can remove part of a genuine association (above).",
+   "holds_Afail": "Restricted to the pairs below 15% identity (…), the association remained (C-1 …; C-2 …), but not with identity taken from TM-align (…), so in this range it cannot be separated from the accuracy of the shared correspondence.",
+   "partly": "Restricted to the pairs below 15% identity (…), the association remained with the structural control (C-1 …) but not with the network-model control added (C-2 …); the value expected from range restriction alone was … ([below/consistent with/above] by the rule above).",
+   "fails": "Restricted to the pairs below 15% identity (…), the association was not distinguishable from zero (C-1 …; C-2 …); the value expected from range restriction alone was … ([below/consistent with/above] by the rule above)."
+  },
+  "sentences_discussion": {
+   "holds_AB": "…the elastic-network predictions used here did not capture this component, which is present also among pairs below 15% identity.",
+   "holds_Bfail": "…did not capture this component, which is present also among pairs below 15% identity, although controlling there for agreement between alignments removes it.",
+   "holds_Afail": "…did not capture this component; below 15% identity it could not be separated from alignment accuracy.",
+   "partly": "…did not capture this component in the full set, although below 15% identity it was only partly detectable.",
+   "fails": "…did not capture this component in the full set, although below 15% identity it was not detectable."
+  },
+  "abstract": "결과와 무관하게 그대로(초록은 전체 집합에 대한 주장).",
+  "already_seen": "동일성 중앙값(π̄ 0.10, TM 정렬 잔기 0.098), 표 3 의 TM 정렬 잔기 동일성 < 15% 가 쌍의 88%, r46 의 정밀도·π̄ 동일성 편상관 0.435 와 r46 의 모든 결과. r38_c_nl 의 동일성 십분위별 r_dyn 비선형 잔차 평균(C·H; 모든 구간이 0 포함, 단조 아님)을 2026-10-30 약 07 UTC 에 열어 봄 — 15% 문턱을 이 기획에 적기 전이지만, 문턱은 표 3 의 기존 묶음에서 가져옴. 그 십분위 경계(π̄ 동일성 0.069, 0.080, 0.089, 0.096, 0.105, 0.113, 0.124, 0.138, 0.163)로 S15 가 약 85% 임을 앎. 이번 서술의 십분위 잔차(C-2 통제 뒤 선형)는 이미 본 것과 거의 같은 정보임.",
+  "script": "code/r48_identity_range.py (부분 exp → stats), 출력 derived/r48/exp_ident.jsonl, results/r48_identity_range.json, 로그 results/logs/r48_identity_range.log",
+  "script_md5": "32f24903bd78c607ba65dc41dae98d66",
+  "inputs_md5": {
+   "derived/r38/c/pairs_out.jsonl": "3b437ea86d9e3c348ff2e0bb56a2c622",
+   "derived/r38/c/anm_pairs.jsonl": "fb3932389b21a9dffcef7ab173238b6e",
+   "derived/r38/c/pibar.jsonl": "b0cb19a853b1e1bdf71aa16b993c3870",
+   "derived/r38/c/pairs.json": "3e4d6687fa241f3e921f3b83d44a06ff",
+   "derived/r46/align_pairs.jsonl": "efc1fef2dbd7a94cb5d35bf9876dc321",
+   "results/r46_align_fix1.json": "bc761878837ce7e1b70e72d8587dcd37",
+   "code/r38_c.py": "62de87cfd461bfbb67b5dc8eff60b703",
+   "code/r38_p3.py": "a37a96530e3d5a1bd42b2691d137278a",
+   "derived/r38/c/dom/ (이름·크기 목록)": {
+    "n": 1014,
+    "md5": "6ac3661f3e14e88a26425490a1dc9a9a"
+   }
+  }
+ }
+}

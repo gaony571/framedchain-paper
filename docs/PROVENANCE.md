@@ -6,9 +6,9 @@ and whether that exact checksum was recorded before or at the time of the run.
 - **R** — the full md5 appears in the registration record `results/prereg_2026-10-17.json` (65 files).
   For some scripts the matching value is a later entry registered after a correction
   (`r38_c.py`, `r38_verify_c.py`, `r38_r10a.py`, `r39_r6.py`, `r39_sec6.py`); the record gives its time.
-- **A** — the full md5 appears in one of the round44 or round45 records `registration/prereg_2026-10-2*_addendum*.json`, written before the run (8 files).
+- **A** — the full md5 appears in one of the round44–48 records `registration/prereg_2026-10-*_addendum*.json` (including their corrections), written before the run (15 files).
 - **P** — the checksum was recorded elsewhere in the project record (checksum manifests sent with the code, a verdict output, code notes, a run log) (11 files).
-- **U** — no checksum was recorded before this repository was assembled (46 files up to round43; 18 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py`, `r44_p1comp2.py`, `r44_redsame.py` and the copies of the round44 records, which were each written once on Google Drive and never modified; 3 more from round45: `r45_folded_frac.py` and the copies of the two round45 records). These are mostly
+- **U** — no checksum was recorded before this repository was assembled (46 files up to round43; 18 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py`, `r44_p1comp2.py`, `r44_redsame.py` and the copies of the round44 records, which were each written once on Google Drive and never modified; 3 more from round45: `r45_folded_frac.py` and the copies of the two round45 records; 10 more from round46–48 and the manuscript: the copies of the six round46–48 records, the figure and table scripts `make_figs.py`, `make_tables.py`, `make_s1.py` and the check `negtype_eta_len2.js`). These are mostly
   the early CPU-phase scripts (2026-10-16 to 10-18: ruler comparisons, ladder, C4, H-T), data-preparation
   scripts, setup scripts and freeze files. Those that were not in the local working copy were restored from
   the project storage (Google Drive) while this repository was assembled, and their sizes were checked against
@@ -67,12 +67,16 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/ladder_model_error_folded.py` | `0c2d4e91bfcd06eca6c07152d0e9debb` | U |  |
 | `code/ladder_temp_single.py` | `961d2f27c0406c9667fabb03b2d5b142` | U |  |
 | `code/ladder_temp_single_v2.py` | `6420c51e5aeb3a69c51aafa1711a261d` | U |  |
+| `code/make_figs.py` | `1dafd1630fabb9c20f4428813b6cc9a3` | U | figure script, run on Colab 2026-10-31; reads stored results only; not registered |
+| `code/make_s1.py` | `f7878cc06d37ec3e6c981f08681a502f` | U | S1 Table script, run on Colab 2026-10-31; not registered |
+| `code/make_tables.py` | `cc05551313743409a9e0888b58080995` | U | S2 and S3 Table script, run on Colab 2026-10-31; not registered |
 | `code/mdcath_5T_extract.py` | `a77709c6edfef1e21207070b2c959b69` | U |  |
 | `code/mdcath_5T_folded.py` | `6c65c299322b4cdbf6ae447c51481fa4` | U |  |
 | `code/mdcath_spread.py` | `46c7a1ea713c6ef267409b1c38067505` | U |  |
 | `code/mdcath_spread_hot.py` | `2fcea3f3cde951b279fbebb97532380a` | U |  |
 | `code/negtype/len2check.js` | `76e6c6c83d94ff455091a4427a5919f5` | P | checksum manifest sent with the code, 2026-10-18 |
 | `code/negtype/negtype.js` | `735bb53078b445c57f9943f1c4a8ee82` | P | checksum manifest sent with the code, 2026-10-18 |
+| `code/negtype/negtype_eta_len2.js` | `8fd84e58b5910171bc14e9e72161dc33` | U | η₊ sensitivity check of S3 Text 2 (2026-10-31); not registered (computation) |
 | `code/negtype/so3fourier.js` | `acd2130339fb0a5984ffcd5e893d77a9` | P | checksum manifest sent with the code, 2026-10-18 |
 | `code/p2_gap_consensus.py` | `3984e064d12827d299af4c819381210f` | U |  |
 | `code/pu_fold208.py` | `c86ac1ec102ddf89822ea71cfd8cf425` | U |  |
@@ -157,6 +161,12 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/r45_f1.py` | `55889bfa3aa916f3cabdf6d5517434b6` | A | addendum7 2026-10-28 15:39:50 UTC (`script_md5`) |
 | `code/r45_folded_frac.py` | `8420f85172445aaada47480d2e7a89e8` | U | notebook run of `/content/folded_frac.py` (2026-10-29 11:31–11:37 UTC) verbatim below a header added for this repository; not registered |
 | `code/r45_mpstart.py` | `642e12e591c07a3f9d907a96166f05a1` | A | addendum8 2026-10-29 11:15:02 UTC (`script_md5`) |
+| `code/r46_align.py` | `a2c0156b3068202f3acf1dba8ca69035` | A | addendum9 2026-10-29 16:34:05 UTC (`script_md5`) |
+| `code/r46_align_fix1.py` | `6353ddb70d0187e0462d41e1e8a6a44a` | A | addendum9_fix1 2026-10-29 17:19:37 UTC (`script_md5`) |
+| `code/r47_combine_fix1.py` | `b18f1d038685dc0a107824a6c7f1a58f` | A | addendum10_fix1 2026-10-30 06:46:19 UTC (`script_md5`); stopped with a syntax error, no output |
+| `code/r47_combine_fix2.py` | `10ab7f1ecb2fe3ee2cec531e6794fd16` | A | addendum10_fix2 2026-10-30 06:47:24 UTC (`script_md5`) |
+| `code/r47_ties.py` | `62736bf92a18c09a4b5fede7ad2ae023` | A | addendum10 2026-10-30 06:13:48 UTC (`script_md5`) |
+| `code/r48_identity_range.py` | `32f24903bd78c607ba65dc41dae98d66` | A | addendum11 2026-10-30 07:30:01 UTC (`script_md5`) |
 | `environment/af_bar_readmeenv.sh` | `b4af12134c383fbc056f2ad6ab48ffd0` | U |  |
 | `environment/afenv_freeze.txt` | `0087a3eadc056c67bb37d64430650f52` | U |  |
 | `environment/samenv_freeze.txt` | `046b712106ab93314518c9622d2bed40` | U |  |
@@ -172,6 +182,12 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `registration/prereg_2026-10-28_addendum6.json` | `9b4ad04cc1fd1dd74e946df7cbfbd9e8` | U | byte copy of the Drive file (created 11:50:14 UTC, never modified) |
 | `registration/prereg_2026-10-29_addendum7.json` | `5c623bf34007f527c4b5c15441249908` | U | byte copy of the Drive file (written 2026-10-28 15:39:50 UTC, never modified; the file-name date is KST) |
 | `registration/prereg_2026-10-29_addendum8.json` | `3d28986f75ccd406e02f4006336a673e` | U | byte copy of the Drive file (written 2026-10-29 11:15:02 UTC, never modified) |
+| `registration/prereg_2026-10-30_addendum10.json` | `e2aba4016277859b350287d2696065ca` | U | byte copy of the Drive file (written 2026-10-30 06:13:48 UTC, never modified) |
+| `registration/prereg_2026-10-30_addendum10_fix1.json` | `90d7f433598593c77aaa6410fa3cd4a1` | U | byte copy of the Drive file (written 2026-10-30 06:46:19 UTC, never modified) |
+| `registration/prereg_2026-10-30_addendum10_fix2.json` | `393880a87a6dc028e215ecdea559c5b9` | U | byte copy of the Drive file (written 2026-10-30 06:47:24 UTC, never modified) |
+| `registration/prereg_2026-10-30_addendum11.json` | `947aa2fef41764e6e6b377ee93cb4b3d` | U | byte copy of the Drive file (written 2026-10-30 07:30:01 UTC, never modified) |
+| `registration/prereg_2026-10-30_addendum9.json` | `c4853aaed96544685a940df29eee4478` | U | byte copy of the Drive file (written 2026-10-29 16:34:05 UTC, never modified) |
+| `registration/prereg_2026-10-30_addendum9_fix1.json` | `b61187dacccbaab2fa46ca3aff4ad940` | U | byte copy of the Drive file (written 2026-10-29 17:19:37 UTC, never modified) |
 | `registration/prereg_round34.json` | `0453e32ea141d0c8d6d1258542e3ebd8` | P | checksum manifest sent with the code, 2026-10-19 |
 | `registration/prereg_round37.json` | `3692c5e053c1a3fd87a22df2eefa34e7` | U |  |
 | `run_records/queues/q_b6_cpu.sh` | `ab6ed598d287f688b1205816f6ec7431` | R | full md5 in the registration record |
@@ -195,4 +211,5 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `run_records/queues/q_r44c.sh` | `0a582e7eab7640bb6b9e67fad46543df` | U |  |
 | `run_records/queues/q_r44d.sh` | `c36712c2119c459dcfaa25a13eb0ced5` | U |  |
 | `run_records/queues/q_r45.sh` | `3b1de9082ceff5a5b51ce9f6cd2071da` | A | addendum7 (`queue_md5`) |
+| `run_records/queues/q_r47.py` | `d2b027c166d970df52a0dcdbec187a7c` | A | addendum10 (`runner_md5`) |
 | `run_records/queues/r39_resume_20261021.sh` | `a32e0766f12b37572dbc215c9dbe295c` | U |  |

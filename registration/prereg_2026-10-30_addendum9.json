@@ -1,0 +1,52 @@
+{
+ "written": "2026-10-29 16:34:05 UTC",
+ "note": "확인 실험 C 의 공통 원인 점검. 외부 검토(2026-10-30): 서열 동일성·r_dyn·구조 통제·r_ANM 이 모두 같은 대응 π̄ 위에서 계산되어, 대응이 국소적으로 어긋난 쌍은 동일성과 r_dyn 이 함께 낮아질 수 있음(정렬 정확도가 공통 원인). 설계는 외부 검토 두 차례를 반영. 사용자 승인 2026-10-30 \"이 의견대로 수정 후 진행해\". 계산 전 등록(새 파일, 고치지 않음; 고칠 일이 생기면 별도 고침 파일).",
+ "r46_align": {
+  "question": "확인 실험 C 의 서열 동일성 효과(C-1 0.225, C-2 0.181)가 동일성과 r_dyn 이 공유하는 정렬 정확도로 설명되는가.",
+  "already_seen": "표 3 의 동일성 구간별 포함률(TM-align 메도이드 짝 가운데 π̄ 가 담는 비율 = 재현율) 중앙값과 동일성 중앙값(π̄·TM-align 메도이드 0.10, 서열 정렬 0.27)은 이미 알려짐(r44_agree·r44_corr). TM-align 메도이드 정렬로 센 동일성·정밀도·재현율과 r_dyn 의 관계(편상관)는 계산한 적 없음.",
+  "data": "r_dyn·control·r_anm·π̄ 동일성 = derived/r38/c/pairs_out.jsonl·anm_pairs.jsonl (r38_c.merged 의 main; 등록 판 그대로). 메도이드 TM-align 을 다시 돌림(tmtools 0.3.0, r44_corr_v2.tm_map 그대로; 입력 = derived/r38/c/medoid/<d>.npy 의 Cα, dom/<d>.npz 의 서열·퇴화 표시, pibar.jsonl 의 π̄ 짝). 정렬 잔기 = TM-align 출력에서 두 쪽 모두 틈이 아닌 모든 자리(거리 문턱 없음; r44_corr2 의 ident_tm_res 와 같은 정의). 재현율 판은 derived/r44/corr2/pairs_c2_s*.jsonl 의 cover tm_med_by_pibar|t0·t2.",
+  "paths": "A 는 같은 대응 오류가 동일성과 r_dyn 에 함께 들어가는 기계적 결합을 끊는다. B 는 '분기가 크다 → π̄ 가 틀린다 → r_dyn 이 낮아진다' 경로를 통제한다(TM-align 동일성도 실제 분기를 반영하므로 이 경로는 A 만으로는 남는다).",
+  "design": "쌍 = C 쌍 가운데 등록 판 main 의 r_dyn·ident·control·r_anm 가 있고, 다시 낸 TM-align 이 r44_corr2 에 있으며 TM 정렬 잔기 ≥ 30 인 것(공통 집합; 쌍 수를 보고하고 기준 판도 이 집합에서 다시 냄). A: 동일성만 TM-align 정렬 잔기 전체의 동일성. B: 정밀도_k = r_dyn 이 쓴 π̄ 공유 결합(퇴화 결합 뺌) 가운데 TM-align 이 같은 결합 i 를 |j′ − j| ≤ k 인 j′ 에 짝짓는 비율 (TM 결합 짝 = 잔기 i↔j′, i+1↔j′+1 이 모두 정렬; k = 0 과 2) 을 통제에 더함 — B0, B2. C-1 = 통제 control, C-2 = control + r_anm. 점추정 = r38_c.analyse_sf 와 같음(순위 → 상과 무게 1/쌍 수의 WLS 잔차 → 가중 Pearson). 구간 = 상과 Exp(1) 군집 부트스트랩 10,000, seed 20261121 한 흐름에서 기준·A·B0·B2·결합 편상관을 같은 무게로 함께 뽑음; 짝지은 차 여섯 = {기준 − A, 기준 − B0, 기준 − B2} × {C-1, C-2}.",
+  "bias": "B 는 0 쪽으로 치우칠 수 있다. π̄ 는 평균 점끼리의 정렬이고 평균 점의 결합 행렬은 요동만큼 줄어든다. 그래서 요동 윤곽이 비슷한 두 도메인은 평균 점도 비슷하게 줄어 π̄ 가 TM-align 메도이드 정렬과 더 잘 맞을 수 있다. 정밀도에는 분기의 영향과 동역학 닮음 자체의 영향이 함께 들어가, 통제하면 동일성과 r_dyn 의 참 연관 일부도 깎인다. 따라서 B 의 fails 는 그 자체로 공통 원인의 증거가 아니다. A 에는 이 문제가 없다(메도이드 서열과 메도이드 정렬은 요동과 무관).",
+  "checks": "(1) tm 부분 끝: 다시 낸 TM-align 이 r44_corr2 와 정수 셈으로 완전히 같아야 함 — TM 결합 짝 수(n_ep tm_med), 동일 잔기 수(= ident_tm_res × 정렬 잔기 수), π̄ 가 ±0·±2 안에 담는 TM 짝 수(= cover × TM 짝 수). 모든 공통 쌍이 같으면 derived/r46/tm_check.json 에 pass = true. stats 는 pass = true 일 때만 돈다. 어긋나면 통계를 내기 전에 고침 기록(prereg_2026-10-30_addendum9_fix1.json 꼴, addendum5_fix1 과 같은 방식)을 쓴다. (2) stats 처음: 전체 C 쌍의 기준 판을 등록 seed(20261071, 20261074)로 다시 내어 results/r38_c.json 의 C1·C2 main 의 est·lo·hi 와 |차| < 1e-9. 어긋나면 판정을 내지 않는다.",
+  "decision": "판(A, B0, B2)마다 C-1·C-2 하한 > 0 → holds, C-1 하한만 > 0 → partly, 그 밖 → fails. B = B0·B2 가운데 약한 쪽(±0 이 1–2 결합 엇갈림 경로를 막고, ±2 는 표 3 과 같은 틀). 판정은 seed 20261121 의 10,000 회 한 흐름의 결과로만 한다(둘째 seed 20261122 는 서술). 크기(기준 대비 비·짝지은 차)는 판정에 넣지 않고 쓸 문장만 가른다.",
+  "sentences": {
+   "hold": "With identity taken instead over the residues aligned by TM-align on medoids, an alignment made independently of the edit distance, C-1 was … and C-2 …. Adding, as a covariate, the share of shared bonds that TM-align pairs the same way left them at … and … (exact pairing; … and … within two bonds). Alignment accuracy shared by identity and r_dyn therefore does not account for the association.",
+   "hold_not_all (A·B 모두 holds 이고 짝지은 차 여섯 가운데 하나라도 하한 > 0)": "With identity taken instead over the residues aligned by TM-align on medoids, an alignment made independently of the edit distance, C-1 was … and C-2 …. Adding, as a covariate, the share of shared bonds that TM-align pairs the same way left them at … and … (exact pairing; … and … within two bonds). Alignment accuracy shared by identity and r_dyn therefore does not account for all of the association (paired differences …).",
+   "A_ok_B_fail (A 적어도 partly, B fails; A 가 partly 면 'remained with the structural control')": "With identity taken instead over the residues aligned by TM-align on medoids, an alignment made independently of the edit distance, the association remained (C-1 …; C-2 …), but not when the share of shared bonds that TM-align pairs the same way was added as a covariate (…). Because the edit-distance correspondence aligns mean points, whose bond matrices shrink with their fluctuations, agreement with TM-align may itself partly reflect similar dynamics, so controlling for it can remove part of a genuine association.",
+   "A_fail_B_ok (A fails, B 적어도 partly; B 가 partly 면 'remained with the structural control')": "With identity taken instead over the residues aligned by TM-align on medoids, an alignment made independently of the edit distance, the association was not distinguishable from zero (…), although it remained when the share of shared bonds that TM-align pairs the same way was added as a covariate (…); the association therefore appears only with identity counted over the same correspondence as r_dyn.",
+   "mixed_partly (둘 다 적어도 partly, 하나 이상 partly)": "In at least one analysis the association remained with the structural control but not with the network-model control added (…), so shared alignment accuracy may account for part of it.",
+   "fail (A·B 모두 fails)": "In both analyses the association was not distinguishable from zero (…), so it cannot be separated from the accuracy of the correspondence that identity and r_dyn share."
+  },
+  "abstract": "A 가 적어도 partly → 초록 그대로. A 가 fails → B 와 무관하게 초록의 C 문장에 단서를 넣는다(문구는 300 단어 안의 안을 사용자에게 확정받음). B 만 fails → 위 0 쪽 치우침 때문에 초록은 그대로 두고 R8·논의 문장으로 처리. 이유: A 가 fails 면 연관이 같은 대응에서 센 동일성에서만 나타난다는 뜻이고, 그것이 심사자가 물을 질문이다. 초록은 '구조·탄성망·비선형 통제를 넘어서' 까지만 주장한다.",
+  "descriptive": "둘째 seed 의 구간; A′ (자리는 π̄ 공유 결합, 짝만 TM-align 잔기 대응 — 결합 i 의 첫 잔기와 그 TM 짝의 동일성; TM 짝이 있는 결합 ≥ 30; A 가 줄었을 때 짝짓기 결합 탓인지 세는 구간 탓인지 가름); 재현율 판 B (cover ±0·±2); 결합 경로 편상관(통제 control·r_anm 아래 정밀도 ~ r_dyn, 정밀도 ~ π̄ 동일성; 공통 원인이 될 결합이 애초에 있는지); 두 동일성의 중앙값과 Spearman; 정밀도 중앙값.",
+  "script": "code/r46_align.py (tm → stats), 출력 derived/r46/align_pairs.jsonl, derived/r46/tm_check.json, results/r46_align.json, 로그 results/logs/r46_align.log",
+  "script_md5": "a2c0156b3068202f3acf1dba8ca69035",
+  "inputs_md5": {
+   "derived/r38/c/pairs_out.jsonl": "3b437ea86d9e3c348ff2e0bb56a2c622",
+   "derived/r38/c/anm_pairs.jsonl": "fb3932389b21a9dffcef7ab173238b6e",
+   "derived/r38/c/pibar.jsonl": "b0cb19a853b1e1bdf71aa16b993c3870",
+   "derived/r38/c/pairs.json": "3e4d6687fa241f3e921f3b83d44a06ff",
+   "results/r38_c.json": "b948fbff2652e6ddd754cf64923d959f",
+   "code/r44_corr_v2.py": "f364e242d17ae36075c5c761a0d76fba",
+   "code/r38_c.py": "62de87cfd461bfbb67b5dc8eff60b703",
+   "code/r38_p3.py": "a37a96530e3d5a1bd42b2691d137278a",
+   "derived/r44/corr2/pairs_c2_s0.jsonl": "c7cead958362a93553d387ee409fdc4b",
+   "derived/r44/corr2/pairs_c2_s1.jsonl": "28e08155b993acdc299b8597a9746ac2",
+   "derived/r44/corr2/pairs_c2_s2.jsonl": "ccc37d7c8ae6edf9e84d1d9cc16237c3",
+   "derived/r44/corr2/pairs_c2_s3.jsonl": "0209944b934f76075a9021c62d162940",
+   "derived/r44/corr2/pairs_c2_s4.jsonl": "1c0066f5ea104ac0f95782fa84f85bf0",
+   "derived/r44/corr2/pairs_c2_s5.jsonl": "e4aadab85c865a480bc08d53874e0d51",
+   "derived/r44/corr2/pairs_c2_s6.jsonl": "91f972bd9a757233c0ee4c7940e90d92",
+   "derived/r44/corr2/pairs_c2_s7.jsonl": "b72dbd64e47f1f2a52beb641f306f809",
+   "derived/r38/c/medoid/ (이름·크기 목록)": {
+    "n": 949,
+    "md5": "d7d64e84ada9c3d6b32347241d87c45a"
+   },
+   "derived/r38/c/dom/ (이름·크기 목록)": {
+    "n": 1014,
+    "md5": "6ac3661f3e14e88a26425490a1dc9a9a"
+   }
+  }
+ }
+}

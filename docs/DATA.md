@@ -47,8 +47,10 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | `results/pu_fold208_setup.json`, `derived/pu_fold208_ca.npz`, `results/pu_tm_factorial_setup.json`, `results/pu_tm_factorial_B_setup.json`, `derived/pu_blockB_ca.npz` | structure blocks for the TM factorial design and fold retrieval | `pu_*.py` |
 | `raw/mfm_sm/*.npz` | see section 1 | `ladder_ff*.py` |
 | `results/ladder_*_summary.json` | aggregated ladder rows (aggregation cells not kept) | text of result 4.8 |
-| `results/prereg_2026-10-17.json` | the registration record (all rounds, amendments, checklists) | — |
-| `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, `_addendum5_fix1.json`; `results/prereg_2026-10-29_addendum7.json`, `_addendum8.json` | the six round44 records and one correction (2026-10-28) and the two round45 records (written 2026-10-28 15:39:50 and 2026-10-29 11:15:02 UTC; the file-name date of these two is KST), separate files written after the first record was closed; copies in `registration/` | — |
+| `results/prereg_2026-10-17.json` | the registration record (all rounds, amendments, checklists) | `make_s1.py` (through `entries_timeline.tsv`) |
+| `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, `_addendum5_fix1.json`; `results/prereg_2026-10-29_addendum7.json`, `_addendum8.json` | the six round44 records and one correction (2026-10-28) and the two round45 records (written 2026-10-28 15:39:50 and 2026-10-29 11:15:02 UTC), separate files written after the first record was closed; copies in `registration/` | `make_s1.py` |
+| `results/prereg_2026-10-30_addendum9.json`, `_addendum9_fix1.json`, `_addendum10.json`, `_addendum10_fix1.json`, `_addendum10_fix2.json`, `_addendum11.json` | the three round46–48 records and their three corrections (written 2026-10-29 16:34:05 to 2026-10-30 07:30:01 UTC); the file-name date of the round45–48 records is KST; copies in `registration/` | `make_s1.py` |
+| `results/_registration_evidence_2026-10-26/` | evidence for the times of the first record: its 101 retained Google Drive versions (zip) with their manifest, the manifest of its 46 snapshot copies, and the table of the first appearance and later changes of every entry (`entries_timeline.tsv`) | `make_s1.py` |
 
 ## 3. Outputs
 
@@ -58,7 +60,7 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | Backups written next to each result at run time | `results/_backup/<date>/` | deposit |
 | Run logs and completion stamps | `results/logs/*.log`, `results/logs/*.done` | deposit |
 | Generated model ensembles (aSAMt 320–450 K, AlphaFlow distilled) | `derived/r38/asamt/`, `derived/r38/alphaflow/` | deposit (stochastic; regenerating them gives different samples) |
-| Per-domain statistics (JSON) | `derived/r38/*/`, `derived/r39/*/`, `derived/r41/*/`, `derived/r44/*/`, `derived/r45/*/`, `derived/r37_*/`, `derived/ladder_*/`, `derived/c4_sub/`, `derived/c1_core/` | deposit the JSON files; regenerate the rest |
+| Per-domain statistics (JSON) | `derived/r38/*/`, `derived/r39/*/`, `derived/r41/*/`, `derived/r44/*/`, `derived/r45/*/`, `derived/r46/`, `derived/r47/`, `derived/r48/`, `derived/r37_*/`, `derived/ladder_*/`, `derived/c4_sub/`, `derived/c1_core/` | deposit the JSON files; regenerate the rest |
 | Extracted mdCATH frames and spreads (npz) | `derived/mdcath_5T/`, `derived/mdcath_5T_folded/`, `derived/mdcath_spread*/` | regenerate from mdCATH (large) |
 
 `tools/pack_for_zenodo.py` builds the deposit from a project root following this table and writes a checksum

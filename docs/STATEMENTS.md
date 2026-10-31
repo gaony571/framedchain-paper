@@ -15,12 +15,13 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 ## Data Availability Statement (draft)
 
-> All input data are publicly available from their original sources: mdCATH (Hugging Face dataset
-> compsciencelab/mdCATH), ATLAS (https://www.dsimb.inserm.fr/ATLAS), the BioEmu molecular dynamics data
-> (Zenodo records 15629740 and 15641184), the Tsuboyama et al. mega-scale stability data
-> (Zenodo record 7992926), the transferable-cg reference simulations (Hugging Face dataset
-> abpark/transferable-cg), the torchmd-protein-thermodynamics fast-folder simulations, the AlphaFlow and aSAM
-> released samples and weights, CATH, SIFTS and the RCSB PDB. All data generated in this study that are
+> All input data are publicly available from their original sources: the mdCATH simulations (Hugging Face
+> dataset compsciencelab/mdCATH), the ATLAS simulations (https://www.dsimb.inserm.fr/ATLAS), CATH domain
+> lists and boundaries (https://www.cathdb.info), RCSB PDB entries for the two-domain chains of the chaining test
+> (https://www.rcsb.org), SIFTS organism mappings (https://www.ebi.ac.uk/pdbe/docs/sifts), and optimal growth
+> temperatures from TEMPURA and from Engqvist (2018; Zenodo record 1175609). The aSAMt and AlphaFlow-MD ensembles
+> were generated with the authors' released code and weights (sam2 commit ce076ed; AlphaFlow commit 0408d7c).
+> All data generated in this study that are
 > needed to reproduce the reported values — summary tables for every result, per-domain statistics, the
 > generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped pre-registration
 > record — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
@@ -33,7 +34,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 ## Code availability sentence for the Methods (draft)
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
-> available at https://github.com/gaony571/framedchain-paper (version 1.2.0; MIT licence; Zenodo DOI:
+> available at https://github.com/gaony571/framedchain-paper (version 1.3.0; MIT licence; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
 > statistics is the framedchain package (version 0.4.1; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
@@ -43,7 +44,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
-> Version 1.2.0.
+> Version 1.3.0.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
@@ -53,15 +54,15 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
 `gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.1`) and
-`gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29). Both were renamed from framespace and framespace-paper on
+`gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29, `v1.3.0` = with the round46–48 checks of 2026-10-29 and 10-30, the figure and table scripts and the manuscript map). Both were renamed from framespace and framespace-paper on
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
 
 Remaining, after the manuscript is written and posted (these need the paper or the DOIs):
 
 1. Connect both repositories to Zenodo, then publish a GitHub release of each from its latest `main`
-   (framedchain: tag `v0.4.1`, or a later one if the package changes; framedchain-paper: `v1.2.0`, or, if `main` changes after 2026-10-29, a tag of the then-current `main`,
-   e.g. `v1.2.1`, with the version updated in `CITATION.cff` and the README).
+   (framedchain: tag `v0.4.1`, or a later one if the package changes; framedchain-paper: `v1.3.0`, or, if `main` changes after 2026-10-31, a tag of the then-current `main`,
+   e.g. `v1.3.1`, with the version updated in `CITATION.cff`, the README and the manuscript reference).
    Zenodo mints a DOI for each release.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files

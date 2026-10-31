@@ -1,0 +1,42 @@
+{
+ "written": "2026-10-30 06:13:48 UTC",
+ "note": "열째 추가 등록. 동점 순위 점검(최소판). 사용자 결정 2026-10-30: 선택지 (가) \"가로 하자. 코랩켜서 실행 시작해\". 계산 전 등록(새 파일, 고치지 않음; 고칠 일이 생기면 별도 고침 파일).",
+ "r47_ties": {
+  "question": "등록 판의 순위(np.argsort 두 번; 동점 순서가 정렬 경로·프로세서에 따라 다름) 대신 평균 순위를 쓰면, 동점이 가장 많고 구간 끝이 0 에 붙은 원고 추정치가 얼마나 바뀌는가. 방법 절의 순위 문장('at most …')과, 0 에 대한 구간 위치가 동점 처리에 매이는 문장이 있는지를 정한다.",
+  "scope": "첫 연구 1b 0.111 [−0.048, 0.266] (r38_p3.analyse, seed 20261028); 상과 무게 구간 [0.043, 0.174] (r38_p3_explore2 real main, seed 20261051, 1,000); 짧은 도메인 서술 통제 — 두 선형 통제(control + r_ANM 15 Å) 0.078 [0.005, 0.153] 과 8 변수 선형 0.039 [−0.037, 0.120] (r38_c_nl H 행, seed 20261053), C-2 의 탄성망 판 ANM 10·13·15 Å·GNM (13 Å 0.062 [−0.011, 0.134], GNM 0.066 [−0.002, 0.139]; r43_sens s3 H, seed 20261077). C-1·C-2 는 r46_align_fix1 의 점검 값(이미 잼)을 함께 둔다.",
+  "why_these": "H-풀은 동일성을 중앙값 63 개 공유 결합 위에서 세어 값이 듬성하고(동점 많음) 쌍이 11,991 개이며, 이 문장들의 구간 끝이 0 에 붙어 있다(0.005, −0.002, −0.011). C 에서 동점 순서·평균 순위의 차는 최대 5e-4 (SE 0.054 의 1% 미만)로 0 에서 먼 추정치의 결론을 바꿀 수 없다.",
+  "out_of_scope": "C 쪽의 다른 추정치(0 에서 멂: 하한 ≥ 0.028 또는 ≤ −0.03), 비선형 GBM 판(−0.049 로 0 에서 멀고 다시 적합이 필요), 열적응 U1·U2·구성 점검(순위를 쓰지 않음), 쌍별 r_dyn·r_ANM 의 Spearman(연속값 퍼짐·예측의 순위; ANM 예측의 동점 수만 ties 부분에서 셈), R4 의 편 Spearman(연속값).",
+  "design": "원래 스크립트의 앞부분(결과 파일에 쓰는 부분 제외)을 새 이름 공간에 불러, 원래 함수가 부르는 전역 ranks 만 바꾼다(argsort / 평균 순위). seed·재표집 수·무게 흐름은 원래와 같다. 같은 런타임에서 두 판을 낸다. 부분 일곱(ties; p3·nl·anm × argsort·average)을 프로세스마다 하나로 동시에 돌리고(스레드 1), 모두 끝나면 combine.",
+  "measure": "추정치마다 점추정·구간 끝의 최대 |평균 순위 − argsort|, |평균 순위 − 저장값|, |argsort − 저장값|; 0 에 대한 구간 위치(위·아래·걸침)가 저장값·argsort·평균 순위 사이에서 바뀌는지. 동점 구조(서로 다른 값 수, T = Σ(t³ − t)/(n³ − n)).",
+  "handling": "원고 본문은 등록된 argsort 값(저장값)을 그대로 둔다. 방법 절에 평균 순위와의 최대 |차|와 동점 순서에 따른 최대 |차|를 'at most …' 로 적는다(C 와 이 점검 범위의 추정치에 대해). 0 에 대한 구간 위치가 바뀌는 추정치가 있으면 원고의 그 자리에 두 판(저장값과 평균 순위)을 함께 보고한다.",
+  "already_seen": "범위의 모든 저장값(원고에 보고됨). C 의 argsort·평균 순위 판(r46_align_fix1 점검): C-1 0.22483652959681127 / 0.22460683061158487, 등록 0.2244917508861569; C-2 0.18117738462717847 / 0.18094574136027425, 등록 0.18081947350600694. H-풀·첫 연구의 평균 순위 판과 그 런타임의 argsort 판은 보지 않음.",
+  "environment": "런타임: Colab L4, CPU 12, 램 57 GB, Python 3.13.16, numpy 2.1.3, scipy 1.16.3, sklearn 1.6.1. CPU 플래그(AVX-512 유무)·모델은 ties 부분이 기록.",
+  "script": "code/r47_ties.py (부분 ties, p3, nl, anm, combine), 실행 순서 code/q_r47.py, 출력 derived/r47/<부분>_<MODE>.json, results/r47_ties.json, 로그 results/logs/r47_ties.log",
+  "script_md5": "62736bf92a18c09a4b5fede7ad2ae023",
+  "runner_md5": "d2b027c166d970df52a0dcdbec187a7c",
+  "inputs_md5": {
+   "derived/r38/p3/pairs_out.jsonl": "1f253d1f2117215683d1108fde6fbba1",
+   "derived/r38/p3/pairs.json": "93071f0def70d1b971e881c6c64a7376",
+   "derived/r38/p3/pibar.jsonl": "b173a73e3ae55b91d9b2fef76a48cacb",
+   "derived/r38/c/anm_pairs_hpool.jsonl": "2143ae24ff74f0f316819c4f11a17cf3",
+   "derived/r38/c/pairs_out.jsonl": "3b437ea86d9e3c348ff2e0bb56a2c622",
+   "results/r38_p3.json": "716bc152e0dd86b16aece5d94ec0f1e3",
+   "results/r38_p3_explore2.json": "9546376f7b1c1d1669e39d7ba0b9985d",
+   "results/r38_c_nl.json": "03ec0628c96758fda517b4f87784ae3d",
+   "results/r43_sens.json": "edbd7824e8689924547bbdf13d631370",
+   "results/r46_align_fix1.json": "bc761878837ce7e1b70e72d8587dcd37",
+   "code/r38_p3.py": "a37a96530e3d5a1bd42b2691d137278a",
+   "code/r38_c.py": "62de87cfd461bfbb67b5dc8eff60b703",
+   "code/r38_c_nl.py": "1c3466f481160e124d3fb65fcea5d694",
+   "code/r43_sens.py": "1643ce8b2bc0133a4a7cd37b4a16de60",
+   "derived/r38/p3/dom/ (이름·크기 목록)": {
+    "n": 1777,
+    "md5": "249e437d3f796e3246ed046216be9dee"
+   },
+   "derived/r43/anm/ (이름·크기 목록)": {
+    "n": 2445,
+    "md5": "bd441821032da8ad9289217fe807c0b1"
+   }
+  }
+ }
+}

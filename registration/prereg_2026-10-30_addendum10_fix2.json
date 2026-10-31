@@ -1,0 +1,11 @@
+{
+ "written": "2026-10-30 06:47:24 UTC",
+ "note": "r47_ties 의 둘째 고침(fix1 = 2026-10-30 06:46:19 UTC 의 구현 실수). 비교 단계를 다시 내기 전에 씀. 사용자 승인 \"그렇게 고쳐와\" 의 같은 고침을 구현.",
+ "r47_ties_fix2": {
+  "what_happened": "fix1 스크립트(code/r47_combine_fix1.py, b18f1d03)가 r47_ties.py 를 처음 나오는 \"if __name__ == '__main__':\" 에서 잘랐는데, 이 글자열이 part_anm 안(r43_sens 를 불러오는 줄)의 문자열로 먼저 나와 SyntaxError 로 멈춤(06:46 UTC). 비교 계산 전에 멈췄고 results/r47_ties.json 은 쓰이지 않음. 새로 본 값 없음.",
+  "already_seen": "fix1 기록과 같음(로그의 점추정과 동점 구조만; 구간 끝·저장값 비교는 보지 않음).",
+  "change": "등록 스크립트를 마지막 자리(rindex)에서 자름. 그 밖은 fix1 과 같음(비교 단계가 추정치 칸만 읽음). 계산 부분·저장값 비교·처리 규칙은 원 등록 그대로.",
+  "script": "code/r47_combine_fix2.py, 출력 results/r47_ties.json",
+  "script_md5": "10ab7f1ecb2fe3ee2cec531e6794fd16"
+ }
+}

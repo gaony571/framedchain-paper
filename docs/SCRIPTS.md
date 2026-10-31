@@ -129,7 +129,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r41_synth.py`, `r41_synth_adv.py` | General lemma outside proteins: triangle inequality on real sequences (ℓ2, ERP), planar curves modulo SO(2) (certified), and negative controls (broken Lipschitz constant, DTW); adversarial triples in the `_adv` version | `results/r41_synth.json`, `results/r41_synth_adv.json` |
 | `r43_sens.py` | Round43 post-hoc sensitivities (verdicts unchanged): P2 secondary 1 interval, length matching of the Figure 5 cells, ANM/GNM variants for C-2 | `results/r43_sens.json` |
 
-## Round44 — checks added after external review (2026-10-28; results 2.7, 3.9, 4.1, 4.5, 4.14)
+## Round44 and round45 — checks added after external review (2026-10-28 and 10-29; results 2.6, 2.7, 3.5, 3.9, 4.1, 4.5, 4.11, 4.14)
 
 Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-28_addendum*.json`);
 the results it qualifies were already known. The first record (`results/prereg_2026-10-17.json`) was not changed.
@@ -152,12 +152,38 @@ the results it qualifies were already known. The first record (`results/prereg_2
 | `r45_mpstart.py` | Independence of the mean point from the starting frame with the as-run `fs.mean_point`: six set-C ensembles rebuilt with `r38_c.dom_build`, nine starting frames each, distances after one optimal rotation computed directly, and the start-0 mean point compared with the stored one | `results/r45_mpstart.json` |
 | `r45_folded_frac.py` | Descriptive count (not registered) for the 67 P2 domains: share of MD 320 K frames over whole trajectories with Q ≥ 0.75 (the `md_load` definition) and number of folded aSAMt samples. Run from a notebook as `/content/folded_frac.py`; the file keeps it verbatim below a header added for this repository | `results/r45_folded_frac.json` |
 
+## Round46–48 — checks added after external review (2026-10-29 and 10-30; result 4.5 and Methods)
+
+Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-30_addendum*.json`);
+corrections were written as separate records before the affected step was computed.
+
+| Script | What it does | Main outputs |
+|---|---|---|
+| `r46_align.py` | Whether alignment accuracy shared by sequence identity and r_dyn accounts for their association in set C. Re-runs TM-align on the medoid α-carbons (tm) and checks it against `r44_corr2` integer by integer; then (stats) A = identity over all residues aligned by TM-align, B = the precision of π̄ against TM-align (exact, within two bonds) added to the C-1 and C-2 controls, with descriptive versions, from one superfamily bootstrap stream of 10,000 (seed 20261121). Its second check failed because tied identity values were ordered differently by `argsort` on different runtimes | `derived/r46/align_pairs.jsonl`, `derived/r46/tm_check.json`, `results/r46_align.json` |
+| `r46_align_fix1.py` | The statistics of `r46_align.py` with average ranks (`scipy.stats.rankdata`), as fixed by the correction record; it loads the functions of `r46_align.py` and replaces only the rank function. Checks 2a (argsort version against `results/r38_c.json`) and 2b (average-rank baseline against the values written in the correction) | `results/r46_align_fix1.json` |
+| `r47_ties.py` | Effect of tie handling on rank-based estimates whose intervals end near zero: the tie structure of the variables (ties), and the first homolog study with its superfamily-weight interval (p3), the linear shorter-domain controls of `r38_c_nl` (nl) and the network-model versions of `r43_sens` s3 (anm), each with the registered ranks (argsort) and with average ranks; combine compares both with the stored values. The parts run in parallel from `run_records/queues/q_r47.py` | `derived/r47/<part>_<mode>.json`, `results/r47_ties.json` |
+| `r47_combine_fix1.py` | Comparison step of `r47_ties.py` reading only estimate fields (the original step had read text fields as estimates). It stopped with a syntax error because it cut `r47_ties.py` at the first `if __name__`, which occurs inside a string | none |
+| `r47_combine_fix2.py` | The same comparison step, cutting `r47_ties.py` at the last `if __name__` | `results/r47_ties.json` |
+| `r48_identity_range.py` | Whether the association in set C extends below 15% identity: computes the composition-expected identity Σ_a p_a q_a from the domain files (exp), then C-1 and C-2 below 15% (decision set) and 10%, with identity from TM-align, with the precision covariate, over all pairs of the superfamilies that have a pair below 15%, values expected under range restriction (1,000 simulated data sets), residual r_dyn by identity decile and observed against expected identity (stats); average ranks, one bootstrap stream of 10,000 (seed 20261131) | `derived/r48/exp_ident.jsonl`, `results/r48_identity_range.json` |
+
+## Figures and tables
+
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables) and were run on Colab on 2026-10-31.
+They take no arguments; the project path `R` and the output folder are set at the top of each file.
+
+| Script | What it does | Main outputs |
+|---|---|---|
+| `make_figs.py` | Figures 1–7 and S1 Fig: RGB TIFF with LZW compression at 600 dpi and preview PNG files | `manuscript_figs/Fig1.tif` … `Fig7.tif`, `S1_Fig.tif` |
+| `make_tables.py` | S2 Table (κ and Δ²_D/√n̄ of all and size-matched cells) and S3 Table (alignment-accuracy and identity-range checks) | `manuscript_figs/S2_Table.xlsx`, `S3_Table.xlsx` (+ .csv) |
+| `make_s1.py` | S1 Table: entries of the first record with their times (sheet A), the added records (B), the pre-specified predictions with outcomes (C) and the classification of every analysis in the manuscript (D), with notes | `manuscript_figs/S1_Table.xlsx` |
+
 ## Node.js checks
 
 | Script | What it does |
 |---|---|
 | `negtype/negtype.js` | Tests whether D is of negative type on small random structures (positive eigenvalue of J D J means it is not) |
 | `negtype/so3fourier.js` | For length-2 structures D depends only on the angle θ between relative rotations; computes the SO(3) Fourier coefficients of f(θ) = h·min(√6, 4 sin(θ/4)) (a positive coefficient rules out negative type) |
+| `negtype/negtype_eta_len2.js` | η₊ (positive spectral mass of J D J) for 60, 100, 200 and 400 random two-bond chains, on which D is provably not of negative type, using the functions of `negtype.js`; random rotations from `Math.random`, so values vary slightly between runs (S3 Text 2). Run as `node negtype_eta_len2.js .` from `code/negtype` |
 | `negtype/len2check.js` | Checks the closed form of D for length-2 structures against the general computation (maximum difference about 1e-15), then prints the top eigenvalues of J D J for 60, 120 and 200 random length-2 structures (positive values appear from 120 on) |
 
 Run them from `code/negtype` (`node so3fourier.js`, `node len2check.js`, `node negtype.js`); the printed labels
