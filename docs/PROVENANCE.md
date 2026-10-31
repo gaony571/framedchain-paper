@@ -92,7 +92,7 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/ladder_temp_single.py` | `961d2f27c0406c9667fabb03b2d5b142` | U |  |
 | `code/ladder_temp_single_v2.py` | `6420c51e5aeb3a69c51aafa1711a261d` | U |  |
 | `code/make_figs.py` | `1dafd1630fabb9c20f4428813b6cc9a3` | U | figure script, last run on Colab 2026-10-30; reads stored results only; not registered |
-| `code/make_s1.py` | `f7878cc06d37ec3e6c981f08681a502f` | U | S1 Table script, run on Colab 2026-10-31; not registered |
+| `code/make_s1.py` | `18cf934aa312f35208f24fae4a8c0e7c` | U | S1 Table script, run on Colab 2026-10-31; not registered |
 | `code/make_tables.py` | `cc05551313743409a9e0888b58080995` | U | S2 and S3 Table script, run on Colab 2026-10-31; not registered |
 | `code/mdcath_5T_extract.py` | `a77709c6edfef1e21207070b2c959b69` | U |  |
 | `code/mdcath_5T_folded.py` | `6c65c299322b4cdbf6ae447c51481fa4` | U |  |
