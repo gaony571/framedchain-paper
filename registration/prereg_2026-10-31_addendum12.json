@@ -1,0 +1,29 @@
+{
+ "written": "2026-10-31 13:51:43 UTC",
+ "note": "열두째 추가 등록. 외부 검토 7 (2026-10-31) 6번: 2026-10-28 사슬 끊김 점검(기록 없음)에 들지 않은 집합에 같은 점검. 사용자 \"등록하고 돌려\". 계산 전 등록(새 파일, 고치지 않음; 고칠 일이 생기면 별도 고침 파일).",
+ "r49_chainbreak": {
+  "question": "원고의 분석에 든 도메인·사슬 가운데 10-28 점검(줄기 336, H-풀 1,496, C 949)에 들지 않은 것에 긴 Cα–Cα 결합(사슬 끊김)이 있는가.",
+  "data": "집합(등록 전 개수만 확인): 모델 오차 67 도메인(derived/r38/compare_D); 서열 간 비교 281 쌍 494 도메인(results/r37_trunk_pairs.tsv; 분석에 든 234 쌍의 도메인은 따로 셈); 자연 삽입·결실 주 19 쌍 34 도메인(r37_trunk_pairs.json r10a_prime.main); 인증 500 쌍 570 도메인(derived/r38/static/bnb.jsonl); 첫 호열 연구 659 도메인(derived/r38/p1/pairs.json); 호열 재현 531 도메인(derived/r38/p1n/pairs.json; npz 311, h5 220); 역장 비교 37 사슬(results/r41_dff50.json rows); R2 정적 1,674 쌍 666 사슬(results/v_residue_unit_graded.tsv; xprot_structs 333, atlas_pdb 333).",
+  "threshold": "Cα–Cα > 4.2 Å (s = 길이/3.8 Å > 1.1), 10-28 점검과 같은 문턱(결과를 보고 정한 값 아님).",
+  "design": "좌표는 각 분석이 읽은 원자 목록 그대로. mdCATH: md_atoms(pdbProteinAtoms) 의 CA, 320 K 반복마다 첫 프레임(사슬 끊김은 모든 프레임에 있으므로 첫 프레임으로 충분; 줄기 10-28 점검과 같은 규칙). 호열 재현: r38_p1n 규칙대로 npz 가 있으면 h320_<r> 첫 프레임, 없으면 h5. ATLAS: r41_dff50 과 같은 공통 잔기(block, at_atoms)의 zip 안 PDB 좌표와 같은 잔기의 mdCATH 첫 프레임(ATLAS 궤적은 같은 위상이라 따로 읽지 않음). 정적: hu1_rulers.bb 와 같은 읽기. 생성 표본(aSAMt·AlphaFlow)은 넣지 않음: 모형이 전체 서열에서 만든 사슬이라 빠진 잔기가 없고, 그 기하는 재려는 모형 오차의 일부. 10-28 집합과 겹치는 도메인 수를 집합마다 보고(겹쳐도 다시 셈).",
+  "decision": "검산(sanity check): 좌표를 찾은 모든 도메인·사슬에서 긴 결합 0 → holds. 하나라도 있으면 fails: 도메인·집합·긴 결합 수·최대 길이를 방법 절과 S1 Table 에 적고 그 도메인이 든 분석을 밝힘. 빼고 다시 내는 분석은 이 기록의 범위 밖(필요하면 따로 등록). 좌표를 찾지 못한 것은 not_checked 로 따로 적음.",
+  "sentences_methods": {
+   "holds": "Chain breaks would appear as long bonds; no domain or chain used in the analyses had a Cα–Cα bond longer than 4.2 Å (s_i > 1.1), so none entered (S1 Table lists the files and frames checked for each set).",
+   "fails": "Chain breaks would appear as long bonds; … of the domains and chains used in the analyses had a Cα–Cα bond longer than 4.2 Å (s_i > 1.1): … (S1 Table). They entered …, and these analyses were not repeated without them."
+  },
+  "label": "검산(computational check). S1 Table 시트 D: 10-28 부분은 in no record 그대로, 이번 부분은 added after a result.",
+  "already_seen": "10-28 점검 결과(줄기 336·H-풀 1,496·C 949 모두 0; 줄기 최대 4.13 Å; 10-31 다시 돌려 같음). 이 등록 전에 본 것은 파일 존재·목록 키·개수뿐(Colab 2026-10-31 13:3x–13:5x UTC; 결합 길이 계산 없음).",
+  "script": "code/r49_chainbreak.py, 출력 results/r49_chainbreak.json, 로그 results/logs/r49_chainbreak.log",
+  "script_md5": "4e5e398d0d59be9f759af402c70e0e1a",
+  "inputs_md5": {
+   "results/r37_trunk_pairs.tsv": "7017492281ca60174e4887c39960e6e6",
+   "results/r37_trunk_pairs.json": "7cbba4911be03a2563e906861f198752",
+   "derived/r38/static/bnb.jsonl": "9518b57dd3206584d03fe17fb8e367d3",
+   "derived/r38/p1/pairs.json": "caa3ef6de4dc77f71d1cec42aaf47b36",
+   "derived/r38/p1n/pairs.json": "b2d5f22be0d5dc13c41518c842d07756",
+   "results/r41_dff50.json": "fc370a53b6ef084681c3de40378b3d80",
+   "results/v_residue_unit_graded.tsv": "34eb7caefaa950209ce48ce1ceafe721",
+   "derived/xprot_structs.npz": "5477d92638e77f19cc10bc466ef6b47f"
+  }
+ }
+}

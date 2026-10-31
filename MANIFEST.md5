@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
 9f3e0ab4996489b36859697110dc7dd4 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-a9ed2c69fdb5a23847664c364e4b3ffd *README.md
+61a0ba934247bf02d187fa93bb47145a *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -25,7 +25,7 @@ ea16fe51c8585020b2bc94bc3dea45de *code/ladder_half.py
 961d2f27c0406c9667fabb03b2d5b142 *code/ladder_temp_single.py
 6420c51e5aeb3a69c51aafa1711a261d *code/ladder_temp_single_v2.py
 1dafd1630fabb9c20f4428813b6cc9a3 *code/make_figs.py
-18cf934aa312f35208f24fae4a8c0e7c *code/make_s1.py
+61d766856aee95a8c6989a5c9a49224d *code/make_s1.py
 e6540646b24cb45f781c12f24f44cb7e *code/make_tables.py
 a77709c6edfef1e21207070b2c959b69 *code/mdcath_5T_extract.py
 6c65c299322b4cdbf6ae447c51481fa4 *code/mdcath_5T_folded.py
@@ -124,11 +124,13 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 10ab7f1ecb2fe3ee2cec531e6794fd16 *code/r47_combine_fix2.py
 62736bf92a18c09a4b5fede7ad2ae023 *code/r47_ties.py
 32f24903bd78c607ba65dc41dae98d66 *code/r48_identity_range.py
-b25ade7129b75928fe16f84ab8ebf4d2 *docs/DATA.md
-8f6c7548aa8cee9d5d0791bdc2e0d524 *docs/INTERACTIVE_CHECKS.md
-3007ab333b9bffe6f9ace1d3cd310c5f *docs/PROVENANCE.md
-3de122e092a9d98a01c201382d929629 *docs/RESULTS_MAP.md
-7bc985e58f46d477d42628810b6bdf61 *docs/SCRIPTS.md
+4e5e398d0d59be9f759af402c70e0e1a *code/r49_chainbreak.py
+363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
+6da0a241c9aec3161c7d7ae8e32759fa *docs/DATA.md
+6f52d0576a9614507de2940cd5b575c5 *docs/INTERACTIVE_CHECKS.md
+929f0ae1a609f10146d9578dcfde697b *docs/PROVENANCE.md
+d931a07dcf228fbc738857c202a8891c *docs/RESULTS_MAP.md
+b8ef3d31bcdc47c5adfe50e139ebd6c0 *docs/SCRIPTS.md
 d1e4ec7c95ecb584325d0a3345877d09 *docs/STATEMENTS.md
 60a5cbf55d52e1afff204535ca2284c0 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
@@ -174,6 +176,8 @@ e2aba4016277859b350287d2696065ca *registration/prereg_2026-10-30_addendum10.json
 947aa2fef41764e6e6b377ee93cb4b3d *registration/prereg_2026-10-30_addendum11.json
 c4853aaed96544685a940df29eee4478 *registration/prereg_2026-10-30_addendum9.json
 b61187dacccbaab2fa46ca3aff4ad940 *registration/prereg_2026-10-30_addendum9_fix1.json
+b2c8ebcb40b986db06f640ed1098e661 *registration/prereg_2026-10-31_addendum12.json
+f4fae98ae64fea89ab6fca63578927aa *registration/prereg_2026-10-31_addendum12_fix1.json
 0453e32ea141d0c8d6d1258542e3ebd8 *registration/prereg_round34.json
 3692c5e053c1a3fd87a22df2eefa34e7 *registration/prereg_round37.json
 ab6ed598d287f688b1205816f6ec7431 *run_records/queues/q_b6_cpu.sh

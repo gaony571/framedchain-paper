@@ -662,6 +662,11 @@ C (949, 0, []) and, for the calibration domains, 336 domains with no long bond (
 maximum 4.13 Å). For the calibration domains the re-run read only the array `320_0_X` of each file, several files at a time,
 to avoid slow reads of the whole files; the computation on that array was the same.
 
+**The other sets (31 October 2026).** The sets not covered here (model-error domains, comparison across sequences, natural
+insertion–deletion pairs, certified pairs, both thermophile studies, force-field chains and the static chains of the first
+two Results sections) were checked by `code/r49_chainbreak_fix1.py`, specified in a record before it was run
+(`registration/prereg_2026-10-31_addendum12.json` and its correction); see `docs/RESULTS_MAP.md`, Round49.
+
 ## 7. framedchain 0.4.1 against the as-run code (28 October 2026)
 
 Methods: on synthetic inputs with fixed seeds, framedchain 0.4.1 reproduced the as-run code exactly. The script is

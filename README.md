@@ -128,7 +128,7 @@ this order:
 9. **Sequence identity** (GPU, then CPU): `r38_p3.py`, `r38_p3_explore2.py`, `r38_c_fetch.py`, `r38_c.py`,
    `r38_c_nl.py`.
 10. **Analyses added after the results:** `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
-    `r47_*.py`, `r48_identity_range.py`, each fixed in its own time-stamped record (`docs/RESULTS_MAP.md`).
+    `r47_*.py`, `r48_identity_range.py`, `r49_chainbreak*.py`, each fixed in its own time-stamped record (`docs/RESULTS_MAP.md`).
 11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
     project path is set at the top of each file.
 
@@ -140,7 +140,7 @@ answers before the run. The repository also contains scripts of project analyses
 
 Hypotheses, predictions and decision rules were written into time-stamped records before the analyses they cover
 were run (Methods and S1 Table of the paper). The first record, `results/prereg_2026-10-17.json`, is in the data
-deposit together with its 101 retained versions; the eleven records added from 2026-10-28 and their four
+deposit together with its 101 retained versions; the twelve records added from 2026-10-28 and their five
 corrections are also copied in `registration/` (the date in their file names is Korea Standard Time, UTC+9; times
 inside are UTC). Where a record holds the md5 of a script, the file here has that checksum;
 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) lists the checksum of every file and whether it was recorded before the

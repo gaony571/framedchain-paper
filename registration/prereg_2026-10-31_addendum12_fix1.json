@@ -1,0 +1,10 @@
+{
+ "written": "2026-10-31 14:25:18 UTC",
+ "note": "addendum12 (r49_chainbreak) 고침 1. 첫 실행(2026-10-31 13:52:11 UTC 시작)은 h5 단계(1,360 도메인 가운데 약 110 째)에서 Colab VM 이 바뀌어(14:13 UTC 무렵) 끊김: 결과 파일·중간 출력 없음, 로그는 집합 개수 줄까지뿐이라 새 집합의 결합 길이는 하나도 보지 않음. 다시 돌리기 전에 고침(새 파일, addendum12 는 그대로).",
+ "r49_chainbreak": {
+  "changes": "계산·판정·집합·좌표·문턱은 addendum12 그대로. 바꾼 것: (1) 항목(도메인·사슬)마다 결과를 derived/r49/items.jsonl 에 이어 쓰고, 다시 돌리면 끝난 항목은 건너뜀(VM 이 또 바뀌어도 이어 돌림); (2) 작업자 8 → 16 (h5 여는 데 도메인당 약 4 s 가 걸려서); (3) 100 항목마다 진행을 로그에 씀. 출력 results/r49_chainbreak.json 의 내용·판정 규칙은 같음.",
+  "script": "code/r49_chainbreak_fix1.py (r49_chainbreak.py 에서 위 세 가지만 바꿈), 로그 results/logs/r49_chainbreak_fix1.log",
+  "script_md5": "363b9141170533127c235412d1382a1d",
+  "registered_script_md5": "4e5e398d0d59be9f759af402c70e0e1a"
+ }
+}

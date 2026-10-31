@@ -152,7 +152,7 @@ the results it qualifies were already known. The first record (`results/prereg_2
 | `r45_mpstart.py` | Independence of the mean point from the starting frame with the as-run `fs.mean_point`: six set-C ensembles rebuilt with `r38_c.dom_build`, nine starting frames each, distances after one optimal rotation computed directly, and the start-0 mean point compared with the stored one | `results/r45_mpstart.json` |
 | `r45_folded_frac.py` | Descriptive count (not registered) for the 67 P2 domains: share of MD 320 K frames over whole trajectories with Q ≥ 0.75 (the `md_load` definition) and number of folded aSAMt samples. Run from a notebook as `/content/folded_frac.py`; the file keeps it verbatim below a header added for this repository | `results/r45_folded_frac.json` |
 
-## Round46–48 — checks added after external review (2026-10-29 and 10-30; result 4.5 and Methods)
+## Round46–49 — checks added after external review (2026-10-29 to 10-31; result 4.5 and Methods)
 
 Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-30_addendum*.json`);
 corrections were written as separate records before the affected step was computed.
@@ -165,6 +165,8 @@ corrections were written as separate records before the affected step was comput
 | `r47_combine_fix1.py` | Comparison step of `r47_ties.py` reading only estimate fields (the original step had read text fields as estimates). It stopped with a syntax error because it cut `r47_ties.py` at the first `if __name__`, which occurs inside a string | none |
 | `r47_combine_fix2.py` | The same comparison step, cutting `r47_ties.py` at the last `if __name__` | `results/r47_ties.json` |
 | `r48_identity_range.py` | Whether the association in set C extends below 15% identity: computes the composition-expected identity Σ_a p_a q_a from the domain files (exp), then C-1 and C-2 below 15% (decision set) and 10%, with identity from TM-align, with the precision covariate, over all pairs of the superfamilies that have a pair below 15%, values expected under range restriction (1,000 simulated data sets), residual r_dyn by identity decile and observed against expected identity (stats); average ranks, one bootstrap stream of 10,000 (seed 20261131) | `derived/r48/exp_ident.jsonl`, `results/r48_identity_range.json` |
+| `r49_chainbreak.py` | Chain-break check (Cα–Cα > 4.2 Å) of the sets not checked on 2026-10-28, reading the atoms each analysis read: the mdCATH files (first frame of each 320 K replicate; for the thermophile replication, the stored second-half frames where present), the shared residues of the ATLAS starting structures, and the static chains of the first two Results sections. Its run stopped when the Colab VM was replaced | none |
+| `r49_chainbreak_fix1.py` | The same computation, writing each domain or chain to `derived/r49/items.jsonl` so that a rerun skips finished items, with 16 workers | `results/r49_chainbreak.json` |
 
 ## Figures and tables
 

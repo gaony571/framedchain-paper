@@ -14,12 +14,13 @@ registration records; the first table gives their place in the manuscript.
   the text; `derived/` = per-domain intermediates). See `docs/DATA.md` for what is deposited.
 - **Registration** keys refer to `results/prereg_2026-10-17.json` (the first record; round36 = GPU
   plan, round37 = CPU ladder, round39 = scale experiments, round41 = additional experiments, round43 = post-hoc
-  sensitivity). Analyses added from 2026-10-28 refer to eleven separate records, written after the first record
-  was closed, and four corrections: round44 (`prereg_2026-10-28_addendum.json`, `_addendum2.json` …
+  sensitivity). Analyses added from 2026-10-28 refer to twelve separate records, written after the first record
+  was closed, and five corrections: round44 (`prereg_2026-10-28_addendum.json`, `_addendum2.json` …
   `_addendum6.json`; correction `_addendum5_fix1.json`), round45 (`prereg_2026-10-29_addendum7.json`,
   `_addendum8.json`) and round46–48 (`prereg_2026-10-30_addendum9.json` with correction `_addendum9_fix1.json`,
-  `_addendum10.json` with corrections `_addendum10_fix1.json` and `_addendum10_fix2.json`, `_addendum11.json`). The
-  date in the file names of the round45–48 records is Korea Standard Time. Local copies of these and of the
+  `_addendum10.json` with corrections `_addendum10_fix1.json` and `_addendum10_fix2.json`, `_addendum11.json`) and round49
+  (`prereg_2026-10-31_addendum12.json` with correction `_addendum12_fix1.json`). The date in the file names of the
+  round45–49 records is Korea Standard Time. Local copies of these and of the
   round34 and round37 entries are in `registration/`.
 - Every timestamp is UTC.
 
@@ -42,7 +43,7 @@ registration records; the first table gives their place in the manuscript.
 | Sequence identity: first test (P3) and its exploratory interval; confirmatory set (C) with C-1, C-2, the network-model sensitivity, the nonlinear control and the shorter-domain controls; bond-direction profiles; pair weights (Fig 7) | `r38_p3.py`, `r38_p3_explore2.py`; `r38_c.py`, `r43_sens.py` (s3), `r38_c_nl.py`; `r45_f1.py`; `r44_pairw.py` | 4.4, 4.5, 3.8, Round44, Round45 |
 | Table 3: other correspondences, Gly/Pro, agreement with TM-align on medoids; decomposition of the unshared part | `r44_corr_v2.py`, `r44_corr2.py`; `docs/INTERACTIVE_CHECKS.md` 4 | Round44, 4.5 |
 | Alignment accuracy shared by identity and r_dyn; identity range (S3 Table) | `r46_align.py`, `r46_align_fix1.py`; `r48_identity_range.py` | Round46–48 |
-| Ties in rank-based estimates (Methods); chain breaks; reproduction by framedchain 0.4.1 | `r47_ties.py`, `r47_combine_fix2.py`; `docs/INTERACTIVE_CHECKS.md` 6–7, `r44_repro.py` | Round46–48, Round44 |
+| Ties in rank-based estimates (Methods); chain breaks; reproduction by framedchain 0.4.1 | `r47_ties.py`, `r47_combine_fix2.py`; `docs/INTERACTIVE_CHECKS.md` 6, `r49_chainbreak_fix1.py`; `docs/INTERACTIVE_CHECKS.md` 7, `r44_repro.py` | Round46–48, Round49, Round44 |
 | Upward bias of the reduced computation and widening of the band, incomplete U-statistic, alignment uncertainty, truncated chains (S2 Text 2–5) | `r38_s0.py` (bias, ustat, unc, trunc), `r38_s0_bias2.py` | 2.2, 2.3 |
 | Negative type of d and sensitivity of η₊ (S3 Text 2) | `code/negtype/*.js` | 1.1 |
 | Figures 1–7 and S1 Fig; S1 Table; S2 and S3 Tables | `make_figs.py`; `make_s1.py`; `make_tables.py` | Figures and tables |
@@ -112,7 +113,7 @@ Each row was specified after the result it qualifies was known and before it was
 | Section | Result | Scripts (parts) | Main outputs | Registration |
 |---|---|---|---|---|
 | 2.7 | framedchain 0.4.1 reproduces the as-run code on synthetic inputs | `r44_repro.py` | printed output in `docs/INTERACTIVE_CHECKS.md` 7 (no output file) | not registered (implementation check) |
-| 2.8 | No chain breaks (Cα–Cα > 4.2 Å) in the analysed domains | cell code in `docs/INTERACTIVE_CHECKS.md` 6 | printed output there (no output file) | not registered (data check) |
+| 2.8 | No chain breaks (Cα–Cα > 4.2 Å) in the calibration and homolog-study domains | cell code in `docs/INTERACTIVE_CHECKS.md` 6 | printed output there (no output file) | not registered (data check); the other sets in Round49 |
 | 3.9 | Invariance audit, Table 2 (replicates, frames, split) | `r44_inv.py` (rep, frm, split, sum) | `results/r44_inv.json` | addendum 04:47:45 `r44_inv` |
 | 4.1 | Continuous axis controlled for log n̄ | `r44_b6size_cell26.py` | `results/r44_b6size.json` | addendum3 06:04:10 `r44_b6size` |
 | 4.5 | Pair-weighted estimates of C-1, C-2 and the H-pool | `r44_pairw.py` | `results/r44_pairw.json` | addendum2 05:56:13 `r44_pairw` |
@@ -138,6 +139,12 @@ Each row was specified after the result it qualifies was known and before it was
 | 4.5 | Whether alignment accuracy shared by identity and r_dyn accounts for their association: identity over TM-align's aligned residues on medoids (A) and the precision of the edit-distance correspondence as a covariate, exact and within two bonds (B0, B2) | `r46_align.py` (tm, stats; the stats run stopped at its second check), `r46_align_fix1.py` (average ranks, as corrected) | `derived/r46/align_pairs.jsonl`, `derived/r46/tm_check.json`, `results/r46_align.json`, `results/r46_align_fix1.json` | addendum9 2026-10-29 16:34:05 `r46_align`, corrected by `_addendum9_fix1.json` 17:19:37 |
 | Methods | Ties in rank-based estimates whose intervals end within 0.011 of zero: ranks from the registered sort against average ranks | `r47_ties.py` (ties; p3, nl, anm × argsort, average; combine), run by `run_records/queues/q_r47.py`; comparison step re-run by `r47_combine_fix2.py` (`r47_combine_fix1.py` stopped with a syntax error) | `derived/r47/<part>_<mode>.json`, `results/r47_ties.json` | addendum10 2026-10-30 06:13:48 `r47_ties`, corrected by `_addendum10_fix1.json` 06:46:19 and `_addendum10_fix2.json` 06:47:24 |
 | 4.5 | Whether the association extends below 15% identity: C-1, C-2 below 15% and 10%, expected values under range restriction, residual r_dyn by identity decile, composition-expected identity | `r48_identity_range.py` (exp, stats) | `derived/r48/exp_ident.jsonl`, `results/r48_identity_range.json` | addendum11 2026-10-30 07:30:01 `r48_identity_range` |
+
+## Round49 — chain-break check of the remaining sets (2026-10-31)
+
+| Section | Result | Scripts (parts) | Main outputs | Registration |
+|---|---|---|---|---|
+| Methods | No Cα–Cα bond longer than 4.2 Å in the sets not checked on 2026-10-28: 67 model-error domains, 494 domains of the comparison across sequences, 34 of the natural insertion–deletion pairs, 570 of the certified pairs, 659 and 531 of the two thermophile studies, 37 force-field chains and 666 static chains (2,594 in all; longest bond 4.149 Å) | `r49_chainbreak_fix1.py` (the registered `r49_chainbreak.py` stopped without output when the Colab VM was replaced) | `results/r49_chainbreak.json`, `derived/r49/items.jsonl` | addendum12 2026-10-31 13:51:43 `r49_chainbreak`; fix1 14:25:18 |
 
 ## Figures and tables
 
