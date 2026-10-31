@@ -1,33 +1,62 @@
-# framedchain-paper
+# Comparing protein conformational ensembles across sequences and lengths
 
-Analysis code, run records and registration records for the paper
+Analysis code for the paper
 
-**Comparing protein conformational ensembles across sequences and lengths**
-(Hyeonsu An; in preparation)
+> Hyeonsu An. Comparing protein conformational ensembles across sequences and lengths. In preparation.
 
-which represents protein backbones of any length as framed chains, builds a metric space and ensemble statistics on
-them, and uses them to compare structural ensembles across temperatures, force fields, generative models and
-sequences. The abstract is at the end of this file.
+This repository contains the code exactly as it was run to produce every number, figure and table of the paper,
+together with the run queues, environment records and the time-stamped records that fixed each analysis before it
+was run. To apply the method to your own structures and ensembles, use the documented and tested Python package
+[framedchain](https://github.com/gaony571/framedchain) (version 0.4.1) instead; this repository is for checking
+and reproducing the paper.
 
-Version 1.3.0 — the code as run for the manuscript (1.1.0 added the round44 checks of 2026-10-28; 1.2.0 the round45 checks of 2026-10-28 and 10-29; 1.3.0 adds the round46–48 checks of 2026-10-29 and 10-30, the scripts that draw the figures and tables, and a map from the manuscript to the scripts). Author: Hyeonsu An. Licence: MIT.
+Version 1.3.0 (the version cited in the manuscript) · MIT licence · Zenodo DOI to be added at release
 
-This repository is the **as-run** code: every script here is the version that produced the numbers in the
-manuscript, byte for byte where a checksum was registered (see `docs/PROVENANCE.md`). When a registered script
-had to be corrected, the corrected version and its checksum were registered as a separate, time-stamped entry;
-analyses added after a result are separate files and say so in their docstrings. The reusable, documented and
-tested implementation of the method is the separate package
-[framedchain](https://github.com/gaony571/framedchain) (version 0.4.1); start there if you want to apply the
-method to your own data.
+## Abstract
 
-**Names.** The package was called framespace up to version 0.3.3 and this repository framespace-paper; both were
-renamed on 2026-10-26 (GitHub redirects the old addresses). The as-run copies keep the old name
-(`framespace_pkg/framespace/` is framespace 0.2.0, the scripts `import framespace`, and the research module is
-`framespace_wip/`), because their bytes are registered.
+Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replicate and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains' shifts under 59 K heating, yet are largely orthogonal to the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear controls; in shorter domains, the association does not survive the nonlinear controls. Ensembles across sequences thus become comparable in one geometry.
 
-**Language of the comments.** Docstrings and comments inside the scripts are in Korean, the working language
-of the project; they are not translated in place because the files are kept byte-for-byte as run.
-[`docs/SCRIPTS.md`](docs/SCRIPTS.md) describes every script in English (purpose, stages, inputs, outputs,
-registration entry).
+## Reproducing the figures and tables
+
+Each item of the paper is listed with the scripts that computed its values (in `code/`) and the script that drew it.
+[`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md) gives the full map, down to output files and record entries, and
+[`docs/SCRIPTS.md`](docs/SCRIPTS.md) describes every script in English.
+
+| Paper | Computed by | Drawn by |
+|---|---|---|
+| Fig 1 | — (schematic) | `make_figs.py` |
+| Fig 2 | `pu_tm_factorial_v2.py` (A, factorial comparison of TM-score forms); `chaining.py`, `c4_chain_extra.py` (B, chaining) | `make_figs.py` |
+| Fig 3 | `r39_D_stem.py`, `r39_core.py` (calibration on heating, size dependence, detection probability) | `make_figs.py` |
+| Fig 4 | `r38_b6.py` (A, comparison across sequences, with W₂); `r43_sens.py` (B, κ of each cell); `r44_inv.py` (split of κ² for AlphaFlow) | `make_figs.py` |
+| Fig 5 | `r38_p2_D.py`, `r38_p2_aggregate_D.py`, with the ensembles of `r38_asamt_gen.py` (A, model error against heating); `r39_e5prep.py`, `r39_core.py` (B, direction) | `make_figs.py` |
+| Fig 6 | `r38_p1n.py` (replication of the thermophile difference, folded fraction at 379 K); `r44_p1win.py` (absolute windows) | `make_figs.py` |
+| Fig 7 | `r38_p3.py`, `r38_p3_explore2.py` (first test); `r38_c.py`, `r38_c_nl.py`, `r44_pairw.py`, `r45_f1.py` (confirmatory set); `r44_corr_v2.py`, `r44_corr2.py` (other correspondences) | `make_figs.py` |
+| Table 1 | — (comparison with prior approaches) | — |
+| Table 2 | `r44_inv.py` (replicates, frames); `r39_core.py` (window); earlier audits of row 3.1 of `docs/RESULTS_MAP.md` (window, survival) | — |
+| Table 3 | `r44_corr_v2.py`, `r44_corr2.py` | — |
+| S1 Fig | `r41_synth_adv.py` | `make_figs.py` |
+| S1 Table | the time-stamped records | `make_s1.py` |
+| S2 Table | `r43_sens.py` | `make_tables.py` |
+| S3 Table | `r46_align_fix1.py` (alignment accuracy), `r48_identity_range.py` (identity range) | `make_tables.py` |
+| S1 Text | proofs; numerical checks in `framespace_wip/tests_stage0` and in the framedchain tests | — |
+| S2 Text | `r38_s0.py`, `r38_s0_bias2.py` (reduced computation, U-statistic, alignment uncertainty, truncated chains); `r38_static.py`, `r39_sec6.py` (certification); `r39_roundtrip.py`; `r41_compute_prep.py`, `r41_compute.py` (cost); `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`, `framespace_wip/experiments/sippl_linear_counterexample.py`, `chaining.py`, `c4_chain_extra.py` (Section 8) | — |
+| S3 Text | `code/negtype/*.js` (negative type, η₊); `r39_core.py` (size dependence) | — |
+
+The numbers in the text are mapped section by section in the first table of `docs/RESULTS_MAP.md` (for example the
+first thermophile test, `r38_p1.py`, and the ranking of existing measures, `hu1_rulers.py`).
+
+The checks that wrote no output file (12 test pairs, reversed chains, equipment of the cost measurement,
+decomposition of the unshared part, location of correspondence shifts, chain breaks, reproduction by framedchain
+0.4.1) are given with their code and printed output in [`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md).
+
+Reproduction is possible at three levels:
+
+1. **Check a number** against the deposited summary tables in `results/`: each row of `docs/RESULTS_MAP.md` names
+   the file that holds it, and the figure and table scripts read only these files.
+2. **Recompute a statistic** from the deposited per-domain intermediates (CPU, minutes to hours), for example
+   `python code/r38_p3.py "$ROOT" stats`.
+3. **Rerun from the public data** (GPU, days in total): download the inputs and run the stages in the order given
+   below. The generated model ensembles are stochastic; the deposit contains the ensembles that were analysed.
 
 ## Quick start (no downloads, CPU, a few minutes)
 
@@ -40,38 +69,16 @@ PYTHONPATH=framespace_pkg python -m pytest -q framespace_wip/tests_stage0
 The pinned versions need Python 3.12 or newer. On Windows set the path first (`set PYTHONPATH=framespace_pkg` in
 cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pytest ...` without the prefix.
 
-- `examples/demo_synthetic.py` applies the paper's computations to small synthetic ensembles using only the
-  as-run libraries: invariances and triangle inequality of D, the reduced computation (identical to
-  `red_pairs` in `code/r38_s0.py`) against the full search, and the energy-distance statistic Δ² for a null
-  comparison, a shift in fluctuations and an insertion of four edges. It is deterministic and takes about
-  30 s; its output on the checked versions is in `examples/demo_expected_output.txt`.
-- The 25 tests of the research module run against the as-run framespace 0.2.0 (about 3 minutes).
-- Both were checked on 2026-10-26 with Python 3.12.13 and the versions in
-  `environment/requirements-check.txt`. The method-level tests (definitions, the reduced computation, the
-  ensemble statistics fixed for this paper) are in the framedchain package (`tests/`, 46 tests in 0.4.1).
+- `examples/demo_synthetic.py` applies the paper's computations to small synthetic ensembles with the as-run
+  libraries: invariances and the triangle inequality of the edit distance, the reduced computation used for
+  frame pairs (identical to `red_pairs` in `code/r38_s0.py`) against the full search, and the energy statistic Δ²
+  for a null comparison, a change in fluctuations and an insertion of four bonds. It is deterministic and takes
+  about 30 s.
+- The 25 tests of the research module run against the as-run library (about 3 minutes).
+- Both were checked on 2026-10-26 with Python 3.12.13 and the versions in `environment/requirements-check.txt`.
+  The tests of the method itself are in the framedchain package (46 tests in version 0.4.1).
 
-## What is here
-
-| Path | Content |
-|---|---|
-| `code/` | Analysis scripts (Python), one per experiment or stage; `make_figs.py`, `make_tables.py` and `make_s1.py` draw the figures and the S1–S3 Tables from the stored results; `code/negtype/` holds four small Node.js checks. English descriptions in `docs/SCRIPTS.md` |
-| `framespace_pkg/framespace/` | framespace 0.2.0 exactly as used in the runs (tag `v0.2.0`, commit `866995c` of the framedchain repository; bundle md5 `4edba596…`) |
-| `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | Research module used by the runs (reduced computation, rulers, ESA/W2 helpers) and its tests (bundle md5 `6703fa26…`) |
-| `framespace_wip/experiments/` | Constructed counterexample for the Sippl linear form |
-| `examples/` | Synthetic demonstration and its expected output |
-| `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demo and tests), setup scripts and `pip freeze` records of the two model environments; see `environment/README.md` |
-| `registration/` | Local copies of registration entries (round34, round37), the round44 records of 2026-10-28 (`prereg_2026-10-28_addendum*.json`, six records and one correction), the round45 records (`prereg_2026-10-29_addendum7.json`, written 2026-10-28 15:39:50 UTC, and `_addendum8.json`, 2026-10-29 11:15:02 UTC) and the round46–48 records (`prereg_2026-10-30_addendum9.json`, 2026-10-29 16:34:05 UTC, corrected by `_addendum9_fix1.json` at 17:19:37; `_addendum10.json`, 2026-10-30 06:13:48 UTC, corrected by `_addendum10_fix1.json` at 06:46:19 and `_addendum10_fix2.json` at 06:47:24; `_addendum11.json`, 07:30:01). The date in the file names of the round45–48 records is Korea Standard Time (UTC+9). The full first record is `results/prereg_2026-10-17.json` in the data deposit |
-| `run_records/queues/` | The shell queues that ran the scripts on Colab, with the exact arguments |
-| `docs/RESULTS_MAP.md` | Manuscript item → scripts → output files → registration entry (first table from the manuscript, then row by row) |
-| `docs/SCRIPTS.md` | What every script computes, in English |
-| `docs/DATA.md` | Input data, intermediate tables and outputs; what is deposited and where |
-| `docs/PROVENANCE.md` | Per-file checksum and registration status |
-| `docs/INTERACTIVE_CHECKS.md` | Code and printed output of the checks that wrote no output file (12 pairs against TM-align, reversed chains, equipment of the compute table, unshared-part decomposition, location of correspondence shifts, chain breaks, reproduction run), copied from the session log |
-| `docs/STATEMENTS.md` | Draft Data Availability and Code Availability statements and the software references |
-| `tools/` | `pack_for_zenodo.py` (bundle results and selected intermediates for the data deposit), `record_env.py` (record an environment) |
-| `MANIFEST.md5` | md5 of every file in this repository (`md5sum -c MANIFEST.md5`) |
-
-## How the code is laid out and run
+## Running the analyses
 
 All scripts take the project root as their first argument and read and write under it:
 
@@ -83,7 +90,7 @@ ROOT/
   framespace_wip/    this repository's framespace_wip/
   raw/               downloaded inputs (docs/DATA.md)
   derived/           per-domain intermediates written by the scripts
-  results/           summary tables, registration record, logs (results/logs/*.done)
+  results/           summary tables, time-stamped records, logs (results/logs/*.done)
 ```
 
 A typical call is
@@ -93,97 +100,108 @@ python code/r38_p3.py "$ROOT" pairs,dom,pibar,pair,stats 3
 ```
 
 where the second argument lists stages and the optional third is the number of worker processes. Stages are
-resumable: finished per-domain files are skipped. Scripts add `ROOT/framespace_pkg` and `ROOT/framespace_wip`
-to `sys.path` themselves, so do not install another framespace version (framedchain 0.3.x or earlier) into the same environment when reproducing the
-runs. Several scripts load the functions of another script with `exec` (for example `r38_b6.py` loads the first
-part of `r38_s0.py`, and `r38_p1.py` loads `r38_p3.py`); keep the `code/` directory flat and unchanged.
+resumable: finished per-domain files are skipped. Scripts add `ROOT/framespace_pkg` and `ROOT/framespace_wip` to
+`sys.path` themselves, so do not install another version of the library into the same environment. Several scripts
+load functions from another script with `exec` (for example `r38_b6.py` loads part of `r38_s0.py`), so keep `code/`
+flat and unchanged. The commands that were actually run, with their arguments, are in `run_records/queues/`.
 
-### Order of the main stages
+Script names carry the stage of the project in which they were written (`r37` to `r48`). From the public data,
+the analyses run in this order:
 
-1. **Inputs.** Download the public data into `raw/` (docs/DATA.md) and place the deposited intermediate tables
-   in `results/` and `derived/`.
-2. **mdCATH extraction** (CPU): `mdcath_5T_extract.py` → `mdcath_5T_folded.py` → `c1_core.py`;
-   `mdcath_spread.py` and `mdcath_spread_hot.py` for the per-edge spreads.
-3. **Ladder and early checks** (CPU): `ladder_*`, `c4_substitution.py`, `e0_resolution.py`, `ladder_half.py`,
-   `ht_theta_meso.py`, the ruler comparisons (`hu1_*`, `pu_*`, `dfrechet_1674.py`, `chaining.py`).
-4. **Round37 CPU ladder:** `r37_trunk.py`, `r37_ff.py`, `r37_protocol.py`, `r37_subst.py`, `r37_unfold.py`.
-5. **Round36 GPU plan:** first session `r38_s0.py`; model ensembles `r38_prep.py`, `r38_md_ref*.py`,
-   `r38_asamt_gen.py`, `r38_alphaflow_gen.py`; comparisons `r38_compare*.py`, `r38_p2_*`; primary experiments
-   `r38_p3.py`, `r38_p1.py`, `r38_c.py`, `r38_p1n.py`, `r38_b6.py`, `r38_static.py`, `r38_r10a.py`; the
-   standard-metric box `r38_af_bar.py`, `r38_7b_*`. P3/B6, P1, C and P1′ each have a `r38_verify_*.py` that
-   checks the implementation on synthetic data with known answers before the registered run.
-6. **Round39 scale experiments:** `r39_e5prep.py`, `r39_core.py`, `r39_D_stem.py`, `r39_D_unfold.py`,
-   `r39_e6.py`, `r39_r6.py`, `r39_sec6.py`, `r39_roundtrip.py`.
-7. **Round41 and round43:** `r41_*`, `r43_sens.py`.
-8. **Round44 (checks added after external review, 2026-10-28):** `r44_inv.py`; `r44_corr.py`, then `r44_corr_v2.py`;
-   `r44_pairw.py`, `r44_p1win.py`, `r44_corr2.py`, `r44_w2p1.py`, `r44_p1comp2.py`, `r44_redsame.py`; `r44_b6size_cell26.py` and `r44_seqid_cell30.py` are notebook cells
-   kept verbatim as scripts; `r44_repro.py` checks that framedchain 0.4.1 reproduces the as-run code.
-9. **Round45 (checks added after external review, 2026-10-28 and 10-29):** `r45_f1.py` (bond-direction and twist profiles, queue `q_r45.sh`),
-   `r45_mpstart.py` (independence of the mean point from the starting frame); `r45_folded_frac.py` is a descriptive count run from a notebook,
-   kept verbatim below a header.
-10. **Round46–48 (checks added after external review, 2026-10-29 and 10-30):** `r46_align.py` (tm, stats; its second
-   check failed, see the correction record) and `r46_align_fix1.py` (average ranks); `r47_ties.py`, run by
-   `run_records/queues/q_r47.py`, with the comparison step re-run by `r47_combine_fix2.py` (`r47_combine_fix1.py` stopped
-   with a syntax error); `r48_identity_range.py` (exp, stats).
-11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py` read the stored results only and recompute
-   nothing; the project path is set at the top of each file.
+1. **Inputs.** Download the public data into `raw/` and place the deposited intermediate tables in `results/` and
+   `derived/` (`docs/DATA.md`).
+2. **Simulation frames.** `mdcath_5T_extract.py`, `mdcath_5T_folded.py`, `c1_core.py`; `mdcath_spread.py` and
+   `mdcath_spread_hot.py` for per-bond spreads (CPU).
+3. **Comparison of TM-score forms and existing measures** (CPU): `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`,
+   `hu1_rulers.py`, `chaining.py`, `c4_chain_extra.py`.
+4. **Checks of the computation** (mostly GPU): `r38_s0.py`, `r38_s0_bias2.py`, `r38_static.py`, `r39_roundtrip.py`,
+   `r39_sec6.py`, `r41_compute_prep.py`, `r41_compute.py`.
+5. **Calibration on heating** (GPU, then CPU): `r39_D_stem.py`, `r39_core.py`, `r39_D_unfold.py`, `r39_e6.py`,
+   `r38_e7_30.py`, `r38_e7_100.py`, `r41_dcomp.py`.
+6. **Comparison across sequences and the other κ cells** (GPU): `r38_b6.py`, `r38_r10a.py` (insertion–deletion
+   pairs), `r38_dff_D.py`, `r41_dff50.py` (force-field cell).
+7. **Model errors** (GPU): `r38_prep.py`, `r38_md_ref.py`, `r38_asamt_gen.py` (samenv), `r38_alphaflow_gen.py`
+   (afenv), `r38_compare.py`, `r38_p2_D.py`, `r38_p2_aggregate_D.py`, `r39_e5prep.py` and the other scripts of
+   row 4.11 of `docs/RESULTS_MAP.md`.
+8. **Thermophilic homologs** (GPU): `r38_p1.py`, `r38_p1_diag.py`, `r38_p1n_fetch.py`, `r38_p1n.py`.
+9. **Sequence identity** (GPU, then CPU): `r38_p3.py`, `r38_p3_explore2.py`, `r38_c_fetch.py`, `r38_c.py`,
+   `r38_c_nl.py`.
+10. **Analyses added after the results** (CPU unless noted): `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
+    `r47_*.py`, `r48_identity_range.py`, each fixed in its own time-stamped record (`docs/RESULTS_MAP.md`).
+11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
+    project path is set at the top of each file.
 
-The exact sequences that ran are in `run_records/queues/` (`$R` = ROOT, `$C` = ROOT/code, `$L` = log directory).
+For the main registered analyses, `r38_verify_*.py` checked the implementation on synthetic data with known
+answers before the run. The repository also contains scripts of project analyses that the paper does not report
+(for example fold retrieval and a check of standard ensemble metrics); `docs/RESULTS_MAP.md` lists them.
 
-## Environments and hardware
+## Time-stamped records
 
-The runs used Google Colab (A100-SXM4-40GB runtimes with 12 vCPU Intel Xeon for the GPU stages; CPU-only scripts
-also on CPU-only runtimes with 2 vCPUs; `environment/README.md`) with the project directory on Google Drive.
-Three Python environments were used:
+Hypotheses, predictions and decision rules were written into time-stamped records before the analyses they cover
+were run (Methods and S1 Table of the paper). The first record, `results/prereg_2026-10-17.json`, is in the data
+deposit together with its 101 retained versions; the eleven records added from 2026-10-28 and their four
+corrections are also copied in `registration/` (the date in their file names is Korea Standard Time, UTC+9; times
+inside are UTC). Where a record holds the md5 of a script, the file here has that checksum;
+[`docs/PROVENANCE.md`](docs/PROVENANCE.md) lists the checksum of every file and whether it was recorded before the
+run. A corrected script was registered as a separate file with its own checksum, and analyses added after a result
+are separate scripts that say so in their docstrings.
 
-- **Base Colab environment** (Python 3.12) for almost all scripts; packages in
-  `environment/requirements-base.txt`. Recorded versions: numpy 2.1 and mdtraj 1.11.2 (2026-10-19),
-  torch 2.11.0+cu130 (2026-10-22), tmtools 0.3.0. A full `pip freeze` of this environment was not recorded at
-  run time; `tools/record_env.py` writes one for the environment you use.
-- **afenv** (Python 3.9, torch 1.12.1+cu113, OpenFold `103d037`) for AlphaFlow generation and the AlphaFlow
-  analysis code: `environment/afenv_freeze.txt`, `environment/setup_afenv3.sh`.
-- **samenv** (Python 3.12, torch 2.6.0+cu124, sam2 `ce076ed`) for aSAMt generation:
-  `environment/samenv_freeze.txt`, `environment/setup_samenv3.sh`.
+## Repository layout
 
-External tools: AlphaFlow commit `0408d7c`, sam2 (aSAM) commit `ce076ed`, OpenFold `103d037`, US-align
-`23f14ff`, Foldseek `10-941cd33`, tmtools 0.3.0. See `environment/README.md`.
+| Path | Content |
+|---|---|
+| `code/` | Analysis scripts, one per experiment or stage; figure and table scripts (`make_figs.py`, `make_tables.py`, `make_s1.py`); four Node.js checks in `code/negtype/` |
+| `framespace_pkg/framespace/` | The library exactly as used in the runs (framespace 0.2.0, the earlier name of framedchain; tag `v0.2.0` of the framedchain repository, bundle md5 `4edba596…`) |
+| `framespace_wip/` | Research module used by the runs (reduced computation, measures, ESA and W₂ helpers) with its tests (bundle md5 `6703fa26…`), and the constructed counterexample for the linear form |
+| `examples/` | Synthetic demonstration and its expected output |
+| `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
+| `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
+| `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
+| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file), `STATEMENTS.md` (draft availability statements) |
+| `tools/` | `pack_for_zenodo.py` (builds the data deposit), `record_env.py` (records an environment) |
+| `MANIFEST.md5` | md5 of every file (`md5sum -c MANIFEST.md5`) |
 
-Rough cost on that hardware: the CPU stages take minutes to hours each; the GPU stages (model generation,
-reduced computation over millions of frame pairs) took days in total. The compute table of the paper
-(`results/r41_compute.json`, result 2.6) gives per-pair timings.
+## Data
 
-## Reproducing at three levels
+All inputs are public: the mdCATH and ATLAS simulations, CATH, RCSB PDB entries, SIFTS, and growth temperatures
+from TEMPURA and Engqvist (2018). The model ensembles were generated with the released aSAM and AlphaFlow code
+and weights. Summary tables, per-domain statistics, the generated ensembles, domain and pair lists and the
+time-stamped records are deposited at Zenodo (DOI to be added). [`docs/DATA.md`](docs/DATA.md) lists every input
+and intermediate with its source and licence.
 
-1. **Check the numbers in the text** from the deposited `results/` tables: each row of `docs/RESULTS_MAP.md`
-   names the file that holds the value.
-2. **Re-run a statistic from deposited intermediates** (CPU, minutes to hours): `stats` stages read the
-   per-domain files in `derived/`, for example `python code/r38_p3.py "$ROOT" stats`.
-3. **Re-run from raw data** (GPU, days): download the inputs and run the stages in order. The model ensembles
-   (aSAMt, AlphaFlow) are stochastic; the deposit contains the generated ensembles that were analysed.
+## Software and hardware
 
-## Known gaps
+The analyses ran on Google Colab with the project directory on Google Drive: A100-SXM4-40GB runtimes (12 vCPUs)
+for the GPU stages, and CPU-only runtimes for some CPU stages (`environment/README.md`).
 
-- Some inputs were produced in notebook cells that were not kept as scripts. They are deposited as data and
-  listed in `docs/DATA.md` (domain and pair lists, the mdCATH setup file, the ruler-benchmark structure sets,
-  the growth-temperature table, the summary files of the old ladder rows).
-- Seven checks wrote no output file: two early checks computed interactively with `framespace_wip/stage0/rulers.py`
-  (TM-align comparison on 12 pairs, reversed chains), the equipment check of the compute table, the decomposition of
-  the unshared part between mean points, the location of correspondence shifts, the chain-break check and the
-  reproduction run `r44_repro.py`. Their code and printed output, copied from the session log, are in
-  `docs/INTERACTIVE_CHECKS.md`.
-- The base Colab environment was not frozen at run time (see above).
-- Some paths are Colab-specific (`/content/...` scratch directories, `/usr/bin/python3`, the Drive project path
-  in `environment/af_bar_readmeenv.sh` and at the top of `make_figs.py`, `make_tables.py` and `make_s1.py`). They are working directories, not inputs; change them if you run
-  elsewhere.
-- Scripts whose checksum was not registered are marked in `docs/PROVENANCE.md`.
+- **Base environment** (Python 3.12) for almost all scripts: `environment/requirements-base.txt`. Recorded
+  versions: numpy 2.1 and mdtraj 1.11.2 (2026-10-19), torch 2.11.0+cu130 (2026-10-22), tmtools 0.3.0. This environment was not
+  frozen at run time; `tools/record_env.py` records the one you use.
+- **afenv** (Python 3.9, torch 1.12.1+cu113, OpenFold `103d037`) for AlphaFlow: `environment/afenv_freeze.txt`,
+  `environment/setup_afenv3.sh`.
+- **samenv** (Python 3.12, torch 2.6.0+cu124, sam2 `ce076ed`) for aSAMt: `environment/samenv_freeze.txt`,
+  `environment/setup_samenv3.sh`.
 
-## Licence and citation
+External tools: AlphaFlow `0408d7c`, sam2 (aSAM) `ce076ed`, OpenFold `103d037`, US-align `23f14ff`, Foldseek
+`10-941cd33`, tmtools 0.3.0. CPU stages take minutes to hours each; the GPU stages took days in total. Per-pair
+timings are in S2 Text 7.
 
-MIT licence, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not included: AlphaFlow, sam2,
-OpenFold, US-align and Foldseek are obtained from their own repositories under their own licences. If you use
-this code, please cite the accompanying paper (in preparation) and the software (`CITATION.cff`; Zenodo DOI to
-be added at release).
+## Notes on the as-run code
 
-## Abstract
+- **Comments.** Docstrings and comments inside the scripts are in Korean, the working language of the project.
+  They are not translated in place because the files are kept byte for byte as run; `docs/SCRIPTS.md` describes
+  every script in English.
+- **Names.** The library was called framespace up to version 0.3.3 and this repository framespace-paper; both
+  were renamed on 2026-10-26 (GitHub redirects the old addresses). The as-run copies keep the old names
+  (`framespace_pkg/framespace/`, `import framespace`, `framespace_wip/`) because their bytes are registered.
+- **Inputs made in notebooks.** Some inputs were produced in notebook cells that were not kept as scripts; they
+  are deposited as data and listed in `docs/DATA.md`.
+- **Paths.** Some paths are Colab-specific (`/content/...` scratch directories, `/usr/bin/python3`, the Drive
+  project path in `environment/af_bar_readmeenv.sh` and at the top of the figure and table scripts). They are
+  working directories, not inputs.
 
-Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replicate and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains' shifts under 59 K heating, yet are largely orthogonal to the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear controls; in shorter domains, the association does not survive the nonlinear controls. Ensembles across sequences thus become comparable in one geometry.
+## Citation and licence
+
+If you use this code, please cite the paper and this repository (`CITATION.cff`; the Zenodo DOI will be added at
+release). MIT licence, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not included: AlphaFlow,
+sam2, OpenFold, US-align and Foldseek are obtained from their own repositories under their own licences.
