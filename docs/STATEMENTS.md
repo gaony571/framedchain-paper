@@ -23,8 +23,8 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > were generated with the authors' released code and weights (sam2 commit ce076ed; AlphaFlow commit 0408d7c).
 > All data generated in this study that are
 > needed to reproduce the reported values — summary tables for every result, per-domain statistics, the
-> generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped pre-registration
-> record — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
+> generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped records
+> that fixed the analyses — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
 > (https://github.com/gaony571/framedchain, version 0.4.1, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
