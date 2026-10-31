@@ -66,7 +66,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
 | `docs/SCRIPTS.md` | What every script computes, in English |
 | `docs/DATA.md` | Input data, intermediate tables and outputs; what is deposited and where |
 | `docs/PROVENANCE.md` | Per-file checksum and registration status |
-| `docs/INTERACTIVE_CHECKS.md` | Code and printed output of the checks run in notebook cells without a script (12 pairs against TM-align, reversed chains, equipment of the compute table), copied from the session log |
+| `docs/INTERACTIVE_CHECKS.md` | Code and printed output of the checks that wrote no output file (12 pairs against TM-align, reversed chains, equipment of the compute table, unshared-part decomposition, location of correspondence shifts, chain breaks, reproduction run), copied from the session log |
 | `docs/STATEMENTS.md` | Draft Data Availability and Code Availability statements and the software references |
 | `tools/` | `pack_for_zenodo.py` (bundle results and selected intermediates for the data deposit), `record_env.py` (record an environment) |
 | `MANIFEST.md5` | md5 of every file in this repository (`md5sum -c MANIFEST.md5`) |
@@ -160,9 +160,11 @@ reduced computation over millions of frame pairs) took days in total. The comput
 - Some inputs were produced in notebook cells that were not kept as scripts. They are deposited as data and
   listed in `docs/DATA.md` (domain and pair lists, the mdCATH setup file, the ruler-benchmark structure sets,
   the growth-temperature table, the summary files of the old ladder rows).
-- Two early checks (TM-align comparison on 12 pairs, reversed chains) were computed interactively with
-  `framespace_wip/stage0/rulers.py` and wrote no output file; their cell code and printed output, copied from the
-  session log, are in `docs/INTERACTIVE_CHECKS.md`.
+- Seven checks wrote no output file: two early checks computed interactively with `framespace_wip/stage0/rulers.py`
+  (TM-align comparison on 12 pairs, reversed chains), the equipment check of the compute table, the decomposition of
+  the unshared part between mean points, the location of correspondence shifts, the chain-break check and the
+  reproduction run `r44_repro.py`. Their code and printed output, copied from the session log, are in
+  `docs/INTERACTIVE_CHECKS.md`.
 - The base Colab environment was not frozen at run time (see above).
 - Some paths are Colab-specific (`/content/...` scratch directories, `/usr/bin/python3`, the Drive project path
   in `environment/af_bar_readmeenv.sh`). They are working directories, not inputs; change them if you run

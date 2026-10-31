@@ -1,9 +1,11 @@
 # Interactive checks: code and printed output
 
-Three results in S2 Text were computed in interactive Colab cells rather than by a standalone script: the
-comparison of 12 test pairs with TM-align (S2 Text 8.1), the reversed chains (S2 Text 8.5) and the equipment
-check before the computational-cost measurement (S2 Text 7). No output file was written for them. The code and
-printed output of each cell survive in the client-side log of the working session through which the cells were
+Seven results were computed in interactive Colab cells, or by a script whose printed output was not saved to a file:
+the comparison of 12 test pairs with TM-align (S2 Text 8.1; section 1), the reversed chains (S2 Text 8.5; section 2),
+the equipment check before the computational-cost measurement (S2 Text 7; section 3), the decomposition of the
+unshared part between mean points (section 4), where correspondence shifts occur (section 5), the chain-break check
+(section 6) and the reproduction of the as-run code by framedchain 0.4.1 (section 7). The code and printed output
+survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
 This file copies them from that log verbatim; only the parts noted were left out.
@@ -13,6 +15,7 @@ Names used by the cells but defined earlier in the same runtime: `ROOT = '/conte
 `names` = its chain names, sorted; `names_o` = its chain names in file order; `s0` = `framespace_wip/stage0`;
 `fs` = the framespace package (`framespace_pkg`); `tma` and `tma_orig` = `tmtools.tm_align` (at 15:36 `tma` was
 redefined to raise an error so that later cells could not call it by mistake, and `tma_orig` kept the original).
+In sections 4–6, `R` is the same project root and `J(name)` reads `results/<name>.json`.
 
 ## 1. Twelve test pairs against TM-align (16 October 2026)
 
@@ -397,3 +400,305 @@ Output:
 08:42:28 CT_SUM_DONE
 1
 ```
+
+## 4. Decomposition of the unshared part between mean points (21 October 2026)
+
+Manuscript, sequence-identity section: about 89% of the unshared part of the squared distance between mean points is
+staggered, one-sided loss of correspondence inside the aligned region, about 7% terminal overhangs and about 4.5%
+bonds at the same position turned beyond 120° (a descriptive decomposition, in no record). Inputs:
+`derived/r38/c/pibar.jsonl` and `derived/r38/p3/pibar.jsonl` (alignment of the two mean points of each pair, with its
+correspondence `best` and score `S`), `derived/r38/c/dom/<domain>.npz` and `derived/r38/p3/dom/<domain>.npz` (mean
+point `m`, mean length ratio `sbar`) and `derived/r41/tm_med.jsonl` (TM-score of TM-align on medoids). In the output, C is
+the confirmatory set and H the first homolog study; "끝 겹침" is terminal overhang, "구간 초과" the unpaired excess
+inside the aligned region, "경첩(K≤0)" bonds facing each other at the same position with a non-positive pair score
+(turned beyond 120°) and "밀림(K>0)" bonds facing each other with a positive score. The masses are summed over pairs
+after dividing each pair's terms by √n̄. The first cell checks the decomposition on 200 pairs (the rebuilt S agrees with
+the stored S, and the parts sum to the unshared mass); the second gives the shares.
+
+Cell `HpplqbJChcyO`, run requested 2026-10-21 09:17:04, output returned 09:17:08 UTC.
+
+```python
+import numpy as np, json, sys
+sys.path[:0] = [R + '/framespace_pkg']
+CC = f'{R}/derived/r38/c'; PB = [json.loads(l) for l in open(CC + '/pibar.jsonl')]
+rg = np.random.default_rng(1); pick = rg.choice(len(PB), 200, replace=False)
+def proc(M):  # argmax_U tr(U M) (fs.align 규약과 같은 M = Σ y xᵀ)
+    W, S_, Vt = np.linalg.svd(M); d = np.sign(np.linalg.det(W @ Vt)); return (Vt.T @ np.diag([1, 1, d]) @ W.T)
+def ld(d):
+    z = np.load(f'{CC}/dom/{d}.npz'); return z['m'].astype(np.float64), z['sbar'].astype(np.float64)
+rel, frac, vneg = [], [], []
+for q in pick:
+    p = PB[q]; a, b = p['ab']; mA, sA = ld(a); mB, sB = ld(b); pr = np.array(p['best'], int)
+    M = np.einsum('kxz,kyz->xy', mB[pr[:, 1]], mA[pr[:, 0]]); U = proc(M)
+    K = lambda i, j: float((mA[i] * (U @ mB[j])).sum())
+    S2 = sum(K(i, j) for i, j in pr); rel.append(abs(S2 - p['S']) / p['S'])
+    nA, nB = (mA ** 2).sum((1, 2)), (mB ** 2).sum((1, 2)); ins = hin = slp = 0.0
+    o = np.argsort(pr[:, 0]); pr = pr[o]
+    ins += nA[:pr[0, 0]].sum() + nA[pr[-1, 0] + 1:].sum() + nB[:pr[0, 1]].sum() + nB[pr[-1, 1] + 1:].sum()
+    for (i1, j1), (i2, j2) in zip(pr[:-1], pr[1:]):
+        ga, gb = list(range(i1 + 1, i2)), list(range(j1 + 1, j2)); k = min(len(ga), len(gb))
+        for t in range(k):
+            v = nA[ga[t]] + nB[gb[t]]
+            if K(ga[t], gb[t]) <= 0: hin += v
+            else: slp += v
+        ins += nA[ga[k:]].sum() + nB[gb[k:]].sum()
+    tot = ins + hin + slp; gap = nA.sum() + nB.sum() - nA[pr[:, 0]].sum() - nB[pr[:, 1]].sum()
+    frac.append((ins / tot, hin / tot, slp / tot, abs(tot - gap) / gap))
+    vA = 0.75 * sA ** 2 - nA; vneg.append(float((vA <= 0).mean()))
+fr = np.array(frac)
+print('S 재현 상대 차 최대', max(rel), '중앙', np.median(rel))
+print('빈칸 질량 몫 중앙 [삽입형, 경첩형(K≤0), 밀림(K>0)]', np.median(fr[:, :3], 0).round(3), '사분위 경첩', np.percentile(fr[:, 1], [25, 75]).round(3), '합 대 빈칸 질량 상대 차 최대', fr[:, 3].max())
+print('퍼짐 대용 v = 0.75 s̄² − ‖m‖² ≤ 0 인 변 비율 중앙', np.median(vneg))
+```
+
+Output:
+
+```
+S 재현 상대 차 최대 5.986152210616383e-05 중앙 4.3328119880274994e-16
+빈칸 질량 몫 중앙 [삽입형, 경첩형(K≤0), 밀림(K>0)] [0.951 0.049 0.   ] 사분위 경첩 [0.023 0.072] 합 대 빈칸 질량 상대 차 최대 5.131670388268424e-15
+퍼짐 대용 v = 0.75 s̄² − ‖m‖² ≤ 0 인 변 비율 중앙 0.0
+```
+
+Cell `HpplqbJChcyO`, run requested 2026-10-21 09:17:42, output returned 09:23:14 UTC.
+
+```python
+from scipy.stats import rankdata
+tmd = {tuple(json.loads(l)['ab']): json.loads(l).get('tm_long') for l in open(f'{R}/derived/r41/tm_med.jsonl')}
+def decomp(base):
+    rows = []; cache = {}
+    def ld(d):
+        if d not in cache:
+            if len(cache) > 300: cache.clear()
+            z = np.load(f'{base}/dom/{d}.npz'); cache[d] = z['m'].astype(np.float64)
+        return cache[d]
+    for l in open(base + '/pibar.jsonl'):
+        p = json.loads(l); a, b = p['ab']; mA, mB = ld(a), ld(b); pr = np.array(p['best'], int); pr = pr[np.argsort(pr[:, 0])]
+        U = proc(np.einsum('kxz,kyz->xy', mB[pr[:, 1]], mA[pr[:, 0]])); nA, nB = (mA ** 2).sum((1, 2)), (mB ** 2).sum((1, 2))
+        ov = nA[:pr[0, 0]].sum() + nA[pr[-1, 0] + 1:].sum() + nB[:pr[0, 1]].sum() + nB[pr[-1, 1] + 1:].sum(); ex = hin = slp = 0.0; nh = 0
+        for (i1, j1), (i2, j2) in zip(pr[:-1], pr[1:]):
+            ga, gb = np.arange(i1 + 1, i2), np.arange(j1 + 1, j2); k = min(len(ga), len(gb))
+            if k:
+                Kv = np.einsum('kxz,kxz->k', mA[ga[:k]], np.einsum('xy,kyz->kxz', U, mB[gb[:k]])); v = nA[ga[:k]] + nB[gb[:k]]
+                hin += v[Kv <= 0].sum(); slp += v[Kv > 0].sum(); nh += int((Kv <= 0).sum())
+            ex += nA[ga[k:]].sum() + nB[gb[k:]].sum()
+        nb_ = (len(mA) + len(mB)) / 2; s = np.sqrt(nb_)
+        rows.append(dict(ab=(a, b), ov=ov / s, ex=ex / s, hin=hin / s, slp=slp / s, gap=(ov + ex + hin + slp) / s, dfrac=abs(len(mA) - len(mB)) / max(len(mA), len(mB)), tm=tmd.get((a, b)), nh=nh))
+    return rows
+for nm, base in (('C', CC), ('H', f'{R}/derived/r38/p3')):
+    rw = [r for r in decomp(base) if r['tm'] is not None]; A_ = lambda k: np.array([r[k] for r in rw], float)
+    gap, ov, ex, hin, slp, df, tm = (A_(k) for k in ('gap', 'ov', 'ex', 'hin', 'slp', 'dfrac', 'tm'))
+    tot = gap.sum(); print(nm, len(rw), '질량 몫 합계: 끝 겹침 %.3f 구간 초과 %.3f 경첩(K≤0) %.3f 밀림(K>0) %.3f' % (ov.sum() / tot, ex.sum() / tot, hin.sum() / tot, slp.sum() / tot),
+          '경첩 몫 쌍별 중앙 %.3f' % np.median(hin / gap), '경첩 변 수 중앙', np.median(A_('nh')))
+    Z = np.column_stack([np.ones(len(rw)), rankdata(tm), rankdata(df)]); res = lambda y: rankdata(y) - Z @ np.linalg.lstsq(Z, rankdata(y), rcond=None)[0]
+    rg_ = res(gap); print('   TM·dfrac 잔차 뒤: 빈칸 잔차와 각 성분 잔차의 상관', {k: round(float(np.corrcoef(rg_, res(v))[0, 1]), 3) for k, v in (('끝 겹침', ov), ('구간 초과', ex), ('경첩', hin), ('삽입형=끝+초과', ov + ex))})
+```
+
+Output:
+
+```
+C 4152 질량 몫 합계: 끝 겹침 0.067 구간 초과 0.888 경첩(K≤0) 0.045 밀림(K>0) 0.000 경첩 몫 쌍별 중앙 0.042 경첩 변 수 중앙 3.0
+   TM·dfrac 잔차 뒤: 빈칸 잔차와 각 성분 잔차의 상관 {'끝 겹침': 0.065, '구간 초과': 0.938, '경첩': 0.28, '삽입형=끝+초과': 0.992}
+H 12003 질량 몫 합계: 끝 겹침 0.162 구간 초과 0.787 경첩(K≤0) 0.052 밀림(K>0) 0.000 경첩 몫 쌍별 중앙 0.040 경첩 변 수 중앙 1.0
+   TM·dfrac 잔차 뒤: 빈칸 잔차와 각 성분 잔차의 상관 {'끝 겹침': 0.226, '구간 초과': 0.734, '경첩': 0.156, '삽입형=끝+초과': 0.975}
+```
+
+**Re-run on 31 October 2026.** The cell code above, run again on the same input files, printed the same line for the
+confirmatory set (C 4152: 0.067, 0.888, 0.045, 0.000; residual correlations 0.065, 0.938, 0.28, 0.992). The first-study line
+(H), which the manuscript does not use, was not re-run.
+
+
+## 5. Where correspondence shifts occur (21 October 2026)
+
+Manuscript, bond-level section: the shifts of the correspondence by a few bonds occurred about equally often within and
+between ensembles, twice as often per bond in the 10 bonds at each chain end as in the core, but with most events in
+the core. Inputs: `derived/r41/dcomp_gpu/<domain>.json` (per-cell fractions of bonds that are unshared, `gap_frac`, or
+shifted, `shift_frac`, in the 10 bonds at each end, `term`, and in the core, between ensembles, `cross`, and within one
+ensemble, `within`), written by `code/r41_dcomp.py` (part gpu, round41 g2) and summarised as `gpu` in
+`results/r41_dcomp.json`, and the bond counts `ne` in `derived/r38/s0/e7_30/` and `e7_100/`. The cross-minus-within
+differences are 0.25–0.31 percentage points; per bond, shifts are 0.124 at the ends against 0.058 in the core; of all
+shift events between ensembles, a median 0.387 fall in the 20 end bonds (so about 61% in the core).
+
+Cell `HpplqbJChcyO`, run requested 2026-10-21 14:45:32, output returned 14:45:33 UTC.
+
+```python
+g = J('r41_dcomp'); print(g['checks']); print('gpu', json.dumps(g.get('gpu'), ensure_ascii=False)); print(g['reading'])
+import glob
+G = [json.load(open(f)) for f in glob.glob(f'{R}/derived/r41/dcomp_gpu/*.json')]
+rows = [(T, c) for j in G for k, c in j['cells'].items() for T in [k] if k.startswith('MD')]
+for part in ('cross', 'within'):
+    for x in ('gap_frac_term', 'gap_frac_core', 'shift_frac_term', 'shift_frac_core', 'frac_c2_gt_c1', 'frac_c2_lt_c1'):
+        v = np.array([c[part][x] for _, c in rows]); print(part, x, round(float(np.median(v)), 4), [round(float(t), 4) for t in np.percentile(v, [25, 75])])
+for T in ('348', '379', '413', '450'):
+    sub = [c for k, c in rows if k[2:5] == T]
+    print(T, len(sub), {x: round(float(np.median([c['cross'][x] for c in sub])), 4) for x in ('gap_frac_term', 'gap_frac_core', 'shift_frac_term', 'shift_frac_core', 'frac_c2_gt_c1')})
+# 교차 − 같은 쪽 (끝/중심의 초과)
+for x in ('gap_frac_term', 'gap_frac_core', 'shift_frac_term', 'shift_frac_core'):
+    v = np.array([c['cross'][x] - c['within'][x] for _, c in rows]); print('교차−같은쪽', x, round(float(np.median(v)), 4))
+```
+
+Output:
+
+```
+{'a_vs_A2000_maxrel': 0.0, 'Sb_iter_maxrel': 2.5830321892508642e-15, 'viol_ab': 0, 'viol_bc1': 0, 'n_pairs': 28962000, 'gpu_full_vs_stored_maxrel': 0.0, 'n_gpu': 97}
+gpu {"gap_frac_term": {"median": 0.1074965, "q25": 0.057036875, "q75": 0.17311}, "gap_frac_core": {"median": 0.046312112068965516, "q25": 0.027818351841028637, "q75": 0.06292354283707866}, "shift_frac_term": {"median": 0.12364160526088659, "q25": 0.05110920856060537, "q75": 0.2395405262774736}, "shift_frac_core": {"median": 0.05821813723861202, "q25": 0.02146178130849964, "q75": 0.10411769735665727}, "frac_c2_gt_c1": {"median": 0.00025, "q25": 0.0, "q75": 0.00102125}, "n_cells": 464}
+{'D2': {'shares': {'a→b': -0.015274405526762671, 'b→c1': 0.2940324418424907, 'c1→c2': 0.7212419636842721}, 'reading': '등록 미끄러짐(끝 재정렬·주기 구조)'}, 'ratio': {'shares': {'a→b': -0.03371513197490173, 'b→c1': 0.24450536170182544, 'c1→c2': 0.7892097702730763}, 'reading': '등록 미끄러짐(끝 재정렬·주기 구조)'}}
+cross gap_frac_term 0.1075 [0.057, 0.1731]
+cross gap_frac_core 0.0463 [0.0278, 0.0629]
+cross shift_frac_term 0.1236 [0.0511, 0.2395]
+cross shift_frac_core 0.0582 [0.0215, 0.1041]
+cross frac_c2_gt_c1 0.0003 [0.0, 0.001]
+cross frac_c2_lt_c1 0.9822 [0.9104, 0.999]
+within gap_frac_term 0.1008 [0.0519, 0.1562]
+within gap_frac_core 0.0406 [0.0253, 0.054]
+within shift_frac_term 0.1059 [0.0452, 0.2139]
+within shift_frac_core 0.0475 [0.0195, 0.0829]
+within frac_c2_gt_c1 0.0004 [0.0, 0.0011]
+within frac_c2_lt_c1 0.9477 [0.832, 0.998]
+348 176 {'gap_frac_term': 0.1037, 'gap_frac_core': 0.0441, 'shift_frac_term': 0.1017, 'shift_frac_core': 0.0545, 'frac_c2_gt_c1': 0.0003}
+379 138 {'gap_frac_term': 0.1084, 'gap_frac_core': 0.0453, 'shift_frac_term': 0.1353, 'shift_frac_core': 0.0605, 'frac_c2_gt_c1': 0.0003}
+413 99 {'gap_frac_term': 0.1082, 'gap_frac_core': 0.0524, 'shift_frac_term': 0.115, 'shift_frac_core': 0.0678, 'frac_c2_gt_c1': 0.0003}
+450 51 {'gap_frac_term': 0.1226, 'gap_frac_core': 0.0464, 'shift_frac_term': 0.1508, 'shift_frac_core': 0.0511, 'frac_c2_gt_c1': 0.0003}
+교차−같은쪽 gap_frac_term 0.0028
+교차−같은쪽 gap_frac_core 0.0025
+교차−같은쪽 shift_frac_term 0.0031
+교차−같은쪽 shift_frac_core 0.0031
+```
+
+Cell `HpplqbJChcyO`, run requested 2026-10-21 14:45:51, output returned 14:45:57 UTC.
+
+```python
+NE = {}
+for f in glob.glob(f'{R}/derived/r38/s0/e7_30/*.json') + glob.glob(f'{R}/derived/r38/s0/e7_100/*.json'):
+    j = json.load(open(f))
+    if 'ne' in j: NE[j['dom']] = j['ne']
+sh_t, gp_t, nes = [], [], []
+for j in G:
+    ne = NE.get(j['dom'])
+    if not ne: continue
+    for k, c in j['cells'].items():
+        if not k.startswith('MD'): continue
+        x = c['cross']; nt = 20; nc = ne - 20
+        st_, sc_ = x['shift_frac_term'] * nt, x['shift_frac_core'] * nc; gt_, gc_ = x['gap_frac_term'] * nt, x['gap_frac_core'] * nc
+        if st_ + sc_ > 0: sh_t.append(st_ / (st_ + sc_))
+        if gt_ + gc_ > 0: gp_t.append(gt_ / (gt_ + gc_))
+        nes.append(ne)
+print('도메인 ne 중앙', np.median(nes), '끝 변 몫(20/ne) 중앙', np.median(20 / np.array(nes)))
+print('밀림 사건 중 끝 몫 중앙', round(float(np.median(sh_t)), 3), np.percentile(sh_t, [25, 75]).round(3), '빈칸 변 중 끝 몫 중앙', round(float(np.median(gp_t)), 3), np.percentile(gp_t, [25, 75]).round(3))
+```
+
+Output:
+
+```
+도메인 ne 중앙 89.0 끝 변 몫(20/ne) 중앙 0.2247191011235955
+밀림 사건 중 끝 몫 중앙 0.387 [0.199 0.688] 빈칸 변 중 끝 몫 중앙 0.414 [0.255 0.595]
+```
+
+**Re-run on 31 October 2026.** The same code on the same input files printed the same values (cross − within
+0.0028, 0.0025, 0.0031, 0.0031; 464 cells; median share of shift events in the end bonds 0.387 [0.199, 0.688]).
+
+
+## 6. Chain breaks (28 October 2026)
+
+Methods: no domain used in the analyses had a Cα–Cα bond longer than 4.2 Å (s > 1.1). For the homolog studies the check
+used the frame-averaged length ratio `sbar` stored for each domain (`derived/r38/p3/dom/`, first homolog study, 1,496
+domains with `sbar`; `derived/r38/c/dom/`, confirmatory set, 949), and for the 336 calibration domains every bond of the
+first 320 K frame of replicate 0 (`derived/mdcath_5T/<domain>.npz`, `320_0_X`). The output tuple is (domains checked,
+domains with a long bond, examples).
+
+Cell `gegSq8EQ72mh`, run requested 2026-10-28 05:15:39, output returned 05:16:03 UTC.
+
+```python
+# 12. 원고 점검(읽기만): (a) H-풀 12,003 → 11,991 쌍이 된 까닭, (b) 사슬 끊김(긴 결합)이 있는 도메인 수
+import numpy as np, glob
+p3 = json.load(open(f'{R}/results/r38_p3.json'))
+print('r38_p3 keys:', list(p3)[:20])
+for k in ('dropouts', 'n_pairs', 'n_rows', 'counts'):
+    if k in p3: print(k, p3[k])
+def breaks(dirp, thr=1.1):   # 평균 길이 비 s̄ > 1.1 (Cα–Cα > 4.2 Å) 인 결합이 있는 도메인
+    n = nb = 0; ex = []
+    for f in glob.glob(dirp + '/*.npz'):
+        z = np.load(f)
+        if 'sbar' not in z.files: continue
+        n += 1; s = z['sbar']
+        if (s > thr).any(): nb += 1; ex.append((os.path.basename(f)[:-4], int((s > thr).sum()), round(float(s.max()), 2)))
+    return n, nb, ex[:8]
+for nm, d in (('H-풀', R + '/derived/r38/p3/dom'), ('C', R + '/derived/r38/c/dom')): print(nm, breaks(d))
+z = np.load(sorted(glob.glob(R + '/derived/mdcath_5T/*.npz'))[0]); print('줄기 npz keys', z.files[:10])
+```
+
+Output:
+
+```
+r38_p3 keys: ['written', 'verdict', 'main', 'joint_gate', 'freedman_lane', 'sensitivity', 'dropouts', 'report', 'pending_sensitivity', 'rule']
+dropouts {'n_pairs': 14189, 'with_pibar': 12003, 'main_ok': 11991, 'inter_ok': 11372, 'main_fail_minshared': 12, 'inter_fail_minshared': 619}
+H-풀 (1496, 0, [])
+C (949, 0, [])
+줄기 npz keys ['seq', 'native_i', 'native_j', 'native_d', '320_0_Q', '320_0_nframes', '320_0_X', '320_0_rg', '320_0_dssp', '320_1_Q']
+```
+
+Cell `46NZaGFB7_0m`, run requested 2026-10-28 05:16:17, output returned 05:22:39 UTC.
+
+```python
+# 13. 줄기 336 도메인의 긴 결합(첫 프레임 Cα–Cα > 4.2 Å) 수 (읽기만)
+nb = 0; n = 0; mx = []
+for f in sorted(glob.glob(R + '/derived/mdcath_5T/*.npz')):
+    z = np.load(f); X = z['320_0_X'][0]; n += 1
+    ca = X[:, 0] if X.ndim == 3 else X.reshape(-1, 3, 3)[:, 0]
+    l = np.linalg.norm(np.diff(ca, axis=0), axis=1); mx.append(float(l.max()))
+    if (l > 4.2).any(): nb += 1
+print('줄기', n, '도메인, 긴 결합 있는 도메인', nb, '| 최대 Cα–Cα 중앙/최대', round(float(np.median(mx)), 3), round(max(mx), 3), '| X shape', X.shape)
+```
+
+Output:
+
+```
+줄기 336 도메인, 긴 결합 있는 도메인 0 | 최대 Cα–Cα 중앙/최대 3.984 4.13 | X shape (100, 3, 3)
+```
+
+**Re-run on 31 October 2026.** The same computations on the same files printed the same results: H-풀 (1496, 0, []),
+C (949, 0, []) and, for the calibration domains, 336 domains with no long bond (largest Cα–Cα bond: median 3.984 Å,
+maximum 4.13 Å). For the calibration domains the re-run read only the array `320_0_X` of each file, several files at a time,
+to avoid slow reads of the whole files; the computation on that array was the same.
+
+## 7. framedchain 0.4.1 against the as-run code (28 October 2026)
+
+Methods: on synthetic inputs with fixed seeds, framedchain 0.4.1 reproduced the as-run code exactly. The script is
+`code/r44_repro.py` (md5 `a8bd5a23aa5f896d1e267dac160fedc0`); it was run locally (CPU, float64). The first run, at
+05:13:56 UTC, imported the as-run modules from the working copy; the paths were then changed to the copies in this
+repository (the final version, with the md5 above) and it was run again at 05:15:00 UTC. Both printed the
+same table. Command (the local working-copy path is written <atlas>) and printed output of the first run:
+
+```bash
+cd <atlas> && PYTHONDONTWRITEBYTECODE=1 timeout 600 uv run --offline -q --no-project --python 3.12 --with numpy --with torch --with scipy --with numba python code/r44_repro.py "$(pwd -W)" 2>&1 | tail -25
+```
+
+```
+framespace 0.2.0 framespace_pkg | framedchain 0.4.1
+distance               max |diff| = 0
+align score            max |diff| = 0
+align match            max |diff| = 0
+bnb S_lb/S_ub          max |diff| = 0
+mean_point             max |diff| = 0
+ensemble_w2            max |diff| = 0
+MeanStart center       max |diff| = 0
+MeanStart starts       max |diff| = 0
+red_pairs d            max |diff| = 0
+red_pairs gap          max |diff| = 0
+estats D2              max |diff| = 0
+estats ratio           max |diff| = 0
+estats D2/sqrt(n)      max |diff| = 0
+ALL_EQUAL
+```
+
+The second run printed the same lines (the end of its output is shown, followed by the md5 of the final script):
+
+```
+50:src = open(os.path.join(A, 'framedchain-paper', 'code', 'r38_s0.py'), encoding='utf-8').read()
+estats ratio           max |diff| = 0
+estats D2/sqrt(n)      max |diff| = 0
+ALL_EQUAL
+a8bd5a23aa5f896d1e267dac160fedc0 *code/r44_repro.py
+```
+
+**Re-run on 31 October 2026.** The deposited script (same md5) printed the same table, ending in `ALL_EQUAL`.
+
