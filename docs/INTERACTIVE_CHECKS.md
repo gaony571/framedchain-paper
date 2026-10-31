@@ -8,7 +8,9 @@ unshared part between mean points (section 4), where correspondence shifts occur
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
-This file copies them from that log verbatim; only the parts noted were left out.
+This file copies them from that log verbatim; only the parts noted were left out. Comments and printed labels in
+the copied code and output are in Korean, the working language of the project; the labels needed to read the results
+are glossed where they occur.
 
 Names used by the cells but defined earlier in the same runtime: `ROOT = '/content/drive/MyDrive/atlas_framed_curves'`;
 `z = np.load(ROOT + '/derived/xprot_structs.npz')` (N, CA, C and O of the 379 non-redundant ATLAS chains);
@@ -655,7 +657,7 @@ Output:
 줄기 336 도메인, 긴 결합 있는 도메인 0 | 최대 Cα–Cα 중앙/최대 3.984 4.13 | X shape (100, 3, 3)
 ```
 
-**Re-run on 31 October 2026.** The same computations on the same files printed the same results: H-풀 (1496, 0, []),
+**Re-run on 31 October 2026.** The same computations on the same files printed the same results: H-풀 (the H-pool: 1496, 0, []),
 C (949, 0, []) and, for the calibration domains, 336 domains with no long bond (largest Cα–Cα bond: median 3.984 Å,
 maximum 4.13 Å). For the calibration domains the re-run read only the array `320_0_X` of each file, several files at a time,
 to avoid slow reads of the whole files; the computation on that array was the same.
