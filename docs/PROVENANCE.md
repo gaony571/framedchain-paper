@@ -92,8 +92,8 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/ladder_temp_single.py` | `961d2f27c0406c9667fabb03b2d5b142` | U |  |
 | `code/ladder_temp_single_v2.py` | `6420c51e5aeb3a69c51aafa1711a261d` | U |  |
 | `code/make_figs.py` | `efc8f74c76b502c6c277947c85e39317` | U | figure script, last run on Colab 2026-11-01 (Arial, text 8 pt or larger); reads stored results only; not registered |
-| `code/make_s1.py` | `528d65423af3c42bd3b25a3834482b8e` | U | S1 Table script, run on Colab 2026-10-31; not registered |
-| `code/make_tables.py` | `e6540646b24cb45f781c12f24f44cb7e` | U | S2 and S3 Table script, run on Colab 2026-10-31; not registered |
+| `code/make_s1.py` | `dd2614e0d4f961dc1f34a4261a13512d` | U | S1 Table script, run on Colab 2026-10-31; not registered |
+| `code/make_tables.py` | `ba796a20e7081c2eb54c238d705d4555` | U | S2 and S3 Table script, run on Colab 2026-10-31; not registered |
 | `code/mdcath_5T_extract.py` | `a77709c6edfef1e21207070b2c959b69` | U |  |
 | `code/mdcath_5T_folded.py` | `6c65c299322b4cdbf6ae447c51481fa4` | U |  |
 | `code/mdcath_spread.py` | `46c7a1ea713c6ef267409b1c38067505` | U |  |
