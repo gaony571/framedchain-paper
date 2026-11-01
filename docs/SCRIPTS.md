@@ -170,7 +170,7 @@ corrections were written as separate records before the affected step was comput
 
 ## Figures and tables
 
-These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures were last drawn on 2026-10-30 and the tables on 2026-10-31.
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures were last drawn on 2026-11-01 (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables on 2026-10-31.
 They take no arguments; the project path `R` and the output folder are set at the top of each file.
 
 | Script | What it does | Main outputs |

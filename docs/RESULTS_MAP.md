@@ -149,7 +149,7 @@ Each row was specified after the result it qualifies was known and before it was
 ## Figures and tables
 
 The figure and table scripts read stored results only and recompute nothing. On Colab, the figures were last drawn on
-2026-10-30 and the tables on 2026-10-31; the scripts write to `manuscript_figs/` under the project path set at the top of each file.
+2026-11-01 and the tables on 2026-10-31; the scripts write to `manuscript_figs/` under the project path set at the top of each file.
 
 | Item | Script (function) | Reads |
 |---|---|---|
