@@ -4,7 +4,9 @@ Seven results were computed in interactive Colab cells, or by a script whose pri
 the comparison of 12 test pairs with TM-align (S2 Text 8.1; section 1), the reversed chains (S2 Text 8.5; section 2),
 the equipment check before the computational-cost measurement (S2 Text 7; section 3), the decomposition of the
 unshared part between mean points (section 4), where correspondence shifts occur (section 5), the chain-break check
-(section 6) and the reproduction of the as-run code by framedchain 0.4.1 (section 7). The code and printed output
+(section 6) and the reproduction of the as-run code by framedchain 0.4.1 (section 7). Two further cells wrote result
+files that the paper uses: the violation rates of the factorial comparison behind Fig 2A (S2 Text 8.2; section 8) and
+the size and survival audit behind the survival row of Table 2 (section 9). The code and printed output
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
@@ -709,3 +711,372 @@ a8bd5a23aa5f896d1e267dac160fedc0 *code/r44_repro.py
 
 **Re-run on 31 October 2026.** The deposited script (same md5) printed the same table, ending in `ALL_EQUAL`.
 
+## 8. Violation rates of the factorial comparison (16 October 2026)
+
+S2 Text 8.2 and Fig 2A: the rates of triangle-inequality violations among the 161,700 triples of the 100 structures of
+block B, for every normalization, transform and choice of d₀ at every optimization level, and for 1 − TM-score with
+TM-align's own alignments. The first cell reads the pair table written by `code/pu_tm_factorial_v2.py`
+(`results/pu_tm_factorial_B_pairs.tsv`, 4,950 pairs) and its setup file, applies `triangle_rate` of
+`framespace_wip/stage0/rulers.py` (a triple violates when its longest side exceeds the sum of the other two by more than
+the tolerance times the longest side, plus 10⁻⁹) at tolerances 10⁻⁹, 10⁻⁶ and 10⁻⁴, to all triples and to those among the
+truncated chains (names containing `|`), and writes `results/pu_tm_factorial_B_triangle.tsv`, which
+`code/make_figs.py` reads for Fig 2A (rows with tolerance 10⁻⁴). `triangle_rate` was last edited, and reloaded in the
+kernel, at 16:19 UTC (section 1); the module's later edit (17:28 UTC) changed `wl_align` only, so the function used is
+the one in the deposited `rulers.py`. The comment in the first line reads "block B analysis (main verdict of H-U2); run when
+finished", H-U2 being the factorial comparison. The second cell prints the rows of the levels used in the paper
+(strongest level for fixed d₀, the next for d₀ of the normalizing length) and the starting-point curve at tolerance
+10⁻⁹.
+
+Cell `aC6JZGe-6qBE`, run requested 20:16:56, output returned 20:20:21 UTC.
+
+```python
+# 묶음 B 분석 (H-U2 주 판정). 끝나면 돌린다.
+pB = pd.read_csv(ROOT + '/results/pu_tm_factorial_B_pairs.tsv', sep='\t'); stB = json.load(open(ROOT + '/results/pu_tm_factorial_B_setup.json'))
+blB = stB['block']; biB = {n_: i_ for i_, n_ in enumerate(blB)}; NB_ = len(blB); print(len(pB), 'pairs of', NB_ * (NB_ - 1) // 2)
+iaB, ibB = pB.a.map(biB).values, pB.b.map(biB).values
+def matB(v):
+    M = np.full((NB_, NB_), np.nan); M[iaB, ibB] = v; M[ibB, iaB] = v; np.fill_diagonal(M, 0); return M
+nB, mB = pB.n.values.astype(float), pB.m.values.astype(float); Lb_, Ls_, Ll_ = 0.5 * (nB + mB), np.minimum(nB, mB), np.maximum(nB, mB)
+cellsB = {}
+for lv in ('k1', 'k4', 'k16', 'hi', 'max'):
+    S = pB[f'S_fix_{lv}'].values; D2 = np.clip(Lb_ - S, 0, None)
+    cellsB[('fix', 'none', 'sqrt', lv)] = np.sqrt(D2); cellsB[('fix', 'none', 'lin', lv)] = D2
+    for nm, L in (('avg', Lb_), ('short', Ls_), ('long', Ll_)):
+        cellsB[('fix', nm, 'lin', lv)] = 1 - S / L; cellsB[('fix', nm, 'sqrt', lv)] = np.sqrt(np.clip(1 - S / L, 0, None))
+for nm, L in (('short', Ls_), ('long', Ll_), ('avg', Lb_)):
+    for lv in ('k4', 'hi'):
+        S = pB[f'S_{nm}_{lv}'].values; D2 = np.clip(Lb_ - S, 0, None)
+        cellsB[(f'var_{nm}', 'none', 'sqrt', lv)] = np.sqrt(D2); cellsB[(f'var_{nm}', 'none', 'lin', lv)] = D2
+        cellsB[(f'var_{nm}', nm, 'lin', lv)] = 1 - S / L; cellsB[(f'var_{nm}', nm, 'sqrt', lv)] = np.sqrt(np.clip(1 - S / L, 0, None))
+shB = nB <= mB; tsB = np.where(shB, pB.tm_a, pB.tm_b); tlB = np.where(shB, pB.tm_b, pB.tm_a)
+for nm, v in (('short', 1 - tsB), ('long', 1 - tlB), ('avg', 1 - 0.5 * (tsB + tlB))): cellsB[('TMalign', nm, 'lin', 'tmalign')] = v
+trunc_ = [n_ for n_ in blB if '|' in n_]; tidx_ = np.array([biB[n_] for n_ in trunc_])
+rowsB = []
+for key, v in cellsB.items():
+    M = matB(v)
+    if np.isnan(M).any(): continue
+    for tol in (1e-9, 1e-6, 1e-4):
+        a_ = s0.triangle_rate(M, rel_tol=tol); b_ = s0.triangle_rate(M[np.ix_(tidx_, tidx_)], rel_tol=tol)
+        rowsB.append(dict(d0=key[0], norm=key[1], form=key[2], level=key[3], tol=tol, rate_all=a_[0], n_all=a_[1], max_rel=a_[3], n_trunc=b_[1], rate_trunc=b_[0]))
+resB = pd.DataFrame(rowsB); resB.to_csv(ROOT + '/results/pu_tm_factorial_B_triangle.tsv', sep='\t', index=False)
+pd.set_option('display.width', 250)
+print(resB[resB.tol == 1e-4].pivot_table(index=['d0', 'norm', 'form'], columns='level', values='n_all').to_string())
+print(resB[(resB.tol == 1e-4) & (resB.d0 == 'fix') & (resB.norm == 'none') & (resB.form == 'sqrt')][['level', 'n_all', 'rate_all', 'max_rel', 'n_trunc']].to_string())
+for c_ in ('fix', 'short', 'long', 'avg'):
+    if c_ == 'fix': dS = pB.S_fix_max - pB.S_fix_hi; print('fix: max>hi pairs', round(float((dS > 1e-6).mean()), 4), 'max<hi', int((dS < -1e-6).sum()))
+    else: dS = pB[f'S_{c_}_hi'] - pB[f'S_{c_}_k4']; print(c_, 'hi>k4', round(float((dS > 1e-6).mean()), 3))
+```
+
+Output:
+
+```
+4950 pairs of 4950
+level                     hi      k1     k16      k4     max  tmalign
+d0        norm  form                                                 
+TMalign   avg   lin      NaN     NaN     NaN     NaN     NaN     16.0
+          long  lin      NaN     NaN     NaN     NaN     NaN      0.0
+          short lin      NaN     NaN     NaN     NaN     NaN   3849.0
+fix       avg   lin      3.0     6.0     4.0     6.0     3.0      NaN
+                sqrt     0.0     0.0     0.0     0.0     0.0      NaN
+          long  lin      0.0     0.0     0.0     0.0     0.0      NaN
+                sqrt     0.0     0.0     0.0     0.0     0.0      NaN
+          none  lin     76.0   334.0   166.0   238.0    42.0      NaN
+                sqrt     0.0     0.0     0.0     0.0     0.0      NaN
+          short lin   4472.0  4298.0  4432.0  4410.0  4532.0      NaN
+                sqrt  3857.0  3884.0  3878.0  3878.0  3863.0      NaN
+var_avg   avg   lin     10.0     NaN     NaN    10.0     NaN      NaN
+                sqrt     0.0     NaN     NaN     0.0     NaN      NaN
+          none  lin      6.0     NaN     NaN    30.0     NaN      NaN
+                sqrt     0.0     NaN     NaN     0.0     NaN      NaN
+var_long  long  lin      0.0     NaN     NaN     0.0     NaN      NaN
+                sqrt     0.0     NaN     NaN     0.0     NaN      NaN
+          none  lin      9.0     NaN     NaN    41.0     NaN      NaN
+                sqrt     0.0     NaN     NaN     0.0     NaN      NaN
+var_short none  lin     78.0     NaN     NaN   188.0     NaN      NaN
+                sqrt     0.0     NaN     NaN     0.0     NaN      NaN
+          short lin   3854.0     NaN     NaN  3887.0     NaN      NaN
+                sqrt  3848.0     NaN     NaN  3885.0     NaN      NaN
+   level  n_all  rate_all   max_rel  n_trunc
+2     k1      0       0.0 -0.312029        0
+26    k4      0       0.0 -0.316110        0
+50   k16      0       0.0 -0.326792        0
+74    hi      0       0.0 -0.337067        0
+98   max      0       0.0 -0.344473        0
+fix: max>hi pairs 0.3772 max<hi 525
+short hi>k4 0.863
+long hi>k4 0.872
+avg hi>k4 0.87
+```
+
+Cell `ErAfVzOSRR0n`, run requested 20:20:46, output returned 20:20:46 UTC.
+
+```python
+r4_ = resB[resB.tol == 1e-4]
+show_ = r4_[((r4_.d0 == 'fix') & (r4_.level == 'max')) | ((r4_.d0.str.startswith('var')) & (r4_.level == 'hi')) | (r4_.d0 == 'TMalign')]
+print(show_[['d0', 'norm', 'form', 'level', 'n_all', 'rate_all', 'n_trunc', 'rate_trunc', 'max_rel']].to_string())
+print('trunc triples', len(tidx_) * (len(tidx_) - 1) * (len(tidx_) - 2) // 6)
+r9_ = resB[(resB.tol == 1e-9) & (resB.d0 == 'fix') & (resB.norm == 'none')][['form', 'level', 'n_all']]; print(r9_.to_string())
+```
+
+Output:
+
+```
+            d0   norm  form    level  n_all  rate_all  n_trunc  rate_trunc   max_rel
+98         fix   none  sqrt      max      0  0.000000        0    0.000000 -0.344473
+101        fix   none   lin      max     42  0.000260       23    0.000672  0.050752
+104        fix    avg   lin      max      3  0.000019        3    0.000088  0.092256
+107        fix    avg  sqrt      max      0  0.000000        0    0.000000 -0.344330
+110        fix  short   lin      max   4532  0.028027     2280    0.066628  1.000000
+113        fix  short  sqrt      max   3863  0.023890     2273    0.066423  1.000000
+116        fix   long   lin      max      0  0.000000        0    0.000000 -0.297301
+119        fix   long  sqrt      max      0  0.000000        0    0.000000 -0.606343
+134  var_short   none  sqrt       hi      0  0.000000        0    0.000000 -0.362079
+137  var_short   none   lin       hi     78  0.000482       57    0.001666  0.035075
+140  var_short  short   lin       hi   3854  0.023834     2271    0.066365  1.000000
+143  var_short  short  sqrt       hi   3848  0.023797     2267    0.066248  1.000000
+158   var_long   none  sqrt       hi      0  0.000000        0    0.000000 -0.351051
+161   var_long   none   lin       hi      9  0.000056        4    0.000117  0.034999
+164   var_long   long   lin       hi      0  0.000000        0    0.000000 -0.323369
+167   var_long   long  sqrt       hi      0  0.000000        0    0.000000 -0.622886
+182    var_avg   none  sqrt       hi      0  0.000000        0    0.000000 -0.356412
+185    var_avg   none   lin       hi      6  0.000037        4    0.000117  0.011273
+188    var_avg    avg   lin       hi     10  0.000062       10    0.000292  0.091933
+191    var_avg    avg  sqrt       hi      0  0.000000        0    0.000000 -0.344569
+194    TMalign  short   lin  tmalign   3849  0.023803     2265    0.066189  1.000000
+197    TMalign   long   lin  tmalign      0  0.000000        0    0.000000 -0.280855
+200    TMalign    avg   lin  tmalign     16  0.000099       16    0.000468  0.354345
+trunc triples 34220
+    form level  n_all
+0   sqrt    k1      0
+3    lin    k1    336
+24  sqrt    k4      0
+27   lin    k4    242
+48  sqrt   k16      0
+51   lin   k16    168
+72  sqrt    hi      0
+75   lin    hi     77
+96  sqrt   max      0
+99   lin   max     43
+```
+
+## 9. Size and survival audit of the unit (18 October 2026)
+
+Table 2, survival row (round37 R1): Δ²/√n of heating from 320 K to 348, 379, 413 and 450 K in aligned coordinates, from
+the temperature cells of `code/ladder_temp_single_v2.py` (`derived/ladder_temp_single_v2/<domain>.json`), as superfamily
+medians (bootstrap over superfamilies, 2,000 resamples) over all domains (`full`) and over the 149 domains with at least
+100 folded frames at each of the five temperatures (`restricted`; `n_folded` in `derived/c1_core/<domain>.json`); the
+same cell gives the medians by quartile of the number of bonds (`R1_size`). `cath` maps each CATH domain to its
+superfamily label and length (from `raw/cath/cath-domain-list.txt`; defined in an earlier cell of the same runtime).
+The survival ratios of Table 2 are `ratio` at 379, 413 and 348 K (1.045, 0.946 and 1.586), and the `full` medians are
+the constants `full_for_ratio` of `code/r37_trunk.py`. A first run of the cell stopped with a pandas error (a column
+named `ne` clashes with `DataFrame.ne`); the cell was edited (column `nedge`) and run again, and the version shown is
+the one that produced the output. The next cell wrote the printed dictionary, with a time stamp, to
+`results/r37_size_survival.json` (its first line, shown); the rest of that cell wrote `code/r37_trunk.py`, identical to
+the deposited file (md5 `61148d6a8c116fe06bf4f3c3ca6f9099`), and started it, and is left out.
+
+Cell `X8J43YO6_TGu`, run requested 2026-10-18 17:09:32, output returned 17:09:37 UTC.
+
+```python
+Js = [json.load(open(q)) for q in glob.glob(ROOT + '/derived/ladder_temp_single_v2/*.json')]
+nf = {}
+for q in glob.glob(ROOT + '/derived/c1_core/*.json'):
+    j = json.load(open(q)); nf[j['dom']] = j.get('n_folded', {})
+cathH = {d: v[0] for d, v in cath.items()}
+rngb = np.random.default_rng(37)
+def sfmed(vals, doms, n=2000):
+    s = pd.Series(vals).groupby([cathH.get(x, x) for x in doms]).median(); b = [np.median(s.values[rngb.integers(0, len(s), len(s))]) for _ in range(n)]
+    return round(float(s.median()), 4), [round(float(x), 4) for x in np.percentile(b, [2.5, 97.5])], int(len(s))
+rows = []
+for j in Js:
+    for T in ('348', '379', '413', '450'):
+        if T in j['cross1'] and T in j['floorT']:
+            rows.append(dict(dom=j['dom'], T=T, nedge=j['ne'], d2n=(j['cross1'][T] - (j['floor1'] + j['floorT'][T]) / 2) / np.sqrt(j['ne'])))
+R1 = pd.DataFrame(rows); OUT37 = {}
+sz = {}
+for T, g in R1.groupby('T'):
+    g = g.assign(q=pd.qcut(g['nedge'], 4, labels=False, duplicates='drop')); med = g.groupby('q')['d2n'].median()
+    sz[T] = dict(n=len(g), ne_edges=[int(x) for x in np.quantile(g['nedge'], [0, .25, .5, .75, 1])], quartile_median=[round(float(x), 4) for x in med.values],
+                 max_over_min=round(float(med.max() / med.min()), 3) if med.min() > 0 else None, spearman_ne=round(float(g['nedge'].corr(g['d2n'], method='spearman')), 3))
+OUT37['R1_size'] = sz
+surv = {d for d, v in nf.items() if v and all(v.get(T, 0) >= 100 for T in ('320', '348', '379', '413', '450'))}
+sv = {}
+for T, g in R1.groupby('T'):
+    full = sfmed(g['d2n'].values, g['dom'].values); gs = g[g['dom'].isin(surv)]; res_ = sfmed(gs['d2n'].values, gs['dom'].values) if len(gs) > 5 else None
+    sv[T] = dict(full=full, restricted=res_, ratio=round(res_[0] / full[0], 3) if res_ and full[0] else None, n_full=len(g), n_restricted=len(gs))
+OUT37['R1_survival'] = dict(n_surviving_domains=len(surv), **sv)
+print(json.dumps(OUT37, ensure_ascii=False, indent=1))
+```
+
+Output:
+
+```
+{
+ "R1_size": {
+  "348": {
+   "n": 314,
+   "ne_edges": [
+    49,
+    70,
+    86,
+    109,
+    149
+   ],
+   "quartile_median": [
+    0.0026,
+    0.0041,
+    0.004,
+    0.002
+   ],
+   "max_over_min": 2.096,
+   "spearman_ne": -0.047
+  },
+  "379": {
+   "n": 278,
+   "ne_edges": [
+    49,
+    69,
+    86,
+    109,
+    149
+   ],
+   "quartile_median": [
+    0.0152,
+    0.0192,
+    0.0201,
+    0.0229
+   ],
+   "max_over_min": 1.513,
+   "spearman_ne": 0.071
+  },
+  "413": {
+   "n": 218,
+   "ne_edges": [
+    49,
+    70,
+    86,
+    108,
+    149
+   ],
+   "quartile_median": [
+    0.0278,
+    0.0346,
+    0.0359,
+    0.0519
+   ],
+   "max_over_min": 1.872,
+   "spearman_ne": 0.195
+  },
+  "450": {
+   "n": 115,
+   "ne_edges": [
+    49,
+    68,
+    84,
+    108,
+    149
+   ],
+   "quartile_median": [
+    0.0494,
+    0.0375,
+    0.0583,
+    0.0831
+   ],
+   "max_over_min": 2.219,
+   "spearman_ne": 0.351
+  }
+ },
+ "R1_survival": {
+  "n_surviving_domains": 149,
+  "348": {
+   "full": [
+    0.0029,
+    [
+     0.0013,
+     0.0051
+    ],
+    68
+   ],
+   "restricted": [
+    0.0046,
+    [
+     0.0016,
+     0.0075
+    ],
+    47
+   ],
+   "ratio": 1.586,
+   "n_full": 314,
+   "n_restricted": 149
+  },
+  "379": {
+   "full": [
+    0.0199,
+    [
+     0.0151,
+     0.0259
+    ],
+    64
+   ],
+   "restricted": [
+    0.0208,
+    [
+     0.0132,
+     0.0256
+    ],
+    47
+   ],
+   "ratio": 1.045,
+   "n_full": 278,
+   "n_restricted": 149
+  },
+  "413": {
+   "full": [
+    0.0404,
+    [
+     0.0299,
+     0.0462
+    ],
+    53
+   ],
+   "restricted": [
+    0.0382,
+    [
+     0.0275,
+     0.0517
+    ],
+    47
+   ],
+   "ratio": 0.946,
+   "n_full": 218,
+   "n_restricted": 148
+  },
+  "450": {
+   "full": [
+    0.0657,
+    [
+     0.0483,
+     0.0723
+    ],
+    41
+   ],
+   "restricted": [
+    0.0657,
+    [
+     0.0483,
+     0.0723
+    ],
+    41
+   ],
+   "ratio": 1.0,
+   "n_full": 115,
+   "n_restricted": 115
+  }
+ }
+}
+```
+
+Cell `8qMMN_3A_f7v`, run requested 17:10:11, output returned 17:10:12 UTC (first line; the cell printed `started`).
+
+```python
+OUT37['written'] = time.strftime('%F %T'); json.dump(OUT37, open(ROOT + '/results/r37_size_survival.json', 'w'), indent=1, ensure_ascii=False)
+```

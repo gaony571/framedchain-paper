@@ -9,7 +9,8 @@ dynamic programming with mean-point starts, an upper bound); Δ² = 2C − B_P �
 statistic between two ensembles (C = cross mean distance, B = floors within each side, one value per pair of
 runs); Δ²/√n̄ divides by the square root of the mean number of edges; Δμ²₂ = (C₂ − (B₂_P + B₂_Q)/2)/edges is
 the mean-shift component; a *run* is one replicate; *folded frames* have Q ≥ 0.75 of the native contacts of the
-first 320 K frame unless stated otherwise; *H-pool* is the set of same-superfamily mdCATH domain pairs.
+first 320 K frame unless stated otherwise; *H-pool* is the homolog pool of the manuscript, all 14,189 same-superfamily
+pairs of mdCATH domains with at most 150 residues (392 superfamilies).
 
 Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages are resumable.
 
@@ -20,7 +21,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `mdcath_5T_extract.py` | Reads each mdCATH h5 once and stores Cα, C, O coordinates (every `frame_step` frames), Q of every frame, Rg, DSSP and the sequence for the 336 domains × 5 temperatures × 5 replicates in `results/mdcath_5T_setup.json` | `derived/mdcath_5T/<dom>.npz` |
 | `mdcath_5T_folded.py` | Per-edge frame spread, Cα RMSF² and windowed (±3) RMSF² of the folded frames for each temperature and replicate | `derived/mdcath_5T_folded/<dom>.npz` |
 | `mdcath_spread.py`, `mdcath_spread_hot.py` | Per-edge spread of mdCATH domains, frames aligned to the mean point of each temperature. Arguments: temperatures (default 320,348) and an output-directory suffix; the 379/413 K spreads were written with `mdcath_spread_hot.py` to `derived/mdcath_spread_hot` | `derived/mdcath_spread<suffix>/<dom>.npz` |
-| `p2_gap_consensus.py` | For the H-pool homolog pairs, compares insertion/deletion events between TM-align alignments and alignments of the space | `results/p2_gap_consensus_raw.tsv` |
+| `p2_gap_consensus.py` | For the H-pool homolog pairs, lists the insertion/deletion events of the TM-align alignment and of the D_TM alignment (fixed d0 = 4 Å, with the TM-align pose among the starts). The natural insertion–deletion pairs (R10a′) were selected from this table in a notebook cell and stored in `results/r37_trunk_pairs.json` | `results/p2_gap_consensus_raw.tsv` |
 | `r38_prep.py` | Test-set preparation for P2: sequences of the 90 aSAMt test domains, sequence identity to the ATLAS training set, AlphaFlow input CSV, ColabFold MSAs | `results/r38_prep.json`, `derived/r38/alphaflow_input.csv`, `derived/r38/msa/` |
 | `r38_md_ref.py`, `r38_md_ref_p90.py` | MD reference for P2 domains: mean point of 320 K folded frames, native contacts, atom indices, same-domain temperature curves (the `_p90` copy covers the 90-domain set) | `derived/r38/md/<dom>.{npz,json}`, `results/r38_md_ref.json` |
 | `r38_c_probe.py` | Tests partial HTTP reads of mdCATH h5 files and lists the new-superfamily domains to fetch for experiment C | `results/r38_c_probe.json`, `derived/r38/c_new_sf_domains.json` |
@@ -37,7 +38,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` | TM factorial design: S_TM of the space's optimizer at fixed and length-dependent d0, short/long/mean normalization, number of starts, with and without the TM-align pose, against TM-align (`_v2` takes the setup and output file names as arguments; block B) | `results/pu_tm_factorial_pairs.tsv`, `results/pu_tm_factorial_B_pairs.tsv` |
+| `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` | TM factorial design: S_TM of the space's optimizer at fixed and length-dependent d0, short/long/mean normalization, number of starts, with and without the TM-align pose, against TM-align (`_v2` takes the setup and output file names as arguments; block B). The triangle-inequality violation rates of block B (Fig 2A, `results/pu_tm_factorial_B_triangle.tsv`) were computed from its pair table in a notebook cell (`docs/INTERACTIVE_CHECKS.md` 8) | `results/pu_tm_factorial_pairs.tsv`, `results/pu_tm_factorial_B_pairs.tsv` |
 | `pu_tm_d0_sensitivity.py` | Same pairs with d0 = 2 and 6 Å | `results/pu_tm_factorial_B_d0sens.tsv` |
 | `hu1_rulers.py` | Ruler map on 1,674 pairs: TM-align (both normalizations, RMSD), GDT-TS, lDDT (Cα), S_TM at d0 = 4 Å, D at ℓ = 4, 8, 16, ∞, ESA | `results/hu1_rulers_1674.tsv` |
 | `dfrechet_1674.py` | Discrete Fréchet distance of Cα chains minimized over rigid motions (fragment starts + TM-align pose, refined) | `results/dfrechet_1674.tsv` |
@@ -68,7 +69,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `r37_trunk.py` | R0 band (320 K replicate splits) and R1 second-half/size/survival versions of the temperature cells | `results/r37_trunk.json` |
+| `r37_trunk.py` | R0 band (320 K replicate splits) and R1 second-half version of the temperature cells; its whole-trajectory reference values (`full_for_ratio`) are the medians printed by the size and survival audit, which ran in a notebook cell (`docs/INTERACTIVE_CHECKS.md` 9, `results/r37_size_survival.json`) | `results/r37_trunk.json` |
 | `r37_ff.py` | R3′: same protein, ATLAS (CHARMM36m, 300 K) vs mdCATH 320 K (CHARMM22*) for 44 chains; temperature-equivalent from the same domain's curve | `results/r37_ff.json` |
 | `r37_protocol.py` | R3″: protocol only, BioEmu `ONE_cath1` vs `MSR_cath2` (both amber99sb-ildn) on 16 shared domains | `results/r37_protocol.json` |
 | `r37_subst.py` | R5′: substitution Δ² (MegaSim) placed on the same domain's mdCATH temperature curve for 5 systems | `results/r37_subst.json` |
@@ -85,7 +86,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r38_p3_sens.py` | Four of the five P3 sensitivity versions (medoid and crystal controls, Q 0.7/0.8, replicate-split reliability correction, log spread ratio) | `results/r38_p3_sens.json` |
 | `r38_p3_explore.py`, `r38_p3_explore2.py` | Exploratory verdicts in no record: where the power of P3 is lost; calibration simulation of the pre-specified bootstrap | `results/r38_p3_explore*.json` |
 | `r38_b6.py` | B6 continuous axis on 281 trunk pairs: Δ²_D, matched and gap shares, D_matched, fixed-correspondence versions (π̄, TM-align), η₊ of J D J, exact W2, static medoid D | `results/r38_b6.json`, `derived/r38/b6/` |
-| `r38_static.py` | Static axis (Figure 4 background): medoid D for H-pool and 6,000 cross-superfamily pairs; branch-and-bound certification of 500 random pairs | `results/r38_static.json`, `derived/r38/static/` |
+| `r38_static.py` | Static axis ("Figure 4 background" in the script's working figure numbering, not a figure of the paper): medoid D for H-pool and 6,000 cross-superfamily pairs; branch-and-bound certification of 500 random pairs | `results/r38_static.json`, `derived/r38/static/` |
 | `r38_c.py` | Confirmatory experiment C (§1c): P3 repeated on independent superfamilies (C-1) and beyond the dynamics predicted by structure, using ANM edge spreads (C-2) | `results/r38_c.json` |
 | `r38_c_nl.py` | Robustness check recorded after the C verdict: flexible (gradient-boosting, cross-fitted) partial correlation, residual shape, general dependence | `results/r38_c_nl.json` |
 | `r38_r10a.py` | R10a′ (§2): natural insertion/deletion pairs; pre-specified tests on the R0 band, gap excess vs 0.75 × inserted residues, matched-share residual vs the homolog regression (TOST) | `results/r38_r10a.json` |
@@ -112,7 +113,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r39_core.py` | Round39 CPU analyses: `check` (synthetic checks), `pr` (participation ratio), `e0` regime boundary and component ratio, `e1` size exponent α (IRLS), `e2` windows, `e3` power curves, `e4` back-conversion, `e5` direction test | `results/r39_E0.json` … `results/r39_E5.json` |
 | `r39_e5prep.py` | Inputs for E5: run means and per-edge spreads of the R3′ and R3″ cells in aligned coordinates | `derived/r39/e5/` |
 | `r39_D_unfold.py` | Folded vs unfolded by D on mdCATH 413/450 K with three Q thresholds | `results/r39_unfold_D.json` |
-| `r39_e6.py` | E6 position rule (fixed before seeing `r39_unfold_D`): an upper-anchor band is drawn only if the positions of the Figure 5 cells agree across six bands and under an alternative normalization | `results/r39_E6.json` |
+| `r39_e6.py` | E6 position rule (fixed before seeing `r39_unfold_D`): an upper-anchor band is drawn only if the positions of the comparison cells of Fig 4B of the paper ("Figure 5" in the script's working numbering) agree across six bands and under an alternative normalization | `results/r39_E6.json` |
 | `r39_r6.py` | R6 (descriptive): three natural insertion/deletion events within the same protein (ATLAS) | `results/r39_r6.json` |
 | `r39_r10a_posthoc.py` | Post-hoc analysis after the R10a′ verdict: is the matched-share residual due to the insertions or to other differences between test and reference pairs | `results/r39_r10a_posthoc.json` |
 | `r39_sec6.py` | §6 minimal version: timing table of the heuristic, branch-and-bound, TM-align (re-implementation, tmtools) and US-align; certification rate from the 500 static pairs | `results/r39_sec6.json` |
@@ -127,12 +128,13 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r41_dff50.py` | R3′ d_ff with both sides restricted to 50–100 ns | `results/r41_dff50.json` |
 | `r41_compute_prep.py`, `r41_compute.py` | Compute table on one machine: TM-align, US-align, Foldseek, D with 1 and 128 starts, branch-and-bound, all-vs-all and ensemble cells, with warm-up and repeat timing | `results/r41_compute.json` |
 | `r41_synth.py`, `r41_synth_adv.py` | General lemma outside proteins: triangle inequality on real sequences (ℓ2, ERP), planar curves modulo SO(2) (certified), and negative controls (broken Lipschitz constant, DTW); adversarial triples in the `_adv` version | `results/r41_synth.json`, `results/r41_synth_adv.json` |
-| `r43_sens.py` | Round43 post-hoc sensitivities (verdicts unchanged): P2 secondary 1 interval, length matching of the Figure 5 cells, ANM/GNM variants for C-2 | `results/r43_sens.json` |
+| `r43_sens.py` | Round43 post-hoc sensitivities (verdicts unchanged): P2 secondary 1 interval, length matching of the cells of Fig 4B and S2 Table ("Figure 5" in the script's working numbering), ANM/GNM variants for C-2 | `results/r43_sens.json` |
 
 ## Round44 and round45 — checks added after external review (2026-10-28 and 10-29; results 2.6, 2.7, 3.5, 3.9, 4.1, 4.5, 4.11, 4.14)
 
-Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-28_addendum*.json`);
-the results it qualifies were already known. The first record (`results/prereg_2026-10-17.json`) was not changed.
+Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-28_addendum*.json`
+and `prereg_2026-10-29_addendum*.json`), except the three checks in no record (`r44_repro.py`, `r44_seqid_cell30.py`,
+`r45_folded_frac.py`); the results it qualifies were already known. The first record (`results/prereg_2026-10-17.json`) was not changed.
 
 | Script | What it does | Main outputs |
 |---|---|---|
@@ -154,8 +156,8 @@ the results it qualifies were already known. The first record (`results/prereg_2
 
 ## Round46–49 — checks added after external review (2026-10-29 to 10-31; result 4.5 and Methods)
 
-Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-30_addendum*.json`);
-corrections were written as separate records before the affected step was computed.
+Each analysis was written into a new time-stamped record before it was run (`registration/prereg_2026-10-30_addendum*.json`
+and `prereg_2026-10-31_addendum12*.json`); corrections were written as separate records before the affected step was computed.
 
 | Script | What it does | Main outputs |
 |---|---|---|
@@ -170,7 +172,7 @@ corrections were written as separate records before the affected step was comput
 
 ## Figures and tables
 
-These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures were last drawn on 2026-11-01 (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables on 2026-10-31.
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01 at 17:45 UTC (earlier runs in `docs/PROVENANCE.md`).
 They take no arguments; the project path `R` and the output folder are set at the top of each file.
 
 | Script | What it does | Main outputs |

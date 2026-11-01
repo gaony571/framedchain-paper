@@ -93,7 +93,7 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/ladder_temp_single_v2.py` | `6420c51e5aeb3a69c51aafa1711a261d` | U |  |
 | `code/make_figs.py` | `d77cceb65c81eeff84c8342ba1babc63` | U | figure script, last run on Colab 2026-11-01 (Arial, text 8 pt or larger; Fig 4 redrawn 16:57 UTC with more margin; Figs 3, 4, 5 and 7 redrawn 17:45 UTC: markers per heating step in Fig 3, a key for the κ² bar in Fig 4B, negative ticks in Fig 5A, a separator in Fig 7; values unchanged); reads stored results only; in no record |
 | `code/make_s1.py` | `591a9e694196f86412afadfa13ab3d71` | U | S1 Table script, run on Colab 2026-10-31 and again 2026-11-01 (16:57 UTC: percentage intervals with % on both bounds; 17:45 UTC: one timestamp style in sheet A and the label "withdrawn"); in no record |
-| `code/make_tables.py` | `2859045d1608df725099048af4a9b7e3` | U | S2 and S3 Table script, run on Colab 2026-10-31 and again 2026-11-01 17:45 UTC (column widths and frozen headers, numeric median columns in S2, a lower bound of −0.000 in S3 now keeps its sign); in no record |
+| `code/make_tables.py` | `2859045d1608df725099048af4a9b7e3` | U | S2 and S3 Table script, run on Colab 2026-10-31 (S3 Table again 2026-11-01 08:16 UTC with a revised note) and both again 2026-11-01 17:45 UTC (column widths and frozen headers, numeric median columns in S2, a lower bound of −0.000 in S3 now keeps its sign); in no record |
 | `code/mdcath_5T_extract.py` | `a77709c6edfef1e21207070b2c959b69` | U |  |
 | `code/mdcath_5T_folded.py` | `6c65c299322b4cdbf6ae447c51481fa4` | U |  |
 | `code/mdcath_spread.py` | `46c7a1ea713c6ef267409b1c38067505` | U |  |

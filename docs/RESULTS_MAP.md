@@ -5,7 +5,9 @@ that fixed the analysis before it was run. The first table starts from the manus
 organized by the section numbers of the project's internal results document of 2026-10-23, which is not
 distributed and serves here only to label rows (its old section number is in brackets where the first
 record uses it). Names such as P1, P1′, P2, P3, C, B6, E0–E7 and R10a′ are the names of the analyses in the
-time-stamped records; the first table gives their place in the manuscript.
+time-stamped records; the first table gives their place in the manuscript. Entries such as "old record 7.4" give the
+section of the project's earlier results log (before 2026-10-19; not distributed), which describes a result; they are
+not time-stamped records.
 
 - **Scripts** are in `code/` unless a path is given. `parts` are the comma-separated stage names the script
   takes as its second argument (see the script docstring). The exact invocations used for the GPU/CPU queues
@@ -31,14 +33,14 @@ time-stamped records; the first table gives their place in the manuscript.
 | Framed chains and the edit distance: theorems (S1 Text) and the general lemma on synthetic sequences (S1 Fig) | `r41_synth.py`, `r41_synth_adv.py` | 1.1, 1.2 |
 | Coordinate round trip, certification of 500 pairs and computational cost (Results; S2 Text 1, 6, 7) | `r39_roundtrip.py`; `r38_static.py`, `r39_sec6.py`; `r41_compute_prep.py`, `r41_compute.py` | 2.4–2.6 |
 | Mean point independent of the starting frame (Methods) | `r45_mpstart.py` | Round45 |
-| TM-align's objective: 12 test pairs, factorial comparison and its sensitivity to d₀, linear-form counterexample, chaining, ranking of 1,674 pairs (Fig 2; S2 Text 8) | `docs/INTERACTIVE_CHECKS.md` 1–2; `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`; `framespace_wip/experiments/sippl_linear_counterexample.py`; `chaining.py`, `c4_chain_extra.py`; `hu1_rulers.py` | 2.1 |
+| TM-align's objective: 12 test pairs, factorial comparison and its sensitivity to d₀, linear-form counterexample, chaining, ranking of 1,674 pairs (Fig 2; S2 Text 8) | `docs/INTERACTIVE_CHECKS.md` 1–2; `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py` and `docs/INTERACTIVE_CHECKS.md` 8 (violation rates); `framespace_wip/experiments/sippl_linear_counterexample.py`; `chaining.py`, `c4_chain_extra.py`; `hu1_rulers.py` | 2.1 |
 | Calibration on heating: values, size exponent, detection probability, temperature resolution (Fig 3; S3 Text 4) | `r39_D_stem.py`, `r39_core.py` (e0–e4) | 3.6 |
-| Table 2: replicate and frame audits; trajectory window; survival filter | `r44_inv.py`; `r39_core.py` (e2) and `ladder_half.py`; scripts of row 3.1 | Round44; 3.6, 3.1; 3.1 |
+| Table 2: replicate and frame audits; trajectory window; survival filter | `r44_inv.py`; `r39_core.py` (e2) and `ladder_half.py`, with the earlier audit of `r37_trunk.py`; notebook cell in `docs/INTERACTIVE_CHECKS.md` 9 (`results/r37_size_survival.json`) | Round44; 3.6, 3.1; 3.1 |
 | Folded-versus-unfolded comparisons (Results; S3 Text 4) | `r39_D_unfold.py`, `r39_e6.py` | 3.7 |
 | Comparison across sequences (B6): rank correlation with TM-score and its size control, η₊, far-limit prediction, W₂ (Fig 4A) | `r38_b6.py`, `r38_static.py`; `r44_b6size_cell26.py`; `r44_w2p1.py` | 4.1, 4.2, Round44 |
 | κ of all cells and of the size-matched cells (Fig 4B, S2 Table); spread share of κ² | `r43_sens.py` (s1), from the per-domain values of rows 3.6, 4.1, 4.6, 4.9 and 4.11; `r44_inv.py` (split) | 3.8, Round44 |
 | Bond-level comparison: d against aligned coordinates on the same sequence (E7), sources of the compression, contribution of the reduced computation | `r38_e7_30.py`, `r38_e7_100.py`; `r41_dcomp.py` and `docs/INTERACTIVE_CHECKS.md` 5; `r44_redsame.py`; `r38_s0.py` (bias) | 3.4, 3.5, Round44, 2.2 |
-| Errors of a temperature-conditioned generator (P2; Fig 5A): reading, secondary criterion and its interval, sensitivity analyses; direction and profiles (E5; Fig 5B); folded counts | scripts of row 4.11 (`r38_p2_D.py`, `r38_p2_aggregate_D.py` and the generation scripts); `r43_sens.py` (s4); `r39_e5prep.py`, `r39_core.py` (e5); `r45_folded_frac.py` | 4.11, 4.10, Round45 |
+| Errors of a temperature-conditioned generator (P2; Fig 5A): reading, secondary criterion and its interval, sensitivity analyses; direction and profiles (E5; Fig 5B); folded counts | scripts of row 4.11 (`r38_p2_D.py`, `r38_p2_aggregate_D.py` and the generation scripts); `r43_sens.py` (s4); `r38_compare.py` (aligned-coordinate run means and per-bond spreads of the cells in Fig 5B), `r39_core.py` (e5); `r45_folded_frac.py` | 4.11, 4.10, Round45 |
 | Thermophilic and mesophilic homologs: θ* test (P1) and its diagnostic; replication U2 (P1′; Fig 6) with the folded-fraction control; absolute windows; composition of the pairs | `r38_p1.py`, `r38_p1_diag.py`; `r38_p1n.py`; `r44_p1win.py`; `r44_p1comp2.py` | 4.13, 4.14, Round44 |
 | Sequence identity: first test (P3) and its exploratory interval; confirmatory set (C) with C-1, C-2, the network-model sensitivity, the nonlinear control and the shorter-domain controls; bond-direction profiles; pair weights (Fig 7) | `r38_p3.py`, `r38_p3_explore2.py`; `r38_c.py`, `r43_sens.py` (s3), `r38_c_nl.py`; `r45_f1.py`; `r44_pairw.py` | 4.4, 4.5, 3.8, Round44, Round45 |
 | Table 3: other correspondences, Gly/Pro, agreement with TM-align on medoids; decomposition of the unshared part | `r44_corr_v2.py`, `r44_corr2.py`; `docs/INTERACTIVE_CHECKS.md` 4 | Round44, 4.5 |
@@ -52,7 +54,7 @@ time-stamped records; the first table gives their place in the manuscript.
 
 | Section | Result | Scripts (parts) | Main outputs | Record |
 |---|---|---|---|---|
-| 1.1 | Metric property, mean normalization, TM-align objective = D_TM at fixed d0 | proofs in the manuscript; `framespace_wip/stage0/rulers.py` (`tm_align`, `tm_cost`), tests `framespace_wip/tests_stage0/test_rulers.py` (README, Tests) | — | — (theorem/identity) |
+| 1.1 | Metric property, mean normalization, TM-align objective = D_TM at fixed d0 | proofs in the manuscript; `framespace_wip/stage0/rulers.py` (`tm_align`, `tm_cost`), tests `framespace_wip/tests_stage0/test_rulers.py` (README, Quick start) | — | — (theorem/identity) |
 | 1.1 | D is not of negative type (length-2 structures, SO(3) Fourier coefficient, J D J eigenvalue) | `code/negtype/negtype.js`, `so3fourier.js`, `len2check.js` (Node.js); η₊ for random two-bond chains: `negtype_eta_len2.js` | console output (values in S3 Text 2) | — (computation) |
 | 1.2 [3.6r] | General lemma outside proteins (synthetic examples) | `r41_synth.py`, `r41_synth_adv.py` | `results/r41_synth.json`, `results/r41_synth_adv.json` | round41 g6 |
 
@@ -61,9 +63,9 @@ time-stamped records; the first table gives their place in the manuscript.
 | Section | Result | Scripts (parts) | Main outputs | Record |
 |---|---|---|---|---|
 | 2.1 [2] | Implementation and tests | `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | — | — |
-| 2.1 [2] | TM factorial design (blocks A, B), d0 sensitivity | `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` (block B, args: setup json, output tsv), `pu_tm_d0_sensitivity.py` | `results/pu_tm_factorial_*`, `results/pu_tm_factorial_B_*` | earlier rounds (old record 7.3–7.4) |
-| 2.1 [2] | Sippl linear form is not a metric (constructed counterexample) | `framespace_wip/experiments/sippl_linear_counterexample.py`; test `test_linear_form_is_not_a_metric` | result in the script header | old record 7.4A |
-| 2.1 [2] | Ruler map, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | old record 7.6A |
+| 2.1 [2] | TM factorial design (blocks A, B), d0 sensitivity | `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` (block B, args: setup json, output tsv), `pu_tm_d0_sensitivity.py` | `results/pu_tm_factorial_*` (block A), `results/pu_tm_factorial_B_pairs.tsv`, `results/pu_tm_factorial_B_d0sens.tsv`; violation rates of block B (Fig 2A) in `results/pu_tm_factorial_B_triangle.tsv`, written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8 | in no record (16 October, before the records began; old record 7.3–7.4) |
+| 2.1 [2] | Sippl linear form is not a metric (constructed counterexample) | `framespace_wip/experiments/sippl_linear_counterexample.py`; test `test_linear_form_is_not_a_metric` | result in the script header | in no record (17 October 05:31, before the records began; old record 7.4A) |
+| 2.1 [2] | Ruler map, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | in no record (the ranking was run on 16 October, before the records began; old record 7.6A) |
 | 2.1 [2] | Fold retrieval, 208 structures (not reported in the manuscript) | `pu_fold208.py`, `analysis_fold208.py`, `analysis_fold208_ablation.py` | `results/pu_fold208_pairs.tsv`, `results/pu_fold208_retrieval.json`, `results/pu_fold208_ablation.json` | old record 7.7 |
 | 2.1 [2] | Chain linking, 150 two-domain chains (Fig 2B, S2 Text 8.4) | `chaining.py`, `c4_chain_extra.py` (v2) | `results/chaining.json`, `results/chaining_v2.json`, `derived/chaining.tsv` | prereg round17, round29 |
 | 2.1 [2] | TM-align comparison (12 pairs) and reversed chains (8 structures) | computed interactively with `stage0.rulers` (no standalone script was kept); cell code in `docs/INTERACTIVE_CHECKS.md` 1–2 | printed output in `docs/INTERACTIVE_CHECKS.md` 1–2 (no output file); tables in old record 7.2, 7.5 | — |
@@ -77,7 +79,7 @@ time-stamped records; the first table gives their place in the manuscript.
 
 | Section | Result | Scripts (parts) | Main outputs | Record |
 |---|---|---|---|---|
-| 3.1 [3.1] | Unit invariance: replicate/frame count, drift, trajectory length, size, survival, R0 band | `r37_trunk.py` (R0 band, R1), `ladder_half.py` (drift), `c1_core.py` | `results/r37_trunk.json`, `results/ladder_half.json`, `derived/c1_core/` | round37 R0, R1; round34 ③ |
+| 3.1 [3.1] | Unit invariance: replicate/frame count, drift, trajectory length, size, survival, R0 band | `r37_trunk.py` (R0 band, R1 second half), `ladder_half.py` (drift), `c1_core.py`; the R1 size and survival versions were computed in a notebook cell from the per-domain files of `ladder_temp_single_v2.py` and `c1_core.py` (`docs/INTERACTIVE_CHECKS.md` 9) | `results/r37_trunk.json`, `results/r37_size_survival.json`, `results/ladder_half.json`, `derived/c1_core/` | round37 R0, R1; round34 ③ |
 | 3.2 [3.2] | Lower anchor: same-sequence temperature response (folded frames) | `mdcath_5T_extract.py`, `mdcath_5T_folded.py`, `c1_core.py`, `ladder_temp_single.py`, `ladder_temp_single_v2.py`, `ladder_components.py`, `ladder_half.py` | `results/mdcath_5T_setup.json`, `results/ladder_temp_single.json`, `results/ladder_components.json`, `derived/ladder_components_temp.tsv`, `results/ladder_half.json` | rounds 27, 32, 34 (old record 0.2) |
 | 3.3 [3.6] | Resolution (E0) | `e0_resolution.py`, `c1_core.py` | `results/e0_resolution.json`, `derived/e0_resolution.tsv` | round32 (old record 0.2, round29) |
 | 3.4 [3.6d, 3.6f] | D and aligned coordinates on the same sequence (E7) | `r38_s0.py` (e7), `r38_e7_30.py`, `r38_e7_100.py` (pick, run, sum), `r38_dff_D.py` | `results/r38_s0_e7.json`, `results/r38_e7_30.json`, `results/r38_e7_100.json`, `results/r38_dff_D.json` | round36 §3, §7g(b) |
@@ -95,7 +97,7 @@ time-stamped records; the first table gives their place in the manuscript.
 | 4.3 [3.6q] | Claim 1: static-axis split and information in the gap share | `r41_gapinfo.py` | `results/r41_gapinfo.json` | round41 g1 |
 | 4.4 [3.6e, 3.6h] | Primary P3: conservation of dynamics | `r38_p3.py` (pairs, dom, pibar, pair, stats), `r38_p3_sens.py`; exploratory, in no record: `r38_p3_explore.py`, `r38_p3_explore2.py` | `results/r38_p3.json`, `results/r38_p3_sens.json`, `results/r38_p3_explore*.json` | round36 P3 |
 | 4.5 [3.6j, 3.6x] | Confirmatory experiment C | `r38_c_probe.py`, `r38_c_fetch.py`, `r38_c.py` (pairs, dom, anm, pibar, pair, anmpair, stats), `r38_verify_c.py`; robustness check recorded after the result: `r38_c_nl.py` | `results/r38_c.json`, `results/r38_verify_c.json`, `results/r38_c_nl.json`; decomposition of the unshared part between mean points (descriptive, in no record): `docs/INTERACTIVE_CHECKS.md` 4 | round36 §1c; `round36_c_nl_2026-10-20` |
-| 4.6 [3.6o] | R10a′: natural insertions/deletions | `r38_r10a.py` (ens, stats); post-hoc `r39_r10a_posthoc.py` | `results/r38_r10a.json`, `results/r39_r10a_posthoc.json` | round36 §2 |
+| 4.6 [3.6o] | R10a′: natural insertions/deletions | pairs selected in a notebook cell from the TM-align and D_TM insertion/deletion events of `p2_gap_consensus.py` (`results/p2_gap_consensus_raw.tsv`) and stored as `r10a_prime` in `results/r37_trunk_pairs.json`; `r38_r10a.py` (ens, stats); post-hoc `r39_r10a_posthoc.py` | `results/r38_r10a.json`, `results/r39_r10a_posthoc.json` | round36 §2 |
 | 4.7 [3.6o] | R6: insertions/deletions in the same protein (descriptive) | `r39_r6.py` (ens, stats) | `results/r39_r6.json` | round36 §2 |
 | 4.8 [3.4] | Branch cells (same sequence, different source): force field + protocol, protocol only, model error, substitution | `ladder_ff.py`, `ladder_ff_folded.py`, `ladder_ff_single.py`, `ladder_model_error.py`, `ladder_model_error_folded.py`, `ladder_components.py`, `c4_substitution.py`, `c4_chain_extra.py`, `r37_ff.py`, `r38_dff.py`, `r37_protocol.py`, `r37_subst.py` | `results/ladder_ff*_summary.json`, `results/ladder_model_error*_summary.json`, `results/ladder_components.json`, `results/c4_substitution.json`, `results/c4_ladder_row.json`, `results/r37_ff.json`, `results/r38_dff.json`, `results/r37_protocol.json`, `results/r37_subst.json` | rounds 9, 10, 14, 23, 27, 29, 32 (old record 0.2); round37 R3′, R3″, R5′ |
 | | *Note for 4.8:* the `ladder_ff*` and `ladder_model_error*` scripts write per-domain files (`derived/ladder_ff*/`, `derived/ladder_model_error*/`). The `*_summary.json` files that hold the medians in the table were aggregated in notebook cells that were not kept as scripts; `ladder_components.py` recomputes the component columns from the same per-domain files. | | | |
@@ -148,13 +150,14 @@ Each row was specified after the result it qualifies was known and before it was
 
 ## Figures and tables
 
-The figure and table scripts read stored results only and recompute nothing. On Colab, the figures were last drawn on
-2026-11-01 and the tables on 2026-10-31; the scripts write to `manuscript_figs/` under the project path set at the top of each file.
+The figure and table scripts read stored results only and recompute nothing. On Colab, the figures and the S1–S3 Tables
+were last drawn on 2026-11-01 at 17:45 UTC (earlier runs are listed in `docs/PROVENANCE.md`); the scripts write to
+`manuscript_figs/` under the project path set at the top of each file.
 
 | Item | Script (function) | Reads |
 |---|---|---|
 | Fig 1 | `make_figs.py` (fig1) | — (schematic) |
-| Fig 2 | `make_figs.py` (fig2) | `results/pu_tm_factorial_B_triangle.tsv`, `results/chaining.json`, `results/chaining_v2.json` |
+| Fig 2 | `make_figs.py` (fig2) | `results/pu_tm_factorial_B_triangle.tsv` (written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8), `results/chaining.json`, `results/chaining_v2.json` |
 | Fig 3 | `make_figs.py` (fig3) | `results/r39_E0.json` … `r39_E3.json`, `derived/r39/D/*.json` |
 | Fig 4 | `make_figs.py` (fig4) | `derived/r38/b6/*.json`, `results/r43_sens.json`, `derived/r44/split.json` |
 | Fig 5 | `make_figs.py` (fig5) | `results/r38_p2_p2_67_D.json`, `results/r39_E5.json` |

@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
 ed37331ddbfa5d7df38d431e0b2773d1 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-9b7547ff353b5222bd41ddc9edc4d510 *README.md
+93a6768b646316de34b492e73951d096 *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -126,12 +126,12 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 32f24903bd78c607ba65dc41dae98d66 *code/r48_identity_range.py
 4e5e398d0d59be9f759af402c70e0e1a *code/r49_chainbreak.py
 363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
-3c6bcfef844ee4fa9d666466f6b5b97b *docs/DATA.md
-041bf7448ef35e5b7ccb104d986596ae *docs/INTERACTIVE_CHECKS.md
-b3178cc845f1b54e9e3e0f97943a8e10 *docs/PROVENANCE.md
-bdf470632589823719a9340dce2c1026 *docs/RESULTS_MAP.md
-9b7c50e777b9769ad724dfbe091dbd0a *docs/SCRIPTS.md
-324fbcc542623d8e102d3554e4f28e25 *docs/STATEMENTS.md
+1a1949d13d8f6f784b6a7f4d827ae199 *docs/DATA.md
+dc026b00256f867d58af8a77025a7e47 *docs/INTERACTIVE_CHECKS.md
+716f56888b56b7b4acfbfb5f1438edff *docs/PROVENANCE.md
+56f7956297a703613dfa09f33e0aafe6 *docs/RESULTS_MAP.md
+7bf3cdfb463be7d08f0aeacc097ed31e *docs/SCRIPTS.md
+cc4306d482d065bb46056fbfb6859496 *docs/STATEMENTS.md
 60a5cbf55d52e1afff204535ca2284c0 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
 0087a3eadc056c67bb37d64430650f52 *environment/afenv_freeze.txt
@@ -140,7 +140,7 @@ b4112540e77adecf383691891bc1844b *environment/requirements-check.txt
 046b712106ab93314518c9622d2bed40 *environment/samenv_freeze.txt
 669392c836ac336f4eafa4afe60d1c8a *environment/setup_afenv3.sh
 d2f64ac3a09bf953ef8fd2fcf10f07fa *environment/setup_samenv3.sh
-471d27595e3bcb8f1fe994353d0a7853 *examples/demo_expected_output.txt
+99e5f9826c1d464f5c273eadaefdad86 *examples/demo_expected_output.txt
 2244b8948061f0c995f67e43f0ef2602 *examples/demo_synthetic.py
 f45929ade75d38f26760517c727cc7d4 *figures/Fig1.png
 b6c4c221399cad55b9015461302f78ac *figures/Fig2.png

@@ -52,7 +52,8 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 ## Status and remaining steps
 
-Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
+Done (from 2026-10-26): both repositories are on GitHub with version tags; they are private until they are made public
+before submission —
 `gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.2`) and
 `gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29, `v1.3.0` = with the round46–48 checks of 2026-10-29 and 10-30, the figure and table scripts and the manuscript map). Both were renamed from framespace and framespace-paper on
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
@@ -68,8 +69,8 @@ Remaining before submission:
    chain-break flag and documentation; no computation changed; the package `main` has later documentation-only
    changes, which a later release would archive as a new Zenodo version). Zenodo mints a DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
    metadata.
-2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
-   the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
+2. Done (2026-11-01): the data deposit was packed with `tools/pack_for_zenodo.py` on the project root (Colab with
+   Drive mounted), with the files listed in its `MANIFEST_data.tsv` (built with `--ensembles`, so the generated aSAMt and AlphaFlow ensembles are included), and is being uploaded. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
    and size, with the md5 of the files that are not simulation data. The deposit is the Zenodo draft 23858418,

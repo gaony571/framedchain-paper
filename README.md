@@ -22,11 +22,15 @@
   <img src="figures/Fig1.png" width="760" alt="Schematic of framed chains: a bond frame, an order-preserving alignment of two chains of different lengths with zero matrices for unmatched bonds, the split of the squared distance into shared and unshared parts, and a geodesic between the chains">
 </p>
 
-**Fig 1. Framed chains and the edit distance.** (A) Each virtual Cα–Cα bond i is represented by x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2,
-the frame [f₁, f₂, f₃] of the bond and its peptide plane scaled by the relative bond length (f₃ points out of the
-page). (B) Two chains of different lengths are aligned by an order-preserving correspondence and one global rotation;
-unmatched bonds face zero matrices. (C) The squared distance splits exactly into shared-bond and unshared-bond parts.
-(D) The geodesic between the chains: shared terms move linearly, unshared terms shrink to or grow from zero.
+**Fig 1. Framed chains and the edit distance.** (A) Each virtual Cα–Cα bond i is represented by x<sub>i</sub> =
+s<sub>i</sub>R<sub>i</sub>/2, the frame [f₁, f₂, f₃] of the bond and its peptide plane scaled by the relative bond
+length (f₃ points out of the page). (B) Two chains of different lengths are aligned by an order-preserving
+correspondence and one global rotation; unmatched bonds face zero matrices. (C) The squared distance splits exactly into
+shared-bond (blue) and unshared-bond (orange) parts. (D) The geodesic between the chains: shared terms move linearly,
+unshared terms shrink to or grow from zero. In (B) and (D), each bond term is drawn in two dimensions as an arrow along
+f₁ with a tick along f₂, both scaled with the term; blue, shared bonds (solid lines join the bonds paired by the
+correspondence); orange, unshared bonds; open circles, zero matrices (in B, marked 0 and joined by a dotted line to the
+unmatched bond that faces each). The lower chain in (B) is drawn after the global rotation U.
 
 This repository contains the code exactly as it was run to produce every number, figure and table of the paper,
 together with the run queues, environment records and the time-stamped records that fixed each analysis before it
@@ -41,72 +45,95 @@ Proteins are increasingly described as conformational ensembles, but no common g
 ## Results at a glance
 
 The figures below are the paper's figures as drawn by `code/make_figs.py` from the stored results (150 dpi PNG; the
-submitted 600 dpi TIFF files come from the same script). Captions are shortened; the full captions are in the paper,
-and [`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md) maps every value to its script and output file.
+submitted 600 dpi TIFF files come from the same script). The captions are those of the paper, and
+[`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md) maps every value to its script and output file.
 
 ### TM-score-based distances
 
 ![Fig 2](figures/Fig2.png)
 
-**Fig 2. The TM-align objective and TM-score-based distances.** (A) Triangle-inequality violations among 161,700
-triples for each normalization and transform of the TM-align score: violations appear only with shorter-chain
-normalization (2.4–2.8% of triples) or with linear forms without a square root; D<sub>TM</sub> and D<sub>TM</sub>/√L̄ with a fixed d₀
-are proven metrics. (B) Under average linkage, 1 − TM-score normalized by the shorter chain merges different folds in
-all 150 two-domain chains tested, against 15% for D<sub>TM</sub>/√L̄; the linear form 1 − S/L̄ violates the triangle inequality
-in 67% of triples yet chains in only 9%, so chaining comes from shorter-chain normalization.
-*Code:* `pu_tm_factorial_v2.py`, `chaining.py`, `c4_chain_extra.py`.
+**Fig 2. The TM-align objective and TM-score-based distances.** (A) Triangle-inequality violation rates, as percentages
+of 161,700 triples (strongest optimization level for fixed d₀, the next level for length-dependent d₀), for each
+normalization (none, or by the shorter, mean or longer chain), with a fixed d₀ or with d₀ of the normalizing length
+(d₀(L̄) without normalization; S2 Text also gives d₀ of the shorter or longer chain), and each transform (with or
+without a square root), and for 1 − TM-score with TM-align's own alignments (linear form only; —, not computed);
+D<sub>TM</sub> and D<sub>TM</sub>/√L̄ with fixed d₀ are metrics. (B) Chaining under average linkage: under 1 − TM-score
+normalized by the shorter chain, a fragment is at distance zero from any chain containing it and different folds are
+merged (100%); D<sub>TM</sub>/√L̄ with one fixed d₀ per chain does so less often (15%; also 15% with d₀(L̄) of each
+pair, S2 Text); the linear form 1 − S/L̄ violates the triangle inequality in 67% of triples in the chaining set but
+chains in only 9%, so chaining comes from shorter-chain normalization. Normalization by the longer chain is shown for
+comparison (0% and 1%); without a square root it is not a metric either (Proposition B, S1 Text). Error bars, 95%
+intervals over chains.
+*Code:* `pu_tm_factorial_v2.py` (violation rates: `docs/INTERACTIVE_CHECKS.md` 8), `chaining.py`, `c4_chain_extra.py`.
 
 ### Calibration on same-sequence heating
 
 ![Fig 3](figures/Fig3.png)
 
-**Fig 3. Calibration on same-sequence heating.** (A) The energy statistic Δ²<sub>D</sub>/√n̄ for heating from 320 K by +28 to
-+130 K in mdCATH, against the band of replicate-only comparisons. (B) Per domain, Δ²<sub>D</sub> grows with the number of bonds
-as n<sup>α</sup> with α = 1.2–1.7, so magnitudes are compared within domains or between size-matched sets. (C) Probability of
-detecting each heating step as a function of the number of domains.
+**Fig 3. Calibration on same-sequence heating.** (A) Δ²<sub>D</sub>/√n̄ for heating by +28 to +130 K (superfamily
+medians and 95% intervals) and the replicate-only band, second half of each trajectory. (B) Δ²<sub>D</sub> of each
+domain against its number of bonds (colors and markers as in C), with the power laws fitted by iteratively reweighted
+least squares (α = 1.2–1.7); domains with Δ²<sub>D</sub> ≤ 0 cannot be shown on the logarithmic axes and are omitted
+(100 of 264 at +28 K, 25 of 209 at +59 K, 4 of 111 at +93 K and none of 47 at +130 K). (C) Probability of detecting each
+heating step as a function of the number of domains, from 500 resamples of whole superfamilies (Methods); dashed line,
+0.8.
 *Code:* `r39_D_stem.py`, `r39_core.py`.
 
 ### Ensembles of different sequences on one statistic
 
 ![Fig 4](figures/Fig4.png)
 
-**Fig 4. Ensembles of different sequences on the same statistic.** (A) Over 234 domain pairs, Δ²<sub>D</sub>/√n̄ falls steadily
-as the domains grow more similar in structure (Spearman with TM-score −0.83), shown with the optimal-transport
-distance W₂ for the 122 pairs with TM-score ≥ 0.5. (B) The ratio κ places each comparison in the near, crossing or far
-regime: heating, a change of force field, temperature and protocol, and the aSAMt error are near, whereas homolog pairs and the AlphaFlow error
-lie in the crossing band.
+**Fig 4. Ensembles of different sequences on the same statistic.** (A) Δ²<sub>D</sub>/√n̄ against the TM-score between
+the first 320 K frames of the two domains (normalized by the longer chain) for 234 domain pairs (blue, the 115 pairs
+within a superfamily; gray, pairs from different superfamilies), with the optimal-transport distance W₂ for comparison
+in the 122 pairs with TM-score ≥ 0.5 (crosses, right axis). Domain sizes are not matched across the TM-score range, and
+the rank relation holds after controlling for log n̄. (B) κ = √((C/w̄)² − 1), which compares the cross-ensemble distance
+with the replicate spread, for each comparison (superfamily medians with 95% intervals): black, same-sequence
+comparisons (heating, second halves of the trajectories; force field, temperature and protocol, 50–100 ns; aSAMt error,
+against whole 320 K trajectories); red, AlphaFlow error (also against whole 320 K trajectories); blue, pairs of
+different sequences (the within-superfamily pairs of A grouped by TM-score, and natural insertion–deletion pairs; whole
+320 K trajectories). The line at κ = 1 marks approximately a mean shift equal to the replicate spread when the two
+spreads are similar, inside the crossing band (0.5–2). Rows from different sources are not ordered by magnitude. The bar
+on the AlphaFlow row splits κ² into its mean-shift (red) and spread (orange) terms, both divided by w̄², the squared
+mean replicate spread of the two sides, with the share of each (S3 Text).
 *Code:* `r38_b6.py`, `r43_sens.py`, `r44_inv.py`.
 
 ### Errors of a temperature-conditioned generative model
 
 ![Fig 5](figures/Fig5.png)
 
-**Fig 5. Errors of a temperature-conditioned generator against heating of the same domains.** (A) For 67 held-out
-domains, the mean-shift error of aSAMt at 320 K relative to MD (diamonds) against the same domains' responses to
-+28 to +130 K of simulated heating (circles); the error lies at or above the response to +59 K. (B) The error is largely orthogonal to the heating direction
-(cosine 0.25 [0.09, 0.35], against a ceiling near 1 for two heating steps); AlphaFlow's error is nearly orthogonal.
-*Code:* `r38_asamt_gen.py`, `r38_p2_D.py`, `r38_p2_aggregate_D.py`, `r39_e5prep.py`, `r39_core.py`.
+**Fig 5. Errors of a temperature-conditioned generator against heating of the same domains.** (A) For each of 67
+held-out domains, ordered by the size of its error, the mean-shift error Δμ²₂<sub>D</sub> of aSAMt at 320 K relative to
+MD (diamonds), against the same domain's responses to +28, +59, +93 and +130 K of simulated heating (circles), on a
+symmetric logarithmic axis; noise-corrected values can be negative. (B) Cosine between the per-bond mean shift of the
+error and that of heating for aSAMt and AlphaFlow, with the ceiling (two heating steps of the same domains) and the
+replicate-noise null; 95% intervals.
+*Code:* `r38_asamt_gen.py`, `r38_alphaflow_gen.py`, `r38_p2_D.py`, `r38_p2_aggregate_D.py`, `r38_compare.py`, `r39_core.py`.
 
 ### Thermophilic and mesophilic homologs at equal temperature
 
 ![Fig 6](figures/Fig6.png)
 
-**Fig 6. Thermal adaptation at equal temperature.** (A) In a pre-specified replication over 32 superfamilies,
-thermophilic domains fluctuate less on shared bonds than their mesophilic homologs at 320 K, relative to
-mesophile–mesophile controls (U2 = −0.21, one-sided 97.5% upper bound −0.08; a shared-bond variance about 19% lower),
-shown at three native-state thresholds and in absolute trajectory windows. (B) Positive control: thermophilic domains
-keep a larger folded fraction at 379 K.
+**Fig 6. Thermal adaptation at equal temperature.** (A) Log ratio of thermophilic to mesophilic shared-bond spread at
+320 K relative to mesophile–mesophile controls (U2) for the replication set at three native-state thresholds, in the
+second half of each trajectory and in absolute windows of 50–100, 300–400 and 400–500 ns, with the number of
+superfamilies on the right. (B) Paired difference in the logit of the folded fraction at 379 K. Points are superfamily
+medians with two-sided 95% intervals; the decisions used the one-sided 97.5% bound at the upper end of each U2 interval
+and at the lower end of the folded-fraction interval.
 *Code:* `r38_p1n.py`, `r44_p1win.py`.
 
 ### Sequence identity and shared-bond fluctuation profiles
 
 ![Fig 7](figures/Fig7.png)
 
-**Fig 7. Sequence identity and shared-bond fluctuation profiles.** Partial correlation of fluctuation-profile
-similarity with sequence identity. The first test, on shorter domains, was inconclusive; in a confirmatory set of
-4,152 pairs of larger domains, profiles grew more similar with identity beyond shared-core structure (C-1: 0.224
-[0.119, 0.333]) and beyond elastic-network predictions as well (C-2: 0.181 [0.079, 0.283]). The estimate is smaller
-with TM-align correspondences and not detected with sequence alignments.
+**Fig 7. Sequence identity and shared-bond fluctuation profiles.** Partial correlation of fluctuation-profile similarity
+with sequence identity: the pre-specified first test, the same estimate with superfamily-only intervals (exploratory),
+the confirmatory set with structural control (C-1), with the network-model control as well (C-2), with nonlinear
+controls, C-1 and C-2 with pairs instead of superfamilies weighted equally, C-1 and C-2 with shared bonds from TM-align
+(mean points and medoids) or sequence alignments, and C-2 with bond-direction profiles only, with 95%
+superfamily-cluster bootstrap intervals (first bar: the pre-specified bootstrap that also reweighted domains); open
+circle, exploratory interval. For C-2 with TM-align on medoids, the lower bound was −0.003 in a second bootstrap with a
+different seed (Table 3).
 *Code:* `r38_p3.py`, `r38_p3_explore2.py`, `r38_c.py`, `r38_c_nl.py`, `r44_pairw.py`, `r45_f1.py`, `r44_corr_v2.py`, `r44_corr2.py`.
 
 The supporting figure (S1 Fig, the general lemma on synthetic sequences) is in [`figures/S1_Fig.png`](figures/S1_Fig.png).
@@ -120,14 +147,14 @@ Each item of the paper is listed with the scripts that computed its values (in `
 | Paper | Computed by | Drawn by |
 |---|---|---|
 | Fig 1 | — (schematic) | `make_figs.py` |
-| Fig 2 | `pu_tm_factorial_v2.py` (A, factorial comparison of TM-score forms); `chaining.py`, `c4_chain_extra.py` (B, chaining) | `make_figs.py` |
+| Fig 2 | `pu_tm_factorial_v2.py` (A, factorial comparison of TM-score forms; violation rates from a notebook cell, `docs/INTERACTIVE_CHECKS.md` 8); `chaining.py`, `c4_chain_extra.py` (B, chaining) | `make_figs.py` |
 | Fig 3 | `r39_D_stem.py`, `r39_core.py` (calibration on heating, size dependence, detection probability) | `make_figs.py` |
 | Fig 4 | `r38_b6.py` (A, comparison across sequences, with W₂); `r43_sens.py` (B, κ of each cell); `r44_inv.py` (split of κ² for AlphaFlow) | `make_figs.py` |
-| Fig 5 | `r38_p2_D.py`, `r38_p2_aggregate_D.py`, with the ensembles of `r38_asamt_gen.py` (A, model error against heating); `r39_e5prep.py`, `r39_core.py` (B, direction) | `make_figs.py` |
+| Fig 5 | `r38_p2_D.py`, `r38_p2_aggregate_D.py`, with the ensembles of `r38_asamt_gen.py` (A, model error against heating); `r38_compare.py` (aligned-coordinate run means and spreads), `r39_core.py` (B, direction; AlphaFlow ensembles from `r38_alphaflow_gen.py`) | `make_figs.py` |
 | Fig 6 | `r38_p1n.py` (replication of the thermophile difference, folded fraction at 379 K); `r44_p1win.py` (absolute windows) | `make_figs.py` |
 | Fig 7 | `r38_p3.py`, `r38_p3_explore2.py` (first test); `r38_c.py`, `r38_c_nl.py`, `r44_pairw.py`, `r45_f1.py` (confirmatory set); `r44_corr_v2.py`, `r44_corr2.py` (other correspondences) | `make_figs.py` |
 | Table 1 | — (comparison with prior approaches) | — |
-| Table 2 | `r44_inv.py` (replicates, frames); `r39_core.py` (window); earlier audits of row 3.1 of `docs/RESULTS_MAP.md` (window, survival) | — |
+| Table 2 | `r44_inv.py` (replicates, frames); `r39_core.py` (window); earlier audits: `r37_trunk.py` (window) and a notebook cell (survival; `docs/INTERACTIVE_CHECKS.md` 9) | — |
 | Table 3 | `r44_corr_v2.py`, `r44_corr2.py` | — |
 | S1 Fig | `r41_synth_adv.py` | `make_figs.py` |
 | S1 Table | the time-stamped records | `make_s1.py` |
@@ -142,7 +169,9 @@ first thermophile test, `r38_p1.py`, and the ranking of existing measures, `hu1_
 
 The checks that wrote no output file (12 test pairs, reversed chains, equipment of the cost measurement,
 decomposition of the unshared part, location of correspondence shifts, chain breaks, reproduction by framedchain
-0.4.1) are given with their code and printed output in [`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md).
+0.4.1) are given with their code and printed output in [`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md),
+as are the two notebook cells that wrote `results/pu_tm_factorial_B_triangle.tsv` (Fig 2A) and
+`results/r37_size_survival.json` (survival row of Table 2).
 
 Reproduction is possible at three levels:
 
@@ -255,7 +284,7 @@ are separate scripts that say so in their docstrings.
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
-| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file), `STATEMENTS.md` (draft availability statements) |
+| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the two notebook cells behind Fig 2A and the survival row of Table 2), `STATEMENTS.md` (draft availability statements) |
 | `tools/` | `pack_for_zenodo.py` (builds the data deposit), `record_env.py` (records an environment) |
 | `MANIFEST.md5` | md5 of every file (`md5sum -c MANIFEST.md5`) |
 
