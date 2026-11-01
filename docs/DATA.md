@@ -66,5 +66,5 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 
 `tools/pack_for_zenodo.py` builds the deposit from a project root following this table and writes a checksum
 manifest. Files taken from ATLAS (CC BY-NC 4.0), `derived/atlas_pdb/`, `derived/xprot_structs.npz`, `derived/pu_fold208_ca.npz`, `derived/pu_blockB_ca.npz` and `results/atlas_info_full.tsv`, are not redistributed:
-`EXCLUDED_public.tsv` lists them with the public inputs by name and size (with the md5 of files up to 64 MiB), and they can be rebuilt from the ATLAS
+`EXCLUDED_public.tsv` lists them with the public inputs by name and size (with the md5 of the files that are not simulation data), and they can be rebuilt from the ATLAS
 files of section 1. Run it on the machine that holds the project directory (Colab with Drive mounted, in our case).

@@ -6,19 +6,22 @@ Usage:
 Writes OUT_DIR/framedchain_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
 OUT_DIR/MANIFEST_data.tsv (md5, bytes, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
 public inputs found under ROOT/raw, and the structures and tables taken from ATLAS (CC BY-NC 4.0), by name and size,
-with the md5 of files up to 64 MiB, so that the same files can be identified without redistributing them (the larger
-ones are simulation files, identified by name and size within their versioned public releases). --ensembles adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only
+with the md5 of the files that are not simulation data (lists, tables, PDB entries, structures taken from ATLAS), so
+that the same files can be identified without redistributing them; simulation files are identified by name and size
+within their versioned public releases. --ensembles adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only
 prints the sizes per group. Nothing under ROOT is modified.
 """
 import argparse, fnmatch, hashlib, os, sys, tarfile, time
 
-PUBLIC_MD5_MAX = 64 * 2 ** 20   # public files up to this size get an md5 in EXCLUDED_public.tsv; larger ones '-'
+PUBLIC_MD5_MAX = 64 * 2 ** 20   # public files up to this size get an md5 in EXCLUDED_public.tsv, except simulation data
+SIMULATION = ('raw/mdcath', 'raw/atlas', 'raw/models/', 'raw/bioemu_cath/', 'raw/megasim/', 'raw/majewski/', 'raw/mfm_sm/')
 
 # (group, glob relative to ROOT); a file is packed if it matches any pattern of an enabled group
 GROUPS = [
     ('results', 'results/*'),
     ('results', 'results/_backup/**'),
     ('results', 'results/logs/**'),
+    ('results', 'results/_registration_evidence_2026-10-26/**'),
     ('intermediate', 'raw/asamt_test90_needs.json'),
     ('intermediate', 'raw/mdcath_all_domains_listing.json'),
     ('intermediate', 'derived/r38/*.txt'),
@@ -58,6 +61,10 @@ def md5(path, buf=1 << 22):
     return h.hexdigest()
 
 
+def want_md5(rel, p):
+    return not rel.startswith(SIMULATION) and os.path.getsize(p) <= PUBLIC_MD5_MAX
+
+
 def walk(root):
     for d, _, fs in os.walk(root):
         for f in fs:
@@ -83,8 +90,8 @@ def main():
     for g in sorted(size):
         print(f'{g:13s} {sum(1 for x in pack if x[0] == g):7d} files {size[g] / 2 ** 30:9.2f} GiB')
     print(f'{"public (list)":13s} {len(public):7d} files {sum(os.path.getsize(p) for _, p in public) / 2 ** 30:9.2f} GiB')
-    small = [os.path.getsize(p) for _, p in public if os.path.getsize(p) <= PUBLIC_MD5_MAX]
-    print(f'{"  with md5":13s} {len(small):7d} files {sum(small) / 2 ** 30:9.2f} GiB (up to {PUBLIC_MD5_MAX // 2 ** 20} MiB each)')
+    small = [os.path.getsize(p) for rel, p in public if want_md5(rel, p)]
+    print(f'{"  with md5":13s} {len(small):7d} files {sum(small) / 2 ** 30:9.2f} GiB (not simulation data, up to {PUBLIC_MD5_MAX // 2 ** 20} MiB each)')
     if a.dry_run:
         return
     os.makedirs(a.out, exist_ok=True)
@@ -92,8 +99,7 @@ def main():
     with open(os.path.join(a.out, 'EXCLUDED_public.tsv'), 'w') as f:
         f.write('md5\tbytes\tpath\n')
         for rel, p in public:
-            n = os.path.getsize(p)
-            f.write(f'{md5(p) if n <= PUBLIC_MD5_MAX else "-"}\t{n}\t{rel}\n')
+            f.write(f'{md5(p) if want_md5(rel, p) else "-"}\t{os.path.getsize(p)}\t{rel}\n')
     man = os.path.join(a.out, 'MANIFEST_data.tsv')
     with tarfile.open(os.path.join(a.out, 'framedchain_paper_data.tar'), 'w') as tar, open(man, 'w') as f:
         f.write('md5\tbytes\tgroup\tpath\n')

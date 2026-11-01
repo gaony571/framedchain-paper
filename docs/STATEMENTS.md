@@ -7,7 +7,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 | Requirement | How it is met |
 |---|---|
 | Code that directly relates to the results is shared upon publication; editors and reviewers can access it at submission (a private link is acceptable) | This repository (all analysis scripts as run) and the framedchain package; reviewer access at submission, public at publication |
-| The Data Availability Statement says where and how the code can be accessed, with a repository name and a DOI or other persistent identifier; placeholder text is allowed if the DOI is issued at publication | Draft below; Zenodo DOIs to be reserved before submission (placeholders marked XXXXXXX) |
+| The Data Availability Statement says where and how the code can be accessed, with a repository name and a DOI or other persistent identifier; placeholder text is allowed if the DOI is issued at publication | Draft below; the data DOI can be reserved before submission (Zenodo draft), the two software DOIs are minted when the repositories are public and released (placeholders marked XXXXXXX) |
 | A license is clearly specified; an OSI-conforming open-source license is strongly encouraged; Creative Commons is not recommended for code | MIT (`LICENSE`) for both repositories |
 | A repository that issues DOIs and supports versioning is recommended (GitHub alone has no DOI; pair it with Zenodo); cite the code in the reference list | GitHub releases archived on Zenodo; references below |
 | Dependencies, run environment, versions and system requirements are documented; a standard test dataset is included where feasible; code is clearly annotated | `README.md`, `environment/`, `examples/demo_synthetic.py` (synthetic, no downloads), `docs/SCRIPTS.md` (English description of every script; in-file comments are Korean) |
@@ -73,8 +73,9 @@ Remaining, after the manuscript is written and posted (these need the paper or t
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
-   and size, with the md5 of files up to 64 MiB.
+   and size, with the md5 of the files that are not simulation data.
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the READMEs.
-4. At submission give the editors and reviewers access (a private link is acceptable), or make the
-   repositories public when the preprint is posted.
+4. Reviewers need access at submission. A private GitHub repository has no shareable link (only named
+   collaborators can open it), so either make both repositories public at submission (then step 1 gives the DOIs),
+   or upload zips of the two tags to Zenodo as restricted records and give the editors their share links.
 5. Include the time-stamped records unchanged in the data deposit, as the Methods state.
