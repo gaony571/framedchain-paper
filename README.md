@@ -227,7 +227,7 @@ this order:
 11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
     project path is set at the top of each file.
 
-For the main registered analyses, `r38_verify_*.py` checked the implementation on synthetic data with known
+For the main pre-specified analyses, `r38_verify_*.py` checked the implementation on synthetic data with known
 answers before the run. The repository also contains scripts of project analyses that the paper does not report
 (for example fold retrieval and a check of standard ensemble metrics); `docs/RESULTS_MAP.md` lists them.
 
@@ -239,7 +239,7 @@ deposit together with its 101 retained versions; the twelve records added from 2
 corrections are also copied in `registration/` (the date in their file names is Korea Standard Time, UTC+9; times
 inside are UTC). Where a record holds the md5 of a script, the file here has that checksum;
 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) lists the checksum of every file and whether it was recorded before the
-run. A corrected script was registered as a separate file with its own checksum, and analyses added after a result
+run. A corrected script was recorded as a separate file with its own checksum, and analyses added after a result
 are separate scripts that say so in their docstrings.
 
 ## Repository layout
@@ -290,7 +290,7 @@ timings are in S2 Text 7.
   every script in English.
 - **Names.** The library was called framespace up to version 0.3.3 and this repository framespace-paper; both
   were renamed on 2026-10-26 (GitHub redirects the old addresses). The as-run copies keep the old names
-  (`framespace_pkg/framespace/`, `import framespace`, `framespace_wip/`) because their bytes are registered.
+  (`framespace_pkg/framespace/`, `import framespace`, `framespace_wip/`) because their checksums are in the records.
 - **Inputs made in notebooks.** Some inputs were produced in notebook cells that were not kept as scripts; they
   are deposited as data and listed in `docs/DATA.md`.
 - **Paths.** Some paths are Colab-specific (`/content/...` scratch directories, `/usr/bin/python3`, the Drive
