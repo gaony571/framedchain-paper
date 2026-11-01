@@ -27,7 +27,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > that fixed the analyses — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
-> (https://github.com/gaony571/framedchain, version 0.4.1, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
+> (https://github.com/gaony571/framedchain, version 0.4.2, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
 > Both are released under the MIT license. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
 
@@ -36,11 +36,11 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
 > available at https://github.com/gaony571/framedchain-paper (version 1.3.1; MIT license; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
-> statistics is the framedchain package (version 0.4.1; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
+> statistics is the framedchain package (version 0.4.2; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
 ## Software references (for the reference list)
 
-> An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.1.
+> An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.2.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
@@ -53,7 +53,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 ## Status and remaining steps
 
 Done (2026-10-26): both repositories are on GitHub as private repositories with version tags —
-`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.1`) and
+`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.2`) and
 `gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29, `v1.3.0` = with the round46–48 checks of 2026-10-29 and 10-30, the figure and table scripts and the manuscript map). Both were renamed from framespace and framespace-paper on
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
@@ -64,14 +64,15 @@ Remaining, after the manuscript is written and posted (these need the paper or t
    Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
    repositories are made public, switch both on and publish a GitHub release of each from its latest `main`:
    framedchain-paper `v1.3.1` (the version already in `CITATION.cff`, the README and the manuscript reference;
-   `main` changed after `v1.3.0`) and framedchain `v0.4.1`, or a later tag if the package changes. Zenodo mints a
+   `main` changed after `v1.3.0`) and framedchain `v0.4.2` (0.4.1 with a chain-break flag and documentation; no computation changed). Zenodo mints a
    DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
    metadata. If DOIs are needed while the repositories are still private, upload `git archive` zips of the same
    tags to Zenodo by hand with reserved DOIs instead, and then do not also switch the repositories on, since each
    route makes its own record.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
-   (CC BY-NC 4.0) are not redistributed; the deposit lists them by name and checksum only.
+   (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed; the deposit lists them
+   by name and checksum only.
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the READMEs.
 4. At submission give the editors and reviewers access (a private link is acceptable), or make the
    repositories public when the preprint is posted.

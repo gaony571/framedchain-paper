@@ -1,7 +1,7 @@
 <h1 align="center">Comparing protein conformational ensembles<br>across sequences and lengths</h1>
 
 <p align="center">
-  <b>Hyeonsu An</b><br>
+  <b>Hyeonsu An</b> · <a href="https://orcid.org/0009-0005-5636-772X">ORCID 0009-0005-5636-772X</a><br>
   Department of Applied Artificial Intelligence, Sungkyunkwan University, Seoul, Republic of Korea
 </p>
 
@@ -31,7 +31,7 @@ unmatched bonds face zero matrices. (C) The squared distance splits exactly into
 This repository contains the code exactly as it was run to produce every number, figure and table of the paper,
 together with the run queues, environment records and the time-stamped records that fixed each analysis before it
 was run. To apply the method to your own structures and ensembles, use the documented and tested Python package
-[framedchain](https://github.com/gaony571/framedchain) (version 0.4.1) instead; this repository is for checking
+[framedchain](https://github.com/gaony571/framedchain) (version 0.4.2) instead; this repository is for checking
 and reproducing the paper.
 
 ## Abstract
@@ -171,7 +171,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
   about 30 s.
 - The 25 tests of the research module run against the as-run library (about 3 minutes).
 - Both were checked on 2026-10-26 with Python 3.12.13 and the versions in `environment/requirements-check.txt`.
-  The tests of the method itself are in the framedchain package (46 tests in version 0.4.1).
+  The tests of the method itself are in the framedchain package (47 tests in version 0.4.2).
 
 ## Running the analyses
 

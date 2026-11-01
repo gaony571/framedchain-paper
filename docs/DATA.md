@@ -43,8 +43,8 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | `raw/asamt_test90_needs.json` | aSAMt test-set domains and temperatures needed | `r38_prep.py`, `r38_md_ref_p90.py` |
 | `derived/r38/*.txt` (`p2_67`, `asamt_sanity5`, `q3_p2_67_ordered`, `q5a_450_17`, `q5b_p90_4`, `rest18`, `q_cond_450_50`, `p2_sf23`, `p2_no_big4`, `p2_p80`), `derived/r38/alphaflow_input.csv` | domain lists for the P2 generation and aggregation queues (the 67 P2 domains, the 5 correctness-check domains drawn with seed 20261019, subsets for sensitivity versions) | `r38_s0.py`, `r38_asamt_gen.py`, `r38_alphaflow_gen.py`, `r38_p2_*`, `r39_core.py`, `r39_e6.py`, `r43_sens.py` |
 | `derived/r38/p1n/pairs.json` | P1′ pairs, recorded 2026-10-20 13:35:54 UTC | `r38_p1n_fetch.py`, `r38_p1n.py` |
-| `results/v_residue_unit_graded.tsv`, `results/xprot_bench.tsv`, `derived/xprot_structs.npz`, `derived/atlas_pdb/` | ruler-benchmark pairs and structures (1,674 pairs; 208-structure block) | `hu1_rulers.py`, `dfrechet_1674.py`, `analysis_fold208*.py` |
-| `results/pu_fold208_setup.json`, `derived/pu_fold208_ca.npz`, `results/pu_tm_factorial_setup.json`, `results/pu_tm_factorial_B_setup.json`, `derived/pu_blockB_ca.npz` | structure blocks for the TM factorial design and fold retrieval | `pu_*.py` |
+| `results/v_residue_unit_graded.tsv`, `results/xprot_bench.tsv`, `derived/xprot_structs.npz`, `derived/atlas_pdb/` | ruler-benchmark pairs and structures (1,674 pairs; 208-structure block); the structures (`derived/xprot_structs.npz`, `derived/atlas_pdb/`) are taken from ATLAS and are not deposited (below) | `hu1_rulers.py`, `dfrechet_1674.py`, `analysis_fold208*.py` |
+| `results/pu_fold208_setup.json`, `derived/pu_fold208_ca.npz`, `results/pu_tm_factorial_setup.json`, `results/pu_tm_factorial_B_setup.json`, `derived/pu_blockB_ca.npz` | structure blocks for the TM factorial design and fold retrieval; the two `_ca.npz` files hold coordinates taken from ATLAS and are not deposited (below) | `pu_*.py` |
 | `raw/mfm_sm/*.npz` | see section 1 | `ladder_ff*.py` |
 | `results/ladder_*_summary.json` | aggregated ladder rows (aggregation cells not kept) | text of result 4.8 |
 | `results/prereg_2026-10-17.json` | the first time-stamped record (all rounds, amendments, checklists) | `make_s1.py` (through `entries_timeline.tsv`) |
@@ -65,4 +65,6 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | Extracted mdCATH frames and spreads (npz) | `derived/mdcath_5T/`, `derived/mdcath_5T_folded/`, `derived/mdcath_spread*/` | regenerate from mdCATH (large) |
 
 `tools/pack_for_zenodo.py` builds the deposit from a project root following this table and writes a checksum
-manifest. Run it on the machine that holds the project directory (Colab with Drive mounted, in our case).
+manifest. Files taken from ATLAS (CC BY-NC 4.0), `derived/atlas_pdb/`, `derived/xprot_structs.npz`, `derived/pu_fold208_ca.npz`, `derived/pu_blockB_ca.npz` and `results/atlas_info_full.tsv`, are not redistributed:
+`EXCLUDED_public.tsv` lists them by name, size and md5 with the public inputs, and they can be rebuilt from the ATLAS
+files of section 1. Run it on the machine that holds the project directory (Colab with Drive mounted, in our case).

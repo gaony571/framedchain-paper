@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
-9994acea4ec80546afa1fc4e29675375 *CITATION.cff
+ed37331ddbfa5d7df38d431e0b2773d1 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-7720980afb30a4ce6cfebc6d80952294 *README.md
+53bb8cfcb5a9a8afd3f61f6cc99e2efb *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -126,12 +126,12 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 32f24903bd78c607ba65dc41dae98d66 *code/r48_identity_range.py
 4e5e398d0d59be9f759af402c70e0e1a *code/r49_chainbreak.py
 363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
-9ce24b39fc35edef5459c13d0e75ac19 *docs/DATA.md
+a2a5115e44f31644fcada0a39d805802 *docs/DATA.md
 041bf7448ef35e5b7ccb104d986596ae *docs/INTERACTIVE_CHECKS.md
 2d2c8617afcf804b94c86dbd16671198 *docs/PROVENANCE.md
 bdf470632589823719a9340dce2c1026 *docs/RESULTS_MAP.md
 abef0c1ce306392137c9e96c2dfe3de9 *docs/SCRIPTS.md
-db12423e95202eed9a1ad416c05f1b0d *docs/STATEMENTS.md
+f0167fbec523c6bd3cecaf7e41a31a48 *docs/STATEMENTS.md
 60a5cbf55d52e1afff204535ca2284c0 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
 0087a3eadc056c67bb37d64430650f52 *environment/afenv_freeze.txt
@@ -211,5 +211,5 @@ c36712c2119c459dcfaa25a13eb0ced5 *run_records/queues/q_r44d.sh
 3b1de9082ceff5a5b51ce9f6cd2071da *run_records/queues/q_r45.sh
 d2b027c166d970df52a0dcdbec187a7c *run_records/queues/q_r47.py
 a32e0766f12b37572dbc215c9dbe295c *run_records/queues/r39_resume_20261021.sh
-e7da702b6b3d0071e4f753199a217f08 *tools/pack_for_zenodo.py
+a3ccb77af02a6dd9c36cf00419f91a7b *tools/pack_for_zenodo.py
 d99bcac0445256a9a59759272b621a6c *tools/record_env.py

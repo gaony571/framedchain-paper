@@ -9,6 +9,7 @@ authors:
   - family-names: "An"
     given-names: "Hyeonsu"
     affiliation: "Department of Applied Artificial Intelligence, Sungkyunkwan University"
+    orcid: "https://orcid.org/0009-0005-5636-772X"
 repository-code: "https://github.com/gaony571/framedchain-paper"
 keywords:
   - protein structure
@@ -19,7 +20,7 @@ keywords:
 references:
   - type: software
     title: "framedchain: framed chains for protein structures and ensembles of any length"
-    version: 0.4.1
+    version: 0.4.2
     repository-code: "https://github.com/gaony571/framedchain"
     authors:
       - family-names: "An"

@@ -5,8 +5,8 @@ Usage:
 
 Writes OUT_DIR/framedchain_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
 OUT_DIR/MANIFEST_data.tsv (md5, bytes, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
-public inputs found under ROOT/raw by name, size and md5 so that the same files can be identified without
-redistributing them. --ensembles adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only
+public inputs found under ROOT/raw, and the structures and tables taken from ATLAS (CC BY-NC 4.0), by name, size
+and md5 so that the same files can be identified without redistributing them. --ensembles adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only
 prints the sizes per group. Nothing under ROOT is modified.
 """
 import argparse, fnmatch, hashlib, os, sys, tarfile, time
@@ -22,10 +22,6 @@ GROUPS = [
     ('intermediate', 'derived/r38/*.txt'),
     ('intermediate', 'derived/r38/alphaflow_input.csv'),
     ('intermediate', 'derived/r38/p1n/pairs.json'),
-    ('intermediate', 'derived/xprot_structs.npz'),
-    ('intermediate', 'derived/atlas_pdb/**'),
-    ('intermediate', 'derived/pu_fold208_ca.npz'),
-    ('intermediate', 'derived/pu_blockB_ca.npz'),
     ('perdomain', 'derived/**/*.json'),
     ('perdomain', 'derived/**/*.jsonl'),
     ('perdomain', 'derived/**/*.tsv'),
@@ -35,7 +31,10 @@ GROUPS = [
 # public inputs: never packed, only listed (licences of some sources do not allow redistribution)
 PUBLIC = ['raw/mdcath/**', 'raw/mdcath_c/**', 'raw/mdcath_p1n/**', 'raw/atlas/**', 'raw/atlas_af82/**',
           'raw/models/**', 'raw/bioemu_cath/**', 'raw/megasim/**', 'raw/tsuboyama/**', 'raw/majewski/**',
-          'raw/cath/**', 'raw/chaining/**']
+          'raw/cath/**', 'raw/chaining/**',
+          # taken from ATLAS (CC BY-NC 4.0): listed, not packed
+          'derived/atlas_pdb/**', 'derived/xprot_structs.npz', 'derived/pu_fold208_ca.npz', 'derived/pu_blockB_ca.npz',
+          'results/atlas_info_full.tsv']
 
 
 def match(rel, pat):
