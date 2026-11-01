@@ -71,7 +71,7 @@ def fig2():
     cax = axin(fig, 2.95, 0.45, 0.1, 2.6); cb = fig.colorbar(im, cax=cax); cb.set_label('% violated (log scale)', fontsize=FS); cb.ax.tick_params(labelsize=FS)
     # B: chaining
     c1, c2 = J('chaining.json'), J('chaining_v2.json')
-    meas = [('1 − TM\n(shorter)', c2['tms']), ('1 − TM\n(longer)', c1['tml']), (r'$D_{TM}/\sqrt{\bar L}$' + '\n' + r'(fixed $d_0$)', c2['dfn']), (r'$1 - S/\bar L$' + '\n(linear)', c2['dn_lin'])]
+    meas = [('1 − TM\n(shorter)', c2['tms']), ('1 − TM\n(longer)', c1['tml']), (r'$D_{\rm TM}/\sqrt{\bar L}$' + '\n' + r'(fixed $d_0$)', c2['dfn']), (r'$1 - S/\bar L$' + '\n(linear)', c2['dn_lin'])]
     ax = axin(fig, 4.45, 0.55, 2.95, 2.5); panel(ax, 'B', x=-0.22, y=1.08)
     x = np.arange(len(meas)); w = 0.38
     for k, (key, col, lab) in enumerate([('triangle_violation', OI['grey'], 'triples violating the triangle inequality'), ('average_link_merge', OI['red'], 'chains with different folds merged')]):
@@ -109,7 +109,7 @@ def fig3():
         al = E1['steps'][tt]['irls']['alpha']; ga = E1['steps'][tt]['irls']['gamma']
         w = n ** (-ga); x = n ** al; cfit = (w * y * x).sum() / (w * x * x).sum(); fits[tt] = (al, ga, cfit, len(n), int((~pos).sum()))
         g = np.linspace(n.min(), n.max(), 50); ax.plot(g, cfit * g ** al, color=SCOL[tt], lw=1)
-    ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xticks([50, 70, 100, 150]); ax.xaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter()); ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_xlabel('number of bonds n'); ax.set_ylabel(r'$\Delta^2_D$' + ' per domain (positive values)')
+    ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xticks([50, 70, 100, 150]); ax.xaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter()); ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_xlabel('number of bonds ' + r'$n$'); ax.set_ylabel(r'$\Delta^2_D$' + ' per domain (positive values)')
     # C: power
     ax = fig.add_subplot(gs[2]); panel(ax, 'C', x=-0.36, y=1.12); pw = {}
     for tt in T:
@@ -269,12 +269,12 @@ def ring(ax, x, y, r, col, lw=0.9, zorder=3):
     """Open circle of radius r (x units) that stays round on paper."""
     ax.add_patch(Ellipse((x, y), 2 * r, 2 * r * ky(ax), fill=False, ec=col, lw=lw, zorder=zorder))
 
-def glyph(ax, x, y, th, s=1.0, col='black', L=0.5, lw=1.4, zorder=3):
+def glyph(ax, x, y, th, s=1.0, col='black', L=0.36, lw=1.4, zorder=3):
     """2-D stand-in for a bond term x = s R / 2: arrow along f1 (length ∝ s) with a tick along f2, at right angles on paper."""
     if s <= 1e-6:
         ring(ax, x, y, 0.08, col, zorder=zorder); return
     k = ky(ax); dx, dy = np.cos(th) * L * s, np.sin(th) * L * s * k
-    ax.add_patch(FancyArrowPatch((x - dx / 2, y - dy / 2), (x + dx / 2, y + dy / 2), arrowstyle='-|>', mutation_scale=5 * max(s, 0.4), color=col, lw=lw, zorder=zorder))
+    ax.add_patch(FancyArrowPatch((x - dx / 2, y - dy / 2), (x + dx / 2, y + dy / 2), arrowstyle='-|>', mutation_scale=5 * max(s, 0.4), color=col, lw=lw, zorder=zorder, shrinkA=0, shrinkB=0))   # no end shrink, so the arrow scales with s like the tick (L = 0.36 keeps the full-size look of the former 0.5 with the default 2 pt shrinks)
     px, py = -np.sin(th) * 0.2 * s, np.cos(th) * 0.2 * s * k
     ax.plot([x, x + px], [y, y + py], color=col, lw=lw * 0.8, zorder=zorder)
 
@@ -307,7 +307,7 @@ def fig1():
         ax.plot([xs[i], xs[i]], [yx - 0.25, yy + 0.15], color=UN, lw=0.6, ls=':')
     ring(ax, ys[5], yx - 0.0, 0.07, UN, lw=0.8); ax.text(ys[5], yx + 0.2, '0', ha='center', fontsize=FS, color=UN); ax.plot([ys[5], ys[5]], [yx - 0.1, yy + 0.25], color=UN, lw=0.6, ls=':')
     ax.text(-0.95, yx, r'$x$', fontsize=9, va='center'); ax.text(-0.95, yy, r'$Uy$', fontsize=9, va='center')
-    ax.text(4.3, 2.62, 'order-preserving correspondence π and one global rotation U', ha='center', fontsize=FS)
+    ax.text(4.3, 2.62, 'order-preserving correspondence ' + r'$\pi$' + ' and one global rotation ' + r'$U$', ha='center', fontsize=FS)
     # C: exact split
     ax = fig.add_subplot(gs[1, 0]); ax.set_xlim(0, 4.2); ax.set_ylim(0, 2.6); ax.axis('off'); panel(ax, 'C', x=-0.02, y=0.98)
     a, b = 2.3, 1.2

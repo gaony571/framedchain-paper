@@ -174,7 +174,7 @@ and `prereg_2026-10-31_addendum12*.json`); corrections were written as separate 
 
 ## Figures and tables
 
-These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01: Figs 1, 3 and 4 at 18:29 UTC (Fig 4 again at 18:31 UTC), the S1–S3 Tables at 18:29 UTC and the other figures at 17:45 UTC (earlier runs in `docs/PROVENANCE.md`).
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01: Figs 1, 2 and 3 at 22:39 UTC, Fig 4 at 18:31 UTC, the S1–S3 Tables at 18:29 UTC and the other figures at 17:45 UTC (earlier runs in `docs/PROVENANCE.md`).
 They take no arguments; the project path `R` and the output folder are set at the top of each file.
 
 | Script | What it does | Main outputs |
