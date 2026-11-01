@@ -130,8 +130,8 @@ def fig4():
         if not D or any(D.get(k) is None for k in ('C', 'B_P', 'B_Q')): continue
         d2 = 2 * D['C'] - D['B_P'] - D['B_Q']; pts.append((b['TM'], d2 / np.sqrt(b['nbar']), b.get('W2'), b['Ha'] == b['Hb']))
     P = pd.DataFrame(pts, columns=['TM', 'd2n', 'W2', 'same'])
-    fig = plt.figure(figsize=(7.5, 4.6))
-    ax = axin(fig, 0.5, 1.15, 2.35, 3.2); panel(ax, 'A', x=-0.2, y=1.0)
+    fig = plt.figure(figsize=(7.5, 4.75))   # 4.6 → 4.75 and A moved right: the y-label and the legend touched the edge
+    ax = axin(fig, 0.62, 1.3, 2.23, 3.2); panel(ax, 'A', x=-0.2, y=1.0)
     for same, col, lab in [(False, OI['grey'], 'different superfamilies'), (True, OI['blue'], 'same superfamily')]:
         s = P[P.same == same]; ax.scatter(s.TM, s.d2n, s=6, color=col, lw=0, alpha=0.8, label=f'{lab} ({len(s)})')
     ax.set_xlabel('TM-score (first 320 K frames,\nlonger chain)'); ax.set_ylabel(r'$\Delta^2_D/\sqrt{\bar n}$'); ax.set_xlim(0.18, 1.0)
@@ -140,7 +140,7 @@ def fig4():
     h1, l1 = ax.get_legend_handles_labels(); h2, l2 = ax2.get_legend_handles_labels(); ax.legend(h1 + h2, l1 + l2, frameon=False, loc='upper center', bbox_to_anchor=(0.5, -0.19), handletextpad=0.2)
     # B: kappa per cell
     s1 = J('r43_sens.json')['s1']['cells']; order = [k for k in CELL_EN if k in s1]
-    ax = axin(fig, 5.1, 1.15, 2.3, 3.2); panel(ax, 'B', x=-0.86, y=1.0); y = np.arange(len(order))[::-1]; kap = {}
+    ax = axin(fig, 5.1, 1.3, 2.3, 3.2); panel(ax, 'B', x=-0.86, y=1.0); y = np.arange(len(order))[::-1]; kap = {}
     for yi, k in zip(y, order):
         e, lo, hi = ci(s1[k]['ratio']); kap[CELL_EN[k].replace('\n', ' ')] = (e, lo, hi)
         col = OI['red'] if 'AlphaFlow' in CELL_EN[k] else OI['blue'] if 'Homolog' in CELL_EN[k] or 'insertion' in CELL_EN[k] else OI['black']

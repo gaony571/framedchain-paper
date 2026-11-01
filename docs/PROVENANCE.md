@@ -91,8 +91,8 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/ladder_model_error_folded.py` | `0c2d4e91bfcd06eca6c07152d0e9debb` | U |  |
 | `code/ladder_temp_single.py` | `961d2f27c0406c9667fabb03b2d5b142` | U |  |
 | `code/ladder_temp_single_v2.py` | `6420c51e5aeb3a69c51aafa1711a261d` | U |  |
-| `code/make_figs.py` | `efc8f74c76b502c6c277947c85e39317` | U | figure script, last run on Colab 2026-11-01 (Arial, text 8 pt or larger); reads stored results only; in no record |
-| `code/make_s1.py` | `473d68ed32638fc1269dc24ffd7c42f8` | U | S1 Table script, run on Colab 2026-10-31; in no record |
+| `code/make_figs.py` | `40a77f390f7e3f58ecc78651ec03cea8` | U | figure script, last run on Colab 2026-11-01 (Arial, text 8 pt or larger; Fig 4 redrawn 16:57 UTC with more margin, values unchanged); reads stored results only; in no record |
+| `code/make_s1.py` | `655ee8ce86dd400383a5039e66311e2f` | U | S1 Table script, run on Colab 2026-10-31 and again 2026-11-01 16:57 UTC (percentage intervals written with % on both bounds); in no record |
 | `code/make_tables.py` | `ba796a20e7081c2eb54c238d705d4555` | U | S2 and S3 Table script, run on Colab 2026-10-31; in no record |
 | `code/mdcath_5T_extract.py` | `a77709c6edfef1e21207070b2c959b69` | U |  |
 | `code/mdcath_5T_folded.py` | `6c65c299322b4cdbf6ae447c51481fa4` | U |  |
