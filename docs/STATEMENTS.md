@@ -75,7 +75,7 @@ Remaining, after the manuscript is written and posted (these need the paper or t
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
    and size, with the md5 of the files that are not simulation data.
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the READMEs.
-4. Reviewers need access at submission. A private GitHub repository has no shareable link (only named
-   collaborators can open it), so either make both repositories public at submission (then step 1 gives the DOIs),
-   or upload zips of the two tags to Zenodo as restricted records and give the editors their share links.
+4. Reviewers need access at submission, and a private GitHub repository has no shareable link (only named
+   collaborators can open it). Decision of 2026-10-30: both repositories are made public before submission, so
+   no private link is needed and step 1 gives the two software DOIs before submission.
 5. Include the time-stamped records unchanged in the data deposit, as the Methods state.
