@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Manuscript submitted · Analysis code exactly as run · Version 1.3.0 · MIT license · Zenodo DOI to be added at release
+  Manuscript submitted · Analysis code exactly as run · Version 1.3.1 · MIT license · Zenodo DOI to be added at release
 </p>
 
 <p align="center">
@@ -313,7 +313,7 @@ release):
 @software{An2026framedchainpaper,
   author  = {An, Hyeonsu},
   title   = {framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths"},
-  version = {1.3.0},
+  version = {1.3.1},
   year    = {2026},
   url     = {https://github.com/gaony571/framedchain-paper}
 }

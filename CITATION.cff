@@ -1,13 +1,21 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the accompanying paper, \"Comparing protein conformational ensembles across sequences and lengths\" (submitted), and this software."
 title: "framedchain-paper: analysis code for \"Comparing protein conformational ensembles across sequences and lengths\""
-version: 1.3.0
+version: 1.3.1
 license: MIT
 type: software
+abstract: "Analysis code exactly as run for the paper \"Comparing protein conformational ensembles across sequences and lengths\": the scripts that produced every number, figure and table, with the run queues, environment records, checksum records and the time-stamped records that fixed each analysis before it was run."
 authors:
   - family-names: "An"
     given-names: "Hyeonsu"
+    affiliation: "Department of Applied Artificial Intelligence, Sungkyunkwan University"
 repository-code: "https://github.com/gaony571/framedchain-paper"
+keywords:
+  - protein structure
+  - conformational ensembles
+  - molecular dynamics
+  - energy distance
+  - reproducibility
 references:
   - type: software
     title: "framedchain: framed chains for protein structures and ensembles of any length"

@@ -34,7 +34,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 ## Code availability sentence for the Methods (draft)
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
-> available at https://github.com/gaony571/framedchain-paper (version 1.3.0; MIT license; Zenodo DOI:
+> available at https://github.com/gaony571/framedchain-paper (version 1.3.1; MIT license; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
 > statistics is the framedchain package (version 0.4.1; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
@@ -44,7 +44,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
-> Version 1.3.0.
+> Version 1.3.1.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
@@ -60,10 +60,15 @@ archives a repository only for releases published after the repository is connec
 
 Remaining, after the manuscript is written and posted (these need the paper or the DOIs):
 
-1. Connect both repositories to Zenodo, then publish a GitHub release of each from its latest `main`
-   (framedchain: tag `v0.4.1`, or a later one if the package changes; framedchain-paper: `v1.3.0`, or, if `main` changes after 2026-10-31, a tag of the then-current `main`,
-   e.g. `v1.3.1`, with the version updated in `CITATION.cff`, the README and the manuscript reference).
-   Zenodo mints a DOI for each release.
+1. Zenodo archives a GitHub release only for a public repository that was switched on in Zenodo (log in to
+   Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
+   repositories are made public, switch both on and publish a GitHub release of each from its latest `main`:
+   framedchain-paper `v1.3.1` (the version already in `CITATION.cff`, the README and the manuscript reference;
+   `main` changed after `v1.3.0`) and framedchain `v0.4.1`, or a later tag if the package changes. Zenodo mints a
+   DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
+   metadata. If DOIs are needed while the repositories are still private, upload `git archive` zips of the same
+   tags to Zenodo by hand with reserved DOIs instead, and then do not also switch the repositories on, since each
+   route makes its own record.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
    (CC BY-NC 4.0) are not redistributed; the deposit lists them by name and checksum only.
