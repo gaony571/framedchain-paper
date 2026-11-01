@@ -6,7 +6,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 | Requirement | How it is met |
 |---|---|
-| Code that directly relates to the results is shared upon publication; editors and reviewers can access it at submission (a private link is acceptable) | This repository (all analysis scripts as run) and the framedchain package; reviewer access at submission, public at publication |
+| Code that directly relates to the results is shared upon publication; editors and reviewers can access it at submission (a private link is acceptable) | This repository (all analysis scripts as run) and the framedchain package; both public before submission (decision of 2026-10-30), so editors and reviewers can open them at submission |
 | The Data Availability Statement says where and how the code can be accessed, with a repository name and a DOI or other persistent identifier; placeholder text is allowed if the DOI is issued at publication | Draft below; the data DOI can be reserved before submission (Zenodo draft), the two software DOIs are minted when the repositories are public and released (placeholders marked XXXXXXX) |
 | A license is clearly specified; an OSI-conforming open-source license is strongly encouraged; Creative Commons is not recommended for code | MIT (`LICENSE`) for both repositories |
 | A repository that issues DOIs and supports versioning is recommended (GitHub alone has no DOI; pair it with Zenodo); cite the code in the reference list | GitHub releases archived on Zenodo; references below |

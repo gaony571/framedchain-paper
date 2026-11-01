@@ -200,7 +200,7 @@ resumable: finished per-domain files are skipped. Scripts add `ROOT/framespace_p
 load functions from another script with `exec` (for example `r38_b6.py` loads part of `r38_s0.py`), so keep `code/`
 flat and unchanged. The commands that were actually run, with their arguments, are in `run_records/queues/`.
 
-Scripts named `r37` to `r48` carry the stage of the project in which they were written; the others (data
+Scripts named `r37` to `r49` carry the stage of the project in which they were written; the others (data
 preparation and the early CPU-only analyses) have descriptive names. From the public data, the analyses run in
 this order:
 
@@ -237,7 +237,8 @@ Hypotheses, predictions and decision rules were written into time-stamped record
 were run (Methods and S1 Table of the paper). The first record, `results/prereg_2026-10-17.json`, is in the data
 deposit together with its 101 retained versions; the twelve records added from 2026-10-28 and their five
 corrections are also copied in `registration/` (the date in their file names is Korea Standard Time, UTC+9; times
-inside are UTC). Where a record holds the md5 of a script, the file here has that checksum;
+inside are UTC). Folder and file names (`registration/`, `prereg_*`) keep the working names used while the
+project ran; the paper calls these files the time-stamped records. Where a record holds the md5 of a script, the file here has that checksum;
 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) lists the checksum of every file and whether it was recorded before the
 run. A corrected script was recorded as a separate file with its own checksum, and analyses added after a result
 are separate scripts that say so in their docstrings.

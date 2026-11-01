@@ -1,4 +1,4 @@
-"""Self-contained demonstration on synthetic backbones (no downloads, CPU, about a minute).
+"""Self-contained demonstration on synthetic backbones (no downloads, CPU, about 30 s).
 
 It uses only the as-run libraries of this repository (framespace 0.2.0 in framespace_pkg/ and the research module
 framespace_wip/stage0) and applies the paper's computations to small synthetic ensembles:
@@ -106,7 +106,7 @@ def main():
     print(f'   D(x, x with 3 zero terms)   = {full_d(x, xz):.6f}   (zero terms are the same point)')
     dxy, dyz, dxz = full_d(x, y), full_d(y, z), full_d(x, z)
     print(f'   D(x,y) D(y,z) D(x,z)        = {dxy:.4f} {dyz:.4f} {dxz:.4f};  D(x,z) <= D(x,y) + D(y,z): {dxz <= dxy + dyz + 1e-9}')
-    print(f'   normalised D(x,y) in [0,1]  = {dxy / float((sq_norm(x) + sq_norm(y)).sqrt()):.4f}')
+    print(f'   normalized D(x,y) in [0,1]  = {dxy / float((sq_norm(x) + sq_norm(y)).sqrt()):.4f}')
 
     P1 = ensemble(x, 0.10, RUNS, FRAMES, 11); P2 = ensemble(x, 0.10, RUNS, FRAMES, 12)
     Q = ensemble(x, 0.20, RUNS, FRAMES, 13)

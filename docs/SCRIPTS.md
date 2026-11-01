@@ -8,7 +8,7 @@ residue-to-residue step; *D* is the alignment distance of the space (computed by
 dynamic programming with mean-point starts, an upper bound); Δ² = 2C − B_P − B_Q is the energy-distance
 statistic between two ensembles (C = cross mean distance, B = floors within each side, one value per pair of
 runs); Δ²/√n̄ divides by the square root of the mean number of edges; Δμ²₂ = (C₂ − (B₂_P + B₂_Q)/2)/edges is
-the mean-shift component; a *run* is one replica; *folded frames* have Q ≥ 0.75 of the native contacts of the
+the mean-shift component; a *run* is one replicate; *folded frames* have Q ≥ 0.75 of the native contacts of the
 first 320 K frame unless stated otherwise; *H-pool* is the set of same-superfamily mdCATH domain pairs.
 
 Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages are resumable.
@@ -17,10 +17,10 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `mdcath_5T_extract.py` | Reads each mdCATH h5 once and stores Cα, C, O coordinates (every `frame_step` frames), Q of every frame, Rg, DSSP and the sequence for the 336 domains × 5 temperatures × 5 replicas in `results/mdcath_5T_setup.json` | `derived/mdcath_5T/<dom>.npz` |
-| `mdcath_5T_folded.py` | Per-edge frame spread, Cα RMSF² and windowed (±3) RMSF² of the folded frames for each temperature and replica | `derived/mdcath_5T_folded/<dom>.npz` |
+| `mdcath_5T_extract.py` | Reads each mdCATH h5 once and stores Cα, C, O coordinates (every `frame_step` frames), Q of every frame, Rg, DSSP and the sequence for the 336 domains × 5 temperatures × 5 replicates in `results/mdcath_5T_setup.json` | `derived/mdcath_5T/<dom>.npz` |
+| `mdcath_5T_folded.py` | Per-edge frame spread, Cα RMSF² and windowed (±3) RMSF² of the folded frames for each temperature and replicate | `derived/mdcath_5T_folded/<dom>.npz` |
 | `mdcath_spread.py`, `mdcath_spread_hot.py` | Per-edge spread of mdCATH domains, frames aligned to the mean point of each temperature. Arguments: temperatures (default 320,348) and an output-directory suffix; the 379/413 K spreads were written with `mdcath_spread_hot.py` to `derived/mdcath_spread_hot` | `derived/mdcath_spread<suffix>/<dom>.npz` |
-| `p2_gap_consensus.py` | For the H-pool homologue pairs, compares insertion/deletion events between TM-align alignments and alignments of the space | `results/p2_gap_consensus_raw.tsv` |
+| `p2_gap_consensus.py` | For the H-pool homolog pairs, compares insertion/deletion events between TM-align alignments and alignments of the space | `results/p2_gap_consensus_raw.tsv` |
 | `r38_prep.py` | Test-set preparation for P2: sequences of the 90 aSAMt test domains, sequence identity to the ATLAS training set, AlphaFlow input CSV, ColabFold MSAs | `results/r38_prep.json`, `derived/r38/alphaflow_input.csv`, `derived/r38/msa/` |
 | `r38_md_ref.py`, `r38_md_ref_p90.py` | MD reference for P2 domains: mean point of 320 K folded frames, native contacts, atom indices, same-domain temperature curves (the `_p90` copy covers the 90-domain set) | `derived/r38/md/<dom>.{npz,json}`, `results/r38_md_ref.json` |
 | `r38_c_probe.py` | Tests partial HTTP reads of mdCATH h5 files and lists the new-superfamily domains to fetch for experiment C | `results/r38_c_probe.json`, `derived/r38/c_new_sf_domains.json` |
@@ -53,10 +53,10 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | Script | What it does | Main outputs |
 |---|---|---|
 | `c1_core.py` | CPU core on `derived/mdcath_5T`: equilibrium diagnostics, E0, temperature ladder in aligned coordinates (frames of all temperatures aligned to the 320 K folded mean point), exact W2 with POT | `derived/c1_core/<dom>.json` |
-| `ladder_temp_single.py`, `ladder_temp_single_v2.py` | Temperature rows with a single-replica floor and absolute scale (round27); `_v2` adds the floor at each temperature | `results/ladder_temp_single.json`, `derived/ladder_temp_single[_v2]/` |
+| `ladder_temp_single.py`, `ladder_temp_single_v2.py` | Temperature rows with a single-replicate floor and absolute scale (round27); `_v2` adds the floor at each temperature | `results/ladder_temp_single.json`, `derived/ladder_temp_single[_v2]/` |
 | `ladder_half.py` | Round34 ③ drift control: first vs second half of trajectories at the same temperature treated as two conditions (expected 0 at equilibrium) | `results/ladder_half.json` |
 | `ladder_components.py` | Round32: mean-shift component Δμ²/edge (bilinear floor subtracted) and log total-spread ratio for the temperature, model-error and force-field rows | `results/ladder_components.json`, `derived/ladder_components_temp.tsv` |
-| `e0_resolution.py` | Round32 E0: permutation test (5 of 10 replicas, 252 splits) of 320 vs 348 K on the same folded frames with three rulers: frame energy distance, Cα energy distance, windowed RMSF² log ratio | `results/e0_resolution.json` |
+| `e0_resolution.py` | Round32 E0: permutation test (5 of 10 replicates, 252 splits) of 320 vs 348 K on the same folded frames with three rulers: frame energy distance, Cα energy distance, windowed RMSF² log ratio | `results/e0_resolution.json` |
 | `ladder_ff.py`, `ladder_ff_folded.py`, `ladder_ff_single.py` | Force-field + protocol row: MFM reference MD ("SM", ff99SB-disp) vs BioEmu CATH MD (amber99sb-ildn) on the same CATH domains; all frames, folded frames, and single-run floors | `derived/ladder_ff[_folded/_single]/<dom>.json` |
 | `ladder_model_error.py`, `ladder_model_error_folded.py` | Model-error row: ATLAS test chains (82) vs released AlphaFlow/ESMFlow samples (template and sequence-only); all frames and folded frames. Also provides readers and statistics used by the `ladder_ff*` scripts | `derived/ladder_model_error[_folded]/<chain>.json` |
 | `c4_substitution.py` | C4 substitution axis (round14): MegaSim variants vs wild type (ff99SB-disp trajectories only), with Tsuboyama ΔΔG | `derived/c4_sub/<WT>.json`, `results/c4_substitution.json` |
@@ -68,7 +68,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `r37_trunk.py` | R0 band (320 K replica splits) and R1 second-half/size/survival versions of the temperature cells | `results/r37_trunk.json` |
+| `r37_trunk.py` | R0 band (320 K replicate splits) and R1 second-half/size/survival versions of the temperature cells | `results/r37_trunk.json` |
 | `r37_ff.py` | R3′: same protein, ATLAS (CHARMM36m, 300 K) vs mdCATH 320 K (CHARMM22*) for 44 chains; temperature-equivalent from the same domain's curve | `results/r37_ff.json` |
 | `r37_protocol.py` | R3″: protocol only, BioEmu `ONE_cath1` vs `MSR_cath2` (both amber99sb-ildn) on 16 shared domains | `results/r37_protocol.json` |
 | `r37_subst.py` | R5′: substitution Δ² (MegaSim) placed on the same domain's mdCATH temperature curve for 5 systems | `results/r37_subst.json` |
@@ -82,13 +82,13 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r38_s0_bias2.py` | Follow-up of §0.2: re-measures the upper-bound bias in the TM 0.2–0.3 bin with more starts and wider bands; decision rule fixed before running | `results/r38_s0_bias2.json` |
 | `r38_e7_30.py`, `r38_e7_100.py` | E7: same-sequence temperature cells by D and aligned coordinates on 30 and 100 domains (rule frozen 2026-10-19 14:56:51 UTC) | `results/r38_e7_30.json`, `results/r38_e7_100.json` |
 | `r38_p3.py` | Primary P3 (§1b): conservation of dynamics on H-pool pairs; partial Spearman of r_dyn and sequence identity given the shared-core distance. Stages `pairs, dom, pibar (GPU), pair, stats`. Provides MD readers, folded-frame filters and medoids used by other scripts | `results/r38_p3.json`, `derived/r38/p3/` |
-| `r38_p3_sens.py` | Four of the five P3 sensitivity versions (medoid and crystal controls, Q 0.7/0.8, replica-split reliability correction, log spread ratio) | `results/r38_p3_sens.json` |
+| `r38_p3_sens.py` | Four of the five P3 sensitivity versions (medoid and crystal controls, Q 0.7/0.8, replicate-split reliability correction, log spread ratio) | `results/r38_p3_sens.json` |
 | `r38_p3_explore.py`, `r38_p3_explore2.py` | Exploratory verdicts in no record: where the power of P3 is lost; calibration simulation of the pre-specified bootstrap | `results/r38_p3_explore*.json` |
 | `r38_b6.py` | B6 continuous axis on 281 trunk pairs: Δ²_D, matched and gap shares, D_matched, fixed-correspondence versions (π̄, TM-align), η₊ of J D J, exact W2, static medoid D | `results/r38_b6.json`, `derived/r38/b6/` |
 | `r38_static.py` | Static axis (Figure 4 background): medoid D for H-pool and 6,000 cross-superfamily pairs; branch-and-bound certification of 500 random pairs | `results/r38_static.json`, `derived/r38/static/` |
 | `r38_c.py` | Confirmatory experiment C (§1c): P3 repeated on independent superfamilies (C-1) and beyond the dynamics predicted by structure, using ANM edge spreads (C-2) | `results/r38_c.json` |
 | `r38_c_nl.py` | Robustness check recorded after the C verdict: flexible (gradient-boosting, cross-fitted) partial correlation, residual shape, general dependence | `results/r38_c_nl.json` |
-| `r38_r10a.py` | R10a′ (§2): natural insertion/deletion pairs; pre-specified tests on the R0 band, gap excess vs 0.75 × inserted residues, matched-share residual vs the homologue regression (TOST) | `results/r38_r10a.json` |
+| `r38_r10a.py` | R10a′ (§2): natural insertion/deletion pairs; pre-specified tests on the R0 band, gap excess vs 0.75 × inserted residues, matched-share residual vs the homolog regression (TOST) | `results/r38_r10a.json` |
 | `r38_compare.py` | Common comparison code for P2 in aligned coordinates: all run pairs, Δ², ratio, Δμ², log spread ratio for MD temperature cells, aSAMt and AlphaFlow cells and the MD null | `derived/r38/compare/<dom>.{json,npz}` |
 | `r38_compare_450.py` | Adds the aSAMt 450 K cells that were generated after the 67-domain comparison ran (same seeds and call order, so the MD frames are identical) | `derived/r38/compare/<dom>.json` |
 | `r38_dff.py`, `r38_dff_D.py` | R3′ force-field difference d_ff with the common code, in aligned coordinates and by D | `results/r38_dff.json`, `results/r38_dff_D.json` |

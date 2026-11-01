@@ -2,7 +2,7 @@
    D(x, Gx)                    = 0.000000   (global rotation)
    D(x, x with 3 zero terms)   = 0.000000   (zero terms are the same point)
    D(x,y) D(y,z) D(x,z)        = 5.8480 5.6674 5.7044;  D(x,z) <= D(x,y) + D(y,z): True
-   normalised D(x,y) in [0,1]  = 0.7550
+   normalized D(x,y) in [0,1]  = 0.7550
 2. reduced computation vs full search on 10 frame pairs (upper bound; relative difference)
    median (d_reduced - d_full)/d_full = +0.00e+00; max = +0.00e+00; widened bands: 0
 3. energy-distance statistic (one mean per run pair, 200 frame pairs each)
