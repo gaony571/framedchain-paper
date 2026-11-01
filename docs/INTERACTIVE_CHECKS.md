@@ -515,7 +515,7 @@ Manuscript, bond-level section: the shifts of the correspondence by a few bonds 
 between ensembles, twice as often per bond in the 10 bonds at each chain end as in the core, but with most events in
 the core. Inputs: `derived/r41/dcomp_gpu/<domain>.json` (per-cell fractions of bonds that are unshared, `gap_frac`, or
 shifted, `shift_frac`, in the 10 bonds at each end, `term`, and in the core, between ensembles, `cross`, and within one
-ensemble, `within`), written by `code/r41_dcomp.py` (part gpu, round41 g2) and summarised as `gpu` in
+ensemble, `within`), written by `code/r41_dcomp.py` (part gpu, round41 g2) and summarized as `gpu` in
 `results/r41_dcomp.json`, and the bond counts `ne` in `derived/r38/s0/e7_30/` and `e7_100/`. The cross-minus-within
 differences are 0.25–0.31 percentage points; per bond, shifts are 0.124 at the ends against 0.058 in the core; of all
 shift events between ensembles, a median 0.387 fall in the 20 end bonds (so about 61% in the core).

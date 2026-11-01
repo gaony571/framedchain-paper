@@ -8,7 +8,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 |---|---|
 | Code that directly relates to the results is shared upon publication; editors and reviewers can access it at submission (a private link is acceptable) | This repository (all analysis scripts as run) and the framedchain package; reviewer access at submission, public at publication |
 | The Data Availability Statement says where and how the code can be accessed, with a repository name and a DOI or other persistent identifier; placeholder text is allowed if the DOI is issued at publication | Draft below; Zenodo DOIs to be reserved before submission (placeholders marked XXXXXXX) |
-| A licence is clearly specified; an OSI-conforming open-source licence is strongly encouraged; Creative Commons is not recommended for code | MIT (`LICENSE`) for both repositories |
+| A license is clearly specified; an OSI-conforming open-source license is strongly encouraged; Creative Commons is not recommended for code | MIT (`LICENSE`) for both repositories |
 | A repository that issues DOIs and supports versioning is recommended (GitHub alone has no DOI; pair it with Zenodo); cite the code in the reference list | GitHub releases archived on Zenodo; references below |
 | Dependencies, run environment, versions and system requirements are documented; a standard test dataset is included where feasible; code is clearly annotated | `README.md`, `environment/`, `examples/demo_synthetic.py` (synthetic, no downloads), `docs/SCRIPTS.md` (English description of every script; in-file comments are Korean) |
 | Preprocessing code is strongly encouraged | Data-preparation scripts are included; inputs made in notebook cells are deposited as data (`docs/DATA.md`) |
@@ -28,15 +28,15 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
 > (https://github.com/gaony571/framedchain, version 0.4.1, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
-> Both are released under the MIT licence. A file-level map from each result to its script and data file is
+> Both are released under the MIT license. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
 
 ## Code availability sentence for the Methods (draft)
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
-> available at https://github.com/gaony571/framedchain-paper (version 1.3.0; MIT licence; Zenodo DOI:
+> available at https://github.com/gaony571/framedchain-paper (version 1.3.0; MIT license; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
-> statistics is the framedchain package (version 0.4.1; MIT licence; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
+> statistics is the framedchain package (version 0.4.1; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
 ## Software references (for the reference list)
 
@@ -70,5 +70,4 @@ Remaining, after the manuscript is written and posted (these need the paper or t
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the READMEs.
 4. At submission give the editors and reviewers access (a private link is acceptable), or make the
    repositories public when the preprint is posted.
-5. Decide whether the registration record is published with the data deposit or registered separately (for
-   example on OSF), and cite it in the Methods.
+5. Include the time-stamped records unchanged in the data deposit, as the Methods state.

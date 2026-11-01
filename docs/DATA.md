@@ -10,7 +10,7 @@ above.
 
 ## 1. Public inputs
 
-| Data | Used for | Path under ROOT | Source and licence |
+| Data | Used for | Path under ROOT | Source and license |
 |---|---|---|---|
 | mdCATH (CHARMM22*/TIP3P, 320/348/379/413/450 K, 5 replicas per domain) | all same-sequence temperature cells, homologue pairs, P1, P1′, C | `raw/mdcath/mdcath_dataset_<domain>.h5`; listing `raw/mdcath_all_domains_listing.json` | Hugging Face dataset `compsciencelab/mdCATH`, CC BY 4.0. `r38_c_fetch.py` and `r38_p1n_fetch.py` read only the needed frames over HTTP into `raw/mdcath_c/`, `raw/mdcath_p1n/` |
 | ATLAS (CHARMM36m/TIP3P, 300 K, 3 replicas) | R3′ force-field cell, E5, AlphaFlow test set (82 chains) for the 7b box and the model-error ladder row | `raw/atlas/<chain>_protein.zip`, `raw/atlas_af82/<chain>_analysis.zip` | https://www.dsimb.inserm.fr/ATLAS, CC BY-NC 4.0 |
@@ -42,12 +42,12 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 | `results/r37_trunk_candidates.tsv`, `results/r37_trunk_pairs.json`, `results/r37_trunk_pairs.tsv` | trunk pair selection (round37) | `r38_static.py`, `r38_b6.py`, `r38_r10a.py`, `r39_sec6.py` |
 | `raw/asamt_test90_needs.json` | aSAMt test-set domains and temperatures needed | `r38_prep.py`, `r38_md_ref_p90.py` |
 | `derived/r38/*.txt` (`p2_67`, `asamt_sanity5`, `q3_p2_67_ordered`, `q5a_450_17`, `q5b_p90_4`, `rest18`, `q_cond_450_50`, `p2_sf23`, `p2_no_big4`, `p2_p80`), `derived/r38/alphaflow_input.csv` | domain lists for the P2 generation and aggregation queues (the 67 P2 domains, the 5 correctness-check domains drawn with seed 20261019, subsets for sensitivity versions) | `r38_s0.py`, `r38_asamt_gen.py`, `r38_alphaflow_gen.py`, `r38_p2_*`, `r39_core.py`, `r39_e6.py`, `r43_sens.py` |
-| `derived/r38/p1n/pairs.json` | P1′ pairs, registered 2026-10-20 13:35:54 UTC | `r38_p1n_fetch.py`, `r38_p1n.py` |
+| `derived/r38/p1n/pairs.json` | P1′ pairs, recorded 2026-10-20 13:35:54 UTC | `r38_p1n_fetch.py`, `r38_p1n.py` |
 | `results/v_residue_unit_graded.tsv`, `results/xprot_bench.tsv`, `derived/xprot_structs.npz`, `derived/atlas_pdb/` | ruler-benchmark pairs and structures (1,674 pairs; 208-structure block) | `hu1_rulers.py`, `dfrechet_1674.py`, `analysis_fold208*.py` |
 | `results/pu_fold208_setup.json`, `derived/pu_fold208_ca.npz`, `results/pu_tm_factorial_setup.json`, `results/pu_tm_factorial_B_setup.json`, `derived/pu_blockB_ca.npz` | structure blocks for the TM factorial design and fold retrieval | `pu_*.py` |
 | `raw/mfm_sm/*.npz` | see section 1 | `ladder_ff*.py` |
 | `results/ladder_*_summary.json` | aggregated ladder rows (aggregation cells not kept) | text of result 4.8 |
-| `results/prereg_2026-10-17.json` | the registration record (all rounds, amendments, checklists) | `make_s1.py` (through `entries_timeline.tsv`) |
+| `results/prereg_2026-10-17.json` | the first time-stamped record (all rounds, amendments, checklists) | `make_s1.py` (through `entries_timeline.tsv`) |
 | `results/prereg_2026-10-28_addendum.json`, `_addendum2.json` … `_addendum6.json`, `_addendum5_fix1.json`; `results/prereg_2026-10-29_addendum7.json`, `_addendum8.json` | the six round44 records and one correction (2026-10-28) and the two round45 records (written 2026-10-28 15:39:50 and 2026-10-29 11:15:02 UTC), separate files written after the first record was closed; copies in `registration/` | `make_s1.py` |
 | `results/prereg_2026-10-30_addendum9.json`, `_addendum9_fix1.json`, `_addendum10.json`, `_addendum10_fix1.json`, `_addendum10_fix2.json`, `_addendum11.json` | the three round46–48 records and their three corrections (written 2026-10-29 16:34:05 to 2026-10-30 07:30:01 UTC); the file-name date of the round45–48 records is KST; copies in `registration/` | `make_s1.py` |
 | `results/prereg_2026-10-31_addendum12.json`, `_addendum12_fix1.json` | the round49 record and its correction (written 2026-10-31 13:51:43 and 14:25:18 UTC); copies in `registration/` | `make_s1.py` |

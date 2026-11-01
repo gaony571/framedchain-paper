@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Manuscript submitted · Analysis code exactly as run · Version 1.3.0 · MIT licence · Zenodo DOI to be added at release
+  Manuscript submitted · Analysis code exactly as run · Version 1.3.0 · MIT license · Zenodo DOI to be added at release
 </p>
 
 <p align="center">
@@ -14,7 +14,7 @@
   <a href="#results-at-a-glance">Results</a> ·
   <a href="#reproducing-the-figures-and-tables">Reproducing the paper</a> ·
   <a href="#time-stamped-records">Time-stamped records</a> ·
-  <a href="#citation-and-licence">Citation</a> ·
+  <a href="#citation-and-license">Citation</a> ·
   <a href="https://github.com/gaony571/framedchain">framedchain package</a>
 </p>
 
@@ -151,7 +151,7 @@ Reproduction is possible at three levels:
 2. **Recompute a statistic** from the deposited per-domain intermediates (CPU, minutes to hours), for example
    `python code/r38_p3.py "$ROOT" stats`.
 3. **Rerun from the public data** (GPU, days in total): download the inputs and run the stages in the order given
-   below. The generated model ensembles are stochastic; the deposit contains the ensembles that were analysed.
+   below. The generated model ensembles are stochastic; the deposit contains the ensembles that were analyzed.
 
 ## Quick start (no downloads, CPU, a few minutes)
 
@@ -264,7 +264,7 @@ All inputs are public: the mdCATH and ATLAS simulations, CATH, RCSB PDB entries,
 from TEMPURA and Engqvist (2018). The model ensembles were generated with the released aSAM and AlphaFlow code
 and weights. Summary tables, per-domain statistics, the generated ensembles, domain and pair lists and the
 time-stamped records are deposited at Zenodo (DOI to be added). [`docs/DATA.md`](docs/DATA.md) lists every input
-and intermediate with its source and licence.
+and intermediate with its source and license.
 
 ## Software and hardware
 
@@ -297,7 +297,7 @@ timings are in S2 Text 7.
   project path in `environment/af_bar_readmeenv.sh` and at the top of the figure and table scripts). They are
   working directories, not inputs.
 
-## Citation and licence
+## Citation and license
 
 If you use this code, please cite the paper and this repository (`CITATION.cff`; the Zenodo DOI will be added at
 release):
@@ -319,5 +319,5 @@ release):
 }
 ```
 
-MIT licence, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not included: AlphaFlow,
-sam2, OpenFold, US-align and Foldseek are obtained from their own repositories under their own licences.
+MIT license, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not included: AlphaFlow,
+sam2, OpenFold, US-align and Foldseek are obtained from their own repositories under their own licenses.
