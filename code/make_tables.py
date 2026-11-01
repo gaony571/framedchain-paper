@@ -31,9 +31,9 @@ def s2():
                      'Regime (matched)': region(c['ratio_matched']['est']) if c.get('ratio_matched') else '', 'Δ²_D/√n̄ (all)': eci(c['d2n'], small=True), 'Δ²_D/√n̄ (matched)': eci(c.get('d2n_matched'), small=True)})
     df = pd.DataFrame(rows)
     note = (f"κ = √((C/w̄)² − 1) and Δ²_D/√n̄ for each cell, as superfamily medians of per-unit values with 95% superfamily bootstrap intervals (2,000 resamples), over all units and over "
-            f"units with mean bond count n̄ in [80, 150]. Units are domains (heating, model errors), chains (force-field cell) or domain pairs (homolog and insertion–deletion cells). "
+            f"units with mean bond count n̄ in [80, 150]. Units are domains (heating, model errors), chains (force-field cells) or domain pairs (homolog and insertion–deletion cells). "
             f"Regimes: near κ < 0.5, crossing 0.5–2, far κ > 2. Rank agreement of cells between the two sets: Kendall τ = {s1['kendall_tau_ratio_full_vs_matched']:.2f} over {s1['n_cells_compared']} cells (all cells with size-matched values except the whole-trajectory force-field reference); "
-            f"no cell with size-matched values changed regime. Size-matched values are given only for cells with at least five units in [80, 150] (13 of the 16 cells; blank otherwise). Values for all units were recomputed here with the same resamples as the matched sets, so their intervals can differ slightly from those of Fig 3A, which come from the calibration analysis (results/r39_E0.json). Source: results/r43_sens.json (s1), a check added after the results (record round43, 22 October 2026 08:54 UTC).")
+            f"no cell with size-matched values changed regime. Size-matched κ, regime and Δ²_D/√n̄ are given only for cells with at least five units in [80, 150] (13 of the 16 cells; blank otherwise). Values for all units were recomputed here with the same resamples as the matched sets, so their intervals can differ slightly from those of Fig 3A, which come from the calibration analysis (results/r39_E0.json). Source: results/r43_sens.json (s1), a check added after the results (record round43, 22 October 2026 08:54 UTC).")
     return df, note
 
 def s3():
@@ -79,7 +79,7 @@ def s3():
             "(records of 29 October 2026 16:34 UTC and 30 October 2026 07:30 UTC).")
     return df, note
 
-NUMERIC = ('Median n̄ (all)', 'Median n̄ (matched)')   # S2 columns stored as numbers in the xlsx (the csv keeps the same text as before)
+NUMERIC = ('Median n̄ (all)', 'Median n̄ (matched)', 'Pairs', 'Superfamilies')   # S2 and S3 columns stored as numbers in the xlsx (the csv keeps the same text as before)
 def fmt(path):
     """Column widths, wrapped text, bold frozen header (the same as fmt() in make_s1.py)."""
     from openpyxl import load_workbook

@@ -19,8 +19,10 @@ Versions recorded during the runs:
 | Package | Version | Where recorded |
 |---|---|---|
 | numpy | 2.1 | 7b box environment check, 2026-10-19 |
-| mdtraj | 1.11.2 | same |
+| numpy | 2.1.3 | equipment check of the compute table, 2026-10-22 (`docs/INTERACTIVE_CHECKS.md` 3) |
+| mdtraj | 1.11.2 | 7b box environment check, 2026-10-19 |
 | torch | 2.11.0+cu130 | compute table (round41 g5), 2026-10-22 |
+| h5py | 3.14.0 | equipment check of the compute table, 2026-10-22 (`docs/INTERACTIVE_CHECKS.md` 3) |
 | tmtools | 0.3.0 | project record |
 
 A full `pip freeze` of the base environment was **not** recorded at run time. The resume script

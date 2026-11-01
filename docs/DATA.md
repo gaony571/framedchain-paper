@@ -13,7 +13,7 @@ above.
 | Data | Used for | Path under ROOT | Source and license |
 |---|---|---|---|
 | mdCATH (CHARMM22*/TIP3P, 320/348/379/413/450 K, 5 replicates per domain) | all same-sequence temperature cells, homolog pairs, P1, P1′, C | `raw/mdcath/mdcath_dataset_<domain>.h5`; listing `raw/mdcath_all_domains_listing.json` | Hugging Face dataset `compsciencelab/mdCATH`, CC BY 4.0. `r38_c_fetch.py` and `r38_p1n_fetch.py` read only the needed frames over HTTP into `raw/mdcath_c/`, `raw/mdcath_p1n/` |
-| ATLAS (CHARMM36m/TIP3P, 300 K, 3 replicates) | R3′ force-field cell, E5, AlphaFlow test set (82 chains) for the 7b box and the model-error ladder row | `raw/atlas/<chain>_protein.zip`, `raw/atlas_af82/<chain>_analysis.zip` | https://www.dsimb.inserm.fr/ATLAS, CC BY-NC 4.0 |
+| ATLAS (CHARMM36m/TIP3P, 300 K, 3 replicates) | R3′ force-field cell, E5, AlphaFlow test set (82 chains) for the 7b box and the model-error ladder row, the three same-protein events (`r39_r6.py`) | `raw/atlas/<chain>_protein.zip`, `raw/atlas_af82/<chain>_analysis.zip`, `raw/atlas_r6/<chain>_analysis.zip` | https://www.dsimb.inserm.fr/ATLAS, CC BY-NC 4.0 |
 | AlphaFlow / ESMFlow public samples and weights | model-error ladder row, 7b box, P2 secondary comparisons | `raw/models/alphaflow/samples/<model>.zip`, `raw/models/alphaflow/params/alphaflow_md_distilled_202402.pt` | AlphaFlow repository (commit `0408d7c`) and its released samples and weights, MIT |
 | aSAMt weights and mdCATH input bundle | P2 (aSAMt ensembles at 320–450 K) | `raw/models/asam/input_mdcath.zip`; code `sam2` commit `ce076ed` | aSAM (Janson et al.); repository `giacomo-janson/sam2`; license: see source |
 | BioEmu CATH MD (amber99sb-ildn, 300 K; `MSR_cath2`, `ONE_cath1`) | force-field + protocol ladder row, R3″ protocol-only cell | `raw/bioemu_cath/MSR_cath2.zip`, `raw/bioemu_cath/ONE_cath1.zip` | BioEmu MD data release, CATH part: Zenodo record 15629740 (doi:10.5281/zenodo.15629740), CDLA-Permissive-2.0 |
@@ -23,8 +23,8 @@ above.
 | Majewski fast-folder MD (CHARMM22*/TIP3P, 350 K) | R7 unfolding (upper anchor) | `raw/majewski/` | torchmd-protein-thermodynamics data release (see its `Datasets/README.md`), MIT |
 | CATH domain lists and boundaries | superfamily labels, chain-linking candidates | `raw/cath/cath-domain-list-v4_2_0.txt`, `raw/cath/cath-domain-list.txt`, `raw/chaining/cath-domain-boundaries.txt` | CATH (v4.2.0 list as used by mdCATH; the unversioned list and the CathDomall v4.4 boundaries file as downloaded in 2026-10). The deposit manifest records their md5 so the same files can be identified; license: see source |
 | RCSB PDB entries (150 two-domain chains) | chain linking (supplement) | `raw/chaining/pdb/<id>.pdb.gz` | downloaded by `chaining.py` from files.rcsb.org; license: see source |
-| SIFTS `pdb_chain_taxonomy.tsv.gz` | organism mapping for P1′ pairs | `raw/` (4 MB) | EBI SIFTS; license: see source |
-| TEMPURA; Engqvist 2018 growth temperatures | optimal growth temperature of source organisms | used to build `results/pilot_mdcath_organism_temp_v2.tsv` | TEMPURA database; Engqvist 2018 (Zenodo record 1175609); licenses: see sources |
+| SIFTS `pdb_chain_taxonomy.tsv.gz` | organism mapping for P1′ pairs | `raw/sifts/` (4 MB) | EBI SIFTS; license: see source |
+| TEMPURA; Engqvist 2018 growth temperatures | optimal growth temperature of source organisms | `raw/tempura/tempura.csv`, `raw/engqvist/` (with SIFTS, used to build `results/pilot_mdcath_organism_temp_v2.tsv`) | TEMPURA database; Engqvist 2018 (Zenodo record 1175609); licenses: see sources |
 
 ## 2. Intermediate tables to deposit
 
@@ -69,4 +69,12 @@ read them as inputs. Deposit them as they are; their checksums go into the depos
 `tools/pack_for_zenodo.py` builds the deposit from a project root following this table and writes a checksum
 manifest; it packs the generated ensembles only when called with `--ensembles`. Files taken from ATLAS (CC BY-NC 4.0), `derived/atlas_pdb/`, `derived/xprot_structs.npz`, `derived/pu_fold208_ca.npz`, `derived/pu_blockB_ca.npz` and `results/atlas_info_full.tsv`, are not redistributed:
 `EXCLUDED_public.tsv` lists them with the public inputs by name and size (with the md5 of the files that are not simulation data), and they can be rebuilt from the ATLAS
-files of section 1. Run it on the machine that holds the project directory (Colab with Drive mounted, in our case).
+files of section 1. Other files under `raw/` are inputs of analyses outside the paper that no script here reads; they are
+neither packed nor listed. Run it on the machine that holds the project directory (Colab with Drive mounted, in our case).
+The first list (2026-11-01) missed `raw/sifts/`, `raw/tempura/`, `raw/engqvist/` and `raw/atlas_r6/`; the list in the
+deposit was rebuilt with `--excluded-only`, which leaves the tar unchanged.
+
+The pre-specification document that the round36 record names as the source of its rules was not kept on Google Drive;
+its three surviving versions are deposited as `prespecification_document_versions.zip`, whose README gives the md5,
+size and local file time of each version. The rules themselves are also in `code/r38_b6.py`, `code/r38_p3.py` and
+`code/r38_p1.py`, whose checksums the record holds.

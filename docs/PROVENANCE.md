@@ -34,8 +34,8 @@ framespace and framespace-paper until 2026-10-26).
 | framedchain | `31b49bf` | `62d9646` | `96c08b3` |  | Iterate the mean point to convergence |
 | framedchain | `efcdd42` | `866995c` | `5e4fdf9` | `v0.2.0` | framespace 0.2.0: transport module computing the ensemble W₂ by definition |
 | framedchain | `bafd810` | `676d5af` | `1162a1e` | `v0.3.0` | framespace 0.3.0: computations and estimators fixed in the paper |
-| framedchain | `34b9bf4` | `694c9c2` | `2eaa00c` | `v0.3.1` | framespace 0.3.1: release preparation (MIT license, citation metadata, English README) and remaining fixed computations |
-| framedchain | `40e6b7b` | `23c7017` | `1376b7b` | `v0.3.2` | framespace 0.3.2: docstrings, comments and messages in English (no code change); SPDX license metadata |
+| framedchain | `34b9bf4` | `694c9c2` | `2eaa00c` | `v0.3.1` | framespace 0.3.1: release preparation (MIT licence, citation metadata, English README) and remaining fixed computations |
+| framedchain | `40e6b7b` | `23c7017` | `1376b7b` | `v0.3.2` | framespace 0.3.2: docstrings, comments and messages in English (no code change); SPDX licence metadata |
 | framedchain | `5d5ff73` | `746631d` | `908a209` |  | framespace 0.3.3: fixes from user-side checks |
 | framedchain |  | `2a943fd` | `4f5442a` | `v0.3.3` | Update commit identifiers: the v0.2.0 commit (866995c) changed with the history cleanup |
 | framedchain |  | `8de7467` | `693cd79` | `v0.4.0` | framedchain 0.4.0: rename the package from framespace to framedchain |
@@ -91,9 +91,9 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `code/ladder_model_error_folded.py` | `0c2d4e91bfcd06eca6c07152d0e9debb` | U |  |
 | `code/ladder_temp_single.py` | `961d2f27c0406c9667fabb03b2d5b142` | U |  |
 | `code/ladder_temp_single_v2.py` | `6420c51e5aeb3a69c51aafa1711a261d` | U |  |
-| `code/make_figs.py` | `d77cceb65c81eeff84c8342ba1babc63` | U | figure script, last run on Colab 2026-11-01 (Arial, text 8 pt or larger; Fig 4 redrawn 16:57 UTC with more margin; Figs 3, 4, 5 and 7 redrawn 17:45 UTC: markers per heating step in Fig 3, a key for the κ² bar in Fig 4B, negative ticks in Fig 5A, a separator in Fig 7; values unchanged); reads stored results only; in no record |
-| `code/make_s1.py` | `591a9e694196f86412afadfa13ab3d71` | U | S1 Table script, run on Colab 2026-10-31 and again 2026-11-01 (16:57 UTC: percentage intervals with % on both bounds; 17:45 UTC: one timestamp style in sheet A and the label "withdrawn"); in no record |
-| `code/make_tables.py` | `2859045d1608df725099048af4a9b7e3` | U | S2 and S3 Table script, run on Colab 2026-10-31 (S3 Table again 2026-11-01 08:16 UTC with a revised note) and both again 2026-11-01 17:45 UTC (column widths and frozen headers, numeric median columns in S2, a lower bound of −0.000 in S3 now keeps its sign); in no record |
+| `code/make_figs.py` | `284dd67a4d4c9af09ef660b5365564d8` | U | figure script, last run on Colab 2026-11-01 (Arial, text 8 pt or larger; Fig 4 redrawn 16:57 UTC with more margin; Figs 3, 4, 5 and 7 redrawn 17:45 UTC: markers per heating step in Fig 3, a key for the κ² bar in Fig 4B, negative ticks in Fig 5A, a separator in Fig 7; Figs 1, 3 and 4 redrawn 18:29 UTC and Fig 4 again 18:31 UTC: glyphs and open circles of Fig 1B and 1D drawn true to shape on axes whose x and y units differ, markers at probability 0 unclipped in Fig 3C, 'crossing' centered in its band in Fig 4B; values unchanged); reads stored results only; in no record |
+| `code/make_s1.py` | `546404f4ba5339f028b6f890575bf3cd` | U | S1 Table script, run on Colab 2026-10-31 and again 2026-11-01 (16:57 UTC: percentage intervals with % on both bounds; 17:45 UTC: one timestamp style in sheet A and the label "withdrawn"; 18:29 UTC: "2,594 distinct domains and chains" in the chain-break check, and the date of the ranking in sheet D as 16–17 October); in no record |
+| `code/make_tables.py` | `6a10c1cd7636b480e958f71af796a25f` | U | S2 and S3 Table script, run on Colab 2026-10-31 (S3 Table again 2026-11-01 08:16 UTC with a revised note) and both again 2026-11-01 17:45 UTC (column widths and frozen headers, numeric median columns in S2, a lower bound of −0.000 in S3 now keeps its sign) and 18:29 UTC (Pairs and Superfamilies stored as numbers in the S3 xlsx; S2 note: force-field cells, and which size-matched columns are blank; csv files unchanged); in no record |
 | `code/mdcath_5T_extract.py` | `a77709c6edfef1e21207070b2c959b69` | U |  |
 | `code/mdcath_5T_folded.py` | `6c65c299322b4cdbf6ae447c51481fa4` | U |  |
 | `code/mdcath_spread.py` | `46c7a1ea713c6ef267409b1c38067505` | U |  |

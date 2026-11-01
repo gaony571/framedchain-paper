@@ -1,15 +1,17 @@
 """Build the data deposit for the paper from a project root (docs/DATA.md, sections 2 and 3).
 
 Usage:
-    python tools/pack_for_zenodo.py ROOT OUT_DIR [--ensembles] [--dry-run]
+    python tools/pack_for_zenodo.py ROOT OUT_DIR [--ensembles] [--dry-run | --excluded-only]
 
 Writes OUT_DIR/framedchain_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
 OUT_DIR/MANIFEST_data.tsv (md5, bytes, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
-public inputs found under ROOT/raw, and the structures and tables taken from ATLAS (CC BY-NC 4.0), by name and size,
+public inputs matched by PUBLIC below, and the structures and tables taken from ATLAS (CC BY-NC 4.0), by name and size,
 with the md5 of the files that are not simulation data (lists, tables, PDB entries, structures taken from ATLAS), so
 that the same files can be identified without redistributing them; simulation files are identified by name and size
-within their versioned public releases. --ensembles adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only
-prints the sizes per group. Nothing under ROOT is modified.
+within their versioned public releases. Other files under ROOT/raw are inputs of analyses outside the paper that no
+script of this repository reads; they are neither packed nor listed. --ensembles adds the generated aSAMt and AlphaFlow
+ensembles (large). --dry-run only prints the sizes per group. --excluded-only rewrites only EXCLUDED_public.tsv (for a
+deposit whose tar is already uploaded). Nothing under ROOT is modified.
 """
 import argparse, fnmatch, hashlib, os, sys, tarfile, time
 
@@ -37,10 +39,12 @@ GROUPS = [
 PUBLIC = ['raw/mdcath/**', 'raw/mdcath_c/**', 'raw/mdcath_p1n/**', 'raw/atlas/**', 'raw/atlas_af82/**',
           'raw/models/**', 'raw/bioemu_cath/**', 'raw/megasim/**', 'raw/tsuboyama/**', 'raw/majewski/**',
           'raw/cath/**', 'raw/chaining/**',
+          # organism and growth-temperature sources of results/pilot_mdcath_organism_temp_v2.tsv (SIFTS, TEMPURA, Engqvist 2018)
+          'raw/sifts/**', 'raw/tempura/**', 'raw/engqvist/**',
           # MFM reference MD converted to npz: read only by the ladder analyses, which the paper does not report
           'raw/mfm_sm/**',
           # taken from ATLAS (CC BY-NC 4.0): listed, not packed
-          'derived/atlas_pdb/**', 'derived/xprot_structs.npz', 'derived/pu_fold208_ca.npz', 'derived/pu_blockB_ca.npz',
+          'raw/atlas_r6/**', 'derived/atlas_pdb/**', 'derived/xprot_structs.npz', 'derived/pu_fold208_ca.npz', 'derived/pu_blockB_ca.npz',
           'results/atlas_info_full.tsv']
 
 
@@ -76,6 +80,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('root'); ap.add_argument('out')
     ap.add_argument('--ensembles', action='store_true'); ap.add_argument('--dry-run', action='store_true')
+    ap.add_argument('--excluded-only', action='store_true')
     a = ap.parse_args()
     enabled = {'results', 'intermediate', 'perdomain'} | ({'ensembles'} if a.ensembles else set())
     pack, public, size = [], [], {}
@@ -100,6 +105,9 @@ def main():
         f.write('md5\tbytes\tpath\n')
         for rel, p in public:
             f.write(f'{md5(p) if want_md5(rel, p) else "-"}\t{os.path.getsize(p)}\t{rel}\n')
+    if a.excluded_only:
+        print('EXCLUDED_public.tsv only', len(public), 'files', flush=True)
+        return
     man = os.path.join(a.out, 'MANIFEST_data.tsv')
     with tarfile.open(os.path.join(a.out, 'framedchain_paper_data.tar'), 'w') as tar, open(man, 'w') as f:
         f.write('md5\tbytes\tgroup\tpath\n')

@@ -33,9 +33,9 @@ not time-stamped records.
 | Framed chains and the edit distance: theorems (S1 Text) and the general lemma on synthetic sequences (S1 Fig) | `r41_synth.py`, `r41_synth_adv.py` | 1.1, 1.2 |
 | Coordinate round trip, certification of 500 pairs and computational cost (Results; S2 Text 1, 6, 7) | `r39_roundtrip.py`; `r38_static.py`, `r39_sec6.py`; `r41_compute_prep.py`, `r41_compute.py` | 2.4–2.6 |
 | Mean point independent of the starting frame (Methods) | `r45_mpstart.py` | Round45 |
-| TM-align's objective: 12 test pairs, factorial comparison and its sensitivity to d₀, linear-form counterexample, chaining, ranking of 1,674 pairs (Fig 2; S2 Text 8) | `docs/INTERACTIVE_CHECKS.md` 1–2; `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py` and `docs/INTERACTIVE_CHECKS.md` 8 (violation rates); `framespace_wip/experiments/sippl_linear_counterexample.py`; `chaining.py`, `c4_chain_extra.py`; `hu1_rulers.py` | 2.1 |
+| TM-align's objective: 12 test pairs, factorial comparison and its sensitivity to d₀, linear-form counterexample, chaining, ranking of 1,674 pairs (Fig 2; S2 Text 8) | `docs/INTERACTIVE_CHECKS.md` 1–2; `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py` and `docs/INTERACTIVE_CHECKS.md` 8 (violation rates); `framespace_wip/experiments/sippl_linear_counterexample.py`; `chaining.py`, `c4_chain_extra.py`; `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` (ranking) | 2.1 |
 | Calibration on heating: values, size exponent, detection probability, temperature resolution (Fig 3; S3 Text 4) | `r39_D_stem.py`, `r39_core.py` (e0–e4) | 3.6 |
-| Table 2: replicate and frame audits; trajectory window; survival filter | `r44_inv.py`; `r39_core.py` (e2) and `ladder_half.py`, with the earlier audit of `r37_trunk.py`; notebook cell in `docs/INTERACTIVE_CHECKS.md` 9 (`results/r37_size_survival.json`) | Round44; 3.6, 3.1; 3.1 |
+| Table 2: replicate and frame audits; trajectory window; survival filter | `r44_inv.py`; `r39_core.py` (e2), with the earlier audit of `r37_trunk.py`; notebook cell in `docs/INTERACTIVE_CHECKS.md` 9 (`results/r37_size_survival.json`) | Round44; 3.6, 3.1; 3.1 |
 | Folded-versus-unfolded comparisons (Results; S3 Text 4) | `r39_D_unfold.py`, `r39_e6.py` | 3.7 |
 | Comparison across sequences (B6): rank correlation with TM-score and its size control, η₊, far-limit prediction, W₂ (Fig 4A) | `r38_b6.py`, `r38_static.py`; `r44_b6size_cell26.py`; `r44_w2p1.py` | 4.1, 4.2, Round44 |
 | κ of all cells and of the size-matched cells (Fig 4B, S2 Table); spread share of κ² | `r43_sens.py` (s1), from the per-domain values of rows 3.6, 4.1, 4.6, 4.9 and 4.11; `r44_inv.py` (split) | 3.8, Round44 |
@@ -65,7 +65,7 @@ not time-stamped records.
 | 2.1 [2] | Implementation and tests | `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | — | — |
 | 2.1 [2] | TM factorial design (blocks A, B), d0 sensitivity | `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` (block B, args: setup json, output tsv), `pu_tm_d0_sensitivity.py` | `results/pu_tm_factorial_*` (block A), `results/pu_tm_factorial_B_pairs.tsv`, `results/pu_tm_factorial_B_d0sens.tsv`; violation rates of block B (Fig 2A) in `results/pu_tm_factorial_B_triangle.tsv`, written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8 | in no record (16 October, before the records began; old record 7.3–7.4) |
 | 2.1 [2] | Sippl linear form is not a metric (constructed counterexample) | `framespace_wip/experiments/sippl_linear_counterexample.py`; test `test_linear_form_is_not_a_metric` | result in the script header | in no record (17 October 05:31, before the records began; old record 7.4A) |
-| 2.1 [2] | Ruler map, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | in no record (the ranking was run on 16 October, before the records began; old record 7.6A) |
+| 2.1 [2] | Ruler map, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | in no record (the ranking was run on 16–17 October, before the records began; `results/hu1_kkl_measures.json` was written on 17 October at 05:29 UTC; old record 7.6A) |
 | 2.1 [2] | Fold retrieval, 208 structures (not reported in the manuscript) | `pu_fold208.py`, `analysis_fold208.py`, `analysis_fold208_ablation.py` | `results/pu_fold208_pairs.tsv`, `results/pu_fold208_retrieval.json`, `results/pu_fold208_ablation.json` | old record 7.7 |
 | 2.1 [2] | Chain linking, 150 two-domain chains (Fig 2B, S2 Text 8.4) | `chaining.py`, `c4_chain_extra.py` (v2) | `results/chaining.json`, `results/chaining_v2.json`, `derived/chaining.tsv` | prereg round17, round29 |
 | 2.1 [2] | TM-align comparison (12 pairs) and reversed chains (8 structures) | computed interactively with `stage0.rulers` (no standalone script was kept); cell code in `docs/INTERACTIVE_CHECKS.md` 1–2 | printed output in `docs/INTERACTIVE_CHECKS.md` 1–2 (no output file); tables in old record 7.2, 7.5 | — |
@@ -86,7 +86,7 @@ not time-stamped records.
 | 3.5 [3.6s] | Mechanism of the compression of D | `r41_dcomp.py` (cpu, gpu parts) | `results/r41_dcomp.json`; where the shifts occur (per-domain `derived/r41/dcomp_gpu/`): `docs/INTERACTIVE_CHECKS.md` 5 | round41 g2 |
 | 3.6 [3.6t] | Scale experiments E0′–E4 | `r39_core.py` (e0, e1, e2, e3, e4), `r39_D_stem.py` (run, sum), `r39_sec6.py` | `results/r39_E0.json` … `results/r39_E4.json`, `results/r39_D_stem.json`, `results/r39_sec6.json` | round39, `round39_amend1_2026-10-21` |
 | 3.7 [3.3, 3.6v] | Upper anchor: unfolding (R7) and its position (E6) | `r37_unfold.py`; `r39_D_unfold.py` (run, sum), `r39_e6.py` | `results/r37_unfold.json`, `results/r39_unfold_D.json`, `results/r39_E6.json` | round37 R7; round39 E6 |
-| 3.8 [3.6x] | Length matching of the κ cells (Fig 4B, S2 Table), interval of the P2 secondary criterion, network-model sensitivity of C-2 (post-hoc sensitivity) | `r43_sens.py` | `results/r43_sens.json` | round43 s1 |
+| 3.8 [3.6x] | Length matching of the κ cells (Fig 4B, S2 Table), interval of the P2 secondary criterion, network-model sensitivity of C-2 (post-hoc sensitivity) | `r43_sens.py` | `results/r43_sens.json` | round43 s1, s3, s4 |
 
 ## Result 4 — sequence differences
 
@@ -110,7 +110,8 @@ not time-stamped records.
 
 ## Round44 — checks added after external review (2026-10-28)
 
-Each row was specified after the result it qualifies was known and before it was computed (manuscript, Methods).
+Each row except 2.7 and 2.8 (in no record) was specified after the result it qualifies was known and before it was
+computed (manuscript, Methods).
 
 | Section | Result | Scripts (parts) | Main outputs | Record |
 |---|---|---|---|---|
@@ -151,7 +152,8 @@ Each row was specified after the result it qualifies was known and before it was
 ## Figures and tables
 
 The figure and table scripts read stored results only and recompute nothing. On Colab, the figures and the S1–S3 Tables
-were last drawn on 2026-11-01 at 17:45 UTC (earlier runs are listed in `docs/PROVENANCE.md`); the scripts write to
+were last drawn on 2026-11-01: Figs 1, 3 and 4 at 18:29 UTC (Fig 4 again at 18:31 UTC), the S1–S3 Tables at 18:29 UTC
+and the other figures at 17:45 UTC (earlier runs are listed in `docs/PROVENANCE.md`); the scripts write to
 `manuscript_figs/` under the project path set at the top of each file.
 
 | Item | Script (function) | Reads |
@@ -164,7 +166,7 @@ were last drawn on 2026-11-01 at 17:45 UTC (earlier runs are listed in `docs/PRO
 | Fig 6 | `make_figs.py` (fig6) | `results/r38_p1n.json`, `results/r44_p1win.json` |
 | Fig 7 | `make_figs.py` (fig7) | `results/r38_p3.json`, `r38_p3_explore2.json`, `r38_c.json`, `r38_c_nl.json`, `r44_pairw.json`, `r44_corr.json`, `r44_corr2.json`, `r45_f1.json` |
 | S1 Fig | `make_figs.py` (s1fig) | `results/r41_synth_adv.json` |
-| S1 Table | `make_s1.py` | `results/_registration_evidence_2026-10-26/entries_timeline.tsv` and the added records `results/prereg_2026-10-2*_addendum*.json`; the rows of the predictions and of the classification of analyses are written in the script, transcribed from the records and result files |
+| S1 Table | `make_s1.py` | `results/_registration_evidence_2026-10-26/entries_timeline.tsv` and the added records `results/prereg_2026-10-*_addendum*.json`; the rows of the predictions and of the classification of analyses are written in the script, transcribed from the records and result files |
 | S2 Table | `make_tables.py` (s2) | `results/r43_sens.json` |
 | S3 Table | `make_tables.py` (s3) | `results/r46_align_fix1.json`, `results/r48_identity_range.json` |
 

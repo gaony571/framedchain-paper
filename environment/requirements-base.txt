@@ -1,14 +1,15 @@
 # Python packages imported by the analysis scripts in the base Colab environment (Python 3.12).
-# Pinned versions were recorded during the runs (environment/README.md). Unpinned packages were Colab defaults
-# of October 2026 and their versions were not recorded; any recent version should work, but exact numerical
-# agreement with the paper is only expected with the versions used.
-numpy==2.1.*          # recorded 2026-10-19 (minor version only)
+# Pinned versions were recorded during the runs (environment/README.md; the 2026-10-22 records are printed in
+# docs/INTERACTIVE_CHECKS.md 3). Unpinned packages were Colab defaults of October 2026 and their versions were not
+# recorded; any recent version should work, but exact numerical agreement with the paper is only expected with the
+# versions used.
+numpy==2.1.*          # recorded 2026-10-19 (minor version only) and as 2.1.3 on 2026-10-22
 torch==2.11.0         # recorded 2026-10-22 (+cu130 on A100)
 mdtraj==1.11.2        # recorded 2026-10-19
 tmtools==0.3.0        # recorded
+h5py==3.14.0          # recorded 2026-10-22
 scipy
 pandas
-h5py
 pot                   # imported as `ot` (exact optimal transport)
 numba                 # framespace_wip/stage0/rulers.py, dfrechet_1674.py
 scikit-learn          # c1_core.py, r38_7b_split.py, r38_c_nl.py, r41_gapinfo.py

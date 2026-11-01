@@ -1,14 +1,16 @@
 # Script reference (English)
 
-The docstrings and comments inside the scripts are in Korean, the working language of the project. The
+The docstrings and comments inside the scripts are in Korean, the working language of the project (except the figure
+and table scripts `make_figs.py`, `make_tables.py` and `make_s1.py`, which are in English). The
 scripts are kept byte-for-byte as run (`PROVENANCE.md` lists their checksums and which of them were recorded before the run), so they are not
 translated in place. This page describes every script in English: what it computes, its stages, its main
-inputs and outputs, and the record entry it implements. Notation follows the manuscript: an *edge* is a
-residue-to-residue step; *D* is the alignment distance of the space (computed by the reduced computation: banded
-dynamic programming with mean-point starts, an upper bound); Δ² = 2C − B_P − B_Q is the energy-distance
-statistic between two ensembles (C = cross mean distance, B = floors within each side, one value per pair of
-runs); Δ²/√n̄ divides by the square root of the mean number of edges; Δμ²₂ = (C₂ − (B₂_P + B₂_Q)/2)/edges is
-the mean-shift component; a *run* is one replicate; *folded frames* have Q ≥ 0.75 of the native contacts of the
+inputs and outputs, and the record entry it implements. Notation follows the scripts, with the manuscript's terms in
+parentheses: an *edge* (bond) is a residue-to-residue step; *D* (d) is the alignment distance of the space (computed
+by the reduced computation: banded dynamic programming with mean-point starts, an upper bound); Δ² = 2C − B_P − B_Q
+(B_P′ for B_Q) is the energy-distance statistic between two ensembles (C = cross mean distance, B = floors, the mean
+distances between different runs within each side, one value per pair of runs); Δ²/√n̄ divides by the square root of
+the mean number of edges; Δμ²₂ = (C₂ − (B₂_P + B₂_Q)/2)/edges is the mean-shift component; a *run* (replicate) is one
+independent simulation; *folded frames* have Q ≥ 0.75 of the native contacts of the
 first 320 K frame unless stated otherwise; *H-pool* is the homolog pool of the manuscript, all 14,189 same-superfamily
 pairs of mdCATH domains with at most 150 residues (392 superfamilies).
 
@@ -81,7 +83,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 |---|---|---|
 | `r38_s0.py` | First session (round36 §0): `pick` domains and pairs with fixed seeds; `b0` branch-and-bound check of the 128-start optimum; `e7` Δ², w̄ and ratio by D and by aligned coordinates on the same samples; `trunc` truncated chains (gap share = 0.75 Σ s² of the removed edges); `ens` Δ²_D of the 30 pairs; `bias` upper-bound bias of the reduced computation against branch-and-bound by TM bin; `ustat` incomplete U-statistic (2,000 frame pairs) vs the full 100 × 100 mean; `unc` spread of the matched and gap shares across near-optimal alignments (S ≥ (1 − 0.005) S_max). Its first part is loaded by many later scripts | `results/r38_s0_<part>.json`, `derived/r38/s0/` |
 | `r38_s0_bias2.py` | Follow-up of §0.2: re-measures the upper-bound bias in the TM 0.2–0.3 bin with more starts and wider bands; decision rule fixed before running | `results/r38_s0_bias2.json` |
-| `r38_e7_30.py`, `r38_e7_100.py` | E7: same-sequence temperature cells by D and aligned coordinates on 30 and 100 domains (rule frozen 2026-10-19 14:56:51 UTC) | `results/r38_e7_30.json`, `results/r38_e7_100.json` |
+| `r38_e7_30.py`, `r38_e7_100.py` | E7: same-sequence temperature cells by D and aligned coordinates on 30 domains (pre-specified; rule frozen 2026-10-19 14:56:51 UTC) and on 100 domains (7g, `round36_amend_C`, 2026-10-20 06:23 UTC, added after the 30-domain result) | `results/r38_e7_30.json`, `results/r38_e7_100.json` |
 | `r38_p3.py` | Primary P3 (§1b): conservation of dynamics on H-pool pairs; partial Spearman of r_dyn and sequence identity given the shared-core distance. Stages `pairs, dom, pibar (GPU), pair, stats`. Provides MD readers, folded-frame filters and medoids used by other scripts | `results/r38_p3.json`, `derived/r38/p3/` |
 | `r38_p3_sens.py` | Four of the five P3 sensitivity versions (medoid and crystal controls, Q 0.7/0.8, replicate-split reliability correction, log spread ratio) | `results/r38_p3_sens.json` |
 | `r38_p3_explore.py`, `r38_p3_explore2.py` | Exploratory verdicts in no record: where the power of P3 is lost; calibration simulation of the pre-specified bootstrap | `results/r38_p3_explore*.json` |
@@ -172,7 +174,7 @@ and `prereg_2026-10-31_addendum12*.json`); corrections were written as separate 
 
 ## Figures and tables
 
-These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01 at 17:45 UTC (earlier runs in `docs/PROVENANCE.md`).
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01: Figs 1, 3 and 4 at 18:29 UTC (Fig 4 again at 18:31 UTC), the S1–S3 Tables at 18:29 UTC and the other figures at 17:45 UTC (earlier runs in `docs/PROVENANCE.md`).
 They take no arguments; the project path `R` and the output folder are set at the top of each file.
 
 | Script | What it does | Main outputs |
@@ -187,7 +189,7 @@ They take no arguments; the project path `R` and the output folder are set at th
 |---|---|
 | `negtype/negtype.js` | Tests whether D is of negative type on small random structures (positive eigenvalue of J D J means it is not) |
 | `negtype/so3fourier.js` | For length-2 structures D depends only on the angle θ between relative rotations; computes the SO(3) Fourier coefficients of f(θ) = h·min(√6, 4 sin(θ/4)) (a positive coefficient rules out negative type) |
-| `negtype/negtype_eta_len2.js` | η₊ (positive spectral mass of J D J) for 60, 100, 200 and 400 random two-bond chains, on which D is provably not of negative type, using the functions of `negtype.js`; random rotations from `Math.random`, so values vary slightly between runs (S3 Text 2). Run as `node negtype_eta_len2.js .` from `code/negtype` |
+| `negtype/negtype_eta_len2.js` | η₊ (positive spectral mass of J D J) for 60, 100, 200 and 400 random two-bond chains, on which D is provably not of negative type, using the functions of `negtype.js`; random rotations from the fixed-seed generator of `negtype.js` (seed 12345), so every run prints the same values (S3 Text 2). Run as `node negtype_eta_len2.js .` from `code/negtype` |
 | `negtype/len2check.js` | Checks the closed form of D for length-2 structures against the general computation (maximum difference about 1e-15), then prints the top eigenvalues of J D J for 60, 120 and 200 random length-2 structures (positive values appear from 120 on) |
 
 Run them from `code/negtype` (`node so3fourier.js`, `node len2check.js`, `node negtype.js`); the printed labels

@@ -114,7 +114,7 @@ def fig3():
     ax = fig.add_subplot(gs[2]); panel(ax, 'C', x=-0.36, y=1.12); pw = {}
     for tt in T:
         rr = sorted([(int(r['n']), r['p_detect']) for r in E3['rows'] if r['window'] == 'half' and r['method'] == '나' and str(r['T']) == tt and str(r['n']).isdigit()])
-        pw[tt] = rr; ax.plot([a for a, _ in rr], [b for _, b in rr], '-', marker=SMK[tt], color=SCOL[tt], ms=3.5, label=STEP[tt])   # legend keys the markers of B too
+        pw[tt] = rr; ax.plot([a for a, _ in rr], [b for _, b in rr], '-', marker=SMK[tt], color=SCOL[tt], ms=3.5, label=STEP[tt], clip_on=False)   # legend keys the markers of B too; unclipped so markers at 0 are whole
     ax.set_xscale('log'); ax.set_xlabel('number of domains'); ax.set_ylabel('probability of detection'); ax.set_ylim(0, 1.03); ax.axhline(0.8, color=OI['grey'], lw=0.5, ls='--')
     ax.legend(frameon=False, loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=2, handlelength=1.5, columnspacing=1.0)
     return save(fig, 'Fig3'), dict(A=vals, R0=b, fits=fits, power=pw)
@@ -148,8 +148,8 @@ def fig4():
         col = OI['red'] if 'AlphaFlow' in CELL_EN[k] else OI['blue'] if 'Homolog' in CELL_EN[k] or 'insertion' in CELL_EN[k] else OI['black']
         ax.errorbar(e, yi, xerr=[[e - lo], [hi - e]], fmt='o', color=col, ms=3, capsize=1.5, elinewidth=0.7)
     ax.set_yticks(y); ax.set_yticklabels([CELL_EN[k] for k in order], linespacing=0.95); ax.set_xscale('log'); ax.set_xlim(0.05, 3)
-    ax.axvspan(0.5, 2, color=OI['yellow'], alpha=0.25, lw=0); ax.axvline(1, color='black', lw=0.6, ls='--')
-    ax.text(0.06, y[0] + 0.9, 'near', fontsize=FS, color='#555555'); ax.text(0.95, y[0] + 0.9, 'crossing', fontsize=FS, color='#555555', ha='right'); ax.text(2.45, y[0] + 0.9, 'far', fontsize=FS, color='#555555', ha='center')
+    ax.axvspan(0.5, 2, color=OI['yellow'], alpha=0.25, lw=0); ax.axvline(1, color='black', lw=0.6, ls='--', ymax=(y[0] + 0.6 - (y[-1] - 0.8)) / (y[0] + 1.3 - (y[-1] - 0.8)))   # stops below the 'crossing' label (axes fraction of y[0] + 0.6 in the limits set below)
+    ax.text(0.06, y[0] + 0.9, 'near', fontsize=FS, color='#555555'); ax.text(1, y[0] + 0.9, 'crossing', fontsize=FS, color='#555555', ha='center'); ax.text(2.45, y[0] + 0.9, 'far', fontsize=FS, color='#555555', ha='center')   # 'crossing' centred in its band
     ax.set_xlabel(r'$\kappa = \sqrt{(C/\bar w)^2 - 1}$'); ax.set_ylim(y[-1] - 0.8, y[0] + 1.3)   # same margins as (−0.8, len + 0.3) before, plus the free line
     sp = json.load(open(f'{R}/derived/r44/split.json'))['cells']['7c AlphaFlow 대 MD 320|full']; sh = sp['share_mean']['est']
     ya = y[order.index('7c AlphaFlow')]; ty = ax.get_yaxis_transform()   # x in axes fraction, y in data units
@@ -258,15 +258,24 @@ def s1fig():
     return save(fig, 'S1_Fig'), out
 
 # ---------------- Fig 1 (schematic) ----------------
-from matplotlib.patches import FancyArrowPatch, Circle, FancyBboxPatch
+from matplotlib.patches import FancyArrowPatch, Circle, Ellipse, FancyBboxPatch
 SH, UN = OI['blue'], OI['orange']
+def ky(ax):
+    """Data-y units per data-x unit for the same length on paper (1 on equal-aspect axes); panels B and D are not equal-aspect."""
+    W, H = ax.figure.get_size_inches(); b = ax.get_position()
+    return (np.ptp(ax.get_ylim()) / (b.height * H)) / (np.ptp(ax.get_xlim()) / (b.width * W))
+
+def ring(ax, x, y, r, col, lw=0.9, zorder=3):
+    """Open circle of radius r (x units) that stays round on paper."""
+    ax.add_patch(Ellipse((x, y), 2 * r, 2 * r * ky(ax), fill=False, ec=col, lw=lw, zorder=zorder))
+
 def glyph(ax, x, y, th, s=1.0, col='black', L=0.5, lw=1.4, zorder=3):
-    """2-D stand-in for a bond term x = s R / 2: arrow along f1 (length ∝ s) with a tick along f2."""
+    """2-D stand-in for a bond term x = s R / 2: arrow along f1 (length ∝ s) with a tick along f2, at right angles on paper."""
     if s <= 1e-6:
-        ax.add_patch(Circle((x, y), 0.08, fill=False, ec=col, lw=0.9, zorder=zorder)); return
-    dx, dy = np.cos(th) * L * s, np.sin(th) * L * s
+        ring(ax, x, y, 0.08, col, zorder=zorder); return
+    k = ky(ax); dx, dy = np.cos(th) * L * s, np.sin(th) * L * s * k
     ax.add_patch(FancyArrowPatch((x - dx / 2, y - dy / 2), (x + dx / 2, y + dy / 2), arrowstyle='-|>', mutation_scale=5 * max(s, 0.4), color=col, lw=lw, zorder=zorder))
-    px, py = -np.sin(th) * 0.2 * s, np.cos(th) * 0.2 * s
+    px, py = -np.sin(th) * 0.2 * s, np.cos(th) * 0.2 * s * k
     ax.plot([x, x + px], [y, y + py], color=col, lw=lw * 0.8, zorder=zorder)
 
 def fig1():
@@ -294,9 +303,9 @@ def fig1():
     for j, (xx, th) in enumerate(zip(ys, ty)): glyph(ax, xx, yy, th + U, col=SH if j in m.values() else UN)
     for i, j in m.items(): ax.plot([xs[i], ys[j]], [yx - 0.25, yy + 0.25], color=SH, lw=0.6, ls='-', alpha=0.7)
     for i in (3, 6):
-        ax.add_patch(Circle((xs[i], yy + 0.05), 0.07, fill=False, ec=UN, lw=0.8)); ax.text(xs[i], yy - 0.3, '0', ha='center', fontsize=FS, color=UN)
+        ring(ax, xs[i], yy + 0.05, 0.07, UN, lw=0.8); ax.text(xs[i], yy - 0.3, '0', ha='center', fontsize=FS, color=UN)
         ax.plot([xs[i], xs[i]], [yx - 0.25, yy + 0.15], color=UN, lw=0.6, ls=':')
-    ax.add_patch(Circle((ys[5], yx - 0.0), 0.07, fill=False, ec=UN, lw=0.8)); ax.text(ys[5], yx + 0.2, '0', ha='center', fontsize=FS, color=UN); ax.plot([ys[5], ys[5]], [yx - 0.1, yy + 0.25], color=UN, lw=0.6, ls=':')
+    ring(ax, ys[5], yx - 0.0, 0.07, UN, lw=0.8); ax.text(ys[5], yx + 0.2, '0', ha='center', fontsize=FS, color=UN); ax.plot([ys[5], ys[5]], [yx - 0.1, yy + 0.25], color=UN, lw=0.6, ls=':')
     ax.text(-0.95, yx, r'$x$', fontsize=9, va='center'); ax.text(-0.95, yy, r'$Uy$', fontsize=9, va='center')
     ax.text(4.3, 2.62, 'order-preserving correspondence π and one global rotation U', ha='center', fontsize=FS)
     # C: exact split

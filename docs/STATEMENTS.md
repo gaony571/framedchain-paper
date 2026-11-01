@@ -70,7 +70,10 @@ Remaining before submission:
    changes, which a later release would archive as a new Zenodo version). Zenodo mints a DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
    metadata.
 2. Done (2026-11-01): the data deposit was packed with `tools/pack_for_zenodo.py` on the project root (Colab with
-   Drive mounted), with the files listed in its `MANIFEST_data.tsv` (built with `--ensembles`, so the generated aSAMt and AlphaFlow ensembles are included), and is being uploaded. ATLAS files
+   Drive mounted), with the files listed in its `MANIFEST_data.tsv` (built with `--ensembles`, so the generated aSAMt and AlphaFlow ensembles are included), and uploaded (2026-11-01 18:36 UTC;
+   Zenodo's md5 matched for all three files). `EXCLUDED_public.tsv` was then rebuilt with `--excluded-only` to add inputs
+   the first list missed (`docs/DATA.md`) and replaced in the draft, and `prespecification_document_versions.zip` (the
+   three surviving versions of the pre-specification document) was added. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
    and size, with the md5 of the files that are not simulation data. The deposit is the Zenodo draft 23858418,

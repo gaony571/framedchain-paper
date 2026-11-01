@@ -161,11 +161,12 @@ Each item of the paper is listed with the scripts that computed its values (in `
 | S2 Table | `r43_sens.py` | `make_tables.py` |
 | S3 Table | `r46_align_fix1.py` (alignment accuracy), `r48_identity_range.py` (identity range) | `make_tables.py` |
 | S1 Text | proofs; numerical checks in `framespace_wip/tests_stage0` and in the framedchain tests | — |
-| S2 Text | `r38_s0.py`, `r38_s0_bias2.py` (reduced computation, U-statistic, alignment uncertainty, truncated chains); `r38_static.py`, `r39_sec6.py` (certification); `r39_roundtrip.py`; `r41_compute_prep.py`, `r41_compute.py` (cost); `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`, `framespace_wip/experiments/sippl_linear_counterexample.py`, `chaining.py`, `c4_chain_extra.py` (Section 8) | — |
+| S2 Text | `r38_s0.py`, `r38_s0_bias2.py` (reduced computation, U-statistic, alignment uncertainty, truncated chains); `r38_static.py`, `r39_sec6.py` (certification); `r39_roundtrip.py`; `r41_compute_prep.py`, `r41_compute.py` (cost); `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`, `framespace_wip/experiments/sippl_linear_counterexample.py`, `chaining.py`, `c4_chain_extra.py`, `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` (Section 8) | — |
 | S3 Text | `code/negtype/*.js` (negative type, η₊); `r39_core.py` (size dependence) | — |
 
 The numbers in the text are mapped section by section in the first table of `docs/RESULTS_MAP.md` (for example the
-first thermophile test, `r38_p1.py`, and the ranking of existing measures, `hu1_rulers.py`).
+first thermophile test, `r38_p1.py`, and the ranking of existing measures, `hu1_rulers.py`, `dfrechet_1674.py` and
+`hu1_kkl_measures.py`).
 
 The checks that wrote no output file (12 test pairs, reversed chains, equipment of the cost measurement,
 decomposition of the unshared part, location of correspondence shifts, chain breaks, reproduction by framedchain
@@ -238,7 +239,7 @@ this order:
 2. **Simulation frames.** `mdcath_5T_extract.py`, `mdcath_5T_folded.py`, `c1_core.py`; `mdcath_spread.py` and
    `mdcath_spread_hot.py` for per-bond spreads (CPU).
 3. **Comparison of TM-score forms and existing measures** (CPU): `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`,
-   `hu1_rulers.py`, `chaining.py`, `c4_chain_extra.py`.
+   `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py`, `chaining.py`, `c4_chain_extra.py`.
 4. **Checks of the computation** (mostly GPU): `r38_s0.py`, `r38_s0_bias2.py`, `r38_static.py`, `r39_roundtrip.py`,
    `r39_sec6.py`, `r41_compute_prep.py`, `r41_compute.py`.
 5. **Calibration on heating** (GPU, then CPU): `r39_D_stem.py`, `r39_core.py`, `r39_D_unfold.py`, `r39_e6.py`,
@@ -302,7 +303,8 @@ The analyses ran on Google Colab with the project directory on Google Drive: A10
 for the GPU stages and, for some CPU stages, CPU-only runtimes or the CPUs of other runtimes (`environment/README.md`).
 
 - **Base environment** (Python 3.12) for almost all scripts: `environment/requirements-base.txt`. Recorded
-  versions: numpy 2.1 and mdtraj 1.11.2 (2026-10-19), torch 2.11.0+cu130 (2026-10-22), tmtools 0.3.0. This environment was not
+  versions: numpy 2.1 and mdtraj 1.11.2 (2026-10-19), torch 2.11.0+cu130, numpy 2.1.3 and h5py 3.14.0 (2026-10-22),
+  tmtools 0.3.0; the other versions were not recorded. This environment was not
   frozen at run time; `tools/record_env.py` records the one you use.
 - **afenv** (Python 3.9, torch 1.12.1+cu113, OpenFold `103d037`) for AlphaFlow: `environment/afenv_freeze.txt`,
   `environment/setup_afenv3.sh`.
@@ -315,7 +317,8 @@ timings are in S2 Text 7.
 
 ## Notes on the as-run code
 
-- **Comments.** Docstrings and comments inside the scripts are in Korean, the working language of the project.
+- **Comments.** Docstrings and comments inside the scripts are in Korean, the working language of the project,
+  except in the figure and table scripts (`make_figs.py`, `make_tables.py`, `make_s1.py`), which are in English.
   They are not translated in place because the files are kept byte for byte as run; `docs/SCRIPTS.md` describes
   every script in English.
 - **Names.** The library was called framespace up to version 0.3.3 and this repository framespace-paper; both
