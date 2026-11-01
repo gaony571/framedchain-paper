@@ -58,7 +58,7 @@ Done (2026-10-26): both repositories are on GitHub as private repositories with 
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
 
-Remaining, after the manuscript is written and posted (these need the paper or the DOIs):
+Remaining before submission:
 
 1. Zenodo archives a GitHub release only for a public repository that was switched on in Zenodo (log in to
    Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
@@ -66,9 +66,7 @@ Remaining, after the manuscript is written and posted (these need the paper or t
    framedchain-paper `v1.3.1` (the version already in `CITATION.cff`, the README and the manuscript reference;
    `main` changed after `v1.3.0`) and framedchain `v0.4.2` (0.4.1 with a chain-break flag and documentation; no computation changed). Zenodo mints a
    DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
-   metadata. If DOIs are needed while the repositories are still private, upload `git archive` zips of the same
-   tags to Zenodo by hand with reserved DOIs instead, and then do not also switch the repositories on, since each
-   route makes its own record.
+   metadata.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
