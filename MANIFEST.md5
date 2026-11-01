@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
 ed37331ddbfa5d7df38d431e0b2773d1 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-02ce0c5f66fd8aff4bc730abcef79f72 *README.md
+1cfe0b0c045ee5bab5b4a0c2d5aed532 *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -25,7 +25,7 @@ ea16fe51c8585020b2bc94bc3dea45de *code/ladder_half.py
 961d2f27c0406c9667fabb03b2d5b142 *code/ladder_temp_single.py
 6420c51e5aeb3a69c51aafa1711a261d *code/ladder_temp_single_v2.py
 6cb466921eeb170b953833682b21eada *code/make_figs.py
-546404f4ba5339f028b6f890575bf3cd *code/make_s1.py
+d375e78cfa0bd801a0f46f7055645395 *code/make_s1.py
 6a10c1cd7636b480e958f71af796a25f *code/make_tables.py
 a77709c6edfef1e21207070b2c959b69 *code/mdcath_5T_extract.py
 6c65c299322b4cdbf6ae447c51481fa4 *code/mdcath_5T_folded.py
@@ -126,12 +126,12 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 32f24903bd78c607ba65dc41dae98d66 *code/r48_identity_range.py
 4e5e398d0d59be9f759af402c70e0e1a *code/r49_chainbreak.py
 363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
-adf4fc321b134ff7c813c718dd44e4f5 *docs/DATA.md
+208f03598927892788a8bba0d6b04ddf *docs/DATA.md
 dc026b00256f867d58af8a77025a7e47 *docs/INTERACTIVE_CHECKS.md
-aa20a8cbcac0ad5a0a61b7bc95b344d7 *docs/PROVENANCE.md
-37982f50b9cf1d08864bd3322e6beded *docs/RESULTS_MAP.md
-8be0f7bb046996827b6d33ace4083be5 *docs/SCRIPTS.md
-190732540784f36da6253b528ef28c33 *docs/STATEMENTS.md
+1aa775bb88b929a718e601008d695fd2 *docs/PROVENANCE.md
+f9e245a38d5b214b89f6eb67f8aec4b5 *docs/RESULTS_MAP.md
+6470bfb19b55857d43fed45818cbbd59 *docs/SCRIPTS.md
+d67e7c280383c6a1b11c0737a41f7660 *docs/STATEMENTS.md
 4ba5c281a209425141e6973f3e52ec2d *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
 0087a3eadc056c67bb37d64430650f52 *environment/afenv_freeze.txt
@@ -211,5 +211,5 @@ c36712c2119c459dcfaa25a13eb0ced5 *run_records/queues/q_r44d.sh
 3b1de9082ceff5a5b51ce9f6cd2071da *run_records/queues/q_r45.sh
 d2b027c166d970df52a0dcdbec187a7c *run_records/queues/q_r47.py
 a32e0766f12b37572dbc215c9dbe295c *run_records/queues/r39_resume_20261021.sh
-6c8f8039d6093810c6107a0b43a7f12c *tools/pack_for_zenodo.py
+04897675198968c81f633805c47d6458 *tools/pack_for_zenodo.py
 d99bcac0445256a9a59759272b621a6c *tools/record_env.py

@@ -162,7 +162,7 @@ Each item of the paper is listed with the scripts that computed its values (in `
 | S3 Table | `r46_align_fix1.py` (alignment accuracy), `r48_identity_range.py` (identity range) | `make_tables.py` |
 | S1 Text | proofs; numerical checks in `framespace_wip/tests_stage0` and in the framedchain tests | — |
 | S2 Text | `r38_s0.py`, `r38_s0_bias2.py` (reduced computation, U-statistic, alignment uncertainty, truncated chains); `r38_static.py`, `r39_sec6.py` (certification); `r39_roundtrip.py`; `r41_compute_prep.py`, `r41_compute.py` (cost); `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`, `framespace_wip/experiments/sippl_linear_counterexample.py`, `chaining.py`, `c4_chain_extra.py`, `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` (Section 8) | — |
-| S3 Text | `code/negtype/*.js` (negative type, η₊); `r39_core.py` (size dependence) | — |
+| S3 Text | `code/negtype/*.js` (negative type, η₊ on random two-bond chains); `r38_b6.py` (η₊ of the pairs of the comparison across sequences); `r44_inv.py` (decomposition of κ²); `r39_core.py` (size dependence) | — |
 
 The numbers in the text are mapped section by section in the first table of `docs/RESULTS_MAP.md` (for example the
 first thermophile test, `r38_p1.py`, and the ranking of existing measures, `hu1_rulers.py`, `dfrechet_1674.py` and
@@ -268,10 +268,13 @@ were run (Methods and S1 Table of the paper). The first record, `results/prereg_
 deposit together with its 101 retained versions; the twelve records added from 2026-10-28 and their five
 corrections are also copied in `registration/` (the date in their file names is Korea Standard Time, UTC+9; times
 inside are UTC). Folder and file names (`registration/`, `prereg_*`) keep the working names used while the
-project ran; the paper calls these files the time-stamped records. Where a record holds the md5 of a script, the file here has that checksum;
+project ran; the paper calls these files the time-stamped records. Where a record holds the md5 of a script, the file
+here has that checksum, with one exception: five scripts were corrected in place (`r38_c.py`, `r38_verify_c.py`,
+`r38_r10a.py`, `r39_r6.py`, `r39_sec6.py`), so the first record also holds the md5 of an earlier version, and the
+matching value is the later entry recorded after the correction.
 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) lists the checksum of every file and whether it was recorded before the
-run. A corrected script was recorded as a separate file with its own checksum, and analyses added after a result
-are separate scripts that say so in their docstrings.
+run. From 2026-10-28, a corrected script was recorded as a separate file with its own checksum, and analyses added
+after a result are separate scripts that say so in their docstrings.
 
 ## Repository layout
 

@@ -38,7 +38,7 @@ not time-stamped records.
 | Table 2: replicate and frame audits; trajectory window; survival filter | `r44_inv.py`; `r39_core.py` (e2), with the earlier audit of `r37_trunk.py`; notebook cell in `docs/INTERACTIVE_CHECKS.md` 9 (`results/r37_size_survival.json`) | Round44; 3.6, 3.1; 3.1 |
 | Folded-versus-unfolded comparisons (Results; S3 Text 4) | `r39_D_unfold.py`, `r39_e6.py` | 3.7 |
 | Comparison across sequences (B6): rank correlation with TM-score and its size control, η₊, far-limit prediction, W₂ (Fig 4A) | `r38_b6.py`, `r38_static.py`; `r44_b6size_cell26.py`; `r44_w2p1.py` | 4.1, 4.2, Round44 |
-| κ of all cells and of the size-matched cells (Fig 4B, S2 Table); spread share of κ² | `r43_sens.py` (s1), from the per-domain values of rows 3.6, 4.1, 4.6, 4.9 and 4.11; `r44_inv.py` (split) | 3.8, Round44 |
+| κ of all cells and of the size-matched cells (Fig 4B, S2 Table); spread share of κ² | `r43_sens.py` (s1), from the per-domain values of rows 3.4 (`r38_dff_D.py`, the whole-trajectory force-field reference), 3.6, 4.1, 4.6, 4.9 and 4.11; `r44_inv.py` (split) | 3.8, Round44 |
 | Bond-level comparison: d against aligned coordinates on the same sequence (E7), sources of the compression, contribution of the reduced computation | `r38_e7_30.py`, `r38_e7_100.py`; `r41_dcomp.py` and `docs/INTERACTIVE_CHECKS.md` 5; `r44_redsame.py`; `r38_s0.py` (bias) | 3.4, 3.5, Round44, 2.2 |
 | Errors of a temperature-conditioned generator (P2; Fig 5A): reading, secondary criterion and its interval, sensitivity analyses; direction and profiles (E5; Fig 5B); folded counts | scripts of row 4.11 (`r38_p2_D.py`, `r38_p2_aggregate_D.py` and the generation scripts); `r43_sens.py` (s4); `r38_compare.py` (aligned-coordinate run means and per-bond spreads of the cells in Fig 5B), `r39_core.py` (e5); `r45_folded_frac.py` | 4.11, 4.10, Round45 |
 | Thermophilic and mesophilic homologs: θ* test (P1) and its diagnostic; replication U2 (P1′; Fig 6) with the folded-fraction control; absolute windows; composition of the pairs | `r38_p1.py`, `r38_p1_diag.py`; `r38_p1n.py`; `r44_p1win.py`; `r44_p1comp2.py` | 4.13, 4.14, Round44 |
@@ -54,22 +54,22 @@ not time-stamped records.
 
 | Section | Result | Scripts (parts) | Main outputs | Record |
 |---|---|---|---|---|
-| 1.1 | Metric property, mean normalization, TM-align objective = D_TM at fixed d0 | proofs in the manuscript; `framespace_wip/stage0/rulers.py` (`tm_align`, `tm_cost`), tests `framespace_wip/tests_stage0/test_rulers.py` (README, Quick start) | — | — (theorem/identity) |
+| 1.1 | Metric property, normalized distance D̂, TM-align objective = D_TM at fixed d0 | proofs in the manuscript; `framespace_wip/stage0/rulers.py` (`tm_align`, `tm_cost`), tests `framespace_wip/tests_stage0/test_rulers.py` (README, Quick start) | — | — (theorem/identity) |
 | 1.1 | D is not of negative type (length-2 structures, SO(3) Fourier coefficient, J D J eigenvalue) | `code/negtype/negtype.js`, `so3fourier.js`, `len2check.js` (Node.js); η₊ for random two-bond chains: `negtype_eta_len2.js` | console output (values in S3 Text 2) | — (computation) |
 | 1.2 [3.6r] | General lemma outside proteins (synthetic examples) | `r41_synth.py`, `r41_synth_adv.py` | `results/r41_synth.json`, `results/r41_synth_adv.json` | round41 g6 |
 
-## Result 2 — existing rulers and the computation
+## Result 2 — existing measures and the computation
 
 | Section | Result | Scripts (parts) | Main outputs | Record |
 |---|---|---|---|---|
 | 2.1 [2] | Implementation and tests | `framespace_wip/stage0/`, `framespace_wip/tests_stage0/` | — | — |
-| 2.1 [2] | TM factorial design (blocks A, B), d0 sensitivity | `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` (block B, args: setup json, output tsv), `pu_tm_d0_sensitivity.py` | `results/pu_tm_factorial_*` (block A), `results/pu_tm_factorial_B_pairs.tsv`, `results/pu_tm_factorial_B_d0sens.tsv`; violation rates of block B (Fig 2A) in `results/pu_tm_factorial_B_triangle.tsv`, written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8 | in no record (16 October, before the records began; old record 7.3–7.4) |
+| 2.1 [2] | Factorial comparison of TM-score forms (blocks A, B), d0 sensitivity | `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` (block B, args: setup json, output tsv), `pu_tm_d0_sensitivity.py` | `results/pu_tm_factorial_*` (block A), `results/pu_tm_factorial_B_pairs.tsv`, `results/pu_tm_factorial_B_d0sens.tsv`; violation rates of block B (Fig 2A) in `results/pu_tm_factorial_B_triangle.tsv`, written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8 | in no record (16 October, before the records began; old record 7.3–7.4) |
 | 2.1 [2] | Sippl linear form is not a metric (constructed counterexample) | `framespace_wip/experiments/sippl_linear_counterexample.py`; test `test_linear_form_is_not_a_metric` | result in the script header | in no record (17 October 05:31, before the records began; old record 7.4A) |
-| 2.1 [2] | Ruler map, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | in no record (the ranking was run on 16–17 October, before the records began; `results/hu1_kkl_measures.json` was written on 17 October at 05:29 UTC; old record 7.6A) |
+| 2.1 [2] | Ranking of existing measures, 1,674 pairs; discrete Fréchet; KKL measures | `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` | `results/hu1_rulers_1674.tsv`, `results/dfrechet_1674.tsv`, `results/hu1_kkl_measures.json` | in no record (the ranking was run on 16–17 October, before the records began; `results/hu1_kkl_measures.json` was written on 17 October at 05:29 UTC; old record 7.6A) |
 | 2.1 [2] | Fold retrieval, 208 structures (not reported in the manuscript) | `pu_fold208.py`, `analysis_fold208.py`, `analysis_fold208_ablation.py` | `results/pu_fold208_pairs.tsv`, `results/pu_fold208_retrieval.json`, `results/pu_fold208_ablation.json` | old record 7.7 |
 | 2.1 [2] | Chain linking, 150 two-domain chains (Fig 2B, S2 Text 8.4) | `chaining.py`, `c4_chain_extra.py` (v2) | `results/chaining.json`, `results/chaining_v2.json`, `derived/chaining.tsv` | prereg round17, round29 |
 | 2.1 [2] | TM-align comparison (12 pairs) and reversed chains (8 structures) | computed interactively with `stage0.rulers` (no standalone script was kept); cell code in `docs/INTERACTIVE_CHECKS.md` 1–2 | printed output in `docs/INTERACTIVE_CHECKS.md` 1–2 (no output file); tables in old record 7.2, 7.5 | — |
-| 2.2 [3.6d] | First session: correctness of the reduced computation | `r38_s0.py` (pick, b0, e7, trunc, ens, bias, ustat, unc), `r38_s0_bias2.py` | `results/r38_s0_<part>.json`, `results/r38_s0_bias2.json` | round36 §0 |
+| 2.2 [3.6d] | First session: correctness of the reduced computation | `r38_s0.py` (pick, b0, e7, trunc, ens, bias, ustat, unc), `r38_s0_bias2.py` | `results/r38_s0_<part>.json`, `results/r38_s0_bias2.json` | round36 §0; settings and choice rule of the re-measurement in `r38_s0_bias2.py`: `round36_trackB_code_2026-10-19` (added after the result) |
 | 2.3 [3.6d] | Truncated chains | `r38_s0.py` (trunc) | `results/r38_s0_trunc_*.json` | round36 §0.1 |
 | 2.4 [3.6l] | Coordinate round trip | `r39_roundtrip.py` | `results/r39_roundtrip.json` | `round36_roundtrip_2026-10-20` |
 | 2.5 [3.6n, 3.6t] | Branch-and-bound certification, static axis 500 pairs | `r38_static.py` (dom, align, bnb, stats), `r39_sec6.py` (time, stats) | `derived/r38/static/bnb.jsonl`, `results/r38_static.json`, `results/r39_sec6.json` | round36 §6, §7g |
@@ -97,7 +97,7 @@ not time-stamped records.
 | 4.3 [3.6q] | Claim 1: static-axis split and information in the gap share | `r41_gapinfo.py` | `results/r41_gapinfo.json` | round41 g1 |
 | 4.4 [3.6e, 3.6h] | Primary P3: conservation of dynamics | `r38_p3.py` (pairs, dom, pibar, pair, stats), `r38_p3_sens.py`; exploratory, in no record: `r38_p3_explore.py`, `r38_p3_explore2.py` | `results/r38_p3.json`, `results/r38_p3_sens.json`, `results/r38_p3_explore*.json` | round36 P3 |
 | 4.5 [3.6j, 3.6x] | Confirmatory experiment C | `r38_c_probe.py`, `r38_c_fetch.py`, `r38_c.py` (pairs, dom, anm, pibar, pair, anmpair, stats), `r38_verify_c.py`; robustness check recorded after the result: `r38_c_nl.py` | `results/r38_c.json`, `results/r38_verify_c.json`, `results/r38_c_nl.json`; decomposition of the unshared part between mean points (descriptive, in no record): `docs/INTERACTIVE_CHECKS.md` 4 | round36 §1c; `round36_c_nl_2026-10-20` |
-| 4.6 [3.6o] | R10a′: natural insertions/deletions | pairs selected in a notebook cell from the TM-align and D_TM insertion/deletion events of `p2_gap_consensus.py` (`results/p2_gap_consensus_raw.tsv`) and stored as `r10a_prime` in `results/r37_trunk_pairs.json`; `r38_r10a.py` (ens, stats); post-hoc `r39_r10a_posthoc.py` | `results/r38_r10a.json`, `results/r39_r10a_posthoc.json` | round36 §2 |
+| 4.6 [3.6o] | R10a′: natural insertions/deletions | pairs selected in a notebook cell from the TM-align and D_TM insertion/deletion events of `p2_gap_consensus.py` (`results/p2_gap_consensus_raw.tsv`) and stored as `r10a_prime` in `results/r37_trunk_pairs.json`; `r38_r10a.py` (ens, stats); post-hoc `r39_r10a_posthoc.py` | `results/r38_r10a.json`, `results/r39_r10a_posthoc.json` | round36 §2 (criteria in `round36_r10a_2026-10-20`); post hoc: `round36_r10a_posthoc_2026-10-20` |
 | 4.7 [3.6o] | R6: insertions/deletions in the same protein (descriptive) | `r39_r6.py` (ens, stats) | `results/r39_r6.json` | round36 §2 |
 | 4.8 [3.4] | Branch cells (same sequence, different source): force field + protocol, protocol only, model error, substitution | `ladder_ff.py`, `ladder_ff_folded.py`, `ladder_ff_single.py`, `ladder_model_error.py`, `ladder_model_error_folded.py`, `ladder_components.py`, `c4_substitution.py`, `c4_chain_extra.py`, `r37_ff.py`, `r38_dff.py`, `r37_protocol.py`, `r37_subst.py` | `results/ladder_ff*_summary.json`, `results/ladder_model_error*_summary.json`, `results/ladder_components.json`, `results/c4_substitution.json`, `results/c4_ladder_row.json`, `results/r37_ff.json`, `results/r38_dff.json`, `results/r37_protocol.json`, `results/r37_subst.json` | rounds 9, 10, 14, 23, 27, 29, 32 (old record 0.2); round37 R3′, R3″, R5′ |
 | | *Note for 4.8:* the `ladder_ff*` and `ladder_model_error*` scripts write per-domain files (`derived/ladder_ff*/`, `derived/ladder_model_error*/`). The `*_summary.json` files that hold the medians in the table were aggregated in notebook cells that were not kept as scripts; `ladder_components.py` recomputes the component columns from the same per-domain files. | | | |
@@ -105,7 +105,7 @@ not time-stamped records.
 | 4.10 [3.6m] | E5 direction test | `r39_e5prep.py` (r3p, r3pp), `r39_core.py` (e5) | `results/r39_E5.json` | round39 |
 | 4.11 [3.6g, 3.6x] | Primary P2: ordering of aSAMt 320 K errors, main version D | `r38_prep.py`, `r38_md_ref.py`, `r38_md_ref_p90.py`, `r38_asamt_gen.py` (samenv), `r38_alphaflow_gen.py` (afenv), `r38_compare.py`, `r38_compare_450.py`, `r38_p2_aggregate.py`, `r38_p2_D.py`, `r38_p2_aggregate_D.py`, `r38_p2_D_af.py`, `r38_p2_aggregate_D2.py` | `results/r38_prep.json`, `results/r38_md_ref.json`, `derived/r38/{asamt,alphaflow,compare,compare_D,compare_D2}/`, `results/r38_p2_<TAG>.json` (e.g. `r38_p2_p2_67_D2.json`) | round36 §7c, §7d; `round36_amend_p2_D_2026-10-19` |
 | 4.12 [3.5] | H-T scalar version (θ*) | `mdcath_spread.py`, `mdcath_spread_hot.py`, `ht_theta_meso.py`, `folded_analyses.py` (iii), `ht_own_alignment.py` | `results/ht_shared_spread.tsv`, `results/ht_theta_star.tsv`, `results/ht_theta_meso.json`, `results/folded_analyses.json`, `results/ht_own_alignment.json` | old record 6A; round34 ① |
-| 4.13 [3.6k] | Primary P1: thermal adaptation θ* | `r38_p1.py` (pairs, mean, align, spread, sim, pre, stats), `r38_verify_p1.py`; diagnosis after the result: `r38_p1_diag.py` | `results/r38_p1.json`, `results/r38_verify_p1.json`, `results/r38_p1_diag.json` | round36 §7 |
+| 4.13 [3.6k] | Primary P1: thermal adaptation θ* | `r38_p1.py` (pairs, mean, align, spread, sim, pre, stats), `r38_verify_p1.py`; diagnosis after the result: `r38_p1_diag.py` | `results/r38_p1.json`, `results/r38_verify_p1.json`, `results/r38_p1_diag.json` | round36 §7; diagnosis: `round36_p1_diag_2026-10-20` (added after the result) |
 | 4.14 [3.6p] | Confirmatory P1′ on new pairs | `r38_p1n_fetch.py`, `r38_p1n.py` (mean, align, spread, fold, stats), `r38_verify_p1n.py` | `results/r38_p1n.json`, `results/r38_verify_p1n.json` | round36 §7h |
 
 ## Round44 — checks added after external review (2026-10-28)
@@ -152,9 +152,10 @@ computed (manuscript, Methods).
 ## Figures and tables
 
 The figure and table scripts read stored results only and recompute nothing. On Colab, the figures and the S1–S3 Tables
-were last drawn on 2026-11-01: Figs 1, 2 and 3 at 22:39 UTC, Fig 4 at 18:31 UTC, the S1–S3 Tables at 18:29 UTC
-and the other figures at 17:45 UTC (earlier runs are listed in `docs/PROVENANCE.md`); the scripts write to
-`manuscript_figs/` under the project path set at the top of each file.
+were last drawn on 2026-11-01: Figs 1, 2 and 3 at 22:39 UTC, Fig 4 at 18:31 UTC, Figs 5 and 7 at 17:45 UTC, Fig 6
+at 07:40 UTC and S1 Fig at 07:37 UTC (times of the files on Colab), and the S1–S3 Tables at 18:29 UTC (earlier runs
+are listed in `docs/PROVENANCE.md`); the scripts write to `manuscript_figs/` under the project path set at the top of
+each file.
 
 | Item | Script (function) | Reads |
 |---|---|---|

@@ -76,7 +76,7 @@ Remaining before submission:
    three surviving versions of the pre-specification document) was added. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
-   and size, with the md5 of the files that are not simulation data. The deposit is the Zenodo draft 23858418,
+   and size, with the md5 of the files of up to 64 MiB that are not simulation data. The deposit is the Zenodo draft 23858418,
    with the reserved DOI 10.5281/zenodo.23858418 (filled in above); it is published before submission.
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the
    READMEs. The data DOI is filled in; the two software DOIs follow the releases of step 1.

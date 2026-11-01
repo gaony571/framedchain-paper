@@ -6,11 +6,11 @@ Usage:
 Writes OUT_DIR/framedchain_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
 OUT_DIR/MANIFEST_data.tsv (md5, bytes, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
 public inputs matched by PUBLIC below, and the structures and tables taken from ATLAS (CC BY-NC 4.0), by name and size,
-with the md5 of the files that are not simulation data (lists, tables, PDB entries, structures taken from ATLAS), so
-that the same files can be identified without redistributing them; simulation files are identified by name and size
-within their versioned public releases. Other files under ROOT/raw are inputs of analyses outside the paper that no
-script of this repository reads; they are neither packed nor listed. --ensembles adds the generated aSAMt and AlphaFlow
-ensembles (large). --dry-run only prints the sizes per group. --excluded-only rewrites only EXCLUDED_public.tsv (for a
+with the md5 of the files of up to 64 MiB (PUBLIC_MD5_MAX) that are not simulation data (lists, tables, PDB entries,
+structures taken from ATLAS), so that the same files can be identified without redistributing them; simulation files
+are identified by name and size within their versioned public releases. Other files under ROOT/raw are inputs of
+analyses outside the paper that no script of this repository reads; they are neither packed nor listed. --ensembles
+adds the generated aSAMt and AlphaFlow ensembles (large). --dry-run only prints the sizes per group. --excluded-only rewrites only EXCLUDED_public.tsv (for a
 deposit whose tar is already uploaded). Nothing under ROOT is modified.
 """
 import argparse, fnmatch, hashlib, os, sys, tarfile, time

@@ -25,7 +25,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `mdcath_spread.py`, `mdcath_spread_hot.py` | Per-edge spread of mdCATH domains, frames aligned to the mean point of each temperature. Arguments: temperatures (default 320,348) and an output-directory suffix; the 379/413 K spreads were written with `mdcath_spread_hot.py` to `derived/mdcath_spread_hot` | `derived/mdcath_spread<suffix>/<dom>.npz` |
 | `p2_gap_consensus.py` | For the H-pool homolog pairs, lists the insertion/deletion events of the TM-align alignment and of the D_TM alignment (fixed d0 = 4 Å, with the TM-align pose among the starts). The natural insertion–deletion pairs (R10a′) were selected from this table in a notebook cell and stored in `results/r37_trunk_pairs.json` | `results/p2_gap_consensus_raw.tsv` |
 | `r38_prep.py` | Test-set preparation for P2: sequences of the 90 aSAMt test domains, sequence identity to the ATLAS training set, AlphaFlow input CSV, ColabFold MSAs | `results/r38_prep.json`, `derived/r38/alphaflow_input.csv`, `derived/r38/msa/` |
-| `r38_md_ref.py`, `r38_md_ref_p90.py` | MD reference for P2 domains: mean point of 320 K folded frames, native contacts, atom indices, same-domain temperature curves (the `_p90` copy covers the 90-domain set) | `derived/r38/md/<dom>.{npz,json}`, `results/r38_md_ref.json` |
+| `r38_md_ref.py`, `r38_md_ref_p90.py` | MD reference for P2 domains: mean point of 320 K folded frames, native contacts, atom indices, same-domain temperature curves. `_p90` is a copy that runs only the three domains first excluded for an overlap of PDB IDs (`1i2tA00`, `1nijA01`, `4qbuA03`), completing the 90-domain set, and writes only their per-domain files | `derived/r38/md/<dom>.{npz,json}`, `results/r38_md_ref.json` (`r38_md_ref.py` only) |
 | `r38_c_probe.py` | Tests partial HTTP reads of mdCATH h5 files and lists the new-superfamily domains to fetch for experiment C | `results/r38_c_probe.json`, `derived/r38/c_new_sf_domains.json` |
 | `r38_c_fetch.py`, `r38_p1n_fetch.py` | Fetch only the needed frames (first frame, second halves; for P1′ also the 50–100 ns window) of new domains from the mdCATH Hugging Face dataset | `raw/mdcath_c/<dom>.npz`, `raw/mdcath_p1n/<dom>.npz` |
 
@@ -36,15 +36,15 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `r38_asamt_gen.py` | Runs aSAMt (`sam2` commit `ce076ed`, `generate_ensemble.py` with defaults: 250 samples, 100 steps, minimization) per domain and temperature in samenv; seeds fixed per (domain, temperature) by CRC32 because the tool has no seed argument | `derived/r38/asamt/<dom>.<T>.{traj.dcd,top.pdb,time.txt}` |
 | `r38_alphaflow_gen.py` | Runs distilled AlphaFlow-MD (commit `0408d7c`, `predict.py` as in its README: 250 samples, `--noisy_first --no_diffusion`) in afenv; seeds fixed per domain | `derived/r38/alphaflow/<dom>.pdb` |
 
-## Ruler comparisons (result 2.1)
+## Comparisons of TM-score forms and existing measures (result 2.1)
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` | TM factorial design: S_TM of the space's optimizer at fixed and length-dependent d0, short/long/mean normalization, number of starts, with and without the TM-align pose, against TM-align (`_v2` takes the setup and output file names as arguments; block B). The triangle-inequality violation rates of block B (Fig 2A, `results/pu_tm_factorial_B_triangle.tsv`) were computed from its pair table in a notebook cell (`docs/INTERACTIVE_CHECKS.md` 8) | `results/pu_tm_factorial_pairs.tsv`, `results/pu_tm_factorial_B_pairs.tsv` |
+| `pu_tm_factorial.py`, `pu_tm_factorial_v2.py` | Factorial comparison of TM-score forms: S_TM of the space's optimizer at fixed and length-dependent d0, short/long/mean normalization, number of starts, with and without the TM-align pose, against TM-align (`_v2` takes the setup and output file names as arguments; block B). The triangle-inequality violation rates of block B (Fig 2A, `results/pu_tm_factorial_B_triangle.tsv`) were computed from its pair table in a notebook cell (`docs/INTERACTIVE_CHECKS.md` 8) | `results/pu_tm_factorial_pairs.tsv`, `results/pu_tm_factorial_B_pairs.tsv` |
 | `pu_tm_d0_sensitivity.py` | Same pairs with d0 = 2 and 6 Å | `results/pu_tm_factorial_B_d0sens.tsv` |
-| `hu1_rulers.py` | Ruler map on 1,674 pairs: TM-align (both normalizations, RMSD), GDT-TS, lDDT (Cα), S_TM at d0 = 4 Å, D at ℓ = 4, 8, 16, ∞, ESA | `results/hu1_rulers_1674.tsv` |
+| `hu1_rulers.py` | Ranking of existing measures on 1,674 pairs: TM-align (both normalizations, RMSD), GDT-TS, lDDT (Cα), S_TM at d0 = 4 Å, D at ℓ = 4, 8, 16, ∞, ESA | `results/hu1_rulers_1674.tsv` |
 | `dfrechet_1674.py` | Discrete Fréchet distance of Cα chains minimized over rigid motions (fragment starts + TM-align pose, refined) | `results/dfrechet_1674.tsv` |
-| `hu1_kkl_measures.py` | Kolodny–Koehl–Levitt (2005) SI, SAS, MI from the TM-align alignments; rank correlations with the other rulers | `results/hu1_kkl_measures.json` |
+| `hu1_kkl_measures.py` | Kolodny–Koehl–Levitt (2005) SI, SAS, MI from the TM-align alignments; rank correlations with the other measures | `results/hu1_kkl_measures.json` |
 | `pu_fold208.py` | All pairs of the 208-structure block: TM-align and S_TM at fixed and mean-length d0 | `results/pu_fold208_pairs.tsv` |
 | `analysis_fold208.py`, `analysis_fold208_ablation.py` | Topology mean average precision and class 1-NN accuracy, bootstrap difference against TM-align; ablation over normalizations | `results/pu_fold208_retrieval.json`, `results/pu_fold208_ablation.json` |
 | `chaining.py` | Chain linking on 150 two-domain chains from CathDomall v4.4 (downloads the PDB files): triangle violations and single/average-link merging for 1 − TM_short, 1 − TM_long, D_TM/√L̄ and D_TM at fixed d0 | `results/chaining.json`, `derived/chaining.tsv` |
@@ -59,7 +59,7 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `ladder_temp_single.py`, `ladder_temp_single_v2.py` | Temperature rows with a single-replicate floor and absolute scale (round27); `_v2` adds the floor at each temperature | `results/ladder_temp_single.json`, `derived/ladder_temp_single[_v2]/` |
 | `ladder_half.py` | Round34 ③ drift control: first vs second half of trajectories at the same temperature treated as two conditions (expected 0 at equilibrium) | `results/ladder_half.json` |
 | `ladder_components.py` | Round32: mean-shift component Δμ²/edge (bilinear floor subtracted) and log total-spread ratio for the temperature, model-error and force-field rows | `results/ladder_components.json`, `derived/ladder_components_temp.tsv` |
-| `e0_resolution.py` | Round32 E0: permutation test (5 of 10 replicates, 252 splits) of 320 vs 348 K on the same folded frames with three rulers: frame energy distance, Cα energy distance, windowed RMSF² log ratio | `results/e0_resolution.json` |
+| `e0_resolution.py` | Round32 E0: permutation test (5 of 10 replicates, 252 splits) of 320 vs 348 K on the same folded frames with three measures: frame energy distance, Cα energy distance, windowed RMSF² log ratio | `results/e0_resolution.json` |
 | `ladder_ff.py`, `ladder_ff_folded.py`, `ladder_ff_single.py` | Force-field + protocol row: MFM reference MD ("SM", ff99SB-disp) vs BioEmu CATH MD (amber99sb-ildn) on the same CATH domains; all frames, folded frames, and single-run floors | `derived/ladder_ff[_folded/_single]/<dom>.json` |
 | `ladder_model_error.py`, `ladder_model_error_folded.py` | Model-error row: ATLAS test chains (82) vs released AlphaFlow/ESMFlow samples (template and sequence-only); all frames and folded frames. Also provides readers and statistics used by the `ladder_ff*` scripts | `derived/ladder_model_error[_folded]/<chain>.json` |
 | `c4_substitution.py` | C4 substitution axis (round14): MegaSim variants vs wild type (ff99SB-disp trajectories only), with Tsuboyama ΔΔG | `derived/c4_sub/<WT>.json`, `results/c4_substitution.json` |
@@ -174,7 +174,7 @@ and `prereg_2026-10-31_addendum12*.json`); corrections were written as separate 
 
 ## Figures and tables
 
-These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01: Figs 1, 2 and 3 at 22:39 UTC, Fig 4 at 18:31 UTC, the S1–S3 Tables at 18:29 UTC and the other figures at 17:45 UTC (earlier runs in `docs/PROVENANCE.md`).
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn on 2026-11-01: Figs 1, 2 and 3 at 22:39 UTC, Fig 4 at 18:31 UTC, Figs 5 and 7 at 17:45 UTC, Fig 6 at 07:40 UTC and S1 Fig at 07:37 UTC (times of the files on Colab), and the S1–S3 Tables at 18:29 UTC (earlier runs in `docs/PROVENANCE.md`).
 They take no arguments; the project path `R` and the output folder are set at the top of each file.
 
 | Script | What it does | Main outputs |
