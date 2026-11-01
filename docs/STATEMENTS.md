@@ -71,8 +71,9 @@ Remaining, after the manuscript is written and posted (these need the paper or t
    route makes its own record.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
-   (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed; the deposit lists them
-   by name and checksum only.
+   (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
+   simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
+   and size, with the md5 of files up to 64 MiB.
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the READMEs.
 4. At submission give the editors and reviewers access (a private link is acceptable), or make the
    repositories public when the preprint is posted.
