@@ -1,7 +1,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
 9f3e0ab4996489b36859697110dc7dd4 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-61a0ba934247bf02d187fa93bb47145a *README.md
+bb19688ad1119175dc24e34e9e3e537d *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -142,6 +142,14 @@ b4112540e77adecf383691891bc1844b *environment/requirements-check.txt
 d2f64ac3a09bf953ef8fd2fcf10f07fa *environment/setup_samenv3.sh
 d54567738dd3681a2c5c36da8209318c *examples/demo_expected_output.txt
 5b8f51c77f1b5ffee20ddd4c7b499c29 *examples/demo_synthetic.py
+f45929ade75d38f26760517c727cc7d4 *figures/Fig1.png
+b6c4c221399cad55b9015461302f78ac *figures/Fig2.png
+289327eeeaa1ccad267c9e7d35bd7ad5 *figures/Fig3.png
+9e519e94c91136ce2256cb5a9b7a36c3 *figures/Fig4.png
+a3202b06914ee61e52da7285178179ac *figures/Fig5.png
+8afd2f4c841abdab976397dc9ec098ee *figures/Fig6.png
+1ce709932d9cb3e3e573a57de244a327 *figures/Fig7.png
+e81438702c32b5f97ba44027c7019c3d *figures/S1_Fig.png
 a963a59282e7e67ee2a11576b0b143ba *framespace_pkg/framespace/__init__.py
 4f032cbc3a831dd58a47872192f378bf *framespace_pkg/framespace/certify.py
 46c5be8e2c25ad7934184c94fc1ff626 *framespace_pkg/framespace/distance.py

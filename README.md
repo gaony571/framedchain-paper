@@ -1,8 +1,32 @@
-# Comparing protein conformational ensembles across sequences and lengths
+<h1 align="center">Comparing protein conformational ensembles<br>across sequences and lengths</h1>
 
-Analysis code for the paper
+<p align="center">
+  <b>Hyeonsu An</b><br>
+  Department of Applied Artificial Intelligence, Sungkyunkwan University, Seoul, Republic of Korea
+</p>
 
-> Hyeonsu An. Comparing protein conformational ensembles across sequences and lengths. Submitted.
+<p align="center">
+  Manuscript submitted · Analysis code exactly as run · Version 1.3.0 · MIT licence · Zenodo DOI to be added at release
+</p>
+
+<p align="center">
+  <a href="#abstract">Abstract</a> ·
+  <a href="#results-at-a-glance">Results</a> ·
+  <a href="#reproducing-the-figures-and-tables">Reproducing the paper</a> ·
+  <a href="#time-stamped-records">Time-stamped records</a> ·
+  <a href="#citation-and-licence">Citation</a> ·
+  <a href="https://github.com/gaony571/framedchain">framedchain package</a>
+</p>
+
+<p align="center">
+  <img src="figures/Fig1.png" width="760" alt="Schematic of framed chains: a bond frame, an order-preserving alignment of two chains of different lengths with zero matrices for unmatched bonds, the split of the squared distance into shared and unshared parts, and a geodesic between the chains">
+</p>
+
+**Fig 1. Framed chains and the edit distance.** (A) Each virtual Cα–Cα bond i is represented by x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2,
+the frame [f₁, f₂, f₃] of the bond and its peptide plane scaled by the relative bond length (f₃ points out of the
+page). (B) Two chains of different lengths are aligned by an order-preserving correspondence and one global rotation;
+unmatched bonds face zero matrices. (C) The squared distance splits exactly into shared-bond and unshared-bond parts.
+(D) The geodesic between the chains: shared terms move linearly, unshared terms shrink to or grow from zero.
 
 This repository contains the code exactly as it was run to produce every number, figure and table of the paper,
 together with the run queues, environment records and the time-stamped records that fixed each analysis before it
@@ -10,11 +34,82 @@ was run. To apply the method to your own structures and ensembles, use the docum
 [framedchain](https://github.com/gaony571/framedchain) (version 0.4.1) instead; this repository is for checking
 and reproducing the paper.
 
-Version 1.3.0 (the version cited in the manuscript) · MIT licence · Zenodo DOI to be added at release
-
 ## Abstract
 
 Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replicate and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains' shifts under 59 K heating, yet are largely orthogonal to the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear controls; in shorter domains, the association does not survive the nonlinear controls. Ensembles across sequences thus become comparable in one geometry.
+
+## Results at a glance
+
+The figures below are the paper's figures as drawn by `code/make_figs.py` from the stored results (150 dpi PNG; the
+submitted 600 dpi TIFF files come from the same script). Captions are shortened; the full captions are in the paper,
+and [`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md) maps every value to its script and output file.
+
+### TM-score-based distances
+
+![Fig 2](figures/Fig2.png)
+
+**Fig 2. The TM-align objective and TM-score-based distances.** (A) Triangle-inequality violations among 161,700
+triples for each normalization and transform of the TM-align score: violations appear only with shorter-chain
+normalization (2.4–2.8% of triples) or with linear forms without a square root; D<sub>TM</sub> and D<sub>TM</sub>/√L̄ with a fixed d₀
+are proven metrics. (B) Under average linkage, 1 − TM-score normalized by the shorter chain merges different folds in
+all 150 two-domain chains tested, against 15% for D<sub>TM</sub>/√L̄; the linear form 1 − S/L̄ violates the triangle inequality
+in 67% of triples yet chains in only 9%, so chaining comes from shorter-chain normalization.
+*Code:* `pu_tm_factorial_v2.py`, `chaining.py`, `c4_chain_extra.py`.
+
+### Calibration on same-sequence heating
+
+![Fig 3](figures/Fig3.png)
+
+**Fig 3. Calibration on same-sequence heating.** (A) The energy statistic Δ²<sub>D</sub>/√n̄ for heating from 320 K by +28 to
++130 K in mdCATH, against the band of replicate-only comparisons. (B) Per domain, Δ²<sub>D</sub> grows with the number of bonds
+as n<sup>α</sup> with α = 1.2–1.7, so magnitudes are compared within domains or between size-matched sets. (C) Probability of
+detecting each heating step as a function of the number of domains.
+*Code:* `r39_D_stem.py`, `r39_core.py`.
+
+### Ensembles of different sequences on one statistic
+
+![Fig 4](figures/Fig4.png)
+
+**Fig 4. Ensembles of different sequences on the same statistic.** (A) Over 234 domain pairs, Δ²<sub>D</sub>/√n̄ falls steadily
+as the domains grow more similar in structure (Spearman with TM-score −0.83), shown with the optimal-transport
+distance W₂ for the 122 pairs with TM-score ≥ 0.5. (B) The ratio κ places each comparison in the near, crossing or far
+regime: heating, a change of force field, temperature and protocol, and the aSAMt error are near, whereas homolog pairs and the AlphaFlow error
+lie in the crossing band.
+*Code:* `r38_b6.py`, `r43_sens.py`, `r44_inv.py`.
+
+### Errors of a temperature-conditioned generative model
+
+![Fig 5](figures/Fig5.png)
+
+**Fig 5. Errors of a temperature-conditioned generator against heating of the same domains.** (A) For 67 held-out
+domains, the mean-shift error of aSAMt at 320 K relative to MD (diamonds) against the same domains' responses to
++28 to +130 K of simulated heating (circles); the error lies at or above the response to +59 K. (B) The error is largely orthogonal to the heating direction
+(cosine 0.25 [0.09, 0.35], against a ceiling near 1 for two heating steps); AlphaFlow's error is nearly orthogonal.
+*Code:* `r38_asamt_gen.py`, `r38_p2_D.py`, `r38_p2_aggregate_D.py`, `r39_e5prep.py`, `r39_core.py`.
+
+### Thermophilic and mesophilic homologs at equal temperature
+
+![Fig 6](figures/Fig6.png)
+
+**Fig 6. Thermal adaptation at equal temperature.** (A) In a pre-specified replication over 32 superfamilies,
+thermophilic domains fluctuate less on shared bonds than their mesophilic homologs at 320 K, relative to
+mesophile–mesophile controls (U2 = −0.21, one-sided 97.5% upper bound −0.08; a shared-bond variance about 19% lower),
+shown at three native-state thresholds and in absolute trajectory windows. (B) Positive control: thermophilic domains
+keep a larger folded fraction at 379 K.
+*Code:* `r38_p1n.py`, `r44_p1win.py`.
+
+### Sequence identity and shared-bond fluctuation profiles
+
+![Fig 7](figures/Fig7.png)
+
+**Fig 7. Sequence identity and shared-bond fluctuation profiles.** Partial correlation of fluctuation-profile
+similarity with sequence identity. The first test, on shorter domains, was inconclusive; in a confirmatory set of
+4,152 pairs of larger domains, profiles grew more similar with identity beyond shared-core structure (C-1: 0.224
+[0.119, 0.333]) and beyond elastic-network predictions as well (C-2: 0.181 [0.079, 0.283]). The estimate is smaller
+with TM-align correspondences and not detected with sequence alignments.
+*Code:* `r38_p3.py`, `r38_p3_explore2.py`, `r38_c.py`, `r38_c_nl.py`, `r44_pairw.py`, `r45_f1.py`, `r44_corr_v2.py`, `r44_corr2.py`.
+
+The supporting figure (S1 Fig, the general lemma on synthetic sequences) is in [`figures/S1_Fig.png`](figures/S1_Fig.png).
 
 ## Reproducing the figures and tables
 
@@ -155,6 +250,7 @@ are separate scripts that say so in their docstrings.
 | `framespace_pkg/framespace/` | The library exactly as used in the runs (framespace 0.2.0, the earlier name of framedchain; tag `v0.2.0` of the framedchain repository, bundle md5 `4edba596…`) |
 | `framespace_wip/` | Research module used by the runs (reduced computation, measures, ESA and W₂ helpers) with its tests (bundle md5 `6703fa26…`), and the constructed counterexample for the linear form |
 | `examples/` | Synthetic demonstration and its expected output |
+| `figures/` | The paper's figures as PNG (150 dpi), drawn by `code/make_figs.py` from the stored results |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
@@ -204,5 +300,24 @@ timings are in S2 Text 7.
 ## Citation and licence
 
 If you use this code, please cite the paper and this repository (`CITATION.cff`; the Zenodo DOI will be added at
-release). MIT licence, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not included: AlphaFlow,
+release):
+
+```bibtex
+@unpublished{An2026ensembles,
+  author = {An, Hyeonsu},
+  title  = {Comparing protein conformational ensembles across sequences and lengths},
+  year   = {2026},
+  note   = {Manuscript submitted}
+}
+
+@software{An2026framedchainpaper,
+  author  = {An, Hyeonsu},
+  title   = {framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths"},
+  version = {1.3.0},
+  year    = {2026},
+  url     = {https://github.com/gaony571/framedchain-paper}
+}
+```
+
+MIT licence, copyright (c) 2026 Hyeonsu An (`LICENSE`). Third-party code is not included: AlphaFlow,
 sam2, OpenFold, US-align and Foldseek are obtained from their own repositories under their own licences.
