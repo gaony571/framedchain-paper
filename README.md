@@ -263,7 +263,7 @@ are separate scripts that say so in their docstrings.
 All inputs are public: the mdCATH and ATLAS simulations, CATH, RCSB PDB entries, SIFTS, and growth temperatures
 from TEMPURA and Engqvist (2018). The model ensembles were generated with the released aSAM and AlphaFlow code
 and weights. Summary tables, per-domain statistics, the generated ensembles, domain and pair lists and the
-time-stamped records are deposited at Zenodo (DOI to be added). [`docs/DATA.md`](docs/DATA.md) lists every input
+time-stamped records are deposited at Zenodo (doi:10.5281/zenodo.23858418). [`docs/DATA.md`](docs/DATA.md) lists every input
 and intermediate with its source and license.
 
 ## Software and hardware

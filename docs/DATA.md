@@ -5,7 +5,7 @@ intermediate tables that were made during the project and are needed to rerun th
 behind the numbers in the manuscript. Paths are relative to the project root `ROOT` (see the README).
 
 Status column: **public** = download from the source; **deposit** = included in the data deposit (Zenodo,
-DOI to be assigned at submission); **regenerate** = written by a script in this repository from the items
+doi:10.5281/zenodo.23858418); **regenerate** = written by a script in this repository from the items
 above.
 
 ## 1. Public inputs

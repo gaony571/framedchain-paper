@@ -24,7 +24,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > All data generated in this study that are
 > needed to reproduce the reported values — summary tables for every result, per-domain statistics, the
 > generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped records
-> that fixed the analyses — are deposited at Zenodo (DOI: [10.5281/zenodo.XXXXXXX]). The analysis code used to produce all
+> that fixed the analyses — are deposited at Zenodo (DOI: 10.5281/zenodo.23858418). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
 > (https://github.com/gaony571/framedchain, version 0.4.2, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
@@ -48,7 +48,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
-> Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
+> Zenodo; 2026. doi:10.5281/zenodo.23858418
 
 ## Status and remaining steps
 
@@ -71,8 +71,10 @@ Remaining before submission:
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
-   and size, with the md5 of the files that are not simulation data.
-3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the READMEs.
+   and size, with the md5 of the files that are not simulation data. The deposit is the Zenodo draft 23858418,
+   with the reserved DOI 10.5281/zenodo.23858418 (filled in above); it is published before submission.
+3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the
+   READMEs. The data DOI is filled in; the two software DOIs follow the releases of step 1.
 4. Reviewers need access at submission, and a private GitHub repository has no shareable link (only named
    collaborators can open it). Decision of 2026-10-30: both repositories are made public before submission, so
    no private link is needed and step 1 gives the two software DOIs before submission.
