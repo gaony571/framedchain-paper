@@ -24,9 +24,9 @@ ea16fe51c8585020b2bc94bc3dea45de *code/ladder_half.py
 0c2d4e91bfcd06eca6c07152d0e9debb *code/ladder_model_error_folded.py
 961d2f27c0406c9667fabb03b2d5b142 *code/ladder_temp_single.py
 6420c51e5aeb3a69c51aafa1711a261d *code/ladder_temp_single_v2.py
-40a77f390f7e3f58ecc78651ec03cea8 *code/make_figs.py
-655ee8ce86dd400383a5039e66311e2f *code/make_s1.py
-ba796a20e7081c2eb54c238d705d4555 *code/make_tables.py
+d77cceb65c81eeff84c8342ba1babc63 *code/make_figs.py
+591a9e694196f86412afadfa13ab3d71 *code/make_s1.py
+2859045d1608df725099048af4a9b7e3 *code/make_tables.py
 a77709c6edfef1e21207070b2c959b69 *code/mdcath_5T_extract.py
 6c65c299322b4cdbf6ae447c51481fa4 *code/mdcath_5T_folded.py
 46c7a1ea713c6ef267409b1c38067505 *code/mdcath_spread.py
@@ -128,7 +128,7 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
 3c6bcfef844ee4fa9d666466f6b5b97b *docs/DATA.md
 041bf7448ef35e5b7ccb104d986596ae *docs/INTERACTIVE_CHECKS.md
-1c7a0ab1fdbac9e8d6f1a7a897f86eaa *docs/PROVENANCE.md
+b3178cc845f1b54e9e3e0f97943a8e10 *docs/PROVENANCE.md
 bdf470632589823719a9340dce2c1026 *docs/RESULTS_MAP.md
 9b7c50e777b9769ad724dfbe091dbd0a *docs/SCRIPTS.md
 324fbcc542623d8e102d3554e4f28e25 *docs/STATEMENTS.md
@@ -144,11 +144,11 @@ d2f64ac3a09bf953ef8fd2fcf10f07fa *environment/setup_samenv3.sh
 2244b8948061f0c995f67e43f0ef2602 *examples/demo_synthetic.py
 f45929ade75d38f26760517c727cc7d4 *figures/Fig1.png
 b6c4c221399cad55b9015461302f78ac *figures/Fig2.png
-289327eeeaa1ccad267c9e7d35bd7ad5 *figures/Fig3.png
-1da9eb6b7b2869f0ee9dcb3df82ef588 *figures/Fig4.png
-a3202b06914ee61e52da7285178179ac *figures/Fig5.png
+1f0d04d05a819f493993ebc22e873fed *figures/Fig3.png
+269cd9d70b81769d9d479a58701e63c8 *figures/Fig4.png
+904c51d190911fb5daa7f0726c6c944b *figures/Fig5.png
 8afd2f4c841abdab976397dc9ec098ee *figures/Fig6.png
-1ce709932d9cb3e3e573a57de244a327 *figures/Fig7.png
+2234745f588a41fe9f9e068c7fb44a31 *figures/Fig7.png
 e81438702c32b5f97ba44027c7019c3d *figures/S1_Fig.png
 a963a59282e7e67ee2a11576b0b143ba *framespace_pkg/framespace/__init__.py
 4f032cbc3a831dd58a47872192f378bf *framespace_pkg/framespace/certify.py

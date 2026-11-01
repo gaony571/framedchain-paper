@@ -7,7 +7,7 @@ def eci(d, k='est', c='ci95', small=False):
     if d is None: return ''
     lo, hi = (d[c] if c in d else (d['lo'], d['hi']))
     nd = 4 if (small and abs(d[k]) < 0.01) else 3
-    fm = lambda v: f'{v:.{nd}f}'.replace('-0.000', '0.000') if abs(v) < 0.5 * 10 ** -nd else f'{v:.{nd}f}'
+    fm = lambda v: f'{v:.{nd}f}' if v else f'{0:.{nd}f}'   # a value in (−0.5, 0) × 10^−nd keeps its sign (−0.000; write() turns - into −); exact zero, also −0.0, prints 0.000
     return f'{fm(d[k])} [{fm(lo)}, {fm(hi)}]'
 def eck(d):
     if d is None: return ''
@@ -79,12 +79,30 @@ def s3():
             "(records of 29 October 2026 16:34 UTC and 30 October 2026 07:30 UTC).")
     return df, note
 
+NUMERIC = ('Median n̄ (all)', 'Median n̄ (matched)')   # S2 columns stored as numbers in the xlsx (the csv keeps the same text as before)
+def fmt(path):
+    """Column widths, wrapped text, bold frozen header (the same as fmt() in make_s1.py)."""
+    from openpyxl import load_workbook
+    from openpyxl.styles import Alignment, Font
+    wb = load_workbook(path)
+    for ws in wb.worksheets:
+        for col in ws.columns:
+            n = max(len(str(c.value)) if c.value is not None else 0 for c in col)
+            ws.column_dimensions[col[0].column_letter].width = min(max(10, n * 0.9 + 2), 70 if ws.title not in ('Notes', 'Note') else 140)
+            for c in col: c.alignment = Alignment(wrap_text=True, vertical='top')
+        for c in ws[1]: c.font = Font(bold=True)
+        ws.freeze_panes = 'A2'
+    wb.save(path)
+
 def write(name, df, note):
     num = [c for c in df.columns if c not in ('Part', 'Analysis', 'Cell')]
     df = df.copy(); df[num] = df[num].apply(lambda col: col.map(lambda v: re.sub(r'(?<![\w])-(?=\d)', '−', v) if isinstance(v, str) else v))
     fmtnum = lambda v: '' if v is None or (isinstance(v, float) and np.isnan(v)) else (f'{round(v, 4):g}' if isinstance(v, (float, np.floating)) else v)
     df[num] = df[num].apply(lambda col: col.map(fmtnum)).astype(object)
+    xl = df.copy()
+    for c in [c for c in NUMERIC if c in xl.columns]: xl[c] = pd.to_numeric(xl[c].map(lambda v: np.nan if v == '' else v))   # same values as the text; any other text raises
     with pd.ExcelWriter(f'{OUT}/{name}.xlsx') as xw:
-        df.to_excel(xw, index=False, sheet_name=name); pd.DataFrame({'Note': [note]}).to_excel(xw, index=False, sheet_name='Note')
+        xl.to_excel(xw, index=False, sheet_name=name); pd.DataFrame({'Note': [note]}).to_excel(xw, index=False, sheet_name='Note')
+    fmt(f'{OUT}/{name}.xlsx')
     df.to_csv(f'{OUT}/{name}.csv', index=False)
     return df

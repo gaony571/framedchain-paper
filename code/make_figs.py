@@ -23,6 +23,7 @@ def axin(fig, l, b, w, h):
 OI = dict(black='#000000', orange='#E69F00', sky='#56B4E9', green='#009E73', yellow='#F0E442', blue='#0072B2', red='#D55E00', purple='#CC79A7', grey='#999999')
 STEP = {'348': '+28 K', '379': '+59 K', '413': '+93 K', '450': '+130 K'}
 SCOL = {'348': OI['sky'], '379': OI['blue'], '413': OI['orange'], '450': OI['red']}
+SMK = {'348': 'o', '379': 's', '413': '^', '450': 'D'}   # marker per heating step (Fig 3B, 3C): +93 K and +130 K differ in shape as well as colour
 
 def panel(ax, s, x=-0.14, y=1.04):
     ax.text(x, y, s, transform=ax.transAxes, fontsize=10, fontweight='bold', va='bottom', ha='left')
@@ -104,7 +105,7 @@ def fig3():
             if c and c.get('D') and c['D'].get('D2') is not None: recs[tt].append((d['ne'], c['D']['D2']))
     for tt in T:
         a = np.array(recs[tt], float); n, y = a[:, 0], a[:, 1]; pos = y > 0
-        ax.scatter(n[pos], y[pos], s=3, color=SCOL[tt], alpha=0.5, lw=0)
+        ax.scatter(n[pos], y[pos], s=7, marker=SMK[tt], color=SCOL[tt], alpha=0.7, lw=0)
         al = E1['steps'][tt]['irls']['alpha']; ga = E1['steps'][tt]['irls']['gamma']
         w = n ** (-ga); x = n ** al; cfit = (w * y * x).sum() / (w * x * x).sum(); fits[tt] = (al, ga, cfit, len(n), int((~pos).sum()))
         g = np.linspace(n.min(), n.max(), 50); ax.plot(g, cfit * g ** al, color=SCOL[tt], lw=1)
@@ -113,7 +114,7 @@ def fig3():
     ax = fig.add_subplot(gs[2]); panel(ax, 'C', x=-0.36, y=1.12); pw = {}
     for tt in T:
         rr = sorted([(int(r['n']), r['p_detect']) for r in E3['rows'] if r['window'] == 'half' and r['method'] == '나' and str(r['T']) == tt and str(r['n']).isdigit()])
-        pw[tt] = rr; ax.plot([a for a, _ in rr], [b for _, b in rr], 'o-', color=SCOL[tt], ms=3, label=STEP[tt])
+        pw[tt] = rr; ax.plot([a for a, _ in rr], [b for _, b in rr], '-', marker=SMK[tt], color=SCOL[tt], ms=3.5, label=STEP[tt])   # legend keys the markers of B too
     ax.set_xscale('log'); ax.set_xlabel('number of domains'); ax.set_ylabel('probability of detection'); ax.set_ylim(0, 1.03); ax.axhline(0.8, color=OI['grey'], lw=0.5, ls='--')
     ax.legend(frameon=False, loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=2, handlelength=1.5, columnspacing=1.0)
     return save(fig, 'Fig3'), dict(A=vals, R0=b, fits=fits, power=pw)
@@ -140,7 +141,8 @@ def fig4():
     h1, l1 = ax.get_legend_handles_labels(); h2, l2 = ax2.get_legend_handles_labels(); ax.legend(h1 + h2, l1 + l2, frameon=False, loc='upper center', bbox_to_anchor=(0.5, -0.19), handletextpad=0.2)
     # B: kappa per cell
     s1 = J('r43_sens.json')['s1']['cells']; order = [k for k in CELL_EN if k in s1]
-    ax = axin(fig, 5.1, 1.3, 2.3, 3.2); panel(ax, 'B', x=-0.86, y=1.0); y = np.arange(len(order))[::-1]; kap = {}
+    ax = axin(fig, 5.1, 1.3, 2.3, 3.2); panel(ax, 'B', x=-0.86, y=1.0); y = np.arange(len(order))[::-1].astype(float); kap = {}
+    y[order.index('7c AlphaFlow') + 1:] -= 0.8   # a free line under the AlphaFlow row for the labels of its κ² bar
     for yi, k in zip(y, order):
         e, lo, hi = ci(s1[k]['ratio']); kap[CELL_EN[k].replace('\n', ' ')] = (e, lo, hi)
         col = OI['red'] if 'AlphaFlow' in CELL_EN[k] else OI['blue'] if 'Homolog' in CELL_EN[k] or 'insertion' in CELL_EN[k] else OI['black']
@@ -148,11 +150,15 @@ def fig4():
     ax.set_yticks(y); ax.set_yticklabels([CELL_EN[k] for k in order], linespacing=0.95); ax.set_xscale('log'); ax.set_xlim(0.05, 3)
     ax.axvspan(0.5, 2, color=OI['yellow'], alpha=0.25, lw=0); ax.axvline(1, color='black', lw=0.6, ls='--')
     ax.text(0.06, y[0] + 0.9, 'near', fontsize=FS, color='#555555'); ax.text(0.95, y[0] + 0.9, 'crossing', fontsize=FS, color='#555555', ha='right'); ax.text(2.45, y[0] + 0.9, 'far', fontsize=FS, color='#555555', ha='center')
-    ax.set_xlabel(r'$\kappa = \sqrt{(C/\bar w)^2 - 1}$'); ax.set_ylim(-0.8, len(order) + 0.3)
+    ax.set_xlabel(r'$\kappa = \sqrt{(C/\bar w)^2 - 1}$'); ax.set_ylim(y[-1] - 0.8, y[0] + 1.3)   # same margins as (−0.8, len + 0.3) before, plus the free line
     sp = json.load(open(f'{R}/derived/r44/split.json'))['cells']['7c AlphaFlow 대 MD 320|full']; sh = sp['share_mean']['est']
-    ya = y[order.index('7c AlphaFlow')]; yfr = (ya + 0.8) / (len(order) + 1.1); ins = ax.inset_axes([0.04, yfr - 0.017, 0.3, 0.034], transform=ax.transAxes)
-    ins.barh([0], [sh], color=OI['red'], height=1); ins.barh([0], [1 - sh], left=[sh], color=OI['orange'], height=1); ins.set_xlim(0, 1); ins.axis('off')
-    ins.text(0, -0.5, r'$\kappa^2$' + f': shift {sh:.0%}, spread {1 - sh:.0%}', ha='left', va='top', fontsize=FS)
+    ya = y[order.index('7c AlphaFlow')]; ty = ax.get_yaxis_transform()   # x in axes fraction, y in data units
+    # bar on the AlphaFlow row, in the empty 'near' part left of the crossing band (band starts at axes fraction 0.562); its labels in the free line below, coloured as the segments
+    ins = ax.inset_axes([0.06, ya - 0.25, 0.485, 0.5], transform=ty)
+    ins.barh([0], [sh], color=OI['red'], height=1); ins.barh([0], [1 - sh], left=[sh], color=OI['orange'], height=1); ins.set_xlim(0, 1); ins.set_ylim(-0.5, 0.5); ins.axis('off')
+    ax.text(0.006, ya, r'$\kappa^2$', transform=ty, ha='left', va='center', fontsize=FS)
+    ax.text(0.06, ya - 0.75, f'shift {sh:.0%}', transform=ty, ha='left', va='center', fontsize=FS, color=OI['red'])
+    ax.text(0.545, ya - 0.75, f'spread {1 - sh:.0%}', transform=ty, ha='right', va='center', fontsize=FS, color=OI['orange'])
     return save(fig, 'Fig4'), dict(n_pairs=len(P), n_w2=int(P.W2.notna().sum()), n_same=int(P.same.sum()), kappa=kap, alphaflow_shift_share=sh)
 
 # ---------------- Fig 5 ----------------
@@ -165,9 +171,10 @@ def fig5():
         for tt, v in r['resp'].items():
             if v is not None: ax.scatter(i, v, s=7, color=SCOL[tt], lw=0, zorder=2)
         ax.scatter(i, r['model_dmu'], s=12, marker='D', color='black', lw=0, zorder=3)
-    ax.set_yscale('symlog', linthresh=1e-3, linscale=0.3); ax.set_xlim(-1, len(rows))
+    ax.set_yscale('symlog', linthresh=1e-3, linscale=0.3, subs=np.arange(2, 10)); ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_xlim(-1, len(rows))   # unlabelled minor ticks at 2–9 × 10^k
     ax.set_xticks([]); ax.set_xlabel(f'{len(rows)} held-out domains, ordered by model error'); ax.set_ylabel(r'$\Delta\mu^2_{2,D}$' + ' (mean shift per bond)')
     ax.axhline(0, color='black', lw=0.4)
+    ax.set_ylim(min(ax.get_ylim()[0], -1e-2), None)   # lower limit at −10⁻² (or lower if the data are) so the negative side has a labelled decade like the positive side
     hs = [Line2D([], [], marker='D', ls='', color='black', ms=4, label='aSAMt error at 320 K')] + [Line2D([], [], marker='o', ls='', color=SCOL[tt], ms=4, label=f'MD heating {STEP[tt]}') for tt in SCOL]
     ax.legend(handles=hs, frameon=False, loc='upper center', ncol=3, bbox_to_anchor=(0.5, -0.09), columnspacing=1.2, handletextpad=0.2)
     ax = fig.add_subplot(gs[1]); panel(ax, 'B', x=-0.38); out = {}
@@ -227,7 +234,7 @@ def fig7():
         ax.text(1.03, yi, f'{e:.3f} [{lo:.3f}, {hi:.3f}]'.replace('-', '−'), va='center', fontsize=FS, transform=ax.get_yaxis_transform())
     ax.axvline(0, color='black', lw=0.5); ax.set_yticks(y); ax.set_yticklabels([i[0] for i in items]); ax.set_xlim(-0.1, 0.46); ax.set_ylim(-0.6, len(items) - 0.4)
     ax.set_xlabel('partial Spearman correlation of profile similarity ' + r'$r_{\rm dyn}$' + '\nwith sequence identity')
-    for yy in (11.5, 9.5, 6.5): ax.axhline(yy, color=OI['grey'], lw=0.4, ls=':')
+    for yy in (11.5, 9.5, 6.5, 0.5): ax.axhline(yy, color=OI['grey'], lw=0.4, ls=':')   # 0.5 separates the bond-direction row from the other-correspondence group
     ax.legend(handles=[Patch(color=col['first'], label='first homolog study (shorter domains)'), Patch(color=col['main'], label='confirmatory set'),
                        Patch(color=col['rob'], label='confirmatory set, further controls'), Patch(color=col['corr'], label='confirmatory set, other correspondences')],
               frameon=False, loc='upper center', bbox_to_anchor=(0.2, -0.2), ncol=2, columnspacing=1.5)
