@@ -62,10 +62,11 @@ Remaining before submission:
 
 1. Zenodo archives a GitHub release only for a public repository that was switched on in Zenodo (log in to
    Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
-   repositories are made public, switch both on and publish a GitHub release of each from its latest `main`:
-   framedchain-paper `v1.3.1` (the version already in `CITATION.cff`, the README and the manuscript reference;
-   `main` changed after `v1.3.0`) and framedchain `v0.4.2` (0.4.1 with a chain-break flag and documentation; no computation changed). Zenodo mints a
-   DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
+   repositories are made public, switch both on and publish a GitHub release of each:
+   framedchain-paper `v1.3.1` from its latest `main` (the version already in `CITATION.cff`, the README and the
+   manuscript reference; `main` changed after `v1.3.0`) and framedchain from its existing tag `v0.4.2` (0.4.1 with a
+   chain-break flag and documentation; no computation changed; the package `main` has later documentation-only
+   changes, which a later release would archive as a new Zenodo version). Zenodo mints a DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
    metadata.
 2. Run `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted; first with `--dry-run` to see
    the size against the Zenodo limit), check `MANIFEST_data.tsv`, and upload the data deposit. ATLAS files
