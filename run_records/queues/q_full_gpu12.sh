@@ -10,4 +10,3 @@ echo G7_DONE >> $L/r38_static.log
 /usr/bin/python3 $C/r38_r10a.py $R ens,stats >> $L/r38_r10a.log 2>&1
 echo R10A_ALL_DONE >> $L/r38_r10a.log
 echo FULL_GPU_DONE >> $L/r38_alphaflow_gen.log
-

@@ -58,7 +58,8 @@ submitted 600 dpi TIFF files come from the same script). The captions are those 
 of 161,700 triples (strongest optimization level for fixed d₀, the next level for length-dependent d₀), for each
 normalization (none, or by the shorter, mean or longer chain), with a fixed d₀ or with d₀ of the normalizing length
 (d₀(L̄) without normalization; S2 Text also gives d₀ of the shorter or longer chain), and each transform (with or
-without a square root), and for 1 − TM-score with TM-align's own alignments (linear form only; —, not computed);
+without a square root), and for 1 − TM-score with TM-align's own alignments, normalized by the shorter or the longer
+chain or averaged over these two scores (linear form only; —, not computed);
 D<sub>TM</sub> and D<sub>TM</sub>/√L̄ with fixed d₀ are metrics. (B) Chaining under average linkage: under 1 − TM-score
 normalized by the shorter chain, a fragment is at distance zero from any chain containing it and different folds are
 merged (100%); D<sub>TM</sub>/√L̄ with one fixed d₀ per chain does so less often (15%; also 15% with d₀(L̄) of each

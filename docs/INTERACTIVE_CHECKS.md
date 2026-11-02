@@ -1180,11 +1180,11 @@ the decision file (12:57:36), showed that two-sided 95% intervals contained the 
 upper bound alone lay above it in 26–71%, whereas the one-sided lower bound used for the decision lay below it in all
 runs. The two-sided coverage is part `sim` of `code/r38_p1.py` (run 12:44:58–12:48:32 UTC; `results/r38_p1_sim.json`,
 column `coverage`); the checksum of `r38_p1.py` entered the first record at 04:58:59 UTC (entry
-`round36_p1_code_2026-10-20`), and the script holds the rule that a coverage below 0.90 for θ < 413 K requires the
+`round36_p1_code_2026-10-20`, stamp 04:58:52), and the script holds the rule that a coverage below 0.90 for θ < 413 K requires the
 interval method to be changed before the decision. The same estimator simulation and rule were in the first record
 before that, as a row of the freeze checklist in `round36_partial_freeze_7b7c` (19 October 14:56:51 UTC: "P1 estimator
 simulation: bias and coverage; below 0.90, change the interval method; bias only described", translated from Korean), and
-`round36_p1_code_2026-10-20` (04:58:52) fixed the order: the simulation first, its coverage entered in the checklist,
+the same entry fixed the order: the simulation first, its coverage entered in the checklist,
 then the decision. The one-sided coverages and a simulation of condition 2 were run by
 two short scripts that the cells below wrote to `/content` and started in the background, `/content/p1_sim2.py` and
 `/content/p1_sim3.py` (not kept as files; their full text is in the first two cells). Both load the deposited

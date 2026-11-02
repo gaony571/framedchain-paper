@@ -2,7 +2,7 @@
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
 55cb3ffe42fc617bc3f6e5533727656d *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-eb63dedfdbc52d39f94e14bfe12c4a2b *README.md
+39a795c56fbad3de91590c5cf67c8250 *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -129,10 +129,10 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 4e5e398d0d59be9f759af402c70e0e1a *code/r49_chainbreak.py
 363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
 2134b09e8f0bcfdb1cab980aeb1c07c9 *code/sippl_identity_check.py
-2a6f28d4ecfdb72242b6e80e27a06287 *docs/DATA.md
-8e701fa5b812303b545f9c841eaec12c *docs/INTERACTIVE_CHECKS.md
-024110bbf966868890882cf9f2dfd1ce *docs/PROVENANCE.md
-b84118a81cd12e08ae9ce389a7c4dfad *docs/RESULTS_MAP.md
+4cec290e23ba8e524ba340b2e1f20174 *docs/DATA.md
+2e681b26c1649499e8268ca074b4c345 *docs/INTERACTIVE_CHECKS.md
+163333f24f941d170e5a55636205667c *docs/PROVENANCE.md
+6563838858ffba6f6ecc1dc44079a918 *docs/RESULTS_MAP.md
 d1807a05cb3224b6d8f6d36bd34dc6be *docs/SCRIPTS.md
 d67e7c280383c6a1b11c0737a41f7660 *docs/STATEMENTS.md
 89f956cde72858aadbafd0d91c7c1192 *environment/README.md
@@ -194,7 +194,7 @@ f4fae98ae64fea89ab6fca63578927aa *registration/prereg_2026-10-31_addendum12_fix1
 ab6ed598d287f688b1205816f6ec7431 *run_records/queues/q_b6_cpu.sh
 a83e8fd847115e5c4338d26eed3ee592 *run_records/queues/q_c_cpu.sh
 5dfe38f138ea1f8f221cc3e568155af4 *run_records/queues/q_full_gpu10.sh
-c4c61cf280f906821c69b7e7e36bf7af *run_records/queues/q_full_gpu12.sh
+08d02727207e26b7ad4e89e7953aac69 *run_records/queues/q_full_gpu12.sh
 ccc8247223c973479a9eab26bf93fe9d *run_records/queues/q_full_gpu13.sh
 84367c203520890f48c111d4150439a7 *run_records/queues/q_full_gpu14.sh
 d1c6079e97024d7a24eaf8ee8ba2f8e4 *run_records/queues/q_full_gpu6.sh
