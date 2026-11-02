@@ -52,7 +52,7 @@ def fig2():
     tm = [rate('TMalign', nm, 'lin') * 100 for nm in ('short', 'avg', 'long')]
     fig = plt.figure(figsize=(7.5, 3.6))
     ax = axin(fig, 1.6, 0.45, 1.25, 2.6); panel(ax, 'A', x=-1.22, y=1.13)
-    labs = [r[0] for r in rows] + ['TM-align, shorter chain', 'TM-align, mean length', 'TM-align, longer chain']
+    labs = [r[0] for r in rows] + ['TM-align, shorter chain', 'TM-align, mean of both', 'TM-align, longer chain']
     Z = np.vstack([M, np.c_[np.full(3, np.nan), tm]])
     from matplotlib.colors import LogNorm
     show = np.where(Z > 0, Z, np.nan)

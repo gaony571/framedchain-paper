@@ -51,7 +51,7 @@ def s3():
         rows.append({'Part': 'Alignment accuracy (confirmatory set, 4,152 pairs)', 'Analysis': lab, 'C-1': eci(P[f'{key}_C1']), 'C-2': eci(P[f'{key}_C2'])})
     for key, lab in [('cpl_ident_prec0', 'Partial correlation of precision (exact) with identity'), ('cpl_rdyn_prec0', 'Partial correlation of precision (exact) with r_dyn'),
                      ('cpl_ident_prec2', 'Partial correlation of precision (two bonds) with identity'), ('cpl_rdyn_prec2', 'Partial correlation of precision (two bonds) with r_dyn')]:
-        rows.append({'Part': 'Alignment accuracy (confirmatory set, 4,152 pairs)', 'Analysis': lab + ' (structural control)', 'C-1': eci(E[key])})
+        rows.append({'Part': 'Alignment accuracy (confirmatory set, 4,152 pairs)', 'Analysis': lab + ' (structural and network-model controls)', 'C-2': eci(E[key])})   # both controls, as in C-2 (r46_align_fix1.py: Z2 = control, r_anm)
     sets = b['sets']; nsf = b['n_sf']; B = b['est']
     lab48 = [('full', f"All pairs ({sets['full']:,} pairs, {nsf['full']} superfamilies)"), ('S15', f"Identity below 15% ({sets['S15']:,} pairs, {nsf['S15']} superfamilies)"),
              ('SFbase', f"All pairs of the {nsf['S15']} superfamilies with a pair below 15% ({sets['SFbase']:,} pairs)"), ('S10', f"Identity below 10% ({sets['S10']:,} pairs)"),
