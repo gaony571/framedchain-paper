@@ -91,7 +91,7 @@ def fig3():
     lab = ['+28 K', '+59 K', '+93 K', '+130 K']; T = ['348', '379', '413', '450']; vals = []
     for i, (l, tt) in enumerate(zip(lab, T)):
         e, lo, hi = ci(E0['cells'][f'온도 {l}|줄기|half']['d2n']); vals.append((e, lo, hi))
-        ax.errorbar(i, e, yerr=[[e - lo], [hi - e]], fmt='o', color=SCOL[tt], ms=4, capsize=2, elinewidth=0.8)
+        ax.errorbar(i, e, yerr=[[e - lo], [hi - e]], fmt='o', color=SCOL[tt], ms=3, capsize=2, elinewidth=0.8)   # ms 3: the lower bar end of +28 K shows outside the marker
     b = E2['R0_band_half']['band']; ax.axhspan(b[0], b[1], color=OI['grey'], alpha=0.3, lw=0); ax.axhline(0, color='black', lw=0.4)
     ax.text(3.45, b[1] + 0.001, 'replicate-only\nband', fontsize=FS, ha='right', va='bottom', color='#555555')
     ax.set_xticks(range(4)); ax.set_xticklabels(lab); ax.set_xlabel('heating from 320 K'); ax.set_ylabel(r'$\Delta^2_D/\sqrt{\bar n}$' + ' (superfamily median)'); ax.set_xlim(-0.5, 3.5)
@@ -244,7 +244,7 @@ def fig7():
 # ---------------- S1 Fig ----------------
 def s1fig():
     adv = J('r41_synth_adv.json')['generators']
-    fams = [('i', 'ℓ2 terms,\ngap cost ' + r'$\Vert a\Vert$'), ('ii', 'ℓ1 terms (ERP),\ngap cost ' + r'$\Vert a\Vert$'), ('iii', 'planar curves\nmod SO(2),\ngap cost ' + r'$\Vert a\Vert$'), ('iv', 'gap cost ' + r'$2\Vert a\Vert$' + '\n(not 1-Lipschitz)'), ('v', 'dynamic time\nwarping')]
+    fams = [('i', 'ℓ$_2$ terms,\ngap cost ' + r'$\Vert a\Vert$'), ('ii', 'ℓ$_1$ terms (ERP),\ngap cost ' + r'$\Vert a\Vert$'), ('iii', 'planar curves\nmod SO(2),\ngap cost ' + r'$\Vert a\Vert$'), ('iv', 'gap cost ' + r'$2\Vert a\Vert$' + '\n(not 1-Lipschitz)'), ('v', 'dynamic time\nwarping')]
     fig, ax = plt.subplots(figsize=(7.5, 3.2)); fig.subplots_adjust(left=0.08, right=0.99, bottom=0.23, top=0.97); x = np.arange(len(fams)); w = 0.38; out = {}
     for k, (gname, col, lab) in enumerate([('A', OI['blue'], 'A: shrinking and deleting terms'), ('B', OI['orange'], 'B: stretching')]):
         v = []

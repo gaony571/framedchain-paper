@@ -153,7 +153,7 @@ computed (manuscript, Methods).
 ## Figures and tables
 
 The figure and table scripts read stored results only and recompute nothing. On Colab, all eight figures were last
-drawn together on 2026-11-02 at 06:07 UTC, the S1 Table on 2026-11-02 at 09:40 UTC, the S3 Table at 06:07 UTC and the S2 Table on
+drawn together on 2026-11-02 at 17:07 UTC, the S1 Table on 2026-11-02 at 17:07 UTC, the S3 Table at 06:07 UTC and the S2 Table on
 2026-11-01 at 18:29 UTC (written again with the same content on 2026-11-02 at 06:07 UTC; times of the files on Colab; earlier runs are listed in `docs/PROVENANCE.md`); the scripts
 write to `manuscript_figs/` under the project path set at the top of each file.
 
