@@ -133,7 +133,7 @@ with sequence identity: the pre-specified first test, the same estimate with sup
 the confirmatory set with structural control (C-1), with the network-model control as well (C-2), with nonlinear
 controls, C-1 and C-2 with pairs instead of superfamilies weighted equally, C-1 and C-2 with shared bonds from TM-align
 (mean points and medoids) or sequence alignments, and C-2 with bond-direction profiles only, with 95%
-superfamily-cluster bootstrap intervals (first bar: the pre-specified bootstrap that also reweighted domains); open
+superfamily-cluster bootstrap intervals (first row: the pre-specified bootstrap that also reweighted domains); open
 circle, exploratory interval. For C-2 with TM-align on medoids, the lower bound was −0.003 in a second bootstrap with a
 different seed (Table 3).
 *Code:* `r38_p3.py`, `r38_p3_explore2.py`, `r38_c.py`, `r38_c_nl.py`, `r44_pairw.py`, `r45_f1.py`, `r44_corr_v2.py`, `r44_corr2.py`.
@@ -177,8 +177,10 @@ as are the three notebook cells that wrote `results/pu_tm_factorial_B_triangle.t
 `results/r37_size_survival.json` (survival row of Table 2) and `results/r39_E2_aligned_diag.json` (diagnostic of
 the window difference, trajectory-window row of Table 2), and the cells that wrote and ran short scripts for
 `results/r38_p1_sim_onesided.json` and `results/r38_p1_sim_cond2.json` (coverage simulations of the first
-thermophile test, Methods) and for `results/r38_s0_trunc_diag.json` and `results/r38_s0_trunc_exact.json`
-(diagnostics of the truncated-chain check, S2 Text 5).
+thermophile test, Methods), for `results/r38_s0_trunc_diag.json` and `results/r38_s0_trunc_exact.json`
+(diagnostics of the truncated-chain check, S2 Text 5) and for `results/r39_E4_nancheck.json` (the 450 K check of the
+temperature-equivalent gate), the post hoc certification description of S2 Text 1 (499 of 500 pairs) and the
+negative-type computations of S3 Text 2 (sections 13–15).
 
 Reproduction is possible at three levels:
 

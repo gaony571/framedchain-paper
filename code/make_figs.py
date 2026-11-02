@@ -148,7 +148,7 @@ def fig4():
         col = OI['red'] if 'AlphaFlow' in CELL_EN[k] else OI['blue'] if 'Homolog' in CELL_EN[k] or 'insertion' in CELL_EN[k] else OI['black']
         ax.errorbar(e, yi, xerr=[[e - lo], [hi - e]], fmt='o', color=col, ms=3, capsize=1.5, elinewidth=0.7)
     ax.set_yticks(y); ax.set_yticklabels([CELL_EN[k] for k in order], linespacing=0.95); ax.set_xscale('log'); ax.set_xlim(0.05, 3)
-    ax.axvspan(0.5, 2, color=OI['yellow'], alpha=0.25, lw=0); ax.axvline(1, color='black', lw=0.6, ls='--', ymax=(y[0] + 0.6 - (y[-1] - 0.8)) / (y[0] + 1.3 - (y[-1] - 0.8)))   # stops below the 'crossing' label (axes fraction of y[0] + 0.6 in the limits set below)
+    ax.axvspan(0.5, 2, color=OI['yellow'], alpha=0.25, lw=0); ax.axvline(1, color='black', lw=0.6, ls='--', zorder=1, ymax=(y[0] + 0.6 - (y[-1] - 0.8)) / (y[0] + 1.3 - (y[-1] - 0.8)))   # under the markers; stops below the 'crossing' label (axes fraction of y[0] + 0.6 in the limits set below)
     ax.text(0.06, y[0] + 0.9, 'near', fontsize=FS, color='#555555'); ax.text(1, y[0] + 0.9, 'crossing', fontsize=FS, color='#555555', ha='center'); ax.text(2.45, y[0] + 0.9, 'far', fontsize=FS, color='#555555', ha='center')   # 'crossing' centred in its band
     ax.set_xlabel(r'$\kappa = \sqrt{(C/\bar w)^2 - 1}$'); ax.set_ylim(y[-1] - 0.8, y[0] + 1.3)   # same margins as (−0.8, len + 0.3) before, plus the free line
     sp = json.load(open(f'{R}/derived/r44/split.json'))['cells']['7c AlphaFlow 대 MD 320|full']; sh = sp['share_mean']['est']

@@ -9,7 +9,12 @@ files that the paper uses: the violation rates of the factorial comparison behin
 the size and survival audit behind the survival row of Table 2 (section 9) and the diagnostic of the window difference
 behind the trajectory-window row of Table 2 (section 10). Two more groups of cells wrote and ran short scripts whose
 result files the paper cites: the coverage simulations of the first thermophile test (Methods; section 11) and the
-diagnostics of the failed truncated-chain check (S2 Text 5; section 12). The code and printed output
+diagnostics of the failed truncated-chain check (S2 Text 5; section 12). Two further cells, run after a result and
+not specified in advance, are cited in S1 Table: the check of the 450 K version of the temperature conversion without a
+missing value, which wrote a result file (section 13), and the description of the accuracy of the 128-start values after
+the specification error of the certification (S2 Text 1; section 14), later recomputed by `code/r39_sec6.py`. Section 15
+gives the commands and printed output of the negative-type computations of S3 Text 2, run locally with Node.js and
+Python. The code and printed output
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
@@ -867,7 +872,10 @@ trunc triples 34220
 Table 2, survival row (round37 R1): Δ²/√n of heating from 320 K to 348, 379, 413 and 450 K in aligned coordinates, from
 the temperature cells of `code/ladder_temp_single_v2.py` (`derived/ladder_temp_single_v2/<domain>.json`), as superfamily
 medians (bootstrap over superfamilies, 2,000 resamples) over all domains (`full`) and over the 149 domains with at least
-100 folded frames at each of the five temperatures (`restricted`; `n_folded` in `derived/c1_core/<domain>.json`); the
+100 folded frames, pooled over the replicates, at each of the five temperatures (`restricted`; `n_folded` in
+`derived/c1_core/<domain>.json`, the folded frames of all replicates of a temperature); in both versions each cell
+uses the replicates with at least 40 folded frames (`code/ladder_temp_single_v2.py`), which is the "at least 40 folded
+frames per replicate" of Table 2; the
 same cell gives the medians by quartile of the number of bonds (`R1_size`). `cath` maps each CATH domain to its
 superfamily label and length (from `raw/cath/cath-domain-list.txt`; defined in an earlier cell of the same runtime).
 The survival ratios of Table 2 are `ratio` at 379, 413 and 348 K (1.045, 0.946 and 1.586), and the `full` medians are
@@ -1187,10 +1195,12 @@ pairs at that θ (`sd` 0) or with a spread of 15 K between pairs (`sd` 15), the 
 lay at or below θ (`lower_cov`) and whose upper bound lay at or above it (`upper_cov`). `p1_sim3.py` wrote
 `results/r38_p1_sim_cond2.json`: the share of runs in which the lower bound of condition 2 exceeded zero
 (`frac_lo_gt_0`; `version` 짝지은 판, "paired version"), a false-positive rate when thermophile–mesophile and control
-pairs share θ (320 or 350 K) and a power when they differ by 15 or 30 K. No record names these two scripts before they
-were run, but both carry out the pre-specified estimator simulation and its rule: the two-sided coverage had fallen
-below 0.90, the one-sided coverages chose the changed interval method (a one-sided 97.5% lower bound), and the
-condition-2 simulation checked the other condition of the same test before the decision file was read. The cell run at 12:57:23 entered both summaries, with that of the two-sided simulation, in the entry
+pairs share θ (320 or 350 K) and a power when they differ by 15 or 30 K. No record names these two scripts before they were run. The one-sided coverages carry out the pre-specified rule: the
+two-sided coverage had fallen below 0.90, and they chose the changed interval method (a one-sided 97.5% lower bound).
+The condition-2 simulation was not specified in advance: the estimator simulation of the records covers the bias and
+coverage of θ* (condition 1; part `sim` of `r38_p1.py` simulates the thermophile summaries only), whereas `p1_sim3.py`
+estimates the false-positive rate and power of condition 2 and applies no coverage rule; its results were entered in the
+record before the decision file was read. The cell run at 12:57:23 entered both summaries, with that of the two-sided simulation, in the entry
 `round36_p1_checklist_2026-10-20` of the first record (`sim_onesided`, and `sim_cond2` with the placeholder 돌리는 중,
 "running", because the condition-2 file did not yet exist when the cell looked for it); the cell run at 12:57:59
 replaced the placeholder with the condition-2 rows (`sim_cond2_added_utc`, 12:58:00 by the Colab clock). S1 Table flags this entry:
@@ -1391,9 +1401,10 @@ cells). Both load the deposited `code/r38_s0.py` up to its stage list (`ALL = ['
 (`dom_runs`, `coords`, `MeanStart`, `upairs`, `red_pairs`, `seeded`; `CUT` = 10 removed bonds), for 1ileA03, 2l23A00,
 1ffsB00 and 3r1kA02. `s0_trunc_diag.py` compares 300 frame pairs between replicates 0 and 1, full against full (`ff`)
 and full against truncated (`ft`), aligned from the mean-point start with the full dynamic program, and wrote
-`results/r38_s0_trunc_diag.json`. In its output, `ff_cut_unmatched_frac_x` is the share of the squared norm of the
-removed segment left unmatched between two full frames (0.435 and 0.337 in 1ileA03 and 2l23A00, the "44% and 34%" of
-S2 Text, and 0.015 in 1ffsB00), and `frac_x_cut_edges_matched` under `ft` is the share of the removed segment's bonds
+`results/r38_s0_trunc_diag.json`. In its output, one minus `frac_x_cut_edges_matched` under `ff` is the share of the
+removed segment's bonds left unmatched between two full frames (0.435 and 0.338 in 1ileA03 and 2l23A00, the "43% and
+34%" of S2 Text, and 0.015 in 1ffsB00; `ff_cut_unmatched_frac_x`, the same share of the squared norm, is 0.435, 0.337
+and 0.015), and `frac_x_cut_edges_matched` under `ft` is the share of the removed segment's bonds
 paired with other bonds of the truncated chain (0.325, 0.085 and 0.003, the "33% and 8%" and "0.3%").
 `s0_trunc_exact.py` compares each frame with its own truncation, by the reduced computation and by the 128-start full
 computation, against 0.75 Σ s² of the removed bonds; its first run, on 40 frames, stopped at the cell's 300 s time
@@ -1530,4 +1541,377 @@ EXACT_DONE
 568
   16098    02:28:03 bash /content/q_full_gpu2.sh
   44493       46:32 /usr/bin/python3 /content/drive/MyDrive/atlas_framed_curves/code/r38_s0.py /content/drive/MyDrive/at
+```
+
+## 13. The 450 K version of the temperature conversion without a missing value (21 October 2026)
+
+Results (calibration) and S1 Table: the 450 K version of the temperature conversion (E4) is among the pre-specified
+predictions of the calibration that were not met. It compares the mean absolute error (MAE) of the domains with a 450 K
+step with 1.5 times the MAE at 413 K of the same domains. Part `e4` of `code/r39_core.py` computed the latter with
+`np.mean`, so over second halves the missing value of a domain whose fitted amplitude was not positive made it missing
+(`MAE_413_same_set` `nan` in `results/r39_E4.json`, first cell below), and the 450 K version was marked as not met
+without a comparison. The second cell checks that the 31 domains of the 450 K version (72 over whole trajectories) are
+all among those of the 413 K version and that the stored rows do not keep the per-domain errors (`'ae' in r413` is
+`False`), so the comparison could not be redone from the stored file. Not specified in advance: the third cell wrote a
+copy of the deposited `r39_core.py` (md5 `04e57acc…`) up to its `__main__` block, with that one `np.mean` replaced by
+`np.nanmean`, the output file renamed `results/r39_E4_nancheck.json` and the end marker renamed, to
+`/content/r39_e4_nancheck.py` (not kept; the first output line gives the number of occurrences of the two replaced
+strings, 1 and 1, as in the deposited file), followed by a call of `part_e4()`, and ran it. Without the missing value,
+the 413 K MAE of the same domains was 41.3 K over second halves (29.3 K over whole trajectories, unchanged), against a
+450 K MAE of 118.7 K (114.9 K), so the 450 K version was not met in either window and the last reliable point stayed
++93 K. The same day (12:44 UTC, session log) the check was entered in the transparency table of the
+pre-specification document; no record entry names it. In these cells `R` is the project root, `C = R + '/code'`,
+`J(name)` reads `results/<name>.json` and `sh(c)` runs a shell command; times printed inside the output come from the
+Colab clock. In the first output, `K̂_sf` is the superfamily-median temperature equivalent with its interval, 편향 the
+bias, `MAE` the domain MAE, 90%폭 the width of the 90% range of domain errors, 0이하 the share of domains with a
+non-positive value, 외삽 the share extrapolated, 평평 the share on a flat curve and 나눔SD the SD between splits.
+
+Cell `HpplqbJChcyO`, run requested 2026-10-21 12:37:08, output returned 12:37:08 UTC.
+
+```python
+e4 = J('r39_E4'); print(e4['checks'])
+for W in ('half', 'full'):
+    print(W, {k: (v if not isinstance(v, dict) else {a: round(b, 1) if isinstance(b, float) else b for a, b in v.items()}) for k, v in e4['verdict'][W].items()})
+    for r in e4['rows']:
+        if r['window'] == W and r['curve'] == '모양×진폭':
+            print('   ', r['T'], 'K', r['K'], 'n', r['n_dom'], r['n_sf'], 'K̂_sf', r['K_sf'], '편향', round(r['bias'], 1), 'MAE', round(r['dom_MAE'], 1), '90%폭', round(r['dom_err_90w'], 1) if r['dom_err_90w'] else None, '0이하', round(r['frac_zero'] or 0, 2), '외삽', round(r['frac_extrap'] or 0, 2), '평평', round(r['frac_flat'] or 0, 2), '나눔SD', round(r['split_sd'] or 0, 1))
+sc = J('r39_sec6') if os.path.exists(f'{R}/results/r39_sec6.json') else None; print(sh(f"ls {R}/results | grep -i sec6"))
+```
+
+Output:
+
+```
+{'subset_all_equals_cell|half': 0.0, 'subset_all_equals_cell|full': 0.0}
+half {'MAE_379_413': {'모양×진폭': 45.8, '선형 보간': 61.5, '모집단': 56.1}, 'main_curve': '모양×진폭', 'replaced': False, 'gate_le10K': {'379': False, '413': True}, 'gate_pass': False, 'pass_450': False, 'MAE_413_same_set': nan, 'last_trusted': '+93', 'pred_order': False}
+    348 K 28 n 205 55 K̂_sf {'est': 18.107003997355243, 'ci95': [13.122597019779391, 29.820719989139103]} 편향 -9.9 MAE 31.5 90%폭 113.9 0이하 0.38 외삽 0.03 평평 0 나눔SD 19.8
+    379 K 59 n 185 52 K̂_sf {'est': 46.23915059457419, 'ci95': [35.43057652149916, 53.31541799949837]} 편향 -12.8 MAE 37.0 90%폭 133.7 0이하 0.12 외삽 0.05 평평 0 나눔SD 17.8
+    413 K 93 n 90 38 K̂_sf {'est': 88.36039583018639, 'ci95': [71.83363875066077, 99.0826684486648]} 편향 -4.6 MAE 54.6 90%폭 141.3 0이하 0.02 외삽 0.17 평평 0 나눔SD 17.4
+    450 K 130 n 31 20 K̂_sf {'est': 124.73712953958031, 'ci95': [97.6765402106939, 167.89394184113704]} 편향 -5.3 MAE 118.7 90%폭 546.6 0이하 0 외삽 0.7 평평 0 나눔SD 25.2
+full {'MAE_379_413': {'모양×진폭': 41.7, '선형 보간': 48.9, '모집단': 48.8}, 'main_curve': '모양×진폭', 'replaced': False, 'gate_le10K': {'379': True, '413': True}, 'gate_pass': True, 'pass_450': False, 'MAE_413_same_set': 29.3360069477329, 'last_trusted': '+93', 'pred_order': False}
+    348 K 28 n 262 62 K̂_sf {'est': 17.18134323226584, 'ci95': [12.765231509275136, 25.441141053668478]} 편향 -10.8 MAE 29.8 90%폭 66.1 0이하 0.33 외삽 0.02 평평 0 나눔SD 18.9
+    379 K 59 n 244 58 K̂_sf {'est': 56.00096733809558, 'ci95': [48.31333021920029, 61.393768078647724]} 편향 -3.0 MAE 46.1 90%폭 123.1 0이하 0.07 외삽 0.05 평평 0 나눔SD 23.9
+    413 K 93 n 173 51 K̂_sf {'est': 85.3279836047711, 'ci95': [78.67082654177088, 99.99201784981929]} 편향 -7.7 MAE 37.2 90%폭 141.3 0이하 0.01 외삽 0.16 평평 0 나눔SD 14.6
+    450 K 130 n 72 34 K̂_sf {'est': 120.69139122904228, 'ci95': [112.56903632317227, 146.3795841367003]} 편향 -9.3 MAE 114.9 90%폭 296.4 0이하 0 외삽 0.82 평평 0 나눔SD 60.8
+r39_sec6.json
+```
+
+Cell `HpplqbJChcyO`, run requested 12:37:24, output returned 12:37:25 UTC.
+
+```python
+for W in ('half', 'full'):
+    r450 = next(r for r in e4['rows'] if r['window'] == W and r['T'] == '450' and r['curve'] == '모양×진폭'); r413 = next(r for r in e4['rows'] if r['window'] == W and r['T'] == '413' and r['curve'] == '모양×진폭')
+    print(W, len(r450['doms']), len(r413['doms']), len(set(r450['doms']) & set(r413['doms'])), 'ae' in r413)
+```
+
+Output (window, number of domains of the 450 K and 413 K versions, number shared, whether the stored 413 K row keeps the per-domain errors):
+
+```
+half 31 90 31 False
+full 72 173 72 False
+```
+
+Cell `HpplqbJChcyO`, run requested 12:37:44, output returned 12:37:48 UTC.
+
+```python
+src = open(f'{C}/r39_core.py').read(); a = "m413 = np.mean([a for d, a in zip(r413['doms'], r413['ae']) if d in s450])"
+print(src.count(a), src.count("RES + '/r39_E4.json'"))
+chk = src[:src.index("\nif __name__ == '__main__':")].replace(a, a.replace('np.mean(', 'np.nanmean(')).replace("RES + '/r39_E4.json'", "RES + '/r39_E4_nancheck.json'").replace("log('R39_E4_DONE')", "log('R39_E4_NANCHECK_DONE')")
+open('/content/r39_e4_nancheck.py', 'w').write(chk + "\npart_e4()\n")
+r = subprocess.run(f"cd /content && CUDA_VISIBLE_DEVICES= python3 /content/r39_e4_nancheck.py {R} none 2>&1 | grep -v Warning | tail -2 | cut -c1-600", shell=True, capture_output=True, text=True); print(r.stdout)
+v = json.load(open(f'{R}/results/r39_E4_nancheck.json'))['verdict']; print({W: (round(v[W]['MAE_413_same_set'], 1), v[W]['pass_450'], v[W]['last_trusted']) for W in v})
+```
+
+Output (the last line gives, per window, the 413 K MAE of the same domains, whether the 450 K version passed and the last reliable point):
+
+```
+1 1
+12:37:49 R39_E4 {'half': {'MAE_379_413': {'모양×진폭': np.float64(45.81292734841799), '선형 보간': np.float64(61.527850748759874), '모집단': np.float64(56.07625252154164)}, 'main_curve': '모양×진폭', 'replaced': False, 'gate_le10K': {'379': False, '413': True}, 'gate_pass': False, 'pass_450': False, 'MAE_413_same_set': 41.346274551440565, 'last_trusted': '+93', 'pred_order': False}, 'full': {'MAE_379_413': {'모양×진폭': np.float64(41.67037249202508), '선형 보간': np.float64(48.86740875670304), '모집단': np.float64(48.78136981335953)}, 'main_curve': '모양×진폭'
+12:37:49 R39_E4_NANCHECK_DONE
+
+{'half': (41.3, False, '+93'), 'full': (29.3, False, '+93')}
+```
+
+## 14. Accuracy of the 128-start values after the specification error of the certification (20 October 2026)
+
+S2 Text 1: the second prediction of the certification was specified (record entry `round36_sec6_2026-10-20`, on Drive
+at 17:34:46 UTC) as (S_ub − S_heur)/S_ub ≤ 0.002 in at least 95% of pairs, S_ub being the certified upper bound and
+S_heur the 128-start value. After the result of the static comparison (`results/r38_static.json`, written 18:56:22),
+the first cell below read it and the per-pair file `derived/r38/static/bnb.jsonl` (500 pairs): all were certified within
+60 s, and the specified quantity was at most 0.002 in none. The second cell counted the pairs in which branch-and-bound
+found a better alignment than the 128 starts (35) and the relative difference in d this shows (at most 0.0036, the
+0.36% of S2 Text 1). A cell that printed the head of `framespace_pkg/framespace/certify.py`, where the tolerance is
+rel_tol × 0.75 × max(n, m) and S_ub is the best value found plus the tolerance, is left out. Not specified in advance:
+the third cell measured the 128-start value against the best value found, (S_lb − S_heur)/(0.75 max(n, m)) ≤ 0.002,
+which held in 499 of 500 pairs (largest shortfall 0.0032 in that unit), and confirmed that S_ub − S_lb equals the
+tolerance (0.005 in that unit), so the specified criterion could not hold. The fourth cell added this description to
+`code/r39_sec6.py` through the helper `patch` (defined earlier in the runtime: it writes the patched script to Drive
+and prints whether its md5 matches the one computed in the cell; 일치, "match") and entered the finding and the change
+as `fix1` of the record entry `round36_sec6_2026-10-20` (stamp 19:06:04, on Drive at 19:06:13). Part `stats` of the
+patched `r39_sec6.py` (md5 `1b11b675…`, the deposited file) recomputed the description on 21 October
+(`bnb_posthoc` in `results/r39_sec6.json`: 0.998, largest shortfall 0.0032, 35 pairs). In these cells `R` is the project
+root, `PJ` the path of the first record and `sh(c)` runs a shell command; `json`, `hashlib`, `datetime` and `np` were
+imported earlier. In the output, 인증 is certified, 유사도 틈 the specified relative gap, 휴리스틱 the heuristic,
+하한 the lower bound and 출처별 by source (H, pairs from the homolog pool; O, other pairs).
+
+Cell `H_XE91IsBAsy`, run requested 2026-10-20 19:04:49, output returned 19:04:50 UTC.
+
+```python
+js = json.load(open(f'{R}/results/r38_static.json')); print({k: js[k] for k in ('written', 'n_H', 'n_O', 'n_O_registered')}); print(json.dumps(js['bnb'], ensure_ascii=False))
+for k, v in js['by_level_TM'].items(): print(k, v)
+bn = [json.loads(l) for l in open(f'{R}/derived/r38/static/bnb.jsonl')]; ok = [r for r in bn if 'err' not in r]
+gap = np.array([(r['S_ub'] - r['S_heur']) / r['S_ub'] for r in ok]); sec = np.array([r['sec'] for r in ok]); rel = np.array([r['rel_err_ub'] for r in ok])
+print('인증', sum(r['certified'] for r in ok), '/', len(ok), '| ≤60 s 인증', sum(r['certified'] and r['sec'] <= 60 for r in ok), '| 유사도 틈 ≤ 0.002', int((gap <= 0.002).sum()), '중앙', np.median(gap), '최대', gap.max(), '| sec 중앙', np.median(sec), '90%', np.percentile(sec, 90), '최대', sec.max())
+print('휴리스틱 > 하한(S_heur ≥ S_lb):', sum(r['S_heur'] >= r['S_lb'] - 1e-9 for r in ok), '| BnB 가 휴리스틱보다 높은 유사도를 찾음(S_lb > S_heur + 1e-6):', sum(r['S_lb'] > r['S_heur'] + 1e-6 for r in ok), '| rel_err_ub 95%', np.percentile(rel, 95))
+print(sh(f"ls {R}/results/_backup/2026-10-20 | grep static"))
+```
+
+Output:
+
+```
+{'written': '2026-10-20 18:56:22', 'n_H': 12003, 'n_O': 4140, 'n_O_registered': 6000}
+{"n": 500, "n_err": 0, "n_certified": 500, "rel_err_ub_median": 0.006914233722314057, "rel_err_ub_p95": 0.010296609910040121, "rel_err_ub_max": 0.02352063861786593, "err_ub_max": 0.09098470963927063, "n_heur_below_lb": 35, "by_src": {"H": {"n": 379, "rel_err_ub_max": 0.02352063861786593}, "O": {"n": 121, "rel_err_ub_max": 0.009408713326138376}}}
+H|0.2-0.3 {'n': 25, 'median_D2n': 6.378639427013441, 'q25': 5.503906369920392, 'q75': 6.839560659939331}
+H|0.3-0.4 {'n': 486, 'median_D2n': 6.505244909011598, 'q25': 5.777509511775944, 'q75': 7.39404595723551}
+H|0.4-0.5 {'n': 2464, 'median_D2n': 6.288428953007781, 'q25': 5.488205599129112, 'q75': 6.973841661302108}
+H|0.5-0.6 {'n': 4632, 'median_D2n': 5.590587812662261, 'q25': 4.910151104069522, 'q75': 6.239672034223425}
+H|0.6-0.7 {'n': 3133, 'median_D2n': 4.823864719573307, 'q25': 4.1277533028219215, 'q75': 5.441764233976805}
+H|0.7-0.8 {'n': 1109, 'median_D2n': 4.147222318621939, 'q25': 3.4690663888563615, 'q75': 4.974075858664795}
+H|0.8-1.01 {'n': 154, 'median_D2n': 3.504603001587057, 'q25': 2.5768646790221217, 'q75': 4.287050320839409}
+T|0-0.2 {'n': 4, 'median_D2n': 6.695594829790144, 'q25': 6.614043440962289, 'q75': 8.366158651414445}
+T|0.2-0.3 {'n': 200, 'median_D2n': 7.40071144048486, 'q25': 6.762739514005833, 'q75': 7.971308762186957}
+T|0.3-0.4 {'n': 512, 'median_D2n': 6.72019870366984, 'q25': 5.889493648368024, 'q75': 7.443692799063938}
+T|0.4-0.5 {'n': 331, 'median_D2n': 5.947636309525806, 'q25': 5.123008629606039, 'q75': 6.744014488903183}
+T|0.5-0.6 {'n': 76, 'median_D2n': 4.961284494705178, 'q25': 4.134162021691082, 'q75': 5.63084329901723}
+T|0.6-0.7 {'n': 4, 'median_D2n': 4.7131626951998005, 'q25': 4.508588653780282, 'q75': 4.85297266489973}
+A|0-0.2 {'n': 47, 'median_D2n': 8.572922197900182, 'q25': 8.01604794101806, 'q75': 9.014888713688684}
+A|0.2-0.3 {'n': 502, 'median_D2n': 7.283553878543293, 'q25': 6.659039140717017, 'q75': 8.016710581729201}
+A|0.3-0.4 {'n': 354, 'median_D2n': 6.608382155560986, 'q25': 5.809782035311036, 'q75': 7.591764935397661}
+A|0.4-0.5 {'n': 41, 'median_D2n': 5.633356497411857, 'q25': 4.880229933885636, 'q75': 6.076350946566754}
+A|0.5-0.6 {'n': 1, 'median_D2n': 3.8382887363604246, 'q25': 3.8382887363604246, 'q75': 3.8382887363604246}
+C|0-0.2 {'n': 87, 'median_D2n': 8.64789666840621, 'q25': 8.163854323849204, 'q75': 9.296399306698948}
+C|0.2-0.3 {'n': 782, 'median_D2n': 7.672491470049747, 'q25': 6.910683720558244, 'q75': 8.308310519987831}
+C|0.3-0.4 {'n': 220, 'median_D2n': 6.9446158111397835, 'q25': 6.101141711170594, 'q75': 7.814059046095469}
+C|0.4-0.5 {'n': 14, 'median_D2n': 6.254558059298889, 'q25': 5.415721808135067, 'q75': 7.2426849719964395}
+X|0-0.2 {'n': 99, 'median_D2n': 8.923061544660964, 'q25': 8.331160899585848, 'q75': 9.503848235608517}
+X|0.2-0.3 {'n': 714, 'median_D2n': 7.877417555162422, 'q25': 7.169442430444778, 'q75': 8.529675017134112}
+X|0.3-0.4 {'n': 147, 'median_D2n': 7.166634224238272, 'q25': 6.373061812865261, 'q75': 7.731323978310967}
+X|0.4-0.5 {'n': 5, 'median_D2n': 6.525692882434912, 'q25': 5.921010709243553, 'q75': 6.699521962317506}
+인증 500 / 500 | ≤60 s 인증 500 | 유사도 틈 ≤ 0.002 0 중앙 0.009152300127484444 최대 0.02455260358086823 | sec 중앙 3.4474289417266846 90% 4.848191738128662 최대 7.1466896533966064
+휴리스틱 > 하한(S_heur ≥ S_lb): 465 | BnB 가 휴리스틱보다 높은 유사도를 찾음(S_lb > S_heur + 1e-6): 35 | rel_err_ub 95% 0.010296609910040121
+185622_r38_static.json
+```
+
+Cell `H_XE91IsBAsy`, run requested 19:05:16, output returned 19:05:16 UTC.
+
+```python
+g_lb = np.array([(r['S_lb'] - r['S_heur']) / r['S_lb'] for r in ok]); bad = g_lb > 1e-9
+Dh = np.array([r['D_heur'] for r in ok]); nx = np.array([r['D_heur'] ** 2 + 2 * r['S_heur'] for r in ok])  # ‖x‖²+‖y‖²
+Dlb = np.sqrt(np.maximum(nx - 2 * np.array([r['S_lb'] for r in ok]), 0)); dD = (Dh - Dlb) / Dh
+print('BnB 가 더 나은 정렬을 찾은 쌍', int(bad.sum()), '| 그 쌍들의 유사도 차 중앙', np.median(g_lb[bad]), '최대', g_lb.max(), '| D 상대 차(보인 오차) 중앙', np.median(dD[bad]), '최대', dD.max(), '| > 0.002 인 쌍', int((g_lb > 0.002).sum()))
+print('출처별 더 나은 정렬', {s: int(sum(1 for r, b in zip(ok, bad) if b and r['src'] == s)) for s in ('H', 'O')}, '| 길이', np.median([max(r['n'], r['m']) for r, b in zip(ok, bad) if b]), '대 전체', np.median([max(r['n'], r['m']) for r in ok]))
+slack = np.array([(r['S_ub'] - r['S_lb']) / r['S_ub'] for r in ok]); print('인증 틈 (S_ub − S_lb)/S_ub 중앙', np.median(slack), '최대', slack.max())
+```
+
+Output:
+
+```
+BnB 가 더 나은 정렬을 찾은 쌍 35 | 그 쌍들의 유사도 차 중앙 0.00014107332171462843 최대 0.007981857891529246 | D 상대 차(보인 오차) 중앙 8.532206978362482e-05 최대 0.0035579760433795374 | > 0.002 인 쌍 4
+출처별 더 나은 정렬 {'H': 18, 'O': 17} | 길이 111.0 대 전체 105.0
+인증 틈 (S_ub − S_lb)/S_ub 중앙 0.009146143777022067 최대 0.018912056296239977
+```
+
+Cell `H_XE91IsBAsy`, run requested 19:05:43, output returned 19:05:44 UTC.
+
+```python
+sl = np.array([(r['S_lb'] - r['S_heur']) / (0.75 * max(r['n'], r['m'])) for r in ok]); tolu = np.array([(r['S_ub'] - r['S_lb']) / (0.75 * max(r['n'], r['m'])) for r in ok])
+print('S_ub − S_lb (sim_long) 중앙', np.median(tolu), '최대', tolu.max(), '| S_lb − S_heur (sim_long): ≤ 0.002 인 쌍', int((sl <= 0.002).sum()), '/', len(sl), '최대', sl.max(), '| > 0 인 쌍', int((sl > 1e-12).sum()))
+print('등록 정의 (S_ub − S_heur)/S_ub ≤ 0.002:', int(((np.array([r['S_ub'] for r in ok]) - np.array([r['S_heur'] for r in ok])) / np.array([r['S_ub'] for r in ok]) <= 0.002).sum()), '/ 500')
+```
+
+Output:
+
+```
+S_ub − S_lb (sim_long) 중앙 0.0049999999999999975 최대 0.005000000000000074 | S_lb − S_heur (sim_long): ≤ 0.002 인 쌍 499 / 500 최대 0.003244454275038441 | > 0 인 쌍 35
+등록 정의 (S_ub − S_heur)/S_ub ≤ 0.002: 0 / 500
+```
+
+Cell `H_XE91IsBAsy`, run requested 19:06:03, output returned 19:06:04 UTC.
+
+```python
+o1 = "    b = out['bnb']; out['prediction'] = dict(cert_ge95=(b['frac_certified_le60s'] or 0) >= 0.95, heur_ge95=(b['frac_sim_gap_le_0p002'] or 0) >= 0.95)\n"
+n1 = o1 + ("    # (고침 1, 2026-10-20 19:1x UTC, 사후 서술) 등록 정의는 S_ub = S_lb + 허용 폭(0.005 sim_long) 이라 정의상 0.002 안일 수 없다. 같은 단위(sim_long = S / (0.75 × 긴 쪽 변 수))로 BnB 가 찾은 최선값과 휴리스틱의 차를 함께 낸다\n"
+           "    sl = [(r['S_lb'] - r['S_heur']) / (0.75 * max(r['n'], r['m'])) for r in ok]; out['bnb_posthoc'] = dict(frac_heur_within_0p002_simlong_of_S_lb=float(np.mean([g <= 0.002 for g in sl])), max_shortfall_simlong=float(max(sl)),\n"
+           "        n_bnb_better=int(sum(g > 1e-12 for g in sl)), note='사후 서술: 등록 정의(S_ub − S_heur)/S_ub ≤ 0.002 는 S_ub 에 허용 폭 0.005 sim_long 이 늘 더해져 설 수 없음(등록 오류). 판정 값은 그대로 보고')\n")
+s_ = open(f'{R}/code/r39_sec6.py').read(); assert s_.count(o1) == 1; md_ = hashlib.md5(s_.replace(o1, n1).encode()).hexdigest(); patch('r39_sec6.py', [(o1, n1)], md_)
+print(sh(f"/usr/bin/python3 -m py_compile {R}/code/r39_sec6.py && echo 문법 통과"))
+P = json.load(open(PJ)); P['round36_sec6_2026-10-20']['fix1'] = dict(stamped_utc=datetime.datetime.now(datetime.UTC).strftime('%F %T'), script_md5=md_,
+    finding='정적 축 BnB 결과(18:56 UTC)를 보고 안 것: fs.bnb 의 허용 폭은 rel_tol × 0.75 × max(n, m) (sim_long 단위)이고 S_ub = S_lb + 허용 폭이다. 그래서 17:34 에 등록한 정의 (S_ub − S_heur)/S_ub ≤ 0.002 는 정의상 0/500 이다(등록 오류).',
+    change='판정 값은 등록 정의 그대로 내고, 사후 서술로 (S_lb − S_heur)/(0.75 max(n, m)) ≤ 0.002 의 비율을 더함. 결과를 본 뒤의 고침이라 투명성 표에 적음.')
+json.dump(P, open(PJ + '.tmp', 'w'), ensure_ascii=False, indent=1); os.replace(PJ + '.tmp', PJ); print('찍음', md_)
+```
+
+Output:
+
+```
+r39_sec6.py 1b11b675bfd25b2e34dafebc217b5618 일치
+문법 통과
+찍음 1b11b675bfd25b2e34dafebc217b5618
+```
+
+## 15. Negative type of the edit distance on two-bond chains (18 October 2026; checks of 30 and 31 October)
+
+S3 Text 2: for two-bond chains, d depends only on the angle θ between the two relative rotations,
+d = h·min(√6, 4 sin(θ/4)); a positive coefficient of this class function against a character of SO(3) rules out
+negative type, and so does a positive eigenvalue of J D J. These computations were not specified in advance. They were
+run locally with Node.js on 18 October 2026 from `code/negtype/negtype.js`, `so3fourier.js` and `len2check.js`, in a
+scratch directory (written <scratch>) from which the three files were copied to the project at 07:56:38 UTC; their md5
+at 07:57:40, `735bb530…`, `acd21303…` and `76e6c6c8…`, are those of the deposited files (`docs/PROVENANCE.md`). The
+scripts read no input files, and their random rotations come from the fixed-seed generator of `negtype.js`, so every run
+prints the same values. A first search of `negtype.js` (07:54:30, left out) drew structures of one bond only and gave a
+distance matrix of zeros; the line that draws the lengths was then changed to at least two bonds, the deposited
+version, by the `sed` in the first command below, which reran the search (8 random structures of 2–3 bonds: largest
+eigenvalue of J D J zero to rounding). `so3fourier.js` was written at 07:55:21; the `sed` in the second command set its
+comparison line (the Frobenius distance between rotation matrices) to the deposited text before it ran. The third
+command wrote `len2check.js`, whose text is the deposited file, and ran it. S3 Text 2 takes from these outputs
+f̂_5 = +1.15 × 10⁻² (h = 1), the positive coefficients up to l = 14 at l = 5, 7, 10, 12 and 14, the coefficients of the
+version without the √6 cap (positive at every even l) and of the Frobenius distance (negative throughout), the agreement
+of the closed form with the general computation (1.28 × 10⁻¹⁵) and the largest eigenvalue of J D J (zero to rounding at
+N = 60, positive at N = 120 and 200). On 30 October the coefficients up to l = 14 were recomputed independently with
+SciPy (fourth command; Haar density (1 − cos θ)/π, χ_l(θ) = sin((2l + 1)θ/2)/sin(θ/2), adaptive quadrature), with the
+same values to the digits printed. On 31 October `negtype_eta_len2.js` (fifth command; the file written by the command
+is the deposited one, md5 `8fd84e58…`) gave η₊ for random two-bond chains, quoted in S3 Text 2. The local
+working-copy path is written <atlas>; the line "Shell cwd was reset …" that the tool appended to some outputs is left
+out. In the outputs, 최대 상대 위반 is the largest relative violation, 구조 길이 the lengths of the structures, 양수 계수
+the positive coefficients, 상한 포함 / 상한 없음 with and without the √6 cap, 회전 행렬 현 거리 the Frobenius distance
+between rotation matrices, and 공식과 실제 D 의 최대 차 the largest difference between the closed form and the general
+computation.
+
+Command run 2026-10-18 07:54:38, output returned 07:54:39 UTC (session log).
+
+```bash
+cd "<scratch>" && sed -i 's/const n = 1 + Math.floor(rnd()\*maxLen);/const n = 2 + Math.floor(rnd()*(maxLen-1));/' negtype.js && grep -n "const n = 2" negtype.js && timeout 500 node negtype.js search 3 8 40
+```
+
+Output:
+
+```
+70:function randStruct(maxLen) { const n = 2 + Math.floor(rnd()*(maxLen-1)); const out=[]; for (let i=0;i<n;i++) out.push(scale(randRot(), 0.5)); return out; }
+최대 상대 위반 λmax(JDJ)/max D = 1.5937e-15  λmax = 2.3638e-15
+구조 길이: 2,2,2,3,2,3,3,2
+```
+
+Command run 2026-10-18 07:55:27, output returned 07:55:29 UTC (session log).
+
+```bash
+cd "<scratch>" && sed -i 's#const fChord = th => .*#const fChord = th => Math.sqrt(4 * (1 - Math.cos(th)));            // 비교: 회전 행렬 현 거리 ‖R−R′‖_F (유클리드라 음의 유형)#' so3fourier.js && node so3fourier.js
+```
+
+Output:
+
+```
+D (상한 포함): 양수 계수 l = 5(1.15e-2) 7(5.53e-3) 10(1.92e-3) 12(2.81e-3) 14(9.69e-4) 17(1.21e-3) 19(1.08e-3) 21(7.62e-5) 22(2.95e-4) 24(7.55e-4)
+   f̂_1..8 = -4.97e-1 -1.68e-2 -7.80e-3 -2.32e-2 1.15e-2 -1.40e-2 5.53e-3 -3.86e-3
+상한 없음: 양수 계수 l = 2(3.71e-2) 4(1.59e-2) 6(8.51e-3) 8(5.26e-3) 10(3.56e-3) 12(2.57e-3) 14(1.94e-3) 16(1.52e-3) 18(1.22e-3) 20(9.99e-4) 22(8.35e-4) 24(7.08e-4)
+   f̂_1..8 = -5.56e-1 3.71e-2 -5.49e-2 1.59e-2 -1.92e-2 8.51e-3 -9.65e-3 5.26e-3
+회전 행렬 현 거리: 양수 계수 l = 없음
+   f̂_1..8 = -4.80e-1 -6.86e-2 -2.29e-2 -1.04e-2 -5.60e-3 -3.36e-3 -2.17e-3 -1.49e-3
+```
+
+Command run 2026-10-18 07:55:51, output returned 07:55:53 UTC (session log).
+
+```bash
+cd "<scratch>" && cat > len2check.js <<'EOF'
+const src = require('fs').readFileSync('negtype.js','utf8').split("const mode =")[0];
+eval(src);
+function angleBetween(Q1,Q2){ const P = matMul(Q1, transpose(Q2)); const c=(P[0]+P[4]+P[8]-1)/2; return Math.acos(Math.max(-1,Math.min(1,c))); }
+const fD = th => 0.5*Math.min(Math.sqrt(6), 4*Math.sin(th/4));
+let maxErr=0;
+for (let t=0;t<200;t++){ const Q=randRot(), Qp=randRot(); const I=[1,0,0,0,1,0,0,0,1];
+  const x=[scale(I,0.5),scale(Q,0.5)], y=[scale(I,0.5),scale(Qp,0.5)];
+  const d=D(x,y), f=fD(angleBetween(Q,Qp)); maxErr=Math.max(maxErr,Math.abs(d-f)); }
+console.log('공식과 실제 D 의 최대 차:', maxErr.toExponential(2));
+// 무작위 길이 2 구조 N 개에서 J D J 의 최대 고유값
+for (const N of [60,120,200]) {
+  const Qs=[]; for(let i=0;i<N;i++) Qs.push(randRot());
+  const Dm=Qs.map(a=>Qs.map(b=>fD(angleBetween(a,b))));
+  const rm=Dm.map(r=>r.reduce((p,q)=>p+q,0)/N), all=rm.reduce((p,q)=>p+q,0)/N;
+  const C=Dm.map((r,i)=>r.map((v,j)=>v-rm[i]-rm[j]+all));
+  const ev=jacobiEig(C).sort((a,b)=>b-a);
+  console.log('N='+N+': J D J 고유값 상위 3 =', ev.slice(0,3).map(v=>v.toExponential(3)).join(' '), ' (음의 유형이면 모두 ≤ 0)');
+}
+EOF
+timeout 600 node len2check.js
+```
+
+Output:
+
+```
+공식과 실제 D 의 최대 차: 1.28e-15
+N=60: J D J 고유값 상위 3 = 3.438e-14 -5.522e-2 -6.119e-2  (음의 유형이면 모두 ≤ 0)
+N=120: J D J 고유값 상위 3 = 3.980e-2 3.224e-2 1.960e-2  (음의 유형이면 모두 ≤ 0)
+N=200: J D J 고유값 상위 3 = 1.276e-1 1.165e-1 1.089e-1  (음의 유형이면 모두 ≤ 0)
+```
+
+Command run 2026-10-30 14:51:17, output returned 14:51:48 UTC (session log).
+
+```bash
+cd "<scratch>" && PYTHONUTF8=1 uv run --offline --no-project --python 3.12 --with numpy --with scipy python -X utf8 -c "
+import numpy as np
+from scipy.integrate import quad
+# SO(3) class functions: Haar density on angle theta in [0, pi] is (1 - cos theta)/pi; character chi_l = sin((2l+1)t/2)/sin(t/2)
+f_cap = lambda t: min(np.sqrt(6), 4*np.sin(t/4))
+f_nocap = lambda t: 4*np.sin(t/4)
+f_frob = lambda t: np.sqrt(2*(3 - (1 + 2*np.cos(t))))   # ||R - R'||_F = sqrt(6 - 2 tr) ; tr = 1 + 2cos t
+chi = lambda l, t: np.sin((2*l+1)*t/2)/np.sin(t/2) if t > 1e-12 else 2*l+1
+haar = lambda t: (1 - np.cos(t))/np.pi
+print('check norm', quad(haar, 0, np.pi)[0])
+for name, f in [('cap', f_cap), ('nocap', f_nocap), ('frob', f_frob)]:
+    co = [quad(lambda t: f(t)*chi(l, t)*haar(t), 0, np.pi, limit=400, points=[4*np.arcsin(np.sqrt(6)/4)] if name=='cap' else None)[0] for l in range(1, 15)]
+    print(name, ' '.join(f'{l}:{c:+.2e}' for l, c in zip(range(1, 15), co)))
+"
+```
+
+Output:
+
+```
+Installed 2 packages in 3.03s
+check norm 1.0
+cap 1:-4.97e-01 2:-1.68e-02 3:-7.80e-03 4:-2.32e-02 5:+1.15e-02 6:-1.40e-02 7:+5.53e-03 8:-3.86e-03 9:-1.19e-03 10:+1.92e-03 11:-3.72e-03 12:+2.81e-03 13:-2.57e-03 14:+9.69e-04
+nocap 1:-5.56e-01 2:+3.71e-02 3:-5.49e-02 4:+1.59e-02 5:-1.92e-02 6:+8.51e-03 7:-9.65e-03 8:+5.26e-03 9:-5.78e-03 10:+3.56e-03 11:-3.85e-03 12:+2.57e-03 13:-2.74e-03 14:+1.94e-03
+frob 1:-4.80e-01 2:-6.86e-02 3:-2.29e-02 4:-1.04e-02 5:-5.60e-03 6:-3.36e-03 7:-2.17e-03 8:-1.49e-03 9:-1.06e-03 10:-7.85e-04 11:-5.96e-04 12:-4.64e-04 13:-3.68e-04 14:-2.97e-04
+```
+
+Command run 2026-10-31 08:54:59, output returned 08:55:09 UTC (session log).
+
+```bash
+S="<scratch>"; mkdir -p "$S/eta"; cat > "$S/eta/eta_len2.js" <<'EOF'
+// eta_+ for random two-bond chains (S3 Text 2), using the helpers of framedchain-paper/code/negtype/negtype.js
+const path = process.argv[2];
+const src = require('fs').readFileSync(path + '/negtype.js', 'utf8').split("const mode =")[0];
+eval(src);
+function angleBetween(Q1,Q2){ const P = matMul(Q1, transpose(Q2)); const c=(P[0]+P[4]+P[8]-1)/2; return Math.acos(Math.max(-1,Math.min(1,c))); }
+const fD = th => 0.5*Math.min(Math.sqrt(6), 4*Math.sin(th/4));
+for (const [N, reps] of [[60,3],[100,5],[200,3],[400,2]]) {
+  const out = [];
+  for (let r = 0; r < reps; r++) {
+    const Qs=[]; for(let i=0;i<N;i++) Qs.push(randRot());
+    const Dm=Qs.map(a=>Qs.map(b=>fD(angleBetween(a,b))));
+    const rm=Dm.map(r=>r.reduce((p,q)=>p+q,0)/N), all=rm.reduce((p,q)=>p+q,0)/N;
+    const C=Dm.map((r,i)=>r.map((v,j)=>v-rm[i]-rm[j]+all));
+    const ev=jacobiEig(C); const pos=ev.filter(v=>v>1e-9).reduce((p,q)=>p+q,0), tot=ev.reduce((p,q)=>p+Math.abs(q),0);
+    out.push((pos/tot).toExponential(2) + ' (max eig ' + Math.max(...ev).toExponential(2) + ')');
+  }
+  console.log('N=' + N + ': eta_+ =', out.join(', '));
+}
+EOF
+cd "$S/eta" && timeout 900 node eta_len2.js "<atlas>/framedchain-paper/code/negtype"
+```
+
+Output:
+
+```
+N=60: eta_+ = 0.00e+0 (max eig 2.14e-14), 0.00e+0 (max eig 2.49e-14), 0.00e+0 (max eig 2.19e-14)
+N=100: eta_+ = 2.87e-4 (max eig 2.52e-2), 3.51e-4 (max eig 2.49e-2), 1.63e-4 (max eig 1.19e-2), 1.45e-4 (max eig 1.39e-2), 2.79e-4 (max eig 2.46e-2)
+N=200: eta_+ = 6.78e-3 (max eig 1.35e-1), 6.69e-3 (max eig 1.43e-1), 6.76e-3 (max eig 1.40e-1)
+N=400: eta_+ = 2.43e-2 (max eig 3.34e-1), 2.43e-2 (max eig 3.25e-1)
 ```
