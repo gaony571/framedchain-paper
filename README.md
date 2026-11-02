@@ -33,8 +33,9 @@ correspondence); orange, unshared bonds; open circles, zero matrices (in B, mark
 unmatched bond that faces each). The lower chain in (B) is drawn after the global rotation U.
 
 This repository contains the code exactly as it was run to produce the numbers, figures and tables of the paper
-(a step whose code was not kept, the correlation of the discrete Fréchet distance in S2 Text 8.6, is named in
-[`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md)), together with the run queues, environment records and the time-stamped records that fixed each analysis before it
+(steps run from notebook cells, including short scripts that cells wrote and ran, are copied with their output in
+[`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md); the one step whose code was not kept, the correlation of
+the discrete Fréchet distance in S2 Text 8.6, is named in [`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md)), together with the run queues, environment records and the time-stamped records that fixed each analysis before it
 was run. To apply the method to your own structures and ensembles, use the documented and tested Python package
 [framedchain](https://github.com/gaony571/framedchain) (version 0.4.2) instead; this repository is for checking
 and reproducing the paper.
@@ -80,7 +81,7 @@ heating step as a function of the number of domains, from 500 resamples of whole
 0.8.
 *Code:* `r39_D_stem.py`, `r39_core.py`.
 
-### Ensembles of different sequences on one statistic
+### Ensembles of different sequences on the same statistic
 
 ![Fig 4](figures/Fig4.png)
 
@@ -162,7 +163,7 @@ Each item of the paper is listed with the scripts that computed its values (in `
 | S2 Table | `r43_sens.py` | `make_tables.py` |
 | S3 Table | `r46_align_fix1.py` (alignment accuracy), `r48_identity_range.py` (identity range) | `make_tables.py` |
 | S1 Text | proofs; numerical checks in `framespace_wip/tests_stage0` and in the framedchain tests | — |
-| S2 Text | `r38_s0.py`, `r38_s0_bias2.py` (reduced computation, U-statistic, alignment uncertainty, truncated chains); `r38_static.py`, `r39_sec6.py` (certification); `r39_roundtrip.py`; `r41_compute_prep.py`, `r41_compute.py` (cost); `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`, `framespace_wip/experiments/sippl_linear_counterexample.py`, `chaining.py`, `c4_chain_extra.py`, `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` (Section 8) | — |
+| S2 Text | `r38_s0.py`, `r38_s0_bias2.py` (reduced computation, U-statistic, alignment uncertainty, truncated chains), with notebook cells for the truncated-chain diagnostics (`docs/INTERACTIVE_CHECKS.md` 12); `r38_static.py`, `r39_sec6.py` (certification); `r39_roundtrip.py`; `r41_compute_prep.py`, `r41_compute.py` (cost); `pu_tm_factorial_v2.py`, `pu_tm_d0_sensitivity.py`, `framespace_wip/experiments/sippl_linear_counterexample.py` with `sippl_identity_check.py`, `chaining.py`, `c4_chain_extra.py`, `hu1_rulers.py`, `dfrechet_1674.py`, `hu1_kkl_measures.py` (Section 8) | — |
 | S3 Text | `code/negtype/*.js` (negative type, η₊ on random two-bond chains); `r38_b6.py` (η₊ of the pairs of the comparison across sequences); `r44_inv.py` (decomposition of κ²); `r39_core.py` (size dependence) | — |
 
 The numbers in the text are mapped section by section in the first table of `docs/RESULTS_MAP.md` (for example the
@@ -174,7 +175,10 @@ decomposition of the unshared part, location of correspondence shifts, chain bre
 0.4.1) are given with their code and printed output in [`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md),
 as are the three notebook cells that wrote `results/pu_tm_factorial_B_triangle.tsv` (Fig 2A),
 `results/r37_size_survival.json` (survival row of Table 2) and `results/r39_E2_aligned_diag.json` (diagnostic of
-the window difference, trajectory-window row of Table 2).
+the window difference, trajectory-window row of Table 2), and the cells that wrote and ran short scripts for
+`results/r38_p1_sim_onesided.json` and `results/r38_p1_sim_cond2.json` (coverage simulations of the first
+thermophile test, Methods) and for `results/r38_s0_trunc_diag.json` and `results/r38_s0_trunc_exact.json`
+(diagnostics of the truncated-chain check, S2 Text 5).
 
 Reproduction is possible at three levels:
 
@@ -284,15 +288,15 @@ after a result are separate scripts that say so in their docstrings.
 
 | Path | Content |
 |---|---|
-| `code/` | Analysis scripts, one per experiment or stage; figure and table scripts (`make_figs.py`, `make_tables.py`, `make_s1.py`); four Node.js checks in `code/negtype/` |
+| `code/` | Analysis scripts, one per experiment or stage; figure and table scripts (`make_figs.py`, `make_tables.py`, `make_s1.py`); four Node.js checks in `code/negtype/`; `sippl_identity_check.py`, a check of S2 Text 8.3 added on 2026-11-02 |
 | `framespace_pkg/framespace/` | The library exactly as used in the runs (framespace 0.2.0, the earlier name of framedchain; tag `v0.2.0` of the framedchain repository, bundle md5 `4edba596…`) |
-| `framespace_wip/` | Research module used by the runs (reduced computation, measures, ESA and W₂ helpers) with its tests (bundle md5 `6703fa26…`), and the constructed counterexample for the linear form |
+| `framespace_wip/` | Research module used by the runs (`stage0/`: reduced computation, measures, ESA and W₂ helpers; bundle md5 of `stage0/*.py` `6703fa26…`), its tests (`tests_stage0/`), and the constructed counterexample for the linear form |
 | `examples/` | Synthetic demonstration and its expected output |
 | `figures/` | The paper's figures as PNG (150 dpi), drawn by `code/make_figs.py` from the stored results |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
-| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the three notebook cells behind Fig 2A and the survival and window rows of Table 2), `STATEMENTS.md` (draft availability statements) |
+| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the notebook cells behind Fig 2A, the survival and window rows of Table 2, the coverage simulations of the first thermophile test and the truncated-chain diagnostics), `STATEMENTS.md` (draft availability statements) |
 | `tools/` | `pack_for_zenodo.py` (builds the data deposit), `record_env.py` (records an environment) |
 | `MANIFEST.md5` | md5 of every file (`md5sum -c MANIFEST.md5`) |
 

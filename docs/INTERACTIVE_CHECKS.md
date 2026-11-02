@@ -7,7 +7,9 @@ unshared part between mean points (section 4), where correspondence shifts occur
 (section 6) and the reproduction of the as-run code by framedchain 0.4.1 (section 7). Three further cells wrote result
 files that the paper uses: the violation rates of the factorial comparison behind Fig 2A (S2 Text 8.2; section 8),
 the size and survival audit behind the survival row of Table 2 (section 9) and the diagnostic of the window difference
-behind the trajectory-window row of Table 2 (section 10). The code and printed output
+behind the trajectory-window row of Table 2 (section 10). Two more groups of cells wrote and ran short scripts whose
+result files the paper cites: the coverage simulations of the first thermophile test (Methods; section 11) and the
+diagnostics of the failed truncated-chain check (S2 Text 5; section 12). The code and printed output
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
@@ -1161,4 +1163,365 @@ whole (뒤절반/전체) with its 95% interval, and the whole / second-half rati
 413 n 111 Aall d2n 뒤 절반 0.0454 전체 0.0389 뒤절반/전체 1.166 [0.859, 1.533] dmu2 전체/뒤절반 0.912
 450 n 47 Aall d2n 뒤 절반 0.0605 전체 0.0623 뒤절반/전체 0.971 [0.916, 1.555] dmu2 전체/뒤절반 0.75
 읽기 기준·집합 3 0
+```
+
+## 11. Coverage simulations of the first thermophile test (20 October 2026)
+
+Methods, thermophile study: coverage simulations whose output files reached Drive at 12:48:32 and 12:56:47 UTC, before
+the decision file (12:57:36), showed that two-sided 95% intervals contained the simulated θ* in 28–70% of runs and the
+upper bound alone lay above it in 26–71%, whereas the one-sided lower bound used for the decision lay below it in all
+runs. The two-sided coverage is part `sim` of `code/r38_p1.py` (run 12:44:58–12:48:32 UTC; `results/r38_p1_sim.json`,
+column `coverage`); the checksum of `r38_p1.py` entered the first record at 04:58:59 UTC (entry
+`round36_p1_code_2026-10-20`), and the script holds the rule that a coverage below 0.90 for θ < 413 K requires the
+interval method to be changed before the decision. The one-sided coverages and a simulation of condition 2 were run by
+two short scripts that the cells below wrote to `/content` and started in the background, `/content/p1_sim2.py` and
+`/content/p1_sim3.py` (not kept as files; their full text is in the first two cells). Both load the deposited
+`r38_p1.py` up to its stage list `ALL1` and call its functions unchanged (`sim_noise`, `sim_once`, `theta`,
+`sf_summary`, `cond2`) on the same pairs and replicate noise, with 100 repetitions and 1,000 bootstrap resamples (seeds
+20261043 and 20261044). `p1_sim2.py` wrote `results/r38_p1_sim_onesided.json`: for θ = 320, 335, 350 and 380 K, with all
+pairs at that θ (`sd` 0) or with a spread of 15 K between pairs (`sd` 15), the share of runs whose bootstrap lower bound
+lay at or below θ (`lower_cov`) and whose upper bound lay at or above it (`upper_cov`). `p1_sim3.py` wrote
+`results/r38_p1_sim_cond2.json`: the share of runs in which the lower bound of condition 2 exceeded zero
+(`frac_lo_gt_0`; `version` 짝지은 판, "paired version"), a false-positive rate when thermophile–mesophile and control
+pairs share θ (320 or 350 K) and a power when they differ by 15 or 30 K. No record names either script before it was
+run. The cell run at 12:57:23 entered both summaries, with that of the two-sided simulation, in the entry
+`round36_p1_checklist_2026-10-20` of the first record (`sim_onesided`, and `sim_cond2` with the placeholder 돌리는 중,
+"running", because the condition-2 file did not yet exist when the cell looked for it); the cell run at 12:57:59
+replaced the placeholder with the condition-2 rows (`sim_cond2_added_utc`, 12:58:00 by the Colab clock). S1 Table flags this entry:
+it reached Drive 3 s after the decision file. In these cells `R` is the project root, `L = R + '/results/logs'`, `bdir`
+the backup folder of the day (`results/_backup/2026-10-20/`) and `sh(c)` runs a shell command and returns the last
+1,500 characters of its output; `datetime`, `hashlib` and `shutil` were imported earlier. Times printed inside the
+output come from the Colab clock. Cells that only re-ran a log check, and cells about other analyses, are left out.
+
+Cell `H_XE91IsBAsy`, run requested 2026-10-20 12:55:49, output returned 12:55:51 UTC.
+
+```python
+SMK4 = r'''import sys, json, time
+R = sys.argv[1]
+ns = {'__name__': 'p1sim2'}; s = open(R + '/code/r38_p1.py').read(); s = s[:s.index("ALL1 = [") if "ALL1 = [" in s else s.index("if __name__ == '__main__':")]
+sys.argv = ['r38_p1', R, 'none', '1']; exec(s, ns)
+np = ns['np']; pj = json.load(open(ns['OUT1'] + '/pairs.json')); sp = ns['load_spread'](pj['domains']); nz = [z for z in (ns['sim_noise'](sp, r) for r in pj['HT']) if z is not None]
+rng = np.random.default_rng(20261043); key = ns['key_ht']; rows = []
+for sdv in (0.0, 15.0):
+    for th0 in (320.0, 335.0, 350.0, 380.0):
+        lo_ok, hi_ok = [], []
+        for _ in range(100):
+            med, lo, hi = ns['sim_once'](nz, th0, sdv, rng, B=1000)
+            lo_ok.append(True if lo[0] == 'lt' else key(lo) <= (th0, 1)); hi_ok.append(True if hi[0] == 'gt' else (hi[0] != 'lt' and hi[1] >= th0))
+        rows.append(dict(theta=th0, sd=sdv, lower_cov=float(np.mean(lo_ok)), upper_cov=float(np.mean(hi_ok))))
+        print('P1_SIM2', rows[-1], flush=True)
+json.dump(dict(written=time.strftime('%F %T'), rows=rows, note='탐색(판정 전, 실제 θ 값 안 봄): 한쪽 피복률 = P(하한 ≤ θ0), P(상한 ≥ θ0); 반복 100, 부트스트랩 1,000, seed 20261043'), open(R + '/results/r38_p1_sim_onesided.json', 'w'), ensure_ascii=False, indent=1)
+print('P1_SIM2_DONE', flush=True)
+'''
+open('/content/p1_sim2.py', 'w').write(SMK4)
+print(sh(f"grep -n \"ALL1 = \\[\\|__main__\" {R}/code/r38_p1.py | head -3; cd /content && CUDA_VISIBLE_DEVICES= setsid nohup nice -n 5 /usr/bin/python3 /content/p1_sim2.py {R} > {L}/r38_p1_sim2.log 2>&1 < /dev/null & sleep 1; echo 띄움"))
+```
+
+Output:
+
+```
+447:ALL1 = ['pairs', 'mean', 'align', 'spread', 'sim', 'pre', 'stats']
+448:if __name__ == '__main__':
+띄움
+```
+
+Cell `H_XE91IsBAsy`, run requested 12:56:30, output returned 12:56:32 UTC.
+
+```python
+SMK5 = r'''import sys, json, time
+R = sys.argv[1]
+ns = {'__name__': 'p1sim3'}; s = open(R + '/code/r38_p1.py').read(); s = s[:s.index("ALL1 = [")]
+sys.argv = ['r38_p1', R, 'none', '1']; exec(s, ns)
+np = ns['np']; pj = json.load(open(ns['OUT1'] + '/pairs.json')); sp = ns['load_spread'](pj['domains'])
+zH = [z for z in (ns['sim_noise'](sp, r) for r in pj['HT']) if z is not None]; zM = [z for z in (ns['sim_noise'](sp, r) for r in pj['MM']) if z is not None]
+b = ns['B_SLOPE']; theta = ns['theta']
+def simit(zs, th0, sdv, rng):
+    items = {}
+    for z in zs:
+        th = th0 + (rng.normal(0, sdv) if sdv > 0 else 0.0); er = rng.normal(0, z['se_r'])
+        LR = [b * (T - th) + rng.normal(0, s) - er for T, s in zip(z['temps'], z['se_h'])]
+        items.setdefault(z['H'], []).append(theta(LR, z['temps'])[:2])
+    return items
+rng = np.random.default_rng(20261044); rows = []
+for thH, thM in ((320.0, 320.0), (350.0, 350.0), (335.0, 320.0), (350.0, 320.0)):
+    for sdv in (0.0, 15.0):
+        pos, ver = [], []
+        for _ in range(100):
+            iH, iM = simit(zH, thH, sdv, rng), simit(zM, thM, sdv, rng)
+            T_s = {h: ns['sf_summary'](v, 'ht') for h, v in iH.items()}; C_s = {h: ns['sf_summary'](v, 'mm') for h, v in iM.items()}
+            c2 = ns['cond2'](T_s, C_s, rng, B=1000); pos.append(c2['passed']); ver.append(c2['version'])
+        rows.append(dict(theta_HT=thH, theta_MM=thM, sd=sdv, frac_lo_gt_0=float(np.mean(pos)), version=max(set(ver), key=ver.count)))
+        print('P1_SIM3', rows[-1], flush=True)
+json.dump(dict(written=time.strftime('%F %T'), n_HT=len(zH), n_MM=len(zM), rows=rows, note='탐색(판정 전, 실제 θ 값 안 봄): 조건 2 의 하한 > 0 비율. θ_HT = θ_MM 이면 거짓 양성률, 다르면 검정력. 반복 100, 부트스트랩 1,000, seed 20261044'), open(R + '/results/r38_p1_sim_cond2.json', 'w'), ensure_ascii=False, indent=1)
+print('P1_SIM3_DONE', flush=True)
+'''
+open('/content/p1_sim3.py', 'w').write(SMK5)
+print(sh(f"cd /content && CUDA_VISIBLE_DEVICES= setsid nohup nice -n 5 /usr/bin/python3 /content/p1_sim3.py {R} > {L}/r38_p1_sim3.log 2>&1 < /dev/null & sleep 1; echo 띄움; grep P1_SIM2 {L}/r38_p1_sim2.log"))
+```
+
+Output (the one-sided simulation, still running, had printed five of its eight rows):
+
+```
+띄움
+P1_SIM2 {'theta': 320.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.71}
+P1_SIM2 {'theta': 335.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.63}
+P1_SIM2 {'theta': 350.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.6}
+P1_SIM2 {'theta': 380.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.31}
+P1_SIM2 {'theta': 320.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.71}
+```
+
+Cell `H_XE91IsBAsy`, run requested 12:56:52, output returned 12:56:53 UTC.
+
+```python
+print(sh(f"date -u +%T; grep -E 'P1_SIM2|P1_SIM3' {L}/r38_p1_sim2.log {L}/r38_p1_sim3.log | cut -d: -f2- ; grep -E 'Error|Traceback' {L}/r38_p1_sim3.log | head -3"))
+```
+
+Output (all eight one-sided rows and the first two condition-2 rows):
+
+```
+12:56:53
+P1_SIM2 {'theta': 320.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.71}
+P1_SIM2 {'theta': 335.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.63}
+P1_SIM2 {'theta': 350.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.6}
+P1_SIM2 {'theta': 380.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.31}
+P1_SIM2 {'theta': 320.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.71}
+P1_SIM2 {'theta': 335.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.61}
+P1_SIM2 {'theta': 350.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.59}
+P1_SIM2 {'theta': 380.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.26}
+P1_SIM2_DONE
+P1_SIM3 {'theta_HT': 320.0, 'theta_MM': 320.0, 'sd': 0.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 320.0, 'theta_MM': 320.0, 'sd': 15.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+```
+
+The same cell, run again: requested 12:57:07, output returned 12:57:08 UTC. Output:
+
+```
+12:57:08
+P1_SIM2 {'theta': 320.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.71}
+P1_SIM2 {'theta': 335.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.63}
+P1_SIM2 {'theta': 350.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.6}
+P1_SIM2 {'theta': 380.0, 'sd': 0.0, 'lower_cov': 1.0, 'upper_cov': 0.31}
+P1_SIM2 {'theta': 320.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.71}
+P1_SIM2 {'theta': 335.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.61}
+P1_SIM2 {'theta': 350.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.59}
+P1_SIM2 {'theta': 380.0, 'sd': 15.0, 'lower_cov': 1.0, 'upper_cov': 0.26}
+P1_SIM2_DONE
+P1_SIM3 {'theta_HT': 320.0, 'theta_MM': 320.0, 'sd': 0.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 320.0, 'theta_MM': 320.0, 'sd': 15.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 350.0, 'theta_MM': 350.0, 'sd': 0.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 350.0, 'theta_MM': 350.0, 'sd': 15.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 335.0, 'theta_MM': 320.0, 'sd': 0.0, 'frac_lo_gt_0': 0.94, 'version': '짝지은 판'}
+```
+
+Cell `H_XE91IsBAsy`, run requested 12:57:23, output returned 12:57:26 UTC.
+
+```python
+print(sh(f"grep -E 'P1_SIM3' {L}/r38_p1_sim3.log | tail -4"))
+import os
+S1 = json.load(open(f'{R}/results/r38_p1_sim.json')); S2 = json.load(open(f'{R}/results/r38_p1_sim_onesided.json')); S3 = json.load(open(f'{R}/results/r38_p1_sim_cond2.json')) if os.path.exists(f'{R}/results/r38_p1_sim_cond2.json') else None
+PR = json.load(open(f'{R}/results/r38_p1_pre.json'))
+PJ = R + '/results/prereg_2026-10-17.json'; P = json.load(open(PJ)); shutil.copy(PJ, bdir + '/' + time.strftime('%H%M%S_') + 'prereg_2026-10-17.json')
+k = 'round36_p1_checklist_2026-10-20'; assert k not in P
+P[k] = dict(stamped_utc=datetime.datetime.now(datetime.UTC).strftime('%F %T'),
+    sim=dict(file='results/r38_p1_sim.json', rows=S1['rows'], coverage_min=S1['coverage_min'], se_h_median=S1['se_h_median'], se_r_median=S1['se_r_median'], n_pairs=S1['n_pairs'], n_sf=S1['n_sf']),
+    sim_onesided=S2['rows'], sim_cond2=(S3['rows'] if S3 else '돌리는 중'),
+    coverage_rule='prereg 7 절: 피복률(θ < 413) < 0.90 이면 구간 방법을 고친 뒤 동결. 양쪽 피복률 최소 0.275 → 고침.',
+    interval_fix='조건 1·2 가 쓰는 것은 부트스트랩 2.5% 하한뿐이다. 그 하한의 한쪽 피복률은 θ < 413 의 모든 시나리오(sd 0·15)에서 1.00, θ0 = 320 의 하한 > 320 비율 0, θ0 = 335 에서 0.88–0.98 (조건 2: θ_HT = θ_MM 이면 하한 > 0 비율 0, 15 K 차에서 0.94). 양쪽 피복이 깨지는 것은 위쪽 끝이다(0.26–0.71): 등록된 보수적 순위(상과 아래 중앙값, "> u" 를 u 자리)가 추정량을 정의상 아래로 민다(치우침 −3 ~ −10 K, θ 335–380). 그래서 보고 구간을 "한쪽 97.5% 하한" 으로 바꾸고, 위쪽 끝은 신뢰 한계로 쓰지 않는다. 판정 수치(하한 > 320, 하한 > 0)는 그대로이고 코드는 바꾸지 않는다. 점추정은 시뮬레이션 치우침 표와 함께 서술한다(판정에서 빼지 않음).',
+    pre=dict(file='results/r38_p1_pre.json', n_pairs=PR['n_pairs'], n_used=PR['n_used'], n_both_numeric=PR['n_both_numeric'], n_sf=PR['n_sf'], diff_full_minus_gpa=PR['diff_full_minus_gpa'], censor_agree=PR['censor_agree'], note='기록이지 판정·규칙 조정에 쓰지 않음'),
+    stats_script_md5=hashlib.md5(open(f'{R}/code/r38_p1.py', 'rb').read()).hexdigest(), next='이 도장 뒤 r38_p1.py stats (판정).')
+json.dump(P, open(PJ + '.tmp', 'w'), ensure_ascii=False, indent=1); os.replace(PJ + '.tmp', PJ); print('도장', P[k]['stamped_utc'], P[k]['stats_script_md5'], 'cond2 sim', 'ok' if S3 else '돌리는 중')
+```
+
+Output (the last four condition-2 rows printed so far, then the stamp of the entry, the md5 of `r38_p1.py` and the state of the condition-2 file, 돌리는 중 "running"):
+
+```
+P1_SIM3 {'theta_HT': 350.0, 'theta_MM': 350.0, 'sd': 15.0, 'frac_lo_gt_0': 0.0, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 335.0, 'theta_MM': 320.0, 'sd': 0.0, 'frac_lo_gt_0': 0.94, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 335.0, 'theta_MM': 320.0, 'sd': 15.0, 'frac_lo_gt_0': 0.76, 'version': '짝지은 판'}
+P1_SIM3 {'theta_HT': 350.0, 'theta_MM': 320.0, 'sd': 0.0, 'frac_lo_gt_0': 1.0, 'version': '짝지은 판'}
+도장 2026-10-20 12:57:26 58c1062c13ab8afc72c35d809eef9500 cond2 sim 돌리는 중
+```
+
+Cell `H_XE91IsBAsy`, run requested 12:57:51, output returned 12:57:52 UTC.
+
+```python
+print(sh(f"date -u +%T; grep -E 'P1_SIM3' {L}/r38_p1_sim3.log | tail -2; grep -v -E 'WARNING|I0000|E0000|W0000' {L}/r38_p1.log | tail -3 | cut -c1-300"))
+```
+
+Output (the last condition-2 row and the end of the decision run, which had been started at 12:57:31):
+
+```
+12:57:53
+P1_SIM3 {'theta_HT': 350.0, 'theta_MM': 320.0, 'sd': 15.0, 'frac_lo_gt_0': 1.0, 'version': '짝지은 판'}
+P1_SIM3_DONE
+12:57:36 P1_STATS_DONE
+12:57:36 부분 끝 stats
+12:57:36 P1_DONE stats
+```
+
+Cell `H_XE91IsBAsy`, run requested 12:57:59, output returned 12:57:59 UTC.
+
+```python
+P = json.load(open(PJ)); S3 = json.load(open(f'{R}/results/r38_p1_sim_cond2.json'))
+P['round36_p1_checklist_2026-10-20']['sim_cond2'] = S3['rows']; P['round36_p1_checklist_2026-10-20']['sim_cond2_added_utc'] = datetime.datetime.now(datetime.UTC).strftime('%F %T') + ' (r38_p1.json 을 읽기 전)'
+json.dump(P, open(PJ + '.tmp', 'w'), ensure_ascii=False, indent=1); os.replace(PJ + '.tmp', PJ); print('조건 2 시뮬레이션 추가')
+J = json.load(open(f'{R}/results/r38_p1.json')); shutil.copy(f'{R}/results/r38_p1.json', bdir + '/' + time.strftime('%H%M%S_') + 'r38_p1.json')
+print(json.dumps(J['main'], ensure_ascii=False, indent=0)[:4000])
+```
+
+Output (first line, "condition-2 simulation added"; the decision values of `results/r38_p1.json` that the cell printed next are left out):
+
+```
+조건 2 시뮬레이션 추가
+```
+
+## 12. Diagnostics of the failed truncated-chain check (19 October 2026)
+
+S2 Text 5: diagnostics on four of the domains (run the same day, in no record) located the failure of the
+pre-specified truncated-chain check in its assumption that the removed bonds are matched in full-versus-full
+comparisons and unmatched in full-versus-truncated ones. The cells below wrote two short scripts to `/content` and ran
+them, `/content/s0_trunc_diag.py` and `/content/s0_trunc_exact.py` (not kept as files; their full text is in the
+cells). Both load the deposited `code/r38_s0.py` up to its stage list (`ALL = ['pick'`) and use its functions unchanged
+(`dom_runs`, `coords`, `MeanStart`, `upairs`, `red_pairs`, `seeded`; `CUT` = 10 removed bonds), for 1ileA03, 2l23A00,
+1ffsB00 and 3r1kA02. `s0_trunc_diag.py` compares 300 frame pairs between replicates 0 and 1, full against full (`ff`)
+and full against truncated (`ft`), aligned from the mean-point start with the full dynamic program, and wrote
+`results/r38_s0_trunc_diag.json`. In its output, `ff_cut_unmatched_frac_x` is the share of the squared norm of the
+removed segment left unmatched between two full frames (0.435 and 0.337 in 1ileA03 and 2l23A00, the "44% and 34%" of
+S2 Text, and 0.015 in 1ffsB00), and `frac_x_cut_edges_matched` under `ft` is the share of the removed segment's bonds
+paired with other bonds of the truncated chain (0.325, 0.085 and 0.003, the "33% and 8%" and "0.3%").
+`s0_trunc_exact.py` compares each frame with its own truncation, by the reduced computation and by the 128-start full
+computation, against 0.75 Σ s² of the removed bonds; its first run, on 40 frames, stopped at the cell's 300 s time
+limit, and it was restarted in the background on 12 frames (the full computation on 4 of them), which wrote
+`results/r38_s0_trunc_exact.json`. In its output, `max_abs_d2_minus_cut_reduced` and `max_abs_d2_minus_cut_full128` are
+the largest |d² − 0.75 Σ s²| over the frames: at most 1.7 × 10⁻¹³ in three domains, and 0.0018 in 1ileA03 by both
+computations. In these cells `R` is the project root, `L = R + '/results/logs'`, `Dd = R + '/derived/r38'` and `sh(c)`
+runs a shell command and returns the last 1,500 characters of its output. Times printed inside the output come from the
+Colab clock. Progress checks in between that printed only the time, and cells about other analyses, are left out.
+
+Cell `vfgSWJKreH1m`, run requested 2026-10-19 16:38:35, output returned 16:38:36 UTC.
+
+```python
+diag=r'''import sys, os, json, time
+ROOT=sys.argv[1]
+src=open(ROOT+'/code/r38_s0.py').read(); src=src[:src.index("ALL = ['pick'")]
+sys.argv=['x',ROOT,'none']; exec(src)
+torch.set_num_threads(4)
+out={}
+for d in ('1ileA03','2l23A00','1ffsB00','3r1kA02'):
+    _runs.clear(); R_,L_=dom_runs(d); ne=L_-1; Ef=coords(np.concatenate([X for _,X in R_])); Et=Ef[:,:ne-CUT].contiguous()
+    nA=(Ef**2).sum((-1,-2)); rng=seeded('diag',d); res={}
+    for tag,EB,ms in (('ff',Ef,MeanStart(Ef,Ef)),('ft',Et,MeanStart(Ef,Et))):
+        ia,ib=upairs(0,1,rng,k=300); ia=torch.as_tensor(ia); ib=torch.as_tensor(ib)
+        al=fs.align(Ef[ia],EB[ib],starts=ms.starts(ia,ib,n_local=1),iters=10); M=al.match
+        nB=(EB**2).sum((-1,-2)); mx=M.any(2); my=M.any(1); cut=torch.arange(ne)>=ne-CUT
+        gx_cut=(nA[ia]*(~mx)*cut).sum(1); gx_non=(nA[ia]*(~mx)*(~cut)).sum(1)
+        cutB=torch.arange(EB.shape[1])>=ne-CUT if tag=='ff' else torch.zeros(EB.shape[1],dtype=torch.bool)
+        gy_cut=(nB[ib]*(~my)*cutB).sum(1); gy_non=(nB[ib]*(~my)*(~cutB)).sum(1)
+        pi,ii,jj=torch.nonzero(M,as_tuple=True); shift=float((ii!=jj).float().mean())
+        xcut_matched=float((mx[:,ne-CUT:]).float().mean())
+        res[tag]=dict(gap_x_cut=float(gx_cut.mean()),gap_x_non=float(gx_non.mean()),gap_y_cut=float(gy_cut.mean()),gap_y_non=float(gy_non.mean()),
+                      frac_x_cut_edges_matched=xcut_matched,frac_matches_off_diagonal=shift)
+    s2cut=float((Ef[:,ne-CUT:]**2).sum((-1,-2,-3)).mean())
+    ff,ft=res['ff'],res['ft']
+    res['expect_075_sum_s2_cut']=s2cut
+    res['raw_gap_diff']=(ft['gap_x_cut']+ft['gap_x_non']+ft['gap_y_non'])-(ff['gap_x_cut']+ff['gap_x_non']+ff['gap_y_cut']+ff['gap_y_non'])
+    res['noncut_gap_diff']=(ft['gap_x_non']+ft['gap_y_non'])-(ff['gap_x_non']+ff['gap_y_non'])
+    res['ft_cut_gap_vs_expect']=ft['gap_x_cut']/s2cut
+    res['ff_cut_unmatched_frac_x']=ff['gap_x_cut']/s2cut
+    out[d]=res; print(d, json.dumps({k:(round(v,4) if isinstance(v,float) else {kk:round(vv,4) for kk,vv in v.items()}) for k,v in res.items()}, ensure_ascii=False), flush=True)
+json.dump(out,open(ROOT+'/results/r38_s0_trunc_diag.json','w'),ensure_ascii=False,indent=1); print('DIAG_DONE')
+'''
+open("/content/s0_trunc_diag.py","w").write(diag)
+subprocess.run(f"cd /content && CUDA_VISIBLE_DEVICES= nohup nice -n 5 /usr/bin/python3 /content/s0_trunc_diag.py {R} > {L}/r38_s0_trunc_diag.log 2>&1 &", shell=True); print("띄움", sh("date -u +%T"))
+```
+
+Output ("started"):
+
+```
+띄움 16:38:37
+```
+
+Cell `vfgSWJKreH1m`, run requested 16:39:53, output returned 16:41:08 UTC.
+
+```python
+import time; time.sleep(75); print(sh(f"date -u +%T; grep -v 'oneDNN\\|absl\\|cudart_stub\\|WARNING: All' {L}/r38_s0_trunc_diag.log | tail -6 | cut -c1-900; ps -eo etime,pcpu,args | grep '[s]0_trunc_diag' | cut -c1-80"))
+```
+
+Output (the four domains of the diagnostic, then `DIAG_DONE`; the last line is the shell command itself, listed by `ps`):
+
+```
+16:41:09
+1ileA03 {"ff": {"gap_x_cut": 3.2679, "gap_x_non": 8.9956, "gap_y_cut": 3.2345, "gap_y_non": 9.0167, "frac_x_cut_edges_matched": 0.5653, "frac_matches_off_diagonal": 0.1546}, "ft": {"gap_x_cut": 5.0738, "gap_x_non": 10.3779, "gap_y_cut": 0.0, "gap_y_non": 7.9446, "frac_x_cut_edges_matched": 0.3253, "frac_matches_off_diagonal": 0.1363}, "expect_075_sum_s2_cut": 7.5114, "raw_gap_diff": -1.1184, "noncut_gap_diff": 0.3102, "ft_cut_gap_vs_expect": 0.6755, "ff_cut_unmatched_frac_x": 0.4351}
+2l23A00 {"ff": {"gap_x_cut": 2.5385, "gap_x_non": 7.8471, "gap_y_cut": 2.5329, "gap_y_non": 7.8505, "frac_x_cut_edges_matched": 0.662, "frac_matches_off_diagonal": 0.1305}, "ft": {"gap_x_cut": 6.8828, "gap_x_non": 8.5009, "gap_y_cut": 0.0, "gap_y_non": 7.8548, "frac_x_cut_edges_matched": 0.0847, "frac_matches_off_diagonal": 0.1184}, "expect_075_sum_s2_cut": 7.5246, "raw_gap_diff": 2.4696, "noncut_gap_diff": 0.6582, "ft_cut_gap_vs_expect": 0.9147, "ff_cut_unmatched_frac_x": 0.3374}
+1ffsB00 {"ff": {"gap_x_cut": 0.1098, "gap_x_non": 1.6136, "gap_y_cut": 0.1093, "gap_y_non": 1.6138, "frac_x_cut_edges_matched": 0.9853, "frac_matches_off_diagonal": 0.0154}, "ft": {"gap_x_cut": 7.5157, "gap_x_non": 1.7076, "gap_y_cut": 0.0, "gap_y_non": 1.6865, "frac_x_cut_edges_matched": 0.003, "frac_matches_off_diagonal": 0.0175}, "expect_075_sum_s2_cut": 7.5256, "raw_gap_diff": 7.4633, "noncut_gap_diff": 0.1667, "ft_cut_gap_vs_expect": 0.9987, "ff_cut_unmatched_frac_x": 0.0146}
+3r1kA02 {"ff": {"gap_x_cut": 0.602, "gap_x_non": 5.658, "gap_y_cut": 0.6017, "gap_y_non": 5.6491, "frac_x_cut_edges_matched": 0.9197, "frac_matches_off_diagonal": 0.0682}, "ft": {"gap_x_cut": 6.8179, "gap_x_non": 6.3731, "gap_y_cut": 0.0, "gap_y_non": 5.687, "frac_x_cut_edges_matched": 0.09, "frac_matches_off_diagonal": 0.073}, "expect_075_sum_s2_cut": 7.4916, "raw_gap_diff": 6.3673, "noncut_gap_diff": 0.753, "ft_cut_gap_vs_expect": 0.9101, "ff_cut_unmatched_frac_x": 0.0804}
+DIAG_DONE
+      00:00  0.0 /bin/sh -c date -u +%T; grep -v 'oneDNN\|absl\|cudart_stub\|WAR
+```
+
+Cell `vfgSWJKreH1m`, run requested 16:41:42, output returned 16:46:43 UTC.
+
+```python
+ex=r'''import sys, json
+ROOT=sys.argv[1]
+src=open(ROOT+'/code/r38_s0.py').read(); src=src[:src.index("ALL = ['pick'")]
+sys.argv=['x',ROOT,'none']; exec(src)
+torch.set_num_threads(4); out={}
+for d in ('1ileA03','2l23A00','1ffsB00','3r1kA02'):
+    _runs.clear(); R_,L_=dom_runs(d); ne=L_-1; Ef=coords(np.concatenate([X for _,X in R_]))[:40]; Et=Ef[:,:ne-CUT].contiguous()
+    cut=(Ef[:,ne-CUT:]**2).sum((-1,-2,-3))
+    ms=MeanStart(Ef,Et); idx=np.arange(40); dr,gap,S,ku,_=red_pairs(ms,idx,idx,want_gap=True)
+    dfull=torch.stack([fs.distance(Ef[k],Et[k])[0] for k in range(40)])
+    out[d]=dict(max_abs_d2_minus_cut_reduced=float(np.abs(dr**2-cut.numpy()).max()), max_abs_gap_minus_cut=float(np.abs(gap-cut.numpy()).max()),
+                max_abs_d2_minus_cut_full128=float((dfull**2-cut).abs().max()), mean_cut=float(cut.mean()))
+    print(d, json.dumps(out[d]), flush=True)
+json.dump(out,open(ROOT+'/results/r38_s0_trunc_exact.json','w'),indent=1); print('EXACT_DONE')
+'''
+open("/content/s0_trunc_exact.py","w").write(ex)
+r=subprocess.run(f"cd /content && CUDA_VISIBLE_DEVICES= /usr/bin/python3 /content/s0_trunc_exact.py {R} 2>&1 | grep -v 'oneDNN\\|absl\\|cudart_stub\\|WARNING: All'", shell=True, capture_output=True, text=True, timeout=300); print(r.stdout[-1500:])
+```
+
+Output: the error below (traceback left out); the next cell stopped the script and restarted it.
+
+```
+TimeoutExpired: Command 'cd /content && CUDA_VISIBLE_DEVICES= /usr/bin/python3 /content/s0_trunc_exact.py /content/drive/MyDrive/atlas_framed_curves 2>&1 | grep -v 'oneDNN\|absl\|cudart_stub\|WARNING: All'' timed out after 300 seconds
+```
+
+Cell `vfgSWJKreH1m`, run requested 16:46:57, output returned 16:46:58 UTC.
+
+```python
+import signal
+for l in sh("ps -eo pid,args").splitlines()[1:]:
+    pid,args=l.strip().split(None,1)
+    if 's0_trunc_exact.py' in args and 'ps -eo' not in args and int(pid)!=os.getpid(): os.kill(int(pid),signal.SIGTERM); print("멈춤", pid, args[:60])
+ex=open("/content/s0_trunc_exact.py").read().replace("[:40]","[:12]").replace("np.arange(40)","np.arange(12)").replace("for k in range(40)","for k in range(4)").replace("(dfull**2-cut).abs().max()","(dfull**2-cut[:4]).abs().max()")
+open("/content/s0_trunc_exact.py","w").write(ex)
+subprocess.run(f"cd /content && CUDA_VISIBLE_DEVICES= nohup /usr/bin/python3 /content/s0_trunc_exact.py {R} > {L}/r38_s0_trunc_exact.log 2>&1 &", shell=True); print("뒤에서 띄움", sh("date -u +%T"))
+```
+
+Output ("stopped" with the process number, then "started in the background"):
+
+```
+멈춤 52939 /usr/bin/python3 /content/s0_trunc_exact.py /content/drive/M
+뒤에서 띄움 16:46:59
+```
+
+Cell `vfgSWJKreH1m`, run requested 16:56:09, output returned 16:56:10 UTC.
+
+```python
+print(sh(f"date -u +%T; grep -v 'oneDNN\\|absl\\|cudart_stub\\|WARNING: All' {L}/r38_s0_trunc_exact.log | tail -6 | cut -c1-400; wc -l < {Dd}/s0/bias.jsonl; ps -eo pid,etime,args | grep -E '[r]38_s0.py|[q]_full_gpu2' | cut -c1-120"))
+```
+
+Output (the four domains of the identity check, then `EXACT_DONE`; the last three lines are the number of finished lines of the bias check of `r38_s0.py`, which ran at the same time, and the running processes):
+
+```
+16:56:11
+1ileA03 {"max_abs_d2_minus_cut_reduced": 0.0017919650054656344, "max_abs_gap_minus_cut": 0.02284898063445784, "max_abs_d2_minus_cut_full128": 0.0017919650054656344, "mean_cut": 7.545062078723937}
+2l23A00 {"max_abs_d2_minus_cut_reduced": 1.5187850976872141e-13, "max_abs_gap_minus_cut": 1.7763568394002505e-15, "max_abs_d2_minus_cut_full128": 1.5631940186722204e-13, "mean_cut": 7.520251467780422}
+1ffsB00 {"max_abs_d2_minus_cut_reduced": 4.529709940470639e-14, "max_abs_gap_minus_cut": 1.7763568394002505e-15, "max_abs_d2_minus_cut_full128": 2.3092638912203256e-14, "mean_cut": 7.4997785403434785}
+3r1kA02 {"max_abs_d2_minus_cut_reduced": 1.6697754290362354e-13, "max_abs_gap_minus_cut": 1.7763568394002505e-15, "max_abs_d2_minus_cut_full128": 1.6697754290362354e-13, "mean_cut": 7.497694505237564}
+EXACT_DONE
+568
+  16098    02:28:03 bash /content/q_full_gpu2.sh
+  44493       46:32 /usr/bin/python3 /content/drive/MyDrive/atlas_framed_curves/code/r38_s0.py /content/drive/MyDrive/at
 ```

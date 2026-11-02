@@ -49,7 +49,8 @@ Usage is `python code/<script>.py ROOT [stages] [workers]` unless stated; stages
 | `analysis_fold208.py`, `analysis_fold208_ablation.py` | Topology mean average precision and class 1-NN accuracy, bootstrap difference against TM-align; ablation over normalizations | `results/pu_fold208_retrieval.json`, `results/pu_fold208_ablation.json` |
 | `chaining.py` | Chain linking on 150 two-domain chains from CathDomall v4.4 (downloads the PDB files): triangle violations and single/average-link merging for 1 − TM_short, 1 − TM_long, D_TM/√L̄ and D_TM at fixed d0 | `results/chaining.json`, `derived/chaining.tsv` |
 | `c4_chain_extra.py` | Round29: substitution ladder row from `derived/c4_sub`, and chain linking v2 with the proven fixed-d0 normalization and linear forms | `results/c4_ladder_row.json`, `results/chaining_v2.json` |
-| `framespace_wip/experiments/sippl_linear_counterexample.py` | Constructed counterexample showing that the linear (Sippl) form is not a metric | result in the file header |
+| `framespace_wip/experiments/sippl_linear_counterexample.py` | Constructed counterexample showing that the linear (Sippl) form is not a metric. Its header's "0.3% 안" (within 0.3% of the identity correspondence) refers to the identity correspondence at the identity superposition, for which the printed gaps are 0.25–0.77% (`sippl_identity_check.py`) | result in the file header |
+| `sippl_identity_check.py` | Added on 2026-11-02 (in no record) to check the comparison in S2 Text 8.3: for the same chains (seed 0) and the same `stage0.rulers` functions, the optimized (a, c) value against the identity correspondence at the identity superposition and at its optimal superposition (weighted least squares from the identity, 200 rounds); run from the repository root, output in the file header | standard output |
 
 ## Ladder, temperature unit and early checks (results 3.1–3.3, 4.8, 4.12)
 
@@ -174,7 +175,7 @@ and `prereg_2026-10-31_addendum12*.json`); corrections were written as separate 
 
 ## Figures and tables
 
-These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn as follows: all eight figures together on 2026-11-02 at 02:05 UTC, the S1 Table on 2026-11-02 at 02:08 UTC and the S2 and S3 Tables on 2026-11-01 at 18:29 UTC (times of the files on Colab; earlier runs in `docs/PROVENANCE.md`).
+These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn as follows: all eight figures together on 2026-11-02 at 02:05 UTC, the S1 Table on 2026-11-02 at 03:10 UTC and the S2 and S3 Tables on 2026-11-01 at 18:29 UTC (times of the files on Colab; earlier runs in `docs/PROVENANCE.md`).
 They take no arguments; the project path `R` and the output folder are set at the top of each file.
 
 | Script | What it does | Main outputs |
