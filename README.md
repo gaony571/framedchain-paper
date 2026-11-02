@@ -32,15 +32,16 @@ f₁ with a tick along f₂, both scaled with the term; blue, shared bonds (soli
 correspondence); orange, unshared bonds; open circles, zero matrices (in B, marked 0 and joined by a dotted line to the
 unmatched bond that faces each). The lower chain in (B) is drawn after the global rotation U.
 
-This repository contains the code exactly as it was run to produce every number, figure and table of the paper,
-together with the run queues, environment records and the time-stamped records that fixed each analysis before it
+This repository contains the code exactly as it was run to produce the numbers, figures and tables of the paper
+(a step whose code was not kept, the correlation of the discrete Fréchet distance in S2 Text 8.6, is named in
+[`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md)), together with the run queues, environment records and the time-stamped records that fixed each analysis before it
 was run. To apply the method to your own structures and ensembles, use the documented and tested Python package
 [framedchain](https://github.com/gaony571/framedchain) (version 0.4.2) instead; this repository is for checking
 and reproducing the paper.
 
 ## Abstract
 
-Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent protein backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, which can be certified, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replicate and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generative model match or exceed the same domains' shifts under 59 K heating, yet are largely orthogonal to the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear controls; in shorter domains, the association does not survive the nonlinear controls. Ensembles across sequences thus become comparable in one geometry.
+Proteins are increasingly described as conformational ensembles, but no common geometry holds structures and ensembles of different sequences and lengths: most ensemble measures assume identical sequences, and residue-pair comparisons drop unpaired residues. Here I represent backbones of any length as framed chains. Each virtual Cα–Cα bond becomes a 3×3 matrix, the orthonormal frame of the bond and its peptide plane scaled by bond length; an absent bond is the zero matrix, the only rotation-invariant choice. Minimizing Euclidean distance between chains over global rotations and insertions of absent bonds gives an order-preserving edit-distance metric across lengths; at any optimal alignment, certifiable to within a set tolerance, its square splits exactly into shared-bond and unshared-bond parts. Likewise, the score that TM-align maximizes, with its distance scale fixed, converts exactly into an edit-distance metric on α-carbon positions modulo rigid motion. For ensembles, energy statistics corrected for replicate noise are unbiased under any underlying metric. Calibrated on same-sequence temperature responses, they are invariant in expectation to replicate and frame numbers but grow with domain size, which comparisons must account for. Once correspondence and rotation are fixed, within or across sequences, the space is Euclidean, so mean shifts and fluctuations can be compared bond by bond. On held-out domains, the mean-shift errors of a temperature-conditioned generator match or exceed the same domains' shifts under 59 K heating, yet are largely orthogonal to the heating direction. In a pre-specified replication across 32 superfamilies, thermophilic domains fluctuate less on shared bonds than mesophilic homologs at equal temperature. In a confirmatory set of 4,152 pairs of larger homologous domains, shared-bond fluctuation profiles grow modestly more similar with sequence identity beyond shared-core structure, elastic-network predictions and nonlinear controls; in shorter domains, the association does not survive the nonlinear controls. Ensembles across sequences thus become comparable in one geometry.
 
 ## Results at a glance
 
@@ -60,7 +61,7 @@ without a square root), and for 1 − TM-score with TM-align's own alignments (l
 D<sub>TM</sub> and D<sub>TM</sub>/√L̄ with fixed d₀ are metrics. (B) Chaining under average linkage: under 1 − TM-score
 normalized by the shorter chain, a fragment is at distance zero from any chain containing it and different folds are
 merged (100%); D<sub>TM</sub>/√L̄ with one fixed d₀ per chain does so less often (15%; also 15% with d₀(L̄) of each
-pair, S2 Text); the linear form 1 − S/L̄ violates the triangle inequality in 67% of triples in the chaining set but
+pair, S2 Text); the linear form 1 − S/L̄ (with d₀(L̄)) violates the triangle inequality in 67% of triples in the chaining set but
 chains in only 9%, so chaining comes from shorter-chain normalization. Normalization by the longer chain is shown for
 comparison (0% and 1%); without a square root it is not a metric either (Proposition B, S1 Text). Error bars, 95%
 intervals over chains.
@@ -154,7 +155,7 @@ Each item of the paper is listed with the scripts that computed its values (in `
 | Fig 6 | `r38_p1n.py` (replication of the thermophile difference, folded fraction at 379 K); `r44_p1win.py` (absolute windows) | `make_figs.py` |
 | Fig 7 | `r38_p3.py`, `r38_p3_explore2.py` (first test); `r38_c.py`, `r38_c_nl.py`, `r44_pairw.py`, `r45_f1.py` (confirmatory set); `r44_corr_v2.py`, `r44_corr2.py` (other correspondences) | `make_figs.py` |
 | Table 1 | — (comparison with prior approaches) | — |
-| Table 2 | `r44_inv.py` (replicates, frames); `r39_core.py` (window); earlier audits: `r37_trunk.py` (window) and a notebook cell (survival; `docs/INTERACTIVE_CHECKS.md` 9) | — |
+| Table 2 | `r44_inv.py` (replicates, frames); `r39_core.py` (window), with a notebook cell for the diagnostic of the window difference (`docs/INTERACTIVE_CHECKS.md` 10); earlier audits: `r37_trunk.py` (window) and a notebook cell (survival; `docs/INTERACTIVE_CHECKS.md` 9) | — |
 | Table 3 | `r44_corr_v2.py`, `r44_corr2.py` | — |
 | S1 Fig | `r41_synth_adv.py` | `make_figs.py` |
 | S1 Table | the time-stamped records | `make_s1.py` |
@@ -171,13 +172,15 @@ first thermophile test, `r38_p1.py`, and the ranking of existing measures, `hu1_
 The checks that wrote no output file (12 test pairs, reversed chains, equipment of the cost measurement,
 decomposition of the unshared part, location of correspondence shifts, chain breaks, reproduction by framedchain
 0.4.1) are given with their code and printed output in [`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md),
-as are the two notebook cells that wrote `results/pu_tm_factorial_B_triangle.tsv` (Fig 2A) and
-`results/r37_size_survival.json` (survival row of Table 2).
+as are the three notebook cells that wrote `results/pu_tm_factorial_B_triangle.tsv` (Fig 2A),
+`results/r37_size_survival.json` (survival row of Table 2) and `results/r39_E2_aligned_diag.json` (diagnostic of
+the window difference, trajectory-window row of Table 2).
 
 Reproduction is possible at three levels:
 
 1. **Check a number** against the deposited summary tables in `results/`: each row of `docs/RESULTS_MAP.md` names
-   the file that holds it, and the figure and table scripts read only these files.
+   the file that holds it. The figure and table scripts read only deposited files: these tables and, for Figs 3
+   and 4, per-domain JSON files in `derived/` (`docs/RESULTS_MAP.md`, Figures and tables).
 2. **Recompute a statistic** from the deposited per-domain intermediates (CPU, minutes to hours), for example
    `python code/r38_p3.py "$ROOT" stats`.
 3. **Rerun from the public data** (GPU, days in total): download the inputs and run the stages in the order given
@@ -253,7 +256,8 @@ this order:
 9. **Sequence identity** (GPU, then CPU): `r38_p3.py`, `r38_p3_explore2.py`, `r38_c_fetch.py`, `r38_c.py`,
    `r38_c_nl.py`.
 10. **Analyses added after the results:** `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
-    `r47_*.py`, `r48_identity_range.py`, `r49_chainbreak*.py`, each fixed in its own time-stamped record (`docs/RESULTS_MAP.md`).
+    `r47_*.py`, `r48_identity_range.py`, `r49_chainbreak*.py`, each fixed in a time-stamped record except
+    `r44_repro.py`, `r44_seqid_cell30.py` and `r45_folded_frac.py`, which are in no record (`docs/RESULTS_MAP.md`).
 11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
     project path is set at the top of each file.
 
@@ -288,7 +292,7 @@ after a result are separate scripts that say so in their docstrings.
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
-| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the two notebook cells behind Fig 2A and the survival row of Table 2), `STATEMENTS.md` (draft availability statements) |
+| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the three notebook cells behind Fig 2A and the survival and window rows of Table 2), `STATEMENTS.md` (draft availability statements) |
 | `tools/` | `pack_for_zenodo.py` (builds the data deposit), `record_env.py` (records an environment) |
 | `MANIFEST.md5` | md5 of every file (`md5sum -c MANIFEST.md5`) |
 

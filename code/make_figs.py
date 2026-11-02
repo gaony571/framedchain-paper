@@ -71,7 +71,7 @@ def fig2():
     cax = axin(fig, 2.95, 0.45, 0.1, 2.6); cb = fig.colorbar(im, cax=cax); cb.set_label('% violated (log scale)', fontsize=FS); cb.ax.tick_params(labelsize=FS)
     # B: chaining
     c1, c2 = J('chaining.json'), J('chaining_v2.json')
-    meas = [('1 − TM\n(shorter)', c2['tms']), ('1 − TM\n(longer)', c1['tml']), (r'$D_{\rm TM}/\sqrt{\bar L}$' + '\n' + r'(fixed $d_0$)', c2['dfn']), (r'$1 - S/\bar L$' + '\n(linear)', c2['dn_lin'])]
+    meas = [('1 − TM\n(shorter)', c2['tms']), ('1 − TM\n(longer)', c1['tml']), (r'$D_{\rm TM}/\sqrt{\bar L}$' + '\n' + r'(fixed $d_0$)', c2['dfn']), (r'$1 - S/\bar L$' + '\n' + r'(linear, $d_0(\bar L)$)', c2['dn_lin'])]
     ax = axin(fig, 4.45, 0.55, 2.95, 2.5); panel(ax, 'B', x=-0.22, y=1.08)
     x = np.arange(len(meas)); w = 0.38
     for k, (key, col, lab) in enumerate([('triangle_violation', OI['grey'], 'triples violating the triangle inequality'), ('average_link_merge', OI['red'], 'chains with different folds merged')]):
@@ -170,12 +170,12 @@ def fig5():
     for i, r in enumerate(rows):
         for tt, v in r['resp'].items():
             if v is not None: ax.scatter(i, v, s=7, color=SCOL[tt], lw=0, zorder=2)
-        ax.scatter(i, r['model_dmu'], s=12, marker='D', color='black', lw=0, zorder=3)
+        ax.scatter(i, r['model_dmu'], s=12, marker='D', facecolors='none', edgecolors='black', lw=0.7, zorder=3)   # open, so heating circles of nearly the same value stay visible
     ax.set_yscale('symlog', linthresh=1e-3, linscale=0.3, subs=np.arange(2, 10)); ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_xlim(-1, len(rows))   # unlabelled minor ticks at 2–9 × 10^k
     ax.set_xticks([]); ax.set_xlabel(f'{len(rows)} held-out domains, ordered by model error'); ax.set_ylabel(r'$\Delta\mu^2_{2,D}$' + ' (mean shift per bond)')
     ax.axhline(0, color='black', lw=0.4)
     ax.set_ylim(min(ax.get_ylim()[0], -1e-2), None)   # lower limit at −10⁻² (or lower if the data are) so the negative side has a labelled decade like the positive side
-    hs = [Line2D([], [], marker='D', ls='', color='black', ms=4, label='aSAMt error at 320 K')] + [Line2D([], [], marker='o', ls='', color=SCOL[tt], ms=4, label=f'MD heating {STEP[tt]}') for tt in SCOL]
+    hs = [Line2D([], [], marker='D', ls='', mfc='none', mec='black', mew=0.7, ms=4, label='aSAMt error at 320 K')] + [Line2D([], [], marker='o', ls='', color=SCOL[tt], ms=4, label=f'MD heating {STEP[tt]}') for tt in SCOL]
     ax.legend(handles=hs, frameon=False, loc='upper center', ncol=3, bbox_to_anchor=(0.5, -0.09), columnspacing=1.2, handletextpad=0.2)
     ax = fig.add_subplot(gs[1]); panel(ax, 'B', x=-0.38); out = {}
     for j, (key, lab) in enumerate([('7c aSAMt320 대 MD 320 (P2 67)|T=top', 'aSAMt'), ('7c AlphaFlow 대 MD 320 (P2 67)|T=top', 'AlphaFlow')]):
@@ -193,7 +193,7 @@ def fig5():
 # ---------------- Fig 6 ----------------
 def fig6():
     p1n, pw = J('r38_p1n.json'), J('r44_p1win.json')
-    items = [('Q ≥ 0.70 (primary)', p1n['all']['U']['half|0.70']['U2'], 'm'), ('Q ≥ 0.75', p1n['all']['U']['half|0.75']['U2'], 'm'), ('Q ≥ 0.80', p1n['all']['U']['half|0.80']['U2'], 'm'),
+    items = [(r'$Q \geq 0.70$ (primary)', p1n['all']['U']['half|0.70']['U2'], 'm'), (r'$Q \geq 0.75$', p1n['all']['U']['half|0.75']['U2'], 'm'), (r'$Q \geq 0.80$', p1n['all']['U']['half|0.80']['U2'], 'm'),
              ('50–100 ns', pw['all']['each|w050_100'], 'w'), ('300–400 ns', pw['all']['each|w300_400'], 'w'), ('400–500 ns', pw['all']['each|w400_500'], 'w')]
     fig = plt.figure(figsize=(7.5, 3.0))
     ax = axin(fig, 1.3, 0.5, 3.45, 2.2); panel(ax, 'A', x=-0.36, y=1.04); y = np.arange(len(items))[::-1]; vals = {}
@@ -206,7 +206,7 @@ def fig6():
     ax.text(1.03, y[0] + 0.6, 'super-\nfamilies', fontsize=FS, color='#555555', va='bottom', ha='left', transform=ax.get_yaxis_transform())
     ax.axvline(0, color='black', lw=0.5); ax.set_yticks(y); ax.set_yticklabels([i[0] for i in items]); ax.set_xlim(-0.75, 0.6); ax.set_ylim(-0.6, 5.6)
     ax.set_xlabel('U2 (log spread ratio, controlled)'); ax.axhline(2.5, color=OI['grey'], lw=0.4, ls=':')
-    ax.text(0.17, 4.0, 'second half of\neach trajectory', fontsize=FS, color='#555555', va='center'); ax.text(0.17, 1.0, 'absolute windows\n(Q ≥ 0.70)', fontsize=FS, color='#555555', va='center')
+    ax.text(0.17, 4.0, 'second half of\neach trajectory', fontsize=FS, color='#555555', va='center'); ax.text(0.17, 1.0, 'absolute windows\n' + r'($Q \geq 0.70$)', fontsize=FS, color='#555555', va='center')
     ax = axin(fig, 6.25, 0.5, 1.15, 2.2); panel(ax, 'B', x=-0.6, y=1.04); fd = p1n['all']['fold']['379']
     ax.errorbar(0, fd['median'], yerr=[[fd['median'] - fd['lo']], [fd['hi'] - fd['median']]], fmt='o', color=OI['green'], ms=4, capsize=2)
     ax.axhline(0, color='black', lw=0.5); ax.set_xticks([0]); ax.set_xticklabels([f'379 K\n({fd["n_sf"]} superfamilies)']); ax.set_xlim(-0.6, 0.6)
@@ -243,7 +243,7 @@ def fig7():
 # ---------------- S1 Fig ----------------
 def s1fig():
     adv = J('r41_synth_adv.json')['generators']
-    fams = [('i', 'ℓ2 terms,\ngap cost |a|'), ('ii', 'ℓ1 terms (ERP),\ngap cost |a|'), ('iii', 'planar curves\nmod SO(2),\ngap cost |a|'), ('iv', 'gap cost 2|a|\n(not 1-Lipschitz)'), ('v', 'dynamic time\nwarping')]
+    fams = [('i', 'ℓ2 terms,\ngap cost ' + r'$\Vert a\Vert$'), ('ii', 'ℓ1 terms (ERP),\ngap cost ' + r'$\Vert a\Vert$'), ('iii', 'planar curves\nmod SO(2),\ngap cost ' + r'$\Vert a\Vert$'), ('iv', 'gap cost ' + r'$2\Vert a\Vert$' + '\n(not 1-Lipschitz)'), ('v', 'dynamic time\nwarping')]
     fig, ax = plt.subplots(figsize=(7.5, 3.2)); fig.subplots_adjust(left=0.08, right=0.99, bottom=0.23, top=0.97); x = np.arange(len(fams)); w = 0.38; out = {}
     for k, (gname, col, lab) in enumerate([('A', OI['blue'], 'A: shrinking and deleting terms'), ('B', OI['orange'], 'B: stretching')]):
         v = []
@@ -319,7 +319,7 @@ def fig1():
     ax = fig.add_subplot(gs[1, 1]); ax.set_xlim(-1.0, 9.6); ax.set_ylim(-0.4, 2.6); ax.axis('off'); panel(ax, 'D', x=-0.02, y=0.98)
     ts = [0, 0.5, 1]; rows_y = [2.05, 1.15, 0.25]
     for t, yv in zip(ts, rows_y):
-        ax.text(-1.3, yv, f't = {t:g}', fontsize=FS, va='center')
+        ax.text(-1.3, yv, r'$t$' + f' = {t:g}', fontsize=FS, va='center')
         k = 0
         for i in range(7):
             if i in m:

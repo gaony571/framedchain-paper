@@ -4,7 +4,7 @@ Usage:
     python tools/pack_for_zenodo.py ROOT OUT_DIR [--ensembles] [--dry-run | --excluded-only]
 
 Writes OUT_DIR/framedchain_paper_data.tar (uncompressed: most bytes are npz/xtc, which do not compress) and
-OUT_DIR/MANIFEST_data.tsv (md5, bytes, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
+OUT_DIR/MANIFEST_data.tsv (md5, bytes, group, path) for every packed file, plus OUT_DIR/EXCLUDED_public.tsv listing the
 public inputs matched by PUBLIC below, and the structures and tables taken from ATLAS (CC BY-NC 4.0), by name and size,
 with the md5 of the files of up to 64 MiB (PUBLIC_MD5_MAX) that are not simulation data (lists, tables, PDB entries,
 structures taken from ATLAS), so that the same files can be identified without redistributing them; simulation files

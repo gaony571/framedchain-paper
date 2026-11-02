@@ -4,9 +4,10 @@ Seven results were computed in interactive Colab cells, or by a script whose pri
 the comparison of 12 test pairs with TM-align (S2 Text 8.1; section 1), the reversed chains (S2 Text 8.5; section 2),
 the equipment check before the computational-cost measurement (S2 Text 7; section 3), the decomposition of the
 unshared part between mean points (section 4), where correspondence shifts occur (section 5), the chain-break check
-(section 6) and the reproduction of the as-run code by framedchain 0.4.1 (section 7). Two further cells wrote result
-files that the paper uses: the violation rates of the factorial comparison behind Fig 2A (S2 Text 8.2; section 8) and
-the size and survival audit behind the survival row of Table 2 (section 9). The code and printed output
+(section 6) and the reproduction of the as-run code by framedchain 0.4.1 (section 7). Three further cells wrote result
+files that the paper uses: the violation rates of the factorial comparison behind Fig 2A (S2 Text 8.2; section 8),
+the size and survival audit behind the survival row of Table 2 (section 9) and the diagnostic of the window difference
+behind the trajectory-window row of Table 2 (section 10). The code and printed output
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
@@ -1079,4 +1080,85 @@ Cell `8qMMN_3A_f7v`, run requested 17:10:11, output returned 17:10:12 UTC (first
 
 ```python
 OUT37['written'] = time.strftime('%F %T'); json.dump(OUT37, open(ROOT + '/results/r37_size_survival.json', 'w'), indent=1, ensure_ascii=False)
+```
+
+## 10. Diagnostic of the window difference (21 October 2026)
+
+Results (calibration) and Table 2, trajectory-window row: in the edit distance the ratio of second-half to
+whole-trajectory responses was 0.85–1.13 (part `e2` of `code/r39_core.py`), against 1.0–2.1 in the earlier audit with
+aligned coordinates, and a diagnostic added after this result traced the difference to the folded-frame criterion and
+the domain set rather than the distance. The cell below first added the entry `round39_posthoc_window_diag_2026-10-21`
+to the first record (`results/prereg_2026-10-17.json`, with a copy in `results/_backup/2026-10-21/`; its stamp,
+12:43:00, is the first output line). The entry gives, in Korean, the question, the design and the reading rule: run
+part `e2` of `r39_core.py` unchanged on the aligned-coordinate values stored with the same replicates and frames in
+the per-domain files of `r39_D_stem.py` (`derived/r39/D/<domain>.json`; keys `Aall` and `dmu2_A` instead of `D` and
+`dmu2_D`; same seed 20261072, same domain set, at least 100 folded frames per replicate), and read the second-half /
+whole ratio at +59, +93 and +130 K: "criterion and set" (기준·집합) if its 95% interval contains 1 in at least two of
+the three steps, "distance" (거리) if the lower bound is at least 1.2 in at least two, and "not separated"
+(가르지 못함) otherwise; +28 K is descriptive. The cell then wrote the modified copy of `r39_core.py` to
+`/content/r39_e2_aligned_diag.py` (not kept: the deposited `r39_core.py` up to its `__main__` block with the
+replacements shown, followed by a call of `part_e2()`) and ran it, which wrote `results/r39_E2_aligned_diag.json`.
+The second output line gives the number of occurrences replaced (3 and 2; the deposited `r39_core.py` has the same
+counts in `part_e2`, and the other replaced strings occur in it), and the `R39_E2` line the whole / second-half ratios
+of the medians. The second run of the cell added the rule, the reading and the second-half / whole ratios (the
+reciprocals of the stored whole / second-half ratios and of their interval bounds) to that file. In this cell `R` is
+the project root and `C = R + '/code'`; `b`, used in the second run, is the backup folder set in the first. Times
+printed inside the output come from the Colab clock. The character � in the first run's code is in the log as
+written; it lies inside a label string of the output file.
+
+Cell `HpplqbJChcyO`, run requested 2026-10-21 12:42:57, output returned 12:43:10 UTC.
+
+```python
+pf = f'{R}/results/prereg_2026-10-17.json'; P = json.load(open(pf)); K = 'round39_posthoc_window_diag_2026-10-21'
+assert K not in P
+P[K] = dict(stamped_utc=time.strftime('%F %T'), nature='사후 진단(판정을 바꾸지 않고 설명을 붙임; 사용자 2026-10-21). E2 결과(D 판 전체/뒤 절반 0.89–1.18, 구간이 1 포함)를 본 뒤 등록.',
+  question='round37 맞춘 좌표 판의 "뒤 절반의 온도 차가 전체 창의 1.3–2.1 배" 와 D 판 E2 의 불일치가 거리(D 대 맞춘 좌표) 때문인가, 접힌 프레임 기준(≥ 40 대 ≥ 100)·도메인 집합 때문인가.',
+  design='줄기 336 D 파일(r39_D_stem)에 같은 실행·같은 프레임으로 저장된 맞춘 좌표 칸(Aall: 모든 프레임 쌍, Δ²/√변; dmu2_A)으로 r39_core.part_e2 를 그대로 다시 냄(값 키만 D → Aall, dmu2_D → dmu2_A; 같은 seed 20261072, 같은 도메인 집합, 실행당 접힌 프레임 ≥ 100). 출력 results/r39_E2_aligned_diag.json.',
+  reading=('맞춘 좌표 판의 뒤 절반/전체 비(= 1/(전체/뒤 절반)) 를 +59·+93·+130 K 에서 본다. 셋 중 둘 이상에서 95% 구간이 1 을 포함하면 "기준·집합" (round37 그 행은 투명성 표로 내림); '
+           '셋 중 둘 이상에서 구간 하한 ≥ 1.2 이면 "거리" (실험 2 의 D 압축 기전과 같은 뿌리); 둘 다 아니면 "가르지 못함". +28 K 는 서술.'))
+json.dump(P, open(pf + '.tmp', 'w'), ensure_ascii=False, indent=1); os.replace(pf + '.tmp', pf)
+b = f"{R}/results/_backup/{time.strftime('%Y-%m-%d')}"; shutil.copy(pf, b + '/' + time.strftime('%H%M%S_') + os.path.basename(pf)); print(P[K]['stamped_utc'])
+src = open(f'{C}/r39_core.py').read(); body = src[:src.index("\nif __name__ == '__main__':")]
+seg = body[body.index('def part_e2():'):body.index('# ---------- E3')]
+seg2 = seg.replace("['D']['d2n']", "['Aall']['d2n']").replace("['dmu2_D']", "['dmu2_A']").replace("RES + '/r39_E2.json'", "RES + '/r39_E2_aligned_diag.json'").replace("log('R39_E2_DONE')", "log('R39_E2_ALIGNED_DIAG_DONE')").replace("'round39 E2 가벼운 판 (D)", "'사후 진단: E2 와 같은 판을 맞�춘 좌표(Aall)로 (D)")
+print(seg.count("['D']['d2n']"), seg.count("['dmu2_D']"))
+open('/content/r39_e2_aligned_diag.py', 'w').write(body.replace(seg, seg2) + "\npart_e2()\n")
+r = subprocess.run(f"cd /content && CUDA_VISIBLE_DEVICES= python3 /content/r39_e2_aligned_diag.py {R} none 2>&1 | grep -v Warning | tail -2 | cut -c1-400", shell=True, capture_output=True, text=True); print(r.stdout)
+```
+
+Output:
+
+```
+2026-10-21 12:43:00
+3 2
+12:43:11 R39_E2 {'348': 0.928, '379': 0.917, '413': 0.858, '450': 1.029}
+12:43:11 R39_E2_ALIGNED_DIAG_DONE
+```
+
+Cell `HpplqbJChcyO`, run requested 12:43:20, output returned 12:43:21 UTC.
+
+```python
+fo = f'{R}/results/r39_E2_aligned_diag.json'; d = json.load(open(fo))
+d['rule'] = '사후 진단(Drive JSON round39_posthoc_window_diag_2026-10-21): r39_core.part_e2 를 맞춘 좌표(Aall Δ²/√변, dmu2_A)로 그대로 — 같은 도메인 집합·같은 seed·실행당 접힌 프레임 ≥ 100. 뒤 절반/전체 = 1/(전체/뒤 절반).'
+res = {}
+for T, s in d['steps'].items():
+    r = s['ratio_full_over_half']; hf = (1 / r['est'], [1 / r['ci95'][1], 1 / r['ci95'][0]]); res[T] = hf
+    print(T, 'n', s['n_dom'], 'Aall d2n 뒤 절반', round(s['d2n_half']['est'], 4), '전체', round(s['d2n_full']['est'], 4), '뒤절반/전체', round(hf[0], 3), [round(x, 3) for x in hf[1]], 'dmu2 전체/뒤절반', round(s['dmu2_ratio_full_over_half']['est'], 3))
+ci1 = sum(1 for T in ('379', '413', '450') if res[T][1][0] <= 1 <= res[T][1][1]); lo12 = sum(1 for T in ('379', '413', '450') if res[T][1][0] >= 1.2)
+d['reading'] = '기준·집합' if ci1 >= 2 else ('거리' if lo12 >= 2 else '가르지 못함'); d['half_over_full'] = {T: dict(est=v[0], ci95=v[1]) for T, v in res.items()}
+json.dump(d, open(fo + '.tmp', 'w'), ensure_ascii=False, indent=1); os.replace(fo + '.tmp', fo); shutil.copy(fo, b + '/' + time.strftime('%H%M%S_') + os.path.basename(fo)); print('읽기', d['reading'], ci1, lo12)
+```
+
+Output (per heating step, 348, 379, 413 and 450 K being +28, +59, +93 and +130 K: number of domains, the
+aligned-coordinate Δ²/√n over the second half (뒤 절반) and the whole trajectory (전체), the ratio second half /
+whole (뒤절반/전체) with its 95% interval, and the whole / second-half ratio of Δμ²₂; last line, the reading (읽기,
+"criterion and set") and the numbers of the three steps whose interval contains 1 and whose lower bound is at least
+1.2):
+
+```
+348 n 264 Aall d2n 뒤 절반 0.0065 전체 0.0061 뒤절반/전체 1.077 [0.488, 2.041] dmu2 전체/뒤절반 0.845
+379 n 209 Aall d2n 뒤 절반 0.0256 전체 0.0235 뒤절반/전체 1.091 [0.885, 1.414] dmu2 전체/뒤절반 0.73
+413 n 111 Aall d2n 뒤 절반 0.0454 전체 0.0389 뒤절반/전체 1.166 [0.859, 1.533] dmu2 전체/뒤절반 0.912
+450 n 47 Aall d2n 뒤 절반 0.0605 전체 0.0623 뒤절반/전체 0.971 [0.916, 1.555] dmu2 전체/뒤절반 0.75
+읽기 기준·집합 3 0
 ```
