@@ -27,7 +27,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > that fixed the analyses — are deposited at Zenodo (DOI: 10.5281/zenodo.23858418). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
 > [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
-> (https://github.com/gaony571/framedchain, version 0.4.2, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
+> (https://github.com/gaony571/framedchain, version 0.4.3, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
 > Both are released under the MIT license. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
 
@@ -36,11 +36,11 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
 > available at https://github.com/gaony571/framedchain-paper (version 1.3.1; MIT license; Zenodo DOI:
 > [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
-> statistics is the framedchain package (version 0.4.2; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
+> statistics is the framedchain package (version 0.4.3; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
 
 ## Software references (for the reference list)
 
-> An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.2.
+> An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.3.
 > Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
@@ -54,7 +54,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 Done (from 2026-10-26): both repositories are on GitHub with version tags; they are private until they are made public
 before submission —
-`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.2`) and
+`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.3`) and
 `gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29, `v1.3.0` = with the round46–48 checks of 2026-10-29 and 10-30, the figure and table scripts and the manuscript map). Both were renamed from framespace and framespace-paper on
 2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
 archives a repository only for releases published after the repository is connected.
@@ -65,9 +65,8 @@ Remaining before submission:
    Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
    repositories are made public, switch both on and publish a GitHub release of each:
    framedchain-paper `v1.3.1` from its latest `main` (the version already in `CITATION.cff`, the README and the
-   manuscript reference; `main` changed after `v1.3.0`) and framedchain from its existing tag `v0.4.2` (0.4.1 with a
-   chain-break flag and documentation; no computation changed; the package `main` has later documentation-only
-   changes, which a later release would archive as a new Zenodo version). Zenodo mints a DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
+   manuscript reference; `main` changed after `v1.3.0`) and framedchain `v0.4.3` (0.4.1 with the
+   chain-break flag of 0.4.2 and documentation; no computation changed). Zenodo mints a DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
    metadata.
 2. Done (2026-11-01): the data deposit was packed with `tools/pack_for_zenodo.py` on the project root (Colab with
    Drive mounted), with the files listed in its `MANIFEST_data.tsv` (built with `--ensembles`, so the generated aSAMt and AlphaFlow ensembles are included), and uploaded (2026-11-01 18:36 UTC;

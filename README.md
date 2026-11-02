@@ -37,7 +37,7 @@ This repository contains the code exactly as it was run to produce the numbers, 
 [`docs/INTERACTIVE_CHECKS.md`](docs/INTERACTIVE_CHECKS.md); the one step whose code was not kept, the correlation of
 the discrete Fréchet distance in S2 Text 8.6, is named in [`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md)), together with the run queues, environment records and the time-stamped records that fixed each analysis before it
 was run. To apply the method to your own structures and ensembles, use the documented and tested Python package
-[framedchain](https://github.com/gaony571/framedchain) (version 0.4.2) instead; this repository is for checking
+[framedchain](https://github.com/gaony571/framedchain) (version 0.4.3) instead; this repository is for checking
 and reproducing the paper.
 
 ## Abstract
@@ -211,7 +211,7 @@ cmd, `$env:PYTHONPATH = "framespace_pkg"` in PowerShell) and run `python -m pyte
   about 30 s.
 - The 25 tests of the research module run against the as-run library (about 3 minutes).
 - Both were checked on 2026-10-26 with Python 3.12.13 and the versions in `environment/requirements-check.txt`.
-  The tests of the method itself are in the framedchain package (47 tests in version 0.4.2).
+  The tests of the method itself are in the framedchain package (47 tests in version 0.4.3).
 
 ## Running the analyses
 
