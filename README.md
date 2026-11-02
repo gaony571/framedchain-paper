@@ -261,7 +261,7 @@ this order:
    `r38_c_nl.py`.
 10. **Analyses added after the results:** `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
     `r47_*.py`, `r48_identity_range.py`, `r49_chainbreak*.py`, each fixed in a time-stamped record except
-    `r44_repro.py`, `r44_seqid_cell30.py` and `r45_folded_frac.py`, which are in no record (`docs/RESULTS_MAP.md`).
+    `r44_repro.py`, `r44_seqid_cell30.py` and `r45_folded_frac.py`, which were not specified in advance (`docs/RESULTS_MAP.md`).
 11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
     project path is set at the top of each file.
 

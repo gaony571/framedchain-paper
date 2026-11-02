@@ -412,7 +412,7 @@ Output:
 
 Manuscript, sequence-identity section: about 89% of the unshared part of the squared distance between mean points is
 staggered, one-sided loss of correspondence inside the aligned region, about 7% terminal overhangs and about 4.5%
-bonds at the same position turned beyond 120° (a descriptive decomposition, in no record). Inputs:
+bonds at the same position turned beyond 120° (a descriptive decomposition, not specified in advance). Inputs:
 `derived/r38/c/pibar.jsonl` and `derived/r38/p3/pibar.jsonl` (alignment of the two mean points of each pair, with its
 correspondence `best` and score `S`), `derived/r38/c/dom/<domain>.npz` and `derived/r38/p3/dom/<domain>.npz` (mean
 point `m`, mean length ratio `sbar`) and `derived/r41/tm_med.jsonl` (TM-score of TM-align on medoids). In the output, C is
@@ -1383,7 +1383,7 @@ Output (first line, "condition-2 simulation added"; the decision values of `resu
 
 ## 12. Diagnostics of the failed truncated-chain check (19 October 2026)
 
-S2 Text 5: diagnostics on four of the domains (run the same day, in no record) located the failure of the
+S2 Text 5: diagnostics on four of the domains (run the same day, not specified in advance) located the failure of the
 pre-specified truncated-chain check in its assumption that the removed bonds are matched in full-versus-full
 comparisons and unmatched in full-versus-truncated ones. The cells below wrote two short scripts to `/content` and ran
 them, `/content/s0_trunc_diag.py` and `/content/s0_trunc_exact.py` (not kept as files; their full text is in the
