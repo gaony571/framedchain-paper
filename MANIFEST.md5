@@ -27,7 +27,7 @@ ea16fe51c8585020b2bc94bc3dea45de *code/ladder_half.py
 961d2f27c0406c9667fabb03b2d5b142 *code/ladder_temp_single.py
 6420c51e5aeb3a69c51aafa1711a261d *code/ladder_temp_single_v2.py
 d7783270d20e7bd260710ff8b9177ab8 *code/make_figs.py
-f11020ff6cb866d3404df8c6a545335d *code/make_s1.py
+38c1d382a5cde3d5ff6ea63cbdad6067 *code/make_s1.py
 9e13d1363bb3a942e443a2d42795952a *code/make_tables.py
 a77709c6edfef1e21207070b2c959b69 *code/mdcath_5T_extract.py
 6c65c299322b4cdbf6ae447c51481fa4 *code/mdcath_5T_folded.py
@@ -130,10 +130,10 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 363b9141170533127c235412d1382a1d *code/r49_chainbreak_fix1.py
 2134b09e8f0bcfdb1cab980aeb1c07c9 *code/sippl_identity_check.py
 4cec290e23ba8e524ba340b2e1f20174 *docs/DATA.md
-437aa5543785b0cf209b71866e792e49 *docs/INTERACTIVE_CHECKS.md
-3a3166cd754b3139d7e2799cbe6cbc36 *docs/PROVENANCE.md
-e2c067d430bce5e5fdf356273c4b3ae7 *docs/RESULTS_MAP.md
-f8f18ceb9bccd2bd8fb99fafa8c8f45b *docs/SCRIPTS.md
+b6eaf5d3c3ca5b074a12bb7c787b9d99 *docs/INTERACTIVE_CHECKS.md
+78441a41ba0ba80e4cf0d3915c1c8463 *docs/PROVENANCE.md
+c1caa2355028888e3e307f479f677d90 *docs/RESULTS_MAP.md
+d5529a996770e619769c0bab6e6e2387 *docs/SCRIPTS.md
 ea829b9824d4b106dd19f9ade91d2b9c *docs/STATEMENTS.md
 89f956cde72858aadbafd0d91c7c1192 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh

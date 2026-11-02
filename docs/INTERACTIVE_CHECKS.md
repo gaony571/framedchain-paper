@@ -611,8 +611,9 @@ Output:
 
 ## 6. Chain breaks (28 October 2026)
 
-Methods: no domain or chain checked had a Cα–Cα bond longer than 4.2 Å (s > 1.097); the sets not checked are listed there and in S1 Table. For the homolog studies the check
-used the frame-averaged length ratio `sbar` stored for each domain (`derived/r38/p3/dom/`, first homolog study, 1,496
+Methods: no domain or chain checked had a Cα–Cα bond longer than 4.2 Å (s > 1.097; in the two homolog studies, a frame-averaged s̄ above 1.1, 4.21 Å); the sets not checked are listed there and in S1 Table. For the homolog studies the check
+used the frame-averaged length ratio `sbar` stored for each domain, with the cut-off s̄ > 1.1 (4.21 Å for l₀ = 3.83 Å; the
+code comment rounds it to 4.2 Å) (`derived/r38/p3/dom/`, first homolog study, 1,496
 domains with `sbar`; `derived/r38/c/dom/`, confirmatory set, 949), and for the 336 calibration domains every bond of the
 first 320 K frame of replicate 0 (`derived/mdcath_5T/<domain>.npz`, `320_0_X`). The output tuple is (domains checked,
 domains with a long bond, examples).

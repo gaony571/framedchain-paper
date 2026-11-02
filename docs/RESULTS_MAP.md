@@ -153,7 +153,7 @@ computed (manuscript, Methods).
 ## Figures and tables
 
 The figure and table scripts read stored results only and recompute nothing. On Colab, all eight figures were last
-drawn together on 2026-11-02 at 17:07 UTC, the S1 Table on 2026-11-02 at 17:07 UTC, the S3 Table at 06:07 UTC and the S2 Table on
+drawn together on 2026-11-02 at 17:07 UTC, the S1 Table on 2026-11-02 at 17:53 UTC, the S3 Table at 06:07 UTC and the S2 Table on
 2026-11-01 at 18:29 UTC (written again with the same content on 2026-11-02 at 06:07 UTC; times of the files on Colab; earlier runs are listed in `docs/PROVENANCE.md`); the scripts
 write to `manuscript_figs/` under the project path set at the top of each file.
 
@@ -183,7 +183,7 @@ write to `manuscript_figs/` under the project path set at the top of each file.
 These are used by many rows above and are loaded by other scripts with `exec` (keep the `code/` layout):
 
 - `r38_s0.py` — reduced computation, ensemble statistic, sampling helpers (loaded by `r38_b6`, `r38_e7_*`,
-  `r38_p2_D`, `r39_core`, `r41_*`).
+  `r38_p2_D`, `r39_core`, `r41_compute`, `r41_compute_prep`, `r41_dcomp`, `r41_dff50`).
 - `r38_p3.py` — MD readers, folded-frame filter, medoids (loaded by `r38_p1`, `r38_c`, `r38_static`,
   `r38_p3_sens`).
 - `r38_compare.py` — model vs MD comparison in aligned coordinates (loaded by `r38_compare_450`).
