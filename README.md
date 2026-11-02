@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Manuscript submitted · Analysis code exactly as run · Version 1.3.1 · MIT license · Zenodo DOI to be added at release
+  Accompanying manuscript · Analysis code exactly as run · Version 1.3.1 · MIT license · Zenodo DOI to be added at release
 </p>
 
 <p align="center">
@@ -238,7 +238,8 @@ where the second argument lists stages and the optional third is the number of w
 resumable: finished per-domain files are skipped. Scripts add `ROOT/framespace_pkg` and `ROOT/framespace_wip` to
 `sys.path` themselves, so do not install another version of the library into the same environment. Several scripts
 load functions from another script with `exec` (for example `r38_b6.py` loads part of `r38_s0.py`), so keep `code/`
-flat and unchanged. The commands that were actually run, with their arguments, are in `run_records/queues/`.
+flat and unchanged. The queues that ran the scripts, with their arguments, are in `run_records/queues/` (every queue file
+kept on Google Drive); some steps were started directly from notebook cells (`docs/INTERACTIVE_CHECKS.md`).
 
 Scripts named `r37` to `r49` carry the stage of the project in which they were written; the others (data
 preparation and the early CPU-only analyses) have descriptive names. From the public data, the analyses run in
@@ -355,7 +356,7 @@ release):
   author = {An, Hyeonsu},
   title  = {Comparing protein conformational ensembles across sequences and lengths},
   year   = {2026},
-  note   = {Manuscript submitted}
+  note   = {Manuscript}
 }
 
 @software{An2026framedchainpaper,

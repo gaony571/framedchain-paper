@@ -50,16 +50,17 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
 > Zenodo; 2026. doi:10.5281/zenodo.23858418
 
-## Status and remaining steps
+## Status (as of 2026-11-02, before the releases)
 
-Done (from 2026-10-26): both repositories are on GitHub with version tags; they are private until they are made public
-before submission —
-`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.3`) and
-`gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29, `v1.3.0` = with the round46–48 checks of 2026-10-29 and 10-30, the figure and table scripts and the manuscript map). Both were renamed from framespace and framespace-paper on
-2026-10-26 (GitHub redirects the old addresses). No GitHub *release* has been published yet, on purpose: Zenodo
-archives a repository only for releases published after the repository is connected.
+Both repositories are on GitHub with version tags (from 2026-10-26) —
+`gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.2`; `v0.4.3` is created with
+its release) and
+`gaony571/framedchain-paper` (tags `v1.0.0` = first push, `v1.1.0` = with the round44 checks of 2026-10-28, `v1.2.0` = with the round45 checks of 2026-10-28 and 10-29, `v1.3.0` = with the round46–48 checks of 2026-10-29 and 10-30, the figure and table scripts and the manuscript map; `v1.3.1` is created with its release). Both were renamed from framespace and framespace-paper on
+2026-10-26 (GitHub redirects the old addresses). They were kept private until the releases below. No GitHub *release*
+had been published before them, on purpose: Zenodo archives a repository only for releases published after the
+repository is connected.
 
-Remaining before submission:
+Steps before submission:
 
 1. Zenodo archives a GitHub release only for a public repository that was switched on in Zenodo (log in to
    Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
@@ -68,18 +69,19 @@ Remaining before submission:
    manuscript reference; `main` changed after `v1.3.0`) and framedchain `v0.4.3` (0.4.1 with the
    chain-break flag of 0.4.2 and documentation; no computation changed). Zenodo mints a DOI for each release, and `CITATION.cff` (author, affiliation, abstract, keywords, license) supplies its
    metadata.
-2. Done (2026-11-01): the data deposit was packed with `tools/pack_for_zenodo.py` on the project root (Colab with
-   Drive mounted), with the files listed in its `MANIFEST_data.tsv` (built with `--ensembles`, so the generated aSAMt and AlphaFlow ensembles are included), and uploaded (2026-11-01 18:36 UTC;
-   Zenodo's md5 matched for all three files). `EXCLUDED_public.tsv` was then rebuilt with `--excluded-only` to add inputs
-   the first list missed (`docs/DATA.md`) and replaced in the draft, and `prespecification_document_versions.zip` (the
-   three surviving versions of the pre-specification document) was added. ATLAS files
+2. The data deposit was packed with `tools/pack_for_zenodo.py` on the project root (Colab with Drive mounted), with
+   the files listed in its `MANIFEST_data.tsv` (built with `--ensembles`, so the generated aSAMt and AlphaFlow
+   ensembles are included), and uploaded on 2026-11-01 (18:36 UTC; Zenodo's md5 matched for all three files). Before
+   it is published, `EXCLUDED_public.tsv`, rebuilt with `--excluded-only` to add inputs the first list missed
+   (`docs/DATA.md`), replaces the uploaded one, and `prespecification_document_versions.zip` (the three surviving
+   versions of the pre-specification document) is added. ATLAS files
    (CC BY-NC 4.0) and the structures and tables taken from them are not redistributed, nor are the MFM reference
    simulations converted to npz, which only analyses outside the paper read; the deposit lists all of these by name
-   and size, with the md5 of the files of up to 64 MiB that are not simulation data. The deposit is the Zenodo draft 23858418,
-   with the reserved DOI 10.5281/zenodo.23858418 (filled in above); it is published before submission.
+   and size, with the md5 of the files of up to 64 MiB that are not simulation data. It holds the time-stamped
+   records unchanged, as the Methods state. The deposit is the Zenodo draft 23858418, with the reserved DOI
+   10.5281/zenodo.23858418 (filled in above); it is published before submission.
 3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the
    READMEs. The data DOI is filled in; the two software DOIs follow the releases of step 1.
 4. Reviewers need access at submission, and a private GitHub repository has no shareable link (only named
    collaborators can open it). Decision of 2026-10-30: both repositories are made public before submission, so
    no private link is needed and step 1 gives the two software DOIs before submission.
-5. Include the time-stamped records unchanged in the data deposit, as the Methods state.

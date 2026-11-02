@@ -3,7 +3,7 @@
 md5 of every run-time file (`code/`, `framespace_wip/experiments/`, the setup scripts and freeze records in `environment/`, `registration/`, `run_records/`),
 and whether that exact checksum was recorded before or at the time of the run.
 
-- **R** — the full md5 appears in the first time-stamped record `results/prereg_2026-10-17.json` (66 files).
+- **R** — the full md5 appears in the first time-stamped record `results/prereg_2026-10-17.json` (77 files).
   For some scripts the matching value is a later entry recorded after a correction
   (all on 2026-10-20, times written in the entries, UTC: `r38_c.py` and `r38_verify_c.py`, `round36_amend_C` `scripts_md5_v2` 06:39:35;
   `r38_r10a.py`, `round36_r10a` `amend1` `script_md5_1b` 18:08:00; `r39_r6.py`, `round36_r6` `amend1` 18:06:51; `r39_sec6.py`,
@@ -11,7 +11,7 @@ and whether that exact checksum was recorded before or at the time of the run.
   `r38_p1n.py`, `round36_amend_P1prime` `align_restart` 16:26:08; `r38_verify_p1n.py`, the same entry's `verify_v2` 13:44:45).
 - **A** — the full md5 appears in one of the round44–49 records `registration/prereg_2026-10-*_addendum*.json` (including their corrections), written before the run (17 files).
 - **P** — the checksum was recorded elsewhere in the project record (checksum manifests sent with the code, a verdict output, code notes, a run log) (12 files).
-- **U** — no checksum was recorded before this repository was assembled (45 files up to round43; 17 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py`, `r44_p1comp2.py` and the copies of the round44 records, which were each written once on Google Drive and never modified; 3 more from round45: `r45_folded_frac.py` and the copies of the two round45 records; 10 more from round46–48 and the manuscript: the copies of the six round46–48 records, the figure and table scripts `make_figs.py`, `make_tables.py`, `make_s1.py` and the check `negtype_eta_len2.js`; 2 more from round49: the copies of its record and of its correction; 2 more on 2026-11-02: `sippl_identity_check.py`, a check of S2 Text 8.3 added after the analyses, and `e0_ht_extra.py`, the round29 E0 script, restored byte for byte from Google Drive). These are mostly
+- **U** — no checksum was recorded before this repository was assembled (58 files up to round43, among them 13 run queues copied from Google Drive on 2026-11-02; 17 more from round44: the run queues, the two notebook cells kept as scripts, `r44_repro.py`, `r44_p1comp2.py` and the copies of the round44 records, which were each written once on Google Drive and never modified; 3 more from round45: `r45_folded_frac.py` and the copies of the two round45 records; 10 more from round46–48 and the manuscript: the copies of the six round46–48 records, the figure and table scripts `make_figs.py`, `make_tables.py`, `make_s1.py` and the check `negtype_eta_len2.js`; 2 more from round49: the copies of its record and of its correction; 2 more on 2026-11-02: `sippl_identity_check.py`, a check of S2 Text 8.3 added after the analyses, and `e0_ht_extra.py`, the round29 E0 script, restored byte for byte from Google Drive). These are mostly
   the early CPU-phase scripts (2026-10-16 to 10-18: comparisons of TM-score forms and existing measures, ladder, C4, H-T), data-preparation
   scripts, setup scripts and freeze files. Those that were not in the local working copy were restored from
   the project storage (Google Drive) while this repository was assembled, and their sizes were checked against
@@ -223,20 +223,44 @@ The md5 of every file in the repository is in `MANIFEST.md5` (`md5sum -c MANIFES
 | `registration/prereg_2026-10-31_addendum12_fix1.json` | `f4fae98ae64fea89ab6fca63578927aa` | U | byte copy of the Drive file (written 2026-10-31 14:25:18 UTC, never modified) |
 | `registration/prereg_round34.json` | `0453e32ea141d0c8d6d1258542e3ebd8` | P | checksum manifest sent with the code, 2026-10-19 |
 | `registration/prereg_round37.json` | `3692c5e053c1a3fd87a22df2eefa34e7` | U |  |
+| `run_records/queues/q_7b.sh` | `0f5807d1566cbe077b816533639da621` | R | full md5 in the first record (`round36_partial_freeze_7b7c`, `code_md5`, 2026-10-19 14:56:51 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_7b_rank.sh` | `faf7253f4c6b01ae32b21a1c1188d2c4` | U | copied byte for byte from Google Drive (`code/q_7b_rank.sh`, file time 2026-10-19 17:10:38 UTC) on 2026-11-02 |
+| `run_records/queues/q_af_par.sh` | `3d73dbc6f3cadf8bec167deef819b5f9` | U | copied byte for byte from Google Drive (`code/q_af_par.sh`, file time 2026-10-19 09:24:51 UTC) on 2026-11-02 |
+| `run_records/queues/q_agg.restore_20261020.sh` | `374d8886a7fe5bd6c9a703995daf6191` | U | copied byte for byte from Google Drive (`code/q_agg.restore_20261020.sh`, file time 2026-10-20 06:02:24 UTC) on 2026-11-02; the queue restarted after the Colab VM was replaced on 2026-10-20 (it waits for the restored environment), with the same commands as `q_agg.sh` |
+| `run_records/queues/q_agg.sh` | `152e002a5b8d2fba86cd585980bbb1d2` | R | full md5 in the first record (`round36_partial_freeze_7b7c`, `code_md5`, 2026-10-19 14:56:51 UTC); copied byte for byte from Google Drive on 2026-11-02 |
 | `run_records/queues/q_b6_cpu.sh` | `ab6ed598d287f688b1205816f6ec7431` | R | full md5 in the first record |
 | `run_records/queues/q_c_cpu.sh` | `a83e8fd847115e5c4338d26eed3ee592` | R | full md5 in the first record |
+| `run_records/queues/q_compare_cpu.restore_20261020.sh` | `11a07afdcbf714249fd335a0d2f735a9` | U | copied byte for byte from Google Drive (`code/q_compare_cpu.restore_20261020.sh`, file time 2026-10-20 06:02:24 UTC) on 2026-11-02; the queue restarted after the Colab VM was replaced on 2026-10-20 (it waits for the restored environment), with the same commands as `q_compare_cpu.sh` |
+| `run_records/queues/q_compare_cpu.sh` | `a8586d9d1aa7c42cf9c2e664ab482c4d` | R | full md5 in the first record (`round36_partial_freeze_7b7c`, `code_md5`, 2026-10-19 14:56:51 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_ct.sh` | `2b06e77aa4daf92a60b673b2459681bf` | U | copied byte for byte from Google Drive (`code/q_ct.sh`, file time 2026-10-22 07:41:11 UTC) on 2026-11-02 |
+| `run_records/queues/q_full_gpu.sh` | `cfc6fa2417882c0d844ac3192fe79099` | U | copied byte for byte from Google Drive (`code/q_full_gpu.sh`, file time 2026-10-19 09:41:49 UTC) on 2026-11-02 |
 | `run_records/queues/q_full_gpu10.sh` | `5dfe38f138ea1f8f221cc3e568155af4` | R | full md5 in the first record |
+| `run_records/queues/q_full_gpu11.sh` | `34167bc64c353fad89e1dcbbdac10c62` | R | full md5 in the first record (`round36_scope_2026-10-20`, `queues`, 16:39:16 UTC); copied byte for byte from Google Drive on 2026-11-02 |
 | `run_records/queues/q_full_gpu12.sh` | `08d02727207e26b7ad4e89e7953aac69` | R | full md5 in the first record (`round36_r10a_2026-10-20`, queue, 16:55:02 UTC); until 2026-11-02 the copy here, retyped from the session log, had one more final newline |
 | `run_records/queues/q_full_gpu13.sh` | `ccc8247223c973479a9eab26bf93fe9d` | R | full md5 in the first record |
 | `run_records/queues/q_full_gpu14.sh` | `84367c203520890f48c111d4150439a7` | R | full md5 in the first record |
+| `run_records/queues/q_full_gpu2.sh` | `ca26e968ad230332050fe8f583aef190` | R | full md5 in the first record (`round36_partial_freeze_7b7c`, `code_md5`, 2026-10-19 14:56:51 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_full_gpu3.sh` | `83b70fb51cfcaeb5e4efe34b28022759` | U | copied byte for byte from Google Drive (`code/q_full_gpu3.sh`, file time 2026-10-19 16:58:29 UTC) on 2026-11-02 |
+| `run_records/queues/q_full_gpu4.sh` | `369abb4d5d22b0e2fa58d544dc0966b1` | R | full md5 in the first record (`round36_amend_p2_D_2026-10-19`, `scripts_md5`, 17:11:44 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_full_gpu5.sh` | `f6b552ff5a1ea7a91cb0040ff8f4f1aa` | R | full md5 in the first record (`round36_p3_spec_2026-10-19`, `queue_md5`, 18:37:38 UTC); copied byte for byte from Google Drive on 2026-11-02 |
 | `run_records/queues/q_full_gpu6.sh` | `d1c6079e97024d7a24eaf8ee8ba2f8e4` | R | full md5 in the first record |
+| `run_records/queues/q_full_gpu7.sh` | `df44ecd21aa844400c0546912199cc4a` | U | copied byte for byte from Google Drive (`code/q_full_gpu7.restore_20261020.sh`, file time 2026-10-20 06:02:24 UTC) on 2026-11-02; the queue restarted after the Colab VM was replaced on 2026-10-20 (it waits for the restored environment) |
 | `run_records/queues/q_full_gpu8.sh` | `3247137d47931d6a21d3dec884bec206` | R | full md5 in the first record |
 | `run_records/queues/q_full_gpu9.sh` | `f2cd9db4e000eaa36bef403178ca751f` | R | full md5 in the first record |
+| `run_records/queues/q_p1_cpu.restore_20261020.sh` | `12059d0a1d3df48097ed7b4f928cf226` | U | copied byte for byte from Google Drive (`code/q_p1_cpu.restore_20261020.sh`, file time 2026-10-20 06:02:24 UTC) on 2026-11-02; the queue restarted after the Colab VM was replaced on 2026-10-20 (it waits for the restored environment), with 2 workers instead of 3 |
 | `run_records/queues/q_p1_cpu.sh` | `98dafc7db4669fa0c867363d569e51a6` | R | full md5 in the first record |
+| `run_records/queues/q_p1n.sh` | `324a38025b2cd24d84f30a23f1190cbc` | R | full md5 in the first record (`round36_amend_P1prime_2026-10-20`, `scripts_md5` (as `q_p1n.restore_20261020.sh`), 13:35:54 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_p1n2.sh` | `445c532a66b376b23c662d929233a9d1` | R | full md5 in the first record (`round36_amend_P1prime_2026-10-20`, `align_restart`, 16:26:08 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_p3_cpu.sh` | `c3eaa91d95bcac070020ab0dd4411271` | R | full md5 in the first record (`round36_p3_spec_2026-10-19`, `queue_md5`, 18:37:38 UTC); copied byte for byte from Google Drive on 2026-11-02 |
 | `run_records/queues/q_p3s_cpu.sh` | `dc9952e7a634a33e7d9489cbb5644e0c` | R | full md5 in the first record |
 | `run_records/queues/q_r39_cpu1.sh` | `138ad916e3faa270352f6062a6559f40` | R | full md5 in the first record |
 | `run_records/queues/q_r39_cpu2.sh` | `a5993779ffc78a505723288a2770853c` | R | full md5 in the first record |
+| `run_records/queues/q_r39_e6.sh` | `9839e6335dd8bc5e8f32ef4156394e23` | U | copied byte for byte from Google Drive (`code/q_r39_e6.sh`, file time 2026-10-21 09:36:31 UTC) on 2026-11-02 |
 | `run_records/queues/q_r39_gpu.sh` | `9a0e52c775f86001fab404835bf97dca` | R | full md5 in the first record |
+| `run_records/queues/q_r39_gpu2.sh` | `b8f29001152d1d10b9719187cfe45c9a` | R | full md5 in the first record (`round36_scope_2026-10-20`, `queues`, 16:39:16 UTC); copied byte for byte from Google Drive on 2026-11-02 |
+| `run_records/queues/q_r41_cpu1.sh` | `587094db31289ed9147715632dec2321` | U | copied byte for byte from Google Drive (`code/q_r41_cpu1.sh`, file time 2026-10-21 08:36:31 UTC) on 2026-11-02 |
+| `run_records/queues/q_r41_cpu2.sh` | `39691ef944c26a532a5b2844d6010b6a` | U | copied byte for byte from Google Drive (`code/q_r41_cpu2.sh`, file time 2026-10-21 08:42:46 UTC) on 2026-11-02 |
+| `run_records/queues/q_r41_gpu.sh` | `1950456826e8af5e330a5a0e48345832` | U | copied byte for byte from Google Drive (`code/q_r41_gpu.sh`, file time 2026-10-21 08:46:14 UTC) on 2026-11-02 |
 | `run_records/queues/q_r44_cpu.sh` | `7c43fc43d4263cdfb24a65da8b02419e` | U |  |
 | `run_records/queues/q_r44_gpu.sh` | `c535049adaa9335d4e4422be543dc394` | U |  |
 | `run_records/queues/q_r44b_corr.sh` | `12e058930ddb2843abdc0b856fcb9ece` | U |  |

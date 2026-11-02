@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this code, please cite the accompanying paper, \"Comparing protein conformational ensembles across sequences and lengths\" (submitted), and this software."
+message: "If you use this code, please cite the accompanying paper, \"Comparing protein conformational ensembles across sequences and lengths\" (manuscript), and this software."
 title: "framedchain-paper: analysis code for \"Comparing protein conformational ensembles across sequences and lengths\""
 version: 1.3.1
 license: MIT

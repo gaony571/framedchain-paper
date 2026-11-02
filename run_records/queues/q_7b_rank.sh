@@ -1,0 +1,22 @@
+#!/bin/bash
+# (2026-10-19) 7b 모델 순위 단계(서술): 공개 표본 세 세트를 README 판 환경으로 원 분석 코드(SASA 포함, 0408d7c) 그대로. AlphaFlow-MD 는 표 재현 판(readmeenv_out.pkl)을 쓴다.
+until [ -f /content/AFENV_READY ] && [ -f /content/ATLAS_READY ]; do sleep 60; done
+mkdir -p /content/r38_bar_env/full && cd /content/r38_bar_env/full && [ -d alphaflow_md_templates_base_202402 ] || unzip -q -o /content/drive/MyDrive/atlas_framed_curves/raw/models/alphaflow/samples/alphaflow_md_templates_base_202402.zip
+cd /content/drive/MyDrive/atlas_framed_curves/code/ext/alphaflow && OMP_NUM_THREADS=1 nice -n 19 /content/afenv/bin/python -m scripts.analyze_ensembles --atlas_dir /content/r38_bar/atlas --pdbdir /content/r38_bar_env/full/alphaflow_md_templates_base_202402 --num_workers 8
+cp /content/r38_bar_env/full/alphaflow_md_templates_base_202402/out.pkl /content/drive/MyDrive/atlas_framed_curves/derived/r38/af_bar/alphaflow_md_templates_base_202402_readmeenv_out.pkl
+cd /content/drive/MyDrive/atlas_framed_curves/code/ext/alphaflow && /content/afenv/bin/python -m scripts.print_analysis /content/drive/MyDrive/atlas_framed_curves/derived/r38/af_bar/alphaflow_md_templates_base_202402_readmeenv_out.pkl > /content/drive/MyDrive/atlas_framed_curves/results/r38_af_bar_readmeenv_alphaflow_md_templates_base_202402.txt 2>&1
+mkdir -p /content/drive/MyDrive/atlas_framed_curves/results/_backup/$(date +%F) && cp /content/drive/MyDrive/atlas_framed_curves/results/r38_af_bar_readmeenv_alphaflow_md_templates_base_202402.txt /content/drive/MyDrive/atlas_framed_curves/results/_backup/$(date +%F)/$(date +%H%M%S)_r38_af_bar_readmeenv_alphaflow_md_templates_base_202402.txt
+echo RANK_SET_DONE alphaflow_md_templates_base_202402 $(date +%T)
+mkdir -p /content/r38_bar_env/full && cd /content/r38_bar_env/full && [ -d esmflow_md_base_202402 ] || unzip -q -o /content/drive/MyDrive/atlas_framed_curves/raw/models/alphaflow/samples/esmflow_md_base_202402.zip
+cd /content/drive/MyDrive/atlas_framed_curves/code/ext/alphaflow && OMP_NUM_THREADS=1 nice -n 19 /content/afenv/bin/python -m scripts.analyze_ensembles --atlas_dir /content/r38_bar/atlas --pdbdir /content/r38_bar_env/full/esmflow_md_base_202402 --num_workers 8
+cp /content/r38_bar_env/full/esmflow_md_base_202402/out.pkl /content/drive/MyDrive/atlas_framed_curves/derived/r38/af_bar/esmflow_md_base_202402_readmeenv_out.pkl
+cd /content/drive/MyDrive/atlas_framed_curves/code/ext/alphaflow && /content/afenv/bin/python -m scripts.print_analysis /content/drive/MyDrive/atlas_framed_curves/derived/r38/af_bar/esmflow_md_base_202402_readmeenv_out.pkl > /content/drive/MyDrive/atlas_framed_curves/results/r38_af_bar_readmeenv_esmflow_md_base_202402.txt 2>&1
+mkdir -p /content/drive/MyDrive/atlas_framed_curves/results/_backup/$(date +%F) && cp /content/drive/MyDrive/atlas_framed_curves/results/r38_af_bar_readmeenv_esmflow_md_base_202402.txt /content/drive/MyDrive/atlas_framed_curves/results/_backup/$(date +%F)/$(date +%H%M%S)_r38_af_bar_readmeenv_esmflow_md_base_202402.txt
+echo RANK_SET_DONE esmflow_md_base_202402 $(date +%T)
+mkdir -p /content/r38_bar_env/full && cd /content/r38_bar_env/full && [ -d esmflow_md_templates_base_202402 ] || unzip -q -o /content/drive/MyDrive/atlas_framed_curves/raw/models/alphaflow/samples/esmflow_md_templates_base_202402.zip
+cd /content/drive/MyDrive/atlas_framed_curves/code/ext/alphaflow && OMP_NUM_THREADS=1 nice -n 19 /content/afenv/bin/python -m scripts.analyze_ensembles --atlas_dir /content/r38_bar/atlas --pdbdir /content/r38_bar_env/full/esmflow_md_templates_base_202402 --num_workers 8
+cp /content/r38_bar_env/full/esmflow_md_templates_base_202402/out.pkl /content/drive/MyDrive/atlas_framed_curves/derived/r38/af_bar/esmflow_md_templates_base_202402_readmeenv_out.pkl
+cd /content/drive/MyDrive/atlas_framed_curves/code/ext/alphaflow && /content/afenv/bin/python -m scripts.print_analysis /content/drive/MyDrive/atlas_framed_curves/derived/r38/af_bar/esmflow_md_templates_base_202402_readmeenv_out.pkl > /content/drive/MyDrive/atlas_framed_curves/results/r38_af_bar_readmeenv_esmflow_md_templates_base_202402.txt 2>&1
+mkdir -p /content/drive/MyDrive/atlas_framed_curves/results/_backup/$(date +%F) && cp /content/drive/MyDrive/atlas_framed_curves/results/r38_af_bar_readmeenv_esmflow_md_templates_base_202402.txt /content/drive/MyDrive/atlas_framed_curves/results/_backup/$(date +%F)/$(date +%H%M%S)_r38_af_bar_readmeenv_esmflow_md_templates_base_202402.txt
+echo RANK_SET_DONE esmflow_md_templates_base_202402 $(date +%T)
+echo B7_RANK_STD_DONE
