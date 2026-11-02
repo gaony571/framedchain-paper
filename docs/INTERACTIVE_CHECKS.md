@@ -611,7 +611,7 @@ Output:
 
 ## 6. Chain breaks (28 October 2026)
 
-Methods: no domain used in the analyses had a Cα–Cα bond longer than 4.2 Å (s > 1.1). For the homolog studies the check
+Methods: no domain or chain checked had a Cα–Cα bond longer than 4.2 Å (s > 1.1); the sets not checked are listed there and in S1 Table. For the homolog studies the check
 used the frame-averaged length ratio `sbar` stored for each domain (`derived/r38/p3/dom/`, first homolog study, 1,496
 domains with `sbar`; `derived/r38/c/dom/`, confirmatory set, 949), and for the 336 calibration domains every bond of the
 first 320 K frame of replicate 0 (`derived/mdcath_5T/<domain>.npz`, `320_0_X`). The output tuple is (domains checked,
@@ -674,7 +674,7 @@ to avoid slow reads of the whole files; the computation on that array was the sa
 
 **The other sets (31 October 2026).** The sets not covered here (model-error domains, comparison across sequences, natural
 insertion–deletion pairs, certified pairs, both thermophile studies, force-field chains and the static chains of the first
-two Results sections) were checked by `code/r49_chainbreak_fix1.py`, specified in a record before it was run
+two Results sections; the sets still not checked are listed in S1 Table) were checked by `code/r49_chainbreak_fix1.py`, specified in a record before it was run
 (`registration/prereg_2026-10-31_addendum12.json` and its correction); see `docs/RESULTS_MAP.md`, Round49.
 
 ## 7. framedchain 0.4.1 against the as-run code (28 October 2026)

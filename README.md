@@ -180,7 +180,7 @@ the window difference, trajectory-window row of Table 2), and the cells that wro
 `results/r38_p1_sim_onesided.json` and `results/r38_p1_sim_cond2.json` (coverage simulations of the first
 thermophile test, Methods), for `results/r38_s0_trunc_diag.json` and `results/r38_s0_trunc_exact.json`
 (diagnostics of the truncated-chain check, S2 Text 5) and for `results/r39_E4_nancheck.json` (the 450 K check of the
-temperature-equivalent gate), the post hoc certification description of S2 Text 1 (499 of 500 pairs) and the
+temperature-equivalent gate), the certification description of S2 Text 1 not specified in advance (499 of 500 pairs) and the
 negative-type computations of S3 Text 2 (sections 13–15).
 
 Reproduction is possible at three levels:
@@ -285,7 +285,7 @@ here has that checksum, with one exception: nine scripts were corrected in place
 first record also holds the md5 of an earlier version, and the matching value is the later entry recorded after the
 correction.
 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) lists the checksum of every file and whether it was recorded before the
-run. From 2026-10-28, a corrected script was recorded as a separate file with its own checksum, and analyses added
+run. From 2026-10-28, a corrected script was recorded as a separate file with its own checksum (except `r44_redsame.py`, corrected in place before it computed anything; its record holds no checksum), and analyses added
 after a result are separate scripts that say so in their docstrings.
 
 ## Repository layout
@@ -300,7 +300,7 @@ after a result are separate scripts that say so in their docstrings.
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
-| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the notebook cells behind Fig 2A, the survival and window rows of Table 2, the coverage simulations of the first thermophile test, the truncated-chain diagnostics, the 450 K check of the temperature conversion, the description of the post hoc certification and the negative-type computations), `STATEMENTS.md` (draft availability statements) |
+| `docs/` | `RESULTS_MAP.md` (paper → scripts → outputs → records), `SCRIPTS.md` (every script in English), `DATA.md` (inputs, intermediates, deposit), `PROVENANCE.md` (checksums), `INTERACTIVE_CHECKS.md` (checks without an output file, and the notebook cells behind Fig 2A, the survival and window rows of Table 2, the coverage simulations of the first thermophile test, the truncated-chain diagnostics, the 450 K check of the temperature conversion, the certification description not specified in advance and the negative-type computations), `STATEMENTS.md` (draft availability statements) |
 | `tools/` | `pack_for_zenodo.py` (builds the data deposit), `record_env.py` (records an environment) |
 | `MANIFEST.md5` | md5 of every file (`md5sum -c MANIFEST.md5`) |
 
