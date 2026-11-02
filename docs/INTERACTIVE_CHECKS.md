@@ -1173,7 +1173,11 @@ upper bound alone lay above it in 26–71%, whereas the one-sided lower bound us
 runs. The two-sided coverage is part `sim` of `code/r38_p1.py` (run 12:44:58–12:48:32 UTC; `results/r38_p1_sim.json`,
 column `coverage`); the checksum of `r38_p1.py` entered the first record at 04:58:59 UTC (entry
 `round36_p1_code_2026-10-20`), and the script holds the rule that a coverage below 0.90 for θ < 413 K requires the
-interval method to be changed before the decision. The one-sided coverages and a simulation of condition 2 were run by
+interval method to be changed before the decision. The same estimator simulation and rule were in the first record
+before that, as a row of the freeze checklist in `round36_partial_freeze_7b7c` (19 October 14:56:51 UTC: "P1 estimator
+simulation: bias and coverage; below 0.90, change the interval method; bias only described", translated from Korean), and
+`round36_p1_code_2026-10-20` (04:58:52) fixed the order: the simulation first, its coverage entered in the checklist,
+then the decision. The one-sided coverages and a simulation of condition 2 were run by
 two short scripts that the cells below wrote to `/content` and started in the background, `/content/p1_sim2.py` and
 `/content/p1_sim3.py` (not kept as files; their full text is in the first two cells). Both load the deposited
 `r38_p1.py` up to its stage list `ALL1` and call its functions unchanged (`sim_noise`, `sim_once`, `theta`,
@@ -1183,8 +1187,10 @@ pairs at that θ (`sd` 0) or with a spread of 15 K between pairs (`sd` 15), the 
 lay at or below θ (`lower_cov`) and whose upper bound lay at or above it (`upper_cov`). `p1_sim3.py` wrote
 `results/r38_p1_sim_cond2.json`: the share of runs in which the lower bound of condition 2 exceeded zero
 (`frac_lo_gt_0`; `version` 짝지은 판, "paired version"), a false-positive rate when thermophile–mesophile and control
-pairs share θ (320 or 350 K) and a power when they differ by 15 or 30 K. No record names either script before it was
-run. The cell run at 12:57:23 entered both summaries, with that of the two-sided simulation, in the entry
+pairs share θ (320 or 350 K) and a power when they differ by 15 or 30 K. No record names these two scripts before they
+were run, but both carry out the pre-specified estimator simulation and its rule: the two-sided coverage had fallen
+below 0.90, the one-sided coverages chose the changed interval method (a one-sided 97.5% lower bound), and the
+condition-2 simulation checked the other condition of the same test before the decision file was read. The cell run at 12:57:23 entered both summaries, with that of the two-sided simulation, in the entry
 `round36_p1_checklist_2026-10-20` of the first record (`sim_onesided`, and `sim_cond2` with the placeholder 돌리는 중,
 "running", because the condition-2 file did not yet exist when the cell looked for it); the cell run at 12:57:59
 replaced the placeholder with the condition-2 rows (`sim_cond2_added_utc`, 12:58:00 by the Colab clock). S1 Table flags this entry:
