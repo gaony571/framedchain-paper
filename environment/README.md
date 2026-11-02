@@ -62,7 +62,7 @@ different atom order (results section 5.1). The standard-metric runs were theref
 | AlphaFlow | commit `0408d7c`, cloned to `ROOT/code/ext/alphaflow` | generation, analysis code of the 7b box |
 | sam2 (aSAM / aSAMt) | commit `ce076ed` | aSAMt ensembles |
 | OpenFold | commit `103d037` | AlphaFlow dependency |
-| US-align | `r41_compute.py`: commit `23f14ff`, cloned and built in `/content/ct/USalign` on 2026-10-22 in the runtime of the measurement (`docs/INTERACTIVE_CHECKS.md` 3); `r39_sec6.py`: `/content/usalign/USalign`, compiled from GitHub pylelab/USalign with g++ -O3 (its docstring notes the permission of 2026-10-20 UTC to download it; its commit is not given in these files) | timing comparison in `r39_sec6.py` and `r41_compute.py` |
+| US-align | `r41_compute.py`: commit `23f14ff`, cloned and built in `/content/ct/USalign` on 2026-10-22 in the runtime of the measurement (`docs/INTERACTIVE_CHECKS.md` 3); `r39_sec6.py`: `/content/usalign/USalign`, compiled from GitHub pylelab/USalign at commit `23f14ff` with g++ -O3 -ffast-math (record entry `round36_sec6_2026-10-20`, tools; its docstring notes the permission of 2026-10-20 UTC to download it) | timing comparison in `r39_sec6.py` and `r41_compute.py` |
 | Foldseek | `10-941cd33` | timing comparison in `r41_compute.py` |
 | tmtools | 0.3.0 | TM-align alignments inside Python scripts |
 | Node.js | any recent version (checked with v24.19.0) | `code/negtype/*.js`, run from that directory: `node so3fourier.js`, `node len2check.js`, `node negtype.js [search maxLen N trials]` (seconds each) |

@@ -115,7 +115,8 @@ def fig3():
     for tt in T:
         rr = sorted([(int(r['n']), r['p_detect']) for r in E3['rows'] if r['window'] == 'half' and r['method'] == '나' and str(r['T']) == tt and str(r['n']).isdigit()])
         pw[tt] = rr; ax.plot([a for a, _ in rr], [b for _, b in rr], '-', marker=SMK[tt], color=SCOL[tt], ms=3.5, label=STEP[tt], clip_on=False)   # legend keys the markers of B too; unclipped so markers at 0 are whole
-    ax.set_xscale('log'); ax.set_xlabel('number of domains'); ax.set_ylabel('probability of detection'); ax.set_ylim(0, 1.03); ax.axhline(0.8, color=OI['grey'], lw=0.5, ls='--')
+    ax.set_xscale('log'); ax.set_xticks([5, 10, 20, 50, 100, 200]); ax.xaxis.set_major_formatter(matplotlib.ticker.ScalarFormatter()); ax.xaxis.set_minor_formatter(matplotlib.ticker.NullFormatter())   # ticks at the simulated numbers of domains, as numbers like panel B
+    ax.set_xlabel('number of domains'); ax.set_ylabel('probability of detection'); ax.set_ylim(0, 1.03); ax.axhline(0.8, color=OI['grey'], lw=0.5, ls='--')
     ax.legend(frameon=False, loc='lower center', bbox_to_anchor=(0.5, 1.0), ncol=2, handlelength=1.5, columnspacing=1.0)
     return save(fig, 'Fig3'), dict(A=vals, R0=b, fits=fits, power=pw)
 

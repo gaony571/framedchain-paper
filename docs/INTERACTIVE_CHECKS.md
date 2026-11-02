@@ -1546,8 +1546,10 @@ EXACT_DONE
 ## 13. The 450 K version of the temperature conversion without a missing value (21 October 2026)
 
 Results (calibration) and S1 Table: the 450 K version of the temperature conversion (E4) is among the pre-specified
-predictions of the calibration that were not met. It compares the mean absolute error (MAE) of the domains with a 450 K
-step with 1.5 times the MAE at 413 K of the same domains. Part `e4` of `code/r39_core.py` computed the latter with
+predictions of the calibration that were not met. It requires the superfamily-median temperature equivalent at 450 K
+to lie within 10 K, which it did in both windows (bias −5.3 K over second halves and −9.3 K over whole trajectories,
+first cell below), and the mean absolute error (MAE) of the domains with a 450 K step to be at most 1.5 times the MAE
+at 413 K of the same domains. Part `e4` of `code/r39_core.py` computed the latter with
 `np.mean`, so over second halves the missing value of a domain whose fitted amplitude was not positive made it missing
 (`MAE_413_same_set` `nan` in `results/r39_E4.json`, first cell below), and the 450 K version was marked as not met
 without a comparison. The second cell checks that the 31 domains of the 450 K version (72 over whole trajectories) are
