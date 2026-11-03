@@ -14,7 +14,8 @@ not specified in advance, are cited in S1 Table: the check of the 450 K version 
 missing value, which wrote a result file (section 13), and the description of the accuracy of the 128-start values after
 the specification error of the certification (S2 Text 1; section 14), later recomputed by `code/r39_sec6.py`. Section 15
 gives the commands and printed output of the negative-type computations of S3 Text 2, run locally with Node.js and
-Python. The code and printed output
+Python. Section 16 gives the cells, run on 3 November 2026 after Fig 1 was redrawn, that listed the stretches eligible
+for its fragments and bounded its alignment more tightly than the script does. The code and printed output
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
@@ -1919,12 +1920,37 @@ N=200: eta_+ = 6.78e-3 (max eig 1.35e-1), 6.69e-3 (max eig 1.43e-1), 6.76e-3 (ma
 N=400: eta_+ = 2.43e-2 (max eig 3.34e-1), 2.43e-2 (max eig 3.25e-1)
 ```
 
-## 16. Tighter certificate for Fig 1 (2026-11-03)
+## 16. Stretch and tighter bound for Fig 1 (3 November 2026)
 
-Run in the Colab kernel after `make_fig1.py`'s steps (variables `fa`, `fb`: the two fragments; `a2`: the drawn alignment).
-Not specified in advance; it bounds how far the drawn alignment can be from the optimum more tightly than the script's
-default tolerance. At tolerance 10⁻⁶ the search stopped at its cell limit (not certified), with upper bound S_ub 4.897544
-against the drawn S 4.897116, so the optimal d² lies between 1.357441 and the drawn 1.358296.
+Not specified in advance. (a) While choosing the fragments of Fig 1, a cell listed every stretch of the whole-chain
+alignment of 1AKI and 1LZ1 (255 random starts) with exactly one unmatched bond and four matched bonds on each side; there
+is one, at pair index 45, which `make_fig1.py` takes (it keeps the four matched bonds before and three after the
+unmatched bond). Lines of the cell as run (its setup, and the alignment of each stretch that printed the last line, omitted):
+
+```python
+al = fc.align(xa, xb, n_random=255)
+pairs = sorted(zip(*[t.tolist() for t in torch.nonzero(al.match, as_tuple=True)]))
+print('whole chains: matched', len(pairs), '| unmatched 1AKI', len(xa) - len(pairs), '| unmatched 1LZ1', len(xb) - len(pairs))
+cands = []
+for k in range(4, len(pairs) - 4):
+    (i0, j0), (i1, j1) = pairs[k - 1], pairs[k]
+    run_ok = all(pairs[q + 1][0] - pairs[q][0] == 1 and pairs[q + 1][1] - pairs[q][1] == 1 for q in list(range(k - 4, k - 1)) + list(range(k, k + 3)))
+    if run_ok and {(i1 - i0), (j1 - j0)} == {1, 2}:
+        cands.append(k)
+print('single-bond gaps with 4 matched bonds on each side at pair index:', cands)
+```
+
+```
+bonds 128 129 | breaks 0 0
+whole chains: matched 126 | unmatched 1AKI 2 | unmatched 1LZ1 3
+single-bond gaps with 4 matched bonds on each side at pair index: [45]
+1AKI 42–49 ATNRNTDG | 1LZ1 42–50 ATNYNAGDR | cols [(0, 0), (1, 1), (2, 2), (3, 3), (-1, 4), (4, 5), (5, 6), (6, 7)] | d² 1.3583 = 0.6190 + 0.7393 | certified True
+```
+
+(b) A bound on how far the drawn alignment can be from the optimum, tighter than the script's default tolerance (S
+within 0.03, d² within 0.06), run in the same kernel (`fa`, `fb`: the two fragments; `a2`: the drawn alignment). At
+tolerance 10⁻⁶ the search stopped at its cell limit (not certified), with upper bound S_ub 4.897544 against the drawn S
+4.897116, so the optimal d² lies between 1.357441 and the drawn 1.358296.
 
 ```python
 c6 = fc.bnb(fa, fb, tol=1e-6)
