@@ -22,8 +22,8 @@
   <img src="figures/Fig1.png" width="760" alt="Hen and human lysozyme fragments of different lengths drawn with their virtual bonds; between them, the bond terms of the two chains aligned row by row, a zero matrix facing the unmatched bond, the geodesic midpoint and each row's term of the squared distance">
 </p>
 
-**Fig 1. Framed chains and the edit distance.** Residues 42–49 of hen lysozyme (PDB 1AKI; left) and 42–50 of human
-lysozyme (PDB 1LZ1; right), drawn with PyMOL 2.5 in one orientation with the human fragment after the optimal global
+**Fig 1. Framed chains and the edit distance.** Residues 42–49 of hen lysozyme (left; PDB 1AKI) and 42–50 of human
+lysozyme (right; PDB 1LZ1), drawn with PyMOL 2.5 in one orientation with the human fragment after the optimal global
 rotation U; virtual Cα–Cα bonds are colored by the optimal alignment: blue, bonds paired by the order-preserving
 correspondence; orange, the unmatched bond 46–47 of human lysozyme. Each row in the middle is one position of the
 alignment: the term x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2 of a hen bond, the midpoint γ(1/2) of the geodesic
