@@ -22,20 +22,20 @@
   <img src="figures/Fig1.png" width="760" alt="Hen and human lysozyme fragments of different lengths drawn with their virtual bonds; between them, the bond terms of the two chains aligned row by row, a zero matrix facing the unmatched bond, the geodesic midpoint and each row's term of the squared distance">
 </p>
 
-**Fig 1. Framed chains and the edit distance.** Residues 42–49 of hen lysozyme (left; PDB 1AKI) and 42–50 of human
-lysozyme (right; PDB 1LZ1), drawn with PyMOL 2.5 in one orientation with the human fragment after the optimal global
-rotation U; virtual Cα–Cα bonds are colored by the optimal alignment: blue, bonds paired by the order-preserving
-correspondence; orange, the unmatched bond 46–47 of human lysozyme. Each row in the middle is one position of the
-alignment: the term x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2 of a hen bond, the midpoint γ(1/2) of the geodesic
-given by this alignment (S1 Text), and the term Uy<sub>j</sub> of a human bond. Each term is drawn by its first two
-columns projected onto the page in the orientation of the structures, an arrow along the first and a shorter tick
-along the second (for a bond, f₁ and f₂ scaled by half the relative bond length); the zero matrix faced by the
-unmatched bond is an open circle (0). Along the geodesic, shared terms move linearly and the unshared term grows from
-zero, so at the midpoint it has half its length. The number beside each midpoint is that row's term of d(x, y)²,
-‖x<sub>i</sub> − Uy<sub>j</sub>‖² for a shared bond and ‖y<sub>j</sub>‖² for the unshared one, rounded to three
-decimals; the exact terms sum to 1.358 (0.619 from the seven shared bonds and 0.739 from the unshared bond), the value
-of d(x, y)² at this alignment, which branch-and-bound certified optimal to within the set tolerance (0.06 in d² here).
-Drawn by `code/make_fig1.py`.
+**Fig 1. Framed chains and the edit distance.** Residues 42–49 of hen lysozyme (left; Protein Data Bank (PDB) entry
+1AKI) and 42–50 of human lysozyme (right; PDB entry 1LZ1), drawn with PyMOL 2.5 (atoms as translucent sticks colored
+by element) in one orientation with the human fragment after the optimal global rotation U; virtual Cα–Cα bonds are
+colored by the optimal alignment: blue, bonds paired by the order-preserving correspondence; orange, the unmatched
+bond 46–47 of human lysozyme. Each row in the middle is one position of the alignment: the term x<sub>i</sub> =
+s<sub>i</sub>R<sub>i</sub>/2 of a hen bond, the midpoint γ(1/2) of the geodesic given by this alignment (S1 Text), and
+the term Uy<sub>j</sub> of a human bond. Each term is drawn by its first two columns projected onto the page in the
+orientation of the structures, an arrow along the first and a shorter tick along the second (for a bond, f₁ and f₂
+scaled by half the relative bond length); the zero matrix faced by the unmatched bond is an open circle (0). Along the
+geodesic, shared terms move linearly and the unshared term grows from zero, so at the midpoint it has half its length.
+The number beside each midpoint is that row's term of d(x, y)², ‖x<sub>i</sub> − Uy<sub>j</sub>‖² for a shared bond
+and ‖y<sub>j</sub>‖² for the unshared one, rounded to three decimals; the exact terms sum to 1.358 (0.619 from the
+seven shared bonds and 0.739 from the unshared bond), the value of d(x, y)² at this alignment, which branch-and-bound
+certified optimal to within the set tolerance (0.06 in d² here). Drawn by `code/make_fig1.py`.
 
 This repository contains the code exactly as it was run to produce the numbers, figures and tables of the paper
 (steps run from notebook cells, including short scripts that cells wrote and ran, are copied with their output in
@@ -51,7 +51,7 @@ Proteins are increasingly described as conformational ensembles, but no common g
 
 ## Results at a glance
 
-The figures below (and Fig 1 above) are the paper's figures as drawn by `code/make_figs.py` from the stored results, and Fig 1 by
+The figures below are the paper's figures as drawn by `code/make_figs.py` from the stored results, and Fig 1 above by
 `code/make_fig1.py` from two PDB entries (150 dpi PNG; the submitted 600 dpi TIFF files come from the same scripts). The captions are those of the paper, and
 [`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md) maps every value to its script and output file.
 
@@ -186,7 +186,7 @@ the window difference, trajectory-window row of Table 2), and the cells that wro
 thermophile test, Methods), for `results/r38_s0_trunc_diag.json` and `results/r38_s0_trunc_exact.json`
 (diagnostics of the truncated-chain check, S2 Text 5) and for `results/r39_E4_nancheck.json` (the 450 K check of the
 temperature-equivalent gate), the certification description of S2 Text 1 not specified in advance (499 of 500 pairs) and the
-negative-type computations of S3 Text 2 (sections 13–15), and a tighter bound on the alignment of Fig 1 (section 16).
+negative-type computations of S3 Text 2 (sections 13–15), and the list of stretches eligible for the fragments of Fig 1 with a tighter bound on its alignment (section 16).
 
 Reproduction is possible at three levels:
 
@@ -334,7 +334,7 @@ for the GPU stages and, for some CPU stages, CPU-only runtimes or the CPUs of ot
   `environment/setup_samenv3.sh`.
 
 External tools: AlphaFlow `0408d7c`, sam2 (aSAM) `ce076ed`, OpenFold `103d037`, US-align `23f14ff`, Foldseek
-`10-941cd33`, tmtools 0.3.0. CPU stages take minutes to hours each; the GPU stages took days in total. Per-pair
+`10-941cd33`, tmtools 0.3.0, PyMOL 2.5.0 (`make_fig1.py`). CPU stages take minutes to hours each; the GPU stages took days in total. Per-pair
 timings are in S2 Text 7.
 
 ## Notes on the as-run code

@@ -18,5 +18,5 @@ fsspec                # r38_c_probe.py, r38_c_fetch.py, r38_p1n_fetch.py (HTTP p
 aiohttp               # HTTP backend of fsspec
 matplotlib            # r41_synth.py, make_figs.py, make_fig1.py
 openpyxl              # make_s1.py, make_tables.py (xlsx output through pandas)
-# make_fig1.py (Fig 1) also needs framedchain==0.4.3, Pillow and PyMOL 2.5 (Debian package pymol; see the script's
+# make_fig1.py (Fig 1) also needs framedchain==0.4.3, Pillow and PyMOL 2.5 (Ubuntu 24.04 package pymol 2.5.0+dfsg-1build6; see the script's
 # docstring for running it on Colab); it does not use framespace_pkg/.

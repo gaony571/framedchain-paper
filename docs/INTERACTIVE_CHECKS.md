@@ -14,8 +14,8 @@ not specified in advance, are cited in S1 Table: the check of the 450 K version 
 missing value, which wrote a result file (section 13), and the description of the accuracy of the 128-start values after
 the specification error of the certification (S2 Text 1; section 14), later recomputed by `code/r39_sec6.py`. Section 15
 gives the commands and printed output of the negative-type computations of S3 Text 2, run locally with Node.js and
-Python. Section 16 gives the cells, run on 3 November 2026 after Fig 1 was redrawn, that listed the stretches eligible
-for its fragments and bounded its alignment more tightly than the script does. The code and printed output
+Python. Section 16 gives two cells of 3 November 2026: one, run while the fragments of Fig 1 were chosen, that listed the
+eligible stretches, and one, run after the figure was drawn, that bounded its alignment more tightly than the script does. The code and printed output
 survive in the client-side log of the working session through which the cells were
 run, which records every cell run with the UTC time, by the local clock, at which it was requested and at which
 its output returned.
