@@ -26,7 +26,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped records
 > of the pre-specified analyses — are deposited at Zenodo (DOI: 10.5281/zenodo.23858418). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
-> 10.5281/zenodo.23911399); the method is implemented in the framedchain Python package
+> 10.5281/zenodo.23925739); the method is implemented in the framedchain Python package
 > (https://github.com/gaony571/framedchain, version 0.4.3, archived at Zenodo, DOI: 10.5281/zenodo.23911383).
 > Both are released under the MIT license. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
@@ -35,7 +35,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
 > available at https://github.com/gaony571/framedchain-paper (version 1.3.2; MIT license; Zenodo DOI:
-> 10.5281/zenodo.23911399). The reusable implementation of the space, the distance and the ensemble
+> 10.5281/zenodo.23925739). The reusable implementation of the space, the distance and the ensemble
 > statistics is the framedchain package (version 0.4.3; MIT license; Zenodo DOI: 10.5281/zenodo.23911383).
 
 ## Software references (for the reference list)
@@ -45,7 +45,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
 > Version 1.3.2.
-> Zenodo; 2026. doi:10.5281/zenodo.23911399
+> Zenodo; 2026. doi:10.5281/zenodo.23925739
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
 > Zenodo; 2026. doi:10.5281/zenodo.23858418
@@ -88,6 +88,6 @@ Steps before submission:
    no private link is needed and step 1 gives the two software DOIs before submission.
 5. 2026-11-03 (UTC), before submission: Fig 1 was redrawn on two lysozyme fragments (PDB 1AKI and 1LZ1) by the new
    `code/make_fig1.py`, so this repository is released again as framedchain-paper `v1.3.2` (that script, the figure
-   preview, the numbers of Fig 1 in `figures/fig1_lysozyme.json` and the documents changed). Its version DOI replaces the concept DOI 10.5281/zenodo.23911399 above
-   after the release, as for 1.3.1; the Data Availability Statement above is the one submitted with the paper, with
+   preview, the numbers of Fig 1 in `figures/fig1_lysozyme.json` and the documents changed). Done (2026-11-03, 17:29 UTC): released as framedchain-paper 1.3.2, doi:10.5281/zenodo.23925739
+   (concept DOI 10.5281/zenodo.23911399), which replaces the concept DOI above, as for 1.3.1; the Data Availability Statement above is the one submitted with the paper, with
    the PDB entries of Fig 1 and "records of the pre-specified analyses".

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this code, please cite the accompanying paper, \"Comparing protein conformational ensembles across sequences and lengths\" (manuscript), and this software."
 title: "framedchain-paper: analysis code for \"Comparing protein conformational ensembles across sequences and lengths\""
 version: 1.3.2
-doi: 10.5281/zenodo.23911399
+doi: 10.5281/zenodo.23925739
 license: MIT
 type: software
 abstract: "Analysis code exactly as run for the paper \"Comparing protein conformational ensembles across sequences and lengths\": the scripts that produced the numbers, figures and tables (notebook cells are quoted in docs/INTERACTIVE_CHECKS.md, and the one step whose code was not kept is named in docs/RESULTS_MAP.md), with the run queues, environment records, checksum records and the time-stamped records that fixed each analysis before it was run."
