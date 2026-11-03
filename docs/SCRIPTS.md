@@ -177,11 +177,13 @@ and `prereg_2026-10-31_addendum12*.json`); corrections were written as separate 
 ## Figures and tables
 
 These scripts read stored results only (see `docs/RESULTS_MAP.md`, Figures and tables); on Colab, the figures (in Arial when installed, with msttcorefonts, otherwise Liberation Sans; text 8 pt or larger) and the tables were last drawn as follows: all eight figures together on 2026-11-02 at 17:07 UTC, the S1 Table on 2026-11-02 at 17:53 UTC, the S3 Table at 06:07 UTC and the S2 Table on 2026-11-01 at 18:29 UTC (written again with the same content on 2026-11-02 at 06:07 UTC; times of the files on Colab; earlier runs in `docs/PROVENANCE.md`).
-They take no arguments; the project path `R` and the output folder are set at the top of each file.
+They take no arguments; the project path `R` and the output folder are set at the top of each file. The exception is
+`make_fig1.py` (Fig 1, drawn on 2026-11-03 UTC), which downloads PDB 1AKI and 1LZ1, recomputes the alignment and its
+certificate, and writes to its `OUT_DIR` argument.
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `make_fig1.py` | Fig 1 (added 2026-11-04): downloads PDB 1AKI and 1LZ1, aligns the whole chains with framedchain 0.4.3, takes the stretch with one unmatched bond (1AKI 42–49, 1LZ1 42–50), aligns and certifies the fragments, and draws them with PyMOL beside their aligned bond terms, the geodesic midpoint and the terms of d²; RGB TIFF with LZW compression at 600 dpi, preview PNG and the numbers as JSON | `OUT_DIR/Fig1.tif`, `Fig1_preview.png`, `fig1_lysozyme.json` |
+| `make_fig1.py` | Fig 1 (added 2026-11-03 UTC; the date in its docstring, 2026-11-04, is Korean time): downloads PDB 1AKI and 1LZ1, aligns the whole chains with framedchain 0.4.3, takes the stretch where one bond is unmatched with four matched bonds on each side in the whole-chain alignment and keeps four matched bonds before it and three after it (1AKI 42–49, 1LZ1 42–50), aligns and certifies the fragments (default tolerance), turns the view about the vertical axis to the angle (5-degree grid) that maximizes the shortest projected bond of both fragments (the docstring says "keeps every bond … longest"), and draws them with PyMOL beside their aligned bond terms, the geodesic midpoint and the terms of d²; RGB TIFF with LZW compression at 600 dpi, preview PNG and the numbers as JSON | `OUT_DIR/Fig1.tif`, `Fig1_preview.png`, `fig1_lysozyme.json` |
 | `make_figs.py` | Figures 2–7 and S1 Fig (its `fig1()` draws the schematic that was Fig 1 up to 2026-11-03): RGB TIFF with LZW compression at 600 dpi and preview PNG files | `manuscript_figs/Fig2.tif` … `Fig7.tif`, `S1_Fig.tif` (and the earlier schematic as `Fig1.tif`) |
 | `make_tables.py` | S2 Table (κ and Δ²_D/√n̄ of all and size-matched cells) and S3 Table (alignment-accuracy and identity-range checks) | `manuscript_figs/S2_Table.xlsx`, `S3_Table.xlsx` (+ .csv) |
 | `make_s1.py` | S1 Table: entries of the first record with their times (sheet A), the added records (B), the pre-specified predictions with outcomes (C) and the classification of every analysis in the manuscript (D), with notes | `manuscript_figs/S1_Table.xlsx` |

@@ -152,14 +152,16 @@ computed (manuscript, Methods).
 
 ## Figures and tables
 
-The figure and table scripts read stored results only and recompute nothing. On Colab, all eight figures were last
-drawn together on 2026-11-02 at 17:07 UTC, the S1 Table on 2026-11-02 at 17:53 UTC, the S3 Table at 06:07 UTC and the S2 Table on
+The figure and table scripts read stored results only and recompute nothing, except `make_fig1.py` (Fig 1), which downloads
+PDB 1AKI and 1LZ1, recomputes the alignment and its certificate and writes to its `OUT_DIR` argument; it drew the submitted
+Fig 1 on 2026-11-03 (UTC), and its numbers are in `figures/fig1_lysozyme.json`. On Colab, the other figures (with the earlier
+schematic Fig 1 of `make_figs.py`) were last drawn together on 2026-11-02 at 17:07 UTC, the S1 Table on 2026-11-02 at 17:53 UTC, the S3 Table at 06:07 UTC and the S2 Table on
 2026-11-01 at 18:29 UTC (written again with the same content on 2026-11-02 at 06:07 UTC; times of the files on Colab; earlier runs are listed in `docs/PROVENANCE.md`); the scripts
 write to `manuscript_figs/` under the project path set at the top of each file.
 
 | Item | Script (function) | Reads |
 |---|---|---|
-| Fig 1 | `make_fig1.py` | PDB 1AKI and 1LZ1 (RCSB); its output `fig1_lysozyme.json` holds the alignment, the terms of d² (1.358 = 0.619 + 0.739) and the certificate (Fig 1 was the schematic of `make_figs.py` `fig1()` up to 2026-11-03) |
+| Fig 1 | `make_fig1.py` | PDB 1AKI and 1LZ1 (RCSB); its output `fig1_lysozyme.json` holds the alignment, the terms of d² (1.358 = 0.619 + 0.739) and the certificate (copy: `figures/fig1_lysozyme.json`). The fragment keeps the four matched bonds before the unmatched bond and three after it (the selection requires four on each side in the whole-chain alignment). The script certifies with the default tolerance (S within 0.03, so d² within 0.06); a run with tolerance 10⁻⁶ in a notebook cell (`docs/INTERACTIVE_CHECKS.md` 16) bounded the gap in d² by 0.0009 (not part of the script). Fig 1 was the schematic of `make_figs.py` `fig1()` up to 2026-11-02 |
 | Fig 2 | `make_figs.py` (fig2) | `results/pu_tm_factorial_B_triangle.tsv` (written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8), `results/chaining.json`, `results/chaining_v2.json` |
 | Fig 3 | `make_figs.py` (fig3) | `results/r39_E0.json` … `r39_E3.json`, `derived/r39/D/*.json` |
 | Fig 4 | `make_figs.py` (fig4) | `derived/r38/b6/*.json`, `results/r43_sens.json`, `derived/r44/split.json` |

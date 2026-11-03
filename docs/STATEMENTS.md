@@ -86,7 +86,7 @@ Steps before submission:
 4. Reviewers need access at submission, and a private GitHub repository has no shareable link (only named
    collaborators can open it). Decision of 2026-10-30: both repositories are made public before submission, so
    no private link is needed and step 1 gives the two software DOIs before submission.
-5. 2026-11-04, before submission: Fig 1 was redrawn on two lysozyme fragments (PDB 1AKI and 1LZ1) by the new
+5. 2026-11-03 (UTC), before submission: Fig 1 was redrawn on two lysozyme fragments (PDB 1AKI and 1LZ1) by the new
    `code/make_fig1.py`, so this repository is released again as framedchain-paper `v1.3.2` (only that script, the
    figure preview and the documents changed). Its version DOI replaces the concept DOI 10.5281/zenodo.23911399 above
    after the release, as for 1.3.1; the Data Availability Statement above is the one submitted with the paper, with

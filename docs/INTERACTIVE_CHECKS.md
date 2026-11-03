@@ -1918,3 +1918,22 @@ N=100: eta_+ = 2.87e-4 (max eig 2.52e-2), 3.51e-4 (max eig 2.49e-2), 1.63e-4 (ma
 N=200: eta_+ = 6.78e-3 (max eig 1.35e-1), 6.69e-3 (max eig 1.43e-1), 6.76e-3 (max eig 1.40e-1)
 N=400: eta_+ = 2.43e-2 (max eig 3.34e-1), 2.43e-2 (max eig 3.25e-1)
 ```
+
+## 16. Tighter certificate for Fig 1 (2026-11-03)
+
+Run in the Colab kernel after `make_fig1.py`'s steps (variables `fa`, `fb`: the two fragments; `a2`: the drawn alignment).
+Not specified in advance; it bounds how far the drawn alignment can be from the optimum more tightly than the script's
+default tolerance. At tolerance 10⁻⁶ the search stopped at its cell limit (not certified), with upper bound S_ub 4.897544
+against the drawn S 4.897116, so the optimal d² lies between 1.357441 and the drawn 1.358296.
+
+```python
+c6 = fc.bnb(fa, fb, tol=1e-6)
+S_a2 = float(a2.score); nx, ny = float((fa ** 2).sum()), float((fb ** 2).sum())
+print('S(drawn)', round(S_a2, 9), '| bnb tol 1e-6: S_lb', round(c6['S_lb'], 9), 'S_ub', round(c6['S_ub'], 9), 'certified', c6['certified'], '| drawn >= S_ub - tol:', S_a2 >= c6['S_ub'] - c6['tol'])
+print('d2(drawn)', round(nx + ny - 2 * S_a2, 6), '| d2 lower bound', round(nx + ny - 2 * c6['S_ub'], 6))
+```
+
+```
+S(drawn) 4.897115906 | bnb tol 1e-6: S_lb 4.897115906 S_ub 4.897543541 certified False | drawn >= S_ub - tol: False
+d2(drawn) 1.358296 | d2 lower bound 1.357441
+```

@@ -23,17 +23,18 @@
 </p>
 
 **Fig 1. Framed chains and the edit distance.** Residues 42–49 of hen lysozyme (PDB 1AKI; left) and 42–50 of human
-lysozyme (PDB 1LZ1; right), drawn in one orientation with the human fragment after the optimal global rotation U;
-virtual Cα–Cα bonds are colored by the optimal alignment: blue, bonds paired by the order-preserving correspondence;
-orange, bond 46–47 of human lysozyme, which has no partner. Each row in the middle is one position of the alignment:
-the term x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2 of a hen bond, the midpoint γ(1/2) of the geodesic between the two chains (S1 Text),
-and the term Uy<sub>j</sub> of a human bond. Each term is drawn by its first two columns projected onto the page, an
-arrow along the first and a tick along the second (for a bond, f₁ and f₂ scaled by s<sub>i</sub>/2); the zero matrix faced by
-the unpaired bond is an open circle (0). Along the geodesic, shared terms move linearly and the unshared term grows
-from zero, so at the midpoint it has half its length. The number beside each midpoint is that row's term of
-d(x, y)², ‖x<sub>i</sub> − Uy<sub>j</sub>‖² for a shared bond and ‖y<sub>j</sub>‖² for the unshared one, rounded to three decimals; the exact
-terms sum to d(x, y)² = 1.358, 0.619 from the seven shared bonds and 0.739 from the unshared bond. The alignment
-was certified optimal to within the set tolerance by branch-and-bound. Drawn by `code/make_fig1.py`.
+lysozyme (PDB 1LZ1; right), drawn with PyMOL 2.5 in one orientation with the human fragment after the optimal global
+rotation U; virtual Cα–Cα bonds are colored by the optimal alignment: blue, bonds paired by the order-preserving
+correspondence; orange, the unmatched bond 46–47 of human lysozyme. Each row in the middle is one position of the
+alignment: the term x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2 of a hen bond, the midpoint γ(1/2) of the geodesic
+given by this alignment (S1 Text), and the term Uy<sub>j</sub> of a human bond. Each term is drawn by its first two
+columns projected onto the page, an arrow along the first and a shorter tick along the second (for a bond, f₁ and f₂
+scaled by s<sub>i</sub>/2); the zero matrix faced by the unmatched bond is an open circle (0). Along the geodesic,
+shared terms move linearly and the unshared term grows from zero, so at the midpoint it has half its length. The
+number beside each midpoint is that row's term of d(x, y)², ‖x<sub>i</sub> − Uy<sub>j</sub>‖² for a shared bond and
+‖y<sub>j</sub>‖² for the unshared one, rounded to three decimals; the exact terms sum to d(x, y)² = 1.358, 0.619 from
+the seven shared bonds and 0.739 from the unshared bond. The alignment was certified optimal to within the set
+tolerance by branch-and-bound. Drawn by `code/make_fig1.py`.
 
 This repository contains the code exactly as it was run to produce the numbers, figures and tables of the paper
 (steps run from notebook cells, including short scripts that cells wrote and ran, are copied with their output in
@@ -300,7 +301,7 @@ after a result are separate scripts that say so in their docstrings.
 | `framespace_pkg/framespace/` | The library exactly as used in the runs (framespace 0.2.0, the earlier name of framedchain; tag `v0.2.0` of the framedchain repository, bundle md5 `4edba596…`) |
 | `framespace_wip/` | Research module used by the runs (`stage0/`: reduced computation, measures, ESA and W₂ helpers; bundle md5 of `stage0/*.py` `6703fa26…`), its tests (`tests_stage0/`), and the constructed counterexample for the linear form |
 | `examples/` | Synthetic demonstration and its expected output |
-| `figures/` | The paper's figures as PNG (150 dpi), drawn by `code/make_fig1.py` (Fig 1) and `code/make_figs.py` from the stored results |
+| `figures/` | The paper's figures as PNG (150 dpi), drawn by `code/make_fig1.py` (Fig 1) and `code/make_figs.py` from the stored results, and `fig1_lysozyme.json`, the numbers drawn in Fig 1 |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
