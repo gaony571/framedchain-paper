@@ -1,8 +1,8 @@
 2d0b85d00d3cdf8ad9228e87b1eb4bb6 *.gitattributes
 e120f88f4ebdb9db11a03b020c65305a *.gitignore
-9a265ad0cc6cbe57a031ccf03a0027f0 *CITATION.cff
+292a15fad7e219cf61f2848e4f0c5be7 *CITATION.cff
 55d78810cf5c924cb404474bcb0c346f *LICENSE
-f2fd2010723b68188bb1744e7685a876 *README.md
+c9be8f9396ebc7af69f14a344d7cba37 *README.md
 74c43c4b10c7fea512b92cd847d7d014 *code/analysis_fold208.py
 a214900c9efa2875e9b1e1786caa645f *code/analysis_fold208_ablation.py
 5f00f0a17892df644e810b39109380e9 *code/c1_core.py
@@ -26,6 +26,7 @@ ea16fe51c8585020b2bc94bc3dea45de *code/ladder_half.py
 0c2d4e91bfcd06eca6c07152d0e9debb *code/ladder_model_error_folded.py
 961d2f27c0406c9667fabb03b2d5b142 *code/ladder_temp_single.py
 6420c51e5aeb3a69c51aafa1711a261d *code/ladder_temp_single_v2.py
+207abda28e918ebbddffedefdbce1f0e *code/make_fig1.py
 d7783270d20e7bd260710ff8b9177ab8 *code/make_figs.py
 38c1d382a5cde3d5ff6ea63cbdad6067 *code/make_s1.py
 9e13d1363bb3a942e443a2d42795952a *code/make_tables.py
@@ -131,10 +132,10 @@ b18f1d038685dc0a107824a6c7f1a58f *code/r47_combine_fix1.py
 2134b09e8f0bcfdb1cab980aeb1c07c9 *code/sippl_identity_check.py
 4cec290e23ba8e524ba340b2e1f20174 *docs/DATA.md
 b6eaf5d3c3ca5b074a12bb7c787b9d99 *docs/INTERACTIVE_CHECKS.md
-78441a41ba0ba80e4cf0d3915c1c8463 *docs/PROVENANCE.md
-c1caa2355028888e3e307f479f677d90 *docs/RESULTS_MAP.md
-d5529a996770e619769c0bab6e6e2387 *docs/SCRIPTS.md
-9bf6b1d12e2ae46b096d816cc380c357 *docs/STATEMENTS.md
+61fa64f0aaec2c344f97e9a9d9fa0a76 *docs/PROVENANCE.md
+abe75783716bffc6e3c5bab5b3cea6ab *docs/RESULTS_MAP.md
+57241649b23e0a9bcc8e270ce8350e7e *docs/SCRIPTS.md
+8cba6d4e7d872ed440c0d9b788be0118 *docs/STATEMENTS.md
 89f956cde72858aadbafd0d91c7c1192 *environment/README.md
 b4af12134c383fbc056f2ad6ab48ffd0 *environment/af_bar_readmeenv.sh
 0087a3eadc056c67bb37d64430650f52 *environment/afenv_freeze.txt
@@ -145,7 +146,7 @@ b4112540e77adecf383691891bc1844b *environment/requirements-check.txt
 d2f64ac3a09bf953ef8fd2fcf10f07fa *environment/setup_samenv3.sh
 99e5f9826c1d464f5c273eadaefdad86 *examples/demo_expected_output.txt
 2244b8948061f0c995f67e43f0ef2602 *examples/demo_synthetic.py
-f656eda1d643d99a47f3a9336cbe7a47 *figures/Fig1.png
+eed50d4bc596292da6927a631019d7e1 *figures/Fig1.png
 79b61c23d03169bf50571be250e0e08f *figures/Fig2.png
 236b1379e96d2f1289f9ab0ffac5b363 *figures/Fig3.png
 a92f491555f920c23cc0fb89ad228d19 *figures/Fig4.png

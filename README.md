@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Accompanying manuscript · Analysis code exactly as run · Version 1.3.1 · MIT license · Zenodo DOI 10.5281/zenodo.23911400
+  Accompanying manuscript · Analysis code exactly as run · Version 1.3.2 · MIT license · Zenodo DOI 10.5281/zenodo.23911399 (all versions)
 </p>
 
 <p align="center">
@@ -19,18 +19,21 @@
 </p>
 
 <p align="center">
-  <img src="figures/Fig1.png" width="760" alt="Schematic of framed chains: a bond frame, an order-preserving alignment of two chains of different lengths with zero matrices for unmatched bonds, the split of the squared distance into shared and unshared parts, and a geodesic between the chains">
+  <img src="figures/Fig1.png" width="760" alt="Hen and human lysozyme fragments of different lengths drawn with their virtual bonds; between them, the bond terms of the two chains aligned row by row, a zero matrix facing the unmatched bond, the geodesic midpoint and each row's term of the squared distance">
 </p>
 
-**Fig 1. Framed chains and the edit distance.** (A) Each virtual Cα–Cα bond i is represented by x<sub>i</sub> =
-s<sub>i</sub>R<sub>i</sub>/2, the frame [f₁, f₂, f₃] of the bond and its peptide plane scaled by the relative bond
-length (f₃ points out of the page). (B) Two chains of different lengths are aligned by an order-preserving
-correspondence and one global rotation; unmatched bonds face zero matrices. (C) The squared distance splits exactly into
-shared-bond (blue) and unshared-bond (orange) parts. (D) The geodesic between the chains: shared terms move linearly,
-unshared terms shrink to or grow from zero. In (B) and (D), each bond term is drawn in two dimensions as an arrow along
-f₁ with a tick along f₂, both scaled with the term; blue, shared bonds (solid lines join the bonds paired by the
-correspondence); orange, unshared bonds; open circles, zero matrices (in B, marked 0 and joined by a dotted line to the
-unmatched bond that faces each). The lower chain in (B) is drawn after the global rotation U.
+**Fig 1. Framed chains and the edit distance.** Residues 42–49 of hen lysozyme (PDB 1AKI; left) and 42–50 of human
+lysozyme (PDB 1LZ1; right), drawn in one orientation with the human fragment after the optimal global rotation U;
+virtual Cα–Cα bonds are colored by the optimal alignment: blue, bonds paired by the order-preserving correspondence;
+orange, bond 46–47 of human lysozyme, which has no partner. Each row in the middle is one position of the alignment:
+the term x<sub>i</sub> = s<sub>i</sub>R<sub>i</sub>/2 of a hen bond, the midpoint γ(1/2) of the geodesic between the two chains (S1 Text),
+and the term Uy<sub>j</sub> of a human bond. Each term is drawn by its first two columns projected onto the page, an
+arrow along the first and a tick along the second (for a bond, f₁ and f₂ scaled by s<sub>i</sub>/2); the zero matrix faced by
+the unpaired bond is an open circle (0). Along the geodesic, shared terms move linearly and the unshared term grows
+from zero, so at the midpoint it has half its length. The number beside each midpoint is that row's term of
+d(x, y)², ‖x<sub>i</sub> − Uy<sub>j</sub>‖² for a shared bond and ‖y<sub>j</sub>‖² for the unshared one, rounded to three decimals; the exact
+terms sum to d(x, y)² = 1.358, 0.619 from the seven shared bonds and 0.739 from the unshared bond. The alignment
+was certified optimal to within the set tolerance by branch-and-bound. Drawn by `code/make_fig1.py`.
 
 This repository contains the code exactly as it was run to produce the numbers, figures and tables of the paper
 (steps run from notebook cells, including short scripts that cells wrote and ran, are copied with their output in
@@ -46,8 +49,8 @@ Proteins are increasingly described as conformational ensembles, but no common g
 
 ## Results at a glance
 
-The figures below are the paper's figures as drawn by `code/make_figs.py` from the stored results (150 dpi PNG; the
-submitted 600 dpi TIFF files come from the same script). The captions are those of the paper, and
+The figures below are the paper's figures as drawn by `code/make_figs.py` from the stored results, and Fig 1 by `code/make_fig1.py` from two
+PDB entries (150 dpi PNG; the submitted 600 dpi TIFF files come from the same scripts). The captions are those of the paper, and
 [`docs/RESULTS_MAP.md`](docs/RESULTS_MAP.md) maps every value to its script and output file.
 
 ### TM-score-based distances
@@ -149,7 +152,7 @@ Each item of the paper is listed with the scripts that computed its values (in `
 
 | Paper | Computed by | Drawn by |
 |---|---|---|
-| Fig 1 | — (schematic) | `make_figs.py` |
+| Fig 1 | `make_fig1.py` (PDB 1AKI and 1LZ1: alignment, certification and the terms of d²) | `make_fig1.py` |
 | Fig 2 | `pu_tm_factorial_v2.py` (A, factorial comparison of TM-score forms; violation rates from a notebook cell, `docs/INTERACTIVE_CHECKS.md` 8); `chaining.py`, `c4_chain_extra.py` (B, chaining) | `make_figs.py` |
 | Fig 3 | `r39_D_stem.py`, `r39_core.py` (calibration on heating, size dependence, detection probability) | `make_figs.py` |
 | Fig 4 | `r38_b6.py` (A, comparison across sequences, with W₂); `r43_sens.py` (B, κ of each cell); `r44_inv.py` (split of κ² for AlphaFlow) | `make_figs.py` |
@@ -266,8 +269,8 @@ this order:
 10. **Analyses added after the results:** `r43_sens.py`; `r44_*.py`, `r45_*.py`, `r46_*.py`,
     `r47_*.py`, `r48_identity_range.py`, `r49_chainbreak*.py`, each fixed in a time-stamped record except
     `r44_repro.py`, `r44_seqid_cell30.py` and `r45_folded_frac.py`, which were not specified in advance (`docs/RESULTS_MAP.md`).
-11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only; the
-    project path is set at the top of each file.
+11. **Figures and tables:** `make_figs.py`, `make_tables.py`, `make_s1.py`, which read stored results only (the
+    project path is set at the top of each file), and `make_fig1.py` (Fig 1), which downloads PDB 1AKI and 1LZ1 and needs PyMOL.
 
 For the main pre-specified analyses, `r38_verify_*.py` checked the implementation on synthetic data with known
 answers before the run. The repository also contains scripts of project analyses that the paper does not report
@@ -293,11 +296,11 @@ after a result are separate scripts that say so in their docstrings.
 
 | Path | Content |
 |---|---|
-| `code/` | Analysis scripts, one per experiment or stage; figure and table scripts (`make_figs.py`, `make_tables.py`, `make_s1.py`); four Node.js checks in `code/negtype/`; `sippl_identity_check.py`, a check of S2 Text 8.3 added on 2026-11-02 |
+| `code/` | Analysis scripts, one per experiment or stage; figure and table scripts (`make_fig1.py`, `make_figs.py`, `make_tables.py`, `make_s1.py`); four Node.js checks in `code/negtype/`; `sippl_identity_check.py`, a check of S2 Text 8.3 added on 2026-11-02 |
 | `framespace_pkg/framespace/` | The library exactly as used in the runs (framespace 0.2.0, the earlier name of framedchain; tag `v0.2.0` of the framedchain repository, bundle md5 `4edba596…`) |
 | `framespace_wip/` | Research module used by the runs (`stage0/`: reduced computation, measures, ESA and W₂ helpers; bundle md5 of `stage0/*.py` `6703fa26…`), its tests (`tests_stage0/`), and the constructed counterexample for the linear form |
 | `examples/` | Synthetic demonstration and its expected output |
-| `figures/` | The paper's figures as PNG (150 dpi), drawn by `code/make_figs.py` from the stored results |
+| `figures/` | The paper's figures as PNG (150 dpi), drawn by `code/make_fig1.py` (Fig 1) and `code/make_figs.py` from the stored results |
 | `environment/` | Package lists (`requirements-base.txt` for the analysis scripts, `requirements-check.txt` for the demonstration and tests), setup scripts and `pip freeze` records of the model environments (`environment/README.md`) |
 | `registration/` | Copies of the time-stamped records added from 2026-10-28, with their corrections, and of two entries of the first record |
 | `run_records/queues/` | The shell and Python queues that ran the scripts, with their arguments |
@@ -334,7 +337,7 @@ timings are in S2 Text 7.
 ## Notes on the as-run code
 
 - **Comments.** Docstrings and comments inside the scripts are in Korean, the working language of the project,
-  except in the figure and table scripts (`make_figs.py`, `make_tables.py`, `make_s1.py`), which are in English.
+  except in the figure and table scripts (`make_fig1.py`, `make_figs.py`, `make_tables.py`, `make_s1.py`), which are in English.
   They are not translated in place because the files are kept byte for byte as run; `docs/SCRIPTS.md` describes
   every script in English.
 - **Names.** The library was called framespace up to version 0.3.3 and this repository framespace-paper; both
@@ -348,7 +351,7 @@ timings are in S2 Text 7.
 
 ## Citation and license
 
-If you use this code, please cite the paper and this repository (`CITATION.cff`; Zenodo DOI 10.5281/zenodo.23911400):
+If you use this code, please cite the paper and this repository (`CITATION.cff`; Zenodo DOI 10.5281/zenodo.23911399, all versions):
 
 ```bibtex
 @unpublished{An2026ensembles,
@@ -361,9 +364,9 @@ If you use this code, please cite the paper and this repository (`CITATION.cff`;
 @software{An2026framedchainpaper,
   author  = {An, Hyeonsu},
   title   = {framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths"},
-  version = {1.3.1},
+  version = {1.3.2},
   year    = {2026},
-  doi     = {10.5281/zenodo.23911400},
+  doi     = {10.5281/zenodo.23911399},
   url     = {https://github.com/gaony571/framedchain-paper}
 }
 ```

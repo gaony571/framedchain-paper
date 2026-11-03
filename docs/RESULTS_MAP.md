@@ -48,7 +48,7 @@ not time-stamped records.
 | Ties in rank-based estimates (Methods); chain breaks; reproduction by framedchain 0.4.1 | `r47_ties.py`, `r47_combine_fix2.py`; `docs/INTERACTIVE_CHECKS.md` 6, `r49_chainbreak_fix1.py`; `docs/INTERACTIVE_CHECKS.md` 7, `r44_repro.py` | Round46–48, Round49, Round44 |
 | Upward bias of the reduced computation and widening of the band, incomplete U-statistic, alignment uncertainty, truncated chains and the diagnostics of their failed check (S2 Text 2–5) | `r38_s0.py` (bias, ustat, unc, trunc), `r38_s0_bias2.py`; notebook cells in `docs/INTERACTIVE_CHECKS.md` 12 (diagnostics) | 2.2, 2.3 |
 | Negative type of d and sensitivity of η₊ (S3 Text 2) | `code/negtype/*.js`; commands and printed output in `docs/INTERACTIVE_CHECKS.md` 15 | 1.1 |
-| Figures 1–7 and S1 Fig; S1 Table; S2 and S3 Tables | `make_figs.py`; `make_s1.py`; `make_tables.py` | Figures and tables |
+| Figures 1–7 and S1 Fig; S1 Table; S2 and S3 Tables | `make_fig1.py` (Fig 1), `make_figs.py`; `make_s1.py`; `make_tables.py` | Figures and tables |
 
 ## Result 1 — the space and the distance
 
@@ -159,7 +159,7 @@ write to `manuscript_figs/` under the project path set at the top of each file.
 
 | Item | Script (function) | Reads |
 |---|---|---|
-| Fig 1 | `make_figs.py` (fig1) | — (schematic) |
+| Fig 1 | `make_fig1.py` | PDB 1AKI and 1LZ1 (RCSB); its output `fig1_lysozyme.json` holds the alignment, the terms of d² (1.358 = 0.619 + 0.739) and the certificate (Fig 1 was the schematic of `make_figs.py` `fig1()` up to 2026-11-03) |
 | Fig 2 | `make_figs.py` (fig2) | `results/pu_tm_factorial_B_triangle.tsv` (written by the notebook cell in `docs/INTERACTIVE_CHECKS.md` 8), `results/chaining.json`, `results/chaining_v2.json` |
 | Fig 3 | `make_figs.py` (fig3) | `results/r39_E0.json` … `r39_E3.json`, `derived/r39/D/*.json` |
 | Fig 4 | `make_figs.py` (fig4) | `derived/r38/b6/*.json`, `results/r43_sens.json`, `derived/r44/split.json` |

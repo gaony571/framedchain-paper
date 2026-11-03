@@ -17,16 +17,16 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 > All input data are publicly available from their original sources: the mdCATH simulations (Hugging Face
 > dataset compsciencelab/mdCATH), the ATLAS simulations (https://www.dsimb.inserm.fr/ATLAS), CATH domain
-> lists and boundaries (https://www.cathdb.info), RCSB PDB entries for the two-domain chains of the chaining test
-> (https://www.rcsb.org), SIFTS organism mappings (https://www.ebi.ac.uk/pdbe/docs/sifts), and optimal growth
+> lists and boundaries (https://www.cathdb.info), RCSB PDB entries 1AKI and 1LZ1 (Fig 1) and the entries of the
+> two-domain chains of the chaining test (https://www.rcsb.org), SIFTS organism mappings (https://www.ebi.ac.uk/pdbe/docs/sifts), and optimal growth
 > temperatures from TEMPURA and from Engqvist (2018; Zenodo record 1175609). The aSAMt and AlphaFlow-MD ensembles
 > were generated with the authors' released code and weights (sam2 commit ce076ed; AlphaFlow commit 0408d7c).
 > All data generated in this study that are
 > needed to reproduce the reported values — summary tables for every result, per-domain statistics, the
 > generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped records
-> that fixed the analyses — are deposited at Zenodo (DOI: 10.5281/zenodo.23858418). The analysis code used to produce all
+> of the pre-specified analyses — are deposited at Zenodo (DOI: 10.5281/zenodo.23858418). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
-> 10.5281/zenodo.23911400); the method is implemented in the framedchain Python package
+> 10.5281/zenodo.23911399); the method is implemented in the framedchain Python package
 > (https://github.com/gaony571/framedchain, version 0.4.3, archived at Zenodo, DOI: 10.5281/zenodo.23911383).
 > Both are released under the MIT license. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
@@ -34,8 +34,8 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 ## Code availability sentence for the Methods (draft)
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
-> available at https://github.com/gaony571/framedchain-paper (version 1.3.1; MIT license; Zenodo DOI:
-> 10.5281/zenodo.23911400). The reusable implementation of the space, the distance and the ensemble
+> available at https://github.com/gaony571/framedchain-paper (version 1.3.2; MIT license; Zenodo DOI:
+> 10.5281/zenodo.23911399). The reusable implementation of the space, the distance and the ensemble
 > statistics is the framedchain package (version 0.4.3; MIT license; Zenodo DOI: 10.5281/zenodo.23911383).
 
 ## Software references (for the reference list)
@@ -44,8 +44,8 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > Zenodo; 2026. doi:10.5281/zenodo.23911383
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
-> Version 1.3.1.
-> Zenodo; 2026. doi:10.5281/zenodo.23911400
+> Version 1.3.2.
+> Zenodo; 2026. doi:10.5281/zenodo.23911399
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
 > Zenodo; 2026. doi:10.5281/zenodo.23858418
@@ -86,3 +86,8 @@ Steps before submission:
 4. Reviewers need access at submission, and a private GitHub repository has no shareable link (only named
    collaborators can open it). Decision of 2026-10-30: both repositories are made public before submission, so
    no private link is needed and step 1 gives the two software DOIs before submission.
+5. 2026-11-04, before submission: Fig 1 was redrawn on two lysozyme fragments (PDB 1AKI and 1LZ1) by the new
+   `code/make_fig1.py`, so this repository is released again as framedchain-paper `v1.3.2` (only that script, the
+   figure preview and the documents changed). Its version DOI replaces the concept DOI 10.5281/zenodo.23911399 above
+   after the release, as for 1.3.1; the Data Availability Statement above is the one submitted with the paper, with
+   the PDB entries of Fig 1 and "records of the pre-specified analyses".

@@ -1,7 +1,7 @@
 # Script reference (English)
 
 The docstrings and comments inside the scripts are in Korean, the working language of the project (except the figure
-and table scripts `make_figs.py`, `make_tables.py` and `make_s1.py`, which are in English). The
+and table scripts `make_fig1.py`, `make_figs.py`, `make_tables.py` and `make_s1.py`, which are in English). The
 scripts are kept byte-for-byte as run (`PROVENANCE.md` lists their checksums and which of them were recorded before the run), so they are not
 translated in place. This page describes every script in English: what it computes, its stages, its main
 inputs and outputs, and the record entry it implements. Notation follows the scripts, with the manuscript's terms in
@@ -181,7 +181,8 @@ They take no arguments; the project path `R` and the output folder are set at th
 
 | Script | What it does | Main outputs |
 |---|---|---|
-| `make_figs.py` | Figures 1–7 and S1 Fig: RGB TIFF with LZW compression at 600 dpi and preview PNG files | `manuscript_figs/Fig1.tif` … `Fig7.tif`, `S1_Fig.tif` |
+| `make_fig1.py` | Fig 1 (added 2026-11-04): downloads PDB 1AKI and 1LZ1, aligns the whole chains with framedchain 0.4.3, takes the stretch with one unmatched bond (1AKI 42–49, 1LZ1 42–50), aligns and certifies the fragments, and draws them with PyMOL beside their aligned bond terms, the geodesic midpoint and the terms of d²; RGB TIFF with LZW compression at 600 dpi, preview PNG and the numbers as JSON | `OUT_DIR/Fig1.tif`, `Fig1_preview.png`, `fig1_lysozyme.json` |
+| `make_figs.py` | Figures 2–7 and S1 Fig (its `fig1()` draws the schematic that was Fig 1 up to 2026-11-03): RGB TIFF with LZW compression at 600 dpi and preview PNG files | `manuscript_figs/Fig2.tif` … `Fig7.tif`, `S1_Fig.tif` (and the earlier schematic as `Fig1.tif`) |
 | `make_tables.py` | S2 Table (κ and Δ²_D/√n̄ of all and size-matched cells) and S3 Table (alignment-accuracy and identity-range checks) | `manuscript_figs/S2_Table.xlsx`, `S3_Table.xlsx` (+ .csv) |
 | `make_s1.py` | S1 Table: entries of the first record with their times (sheet A), the added records (B), the pre-specified predictions with outcomes (C) and the classification of every analysis in the manuscript (D), with notes | `manuscript_figs/S1_Table.xlsx` |
 
