@@ -7,7 +7,7 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 | Requirement | How it is met |
 |---|---|
 | Code that directly relates to the results is shared upon publication; editors and reviewers can access it at submission (a private link is acceptable) | This repository (all analysis scripts as run) and the framedchain package; both public before submission (decision of 2026-10-30), so editors and reviewers can open them at submission |
-| The Data Availability Statement says where and how the code can be accessed, with a repository name and a DOI or other persistent identifier; placeholder text is allowed if the DOI is issued at publication | Draft below; the data DOI can be reserved before submission (Zenodo draft), the two software DOIs are minted when the repositories are public and released (placeholders marked XXXXXXX) |
+| The Data Availability Statement says where and how the code can be accessed, with a repository name and a DOI or other persistent identifier; placeholder text is allowed if the DOI is issued at publication | Draft below; the data DOI can be reserved before submission (Zenodo draft), the two software DOIs were minted at the releases of 2026-11-03 |
 | A license is clearly specified; an OSI-conforming open-source license is strongly encouraged; Creative Commons is not recommended for code | MIT (`LICENSE`) for both repositories |
 | A repository that issues DOIs and supports versioning is recommended (GitHub alone has no DOI; pair it with Zenodo); cite the code in the reference list | GitHub releases archived on Zenodo; references below |
 | Dependencies, run environment, versions and system requirements are documented; a standard test dataset is included where feasible; code is clearly annotated | `README.md`, `environment/`, `examples/demo_synthetic.py` (synthetic, no downloads), `docs/SCRIPTS.md` (English description of every script; in-file comments are Korean) |
@@ -26,8 +26,8 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 > generated aSAMt and AlphaFlow ensembles, the domain and pair lists, and the time-stamped records
 > that fixed the analyses — are deposited at Zenodo (DOI: 10.5281/zenodo.23858418). The analysis code used to produce all
 > results is available at https://github.com/gaony571/framedchain-paper and archived at Zenodo (DOI:
-> [10.5281/zenodo.XXXXXXX]); the method is implemented in the framedchain Python package
-> (https://github.com/gaony571/framedchain, version 0.4.3, archived at Zenodo, DOI: [10.5281/zenodo.XXXXXXX]).
+> 10.5281/zenodo.23911400); the method is implemented in the framedchain Python package
+> (https://github.com/gaony571/framedchain, version 0.4.3, archived at Zenodo, DOI: 10.5281/zenodo.23911383).
 > Both are released under the MIT license. A file-level map from each result to its script and data file is
 > given in docs/RESULTS_MAP.md of the code repository.
 
@@ -35,22 +35,22 @@ Source: https://journals.plos.org/ploscompbiol/s/code-availability
 
 > The analysis scripts exactly as run, with the run queues, environment records and checksum records, are
 > available at https://github.com/gaony571/framedchain-paper (version 1.3.1; MIT license; Zenodo DOI:
-> [10.5281/zenodo.XXXXXXX]). The reusable implementation of the space, the distance and the ensemble
-> statistics is the framedchain package (version 0.4.3; MIT license; Zenodo DOI: [10.5281/zenodo.XXXXXXX]).
+> 10.5281/zenodo.23911400). The reusable implementation of the space, the distance and the ensemble
+> statistics is the framedchain package (version 0.4.3; MIT license; Zenodo DOI: 10.5281/zenodo.23911383).
 
 ## Software references (for the reference list)
 
 > An H. framedchain: framed chains for protein structures and ensembles of any length [software]. Version 0.4.3.
-> Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
+> Zenodo; 2026. doi:10.5281/zenodo.23911383
 
 > An H. framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths" [software].
 > Version 1.3.1.
-> Zenodo; 2026. doi:[10.5281/zenodo.XXXXXXX]
+> Zenodo; 2026. doi:10.5281/zenodo.23911400
 
 > An H. Data for "Comparing protein conformational ensembles across sequences and lengths" [dataset].
 > Zenodo; 2026. doi:10.5281/zenodo.23858418
 
-## Status (as of 2026-11-02, before the releases)
+## Status (as of 2026-11-03, after the releases)
 
 Both repositories are on GitHub with version tags (from 2026-10-26) —
 `gaony571/framedchain` (tags `v0.2.0` = the version used in the runs, `v0.3.0` to `v0.4.2`; `v0.4.3` is created with
@@ -62,7 +62,8 @@ repository is connected.
 
 Steps before submission:
 
-1. Zenodo archives a GitHub release only for a public repository that was switched on in Zenodo (log in to
+1. Done (2026-11-03): the repositories were made public and switched on in Zenodo, and the releases below were
+   published (framedchain 0.4.3, doi:10.5281/zenodo.23911383; framedchain-paper 1.3.1, doi:10.5281/zenodo.23911400). Zenodo archives a GitHub release only for a public repository that was switched on in Zenodo (log in to
    Zenodo with GitHub, then GitHub in the account settings) before the release was published. When the
    repositories are made public, switch both on and publish a GitHub release of each:
    framedchain-paper `v1.3.1` from its latest `main` (the version already in `CITATION.cff`, the README and the
@@ -80,7 +81,7 @@ Steps before submission:
    and size, with the md5 of the files of up to 64 MiB that are not simulation data. It holds the time-stamped
    records unchanged, as the Methods state. The deposit is the Zenodo draft 23858418, with the reserved DOI
    10.5281/zenodo.23858418 (filled in above); it is published before submission.
-3. Fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the
+3. Done (2026-11-03): fill the DOIs in the statements above (the paper title is filled in), in both `CITATION.cff` files and in the
    READMEs. The data DOI is filled in; the two software DOIs follow the releases of step 1.
 4. Reviewers need access at submission, and a private GitHub repository has no shareable link (only named
    collaborators can open it). Decision of 2026-10-30: both repositories are made public before submission, so

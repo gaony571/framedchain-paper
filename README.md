@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  Accompanying manuscript · Analysis code exactly as run · Version 1.3.1 · MIT license · Zenodo DOI to be added at release
+  Accompanying manuscript · Analysis code exactly as run · Version 1.3.1 · MIT license · Zenodo DOI 10.5281/zenodo.23911400
 </p>
 
 <p align="center">
@@ -348,8 +348,7 @@ timings are in S2 Text 7.
 
 ## Citation and license
 
-If you use this code, please cite the paper and this repository (`CITATION.cff`; the Zenodo DOI will be added at
-release):
+If you use this code, please cite the paper and this repository (`CITATION.cff`; Zenodo DOI 10.5281/zenodo.23911400):
 
 ```bibtex
 @unpublished{An2026ensembles,
@@ -364,6 +363,7 @@ release):
   title   = {framedchain-paper: analysis code for "Comparing protein conformational ensembles across sequences and lengths"},
   version = {1.3.1},
   year    = {2026},
+  doi     = {10.5281/zenodo.23911400},
   url     = {https://github.com/gaony571/framedchain-paper}
 }
 ```
